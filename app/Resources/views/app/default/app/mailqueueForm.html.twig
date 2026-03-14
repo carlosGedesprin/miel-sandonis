@@ -1,0 +1,622 @@
+{% extends 'app/' ~ config.app_skin ~ '/app.html.twig' %}
+
+{% set entity = 'mail_queue' %}
+{% set user_group = session[config['cookies_prefix']~'_CurUser'] %}
+
+{% block title %} {{ parent() }} &bull; {% if (data.action == 'delete') %}{{ lang.MAIL_QUEUE_DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.MAIL_QUEUE_EDIT }}{%  endif %}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid mb-4">
+
+    <a href="#" id="topofthepage"></a>
+
+    <div class="col-md-8 offset-md-2 col-sm-12 my-4 p-2 rounded-3 font-weight-bold {% if (data.action == 'delete') %}is_delete{%  else %} bg-light{%  endif %}">
+        {% if (data.action == 'delete') %}
+            {{ lang.MAIL_QUEUE_DELETE }}
+        {% elseif (data.action == 'edit') %}
+            {{ lang.MAIL_QUEUE_EDIT }}
+        {% elseif  (data.action == 'add') %}
+            {{ lang.MAIL_QUEUE_ADD }}
+        {%  endif %}
+        : {{ reg.to_address }} ->{{ reg.subject }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-sm-12 mx-auto">
+
+        <form id="item-form"
+              method="post"
+              role="form"
+              enctype="multipart/form-data"
+        >
+
+            <div class="row">
+                <div class="col-md-10 col-sm-12 mx-auto">
+
+                    <div id="box-result">
+                        <div class="alert">
+                        </div>
+                    </div>
+
+                    <div class="card">
+
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" id="tabs-list" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active"
+                                       id="details-tab"
+                                       href="#tab-details"
+                                       role="tab"
+                                       aria-controls="details"
+                                       aria-selected="true">
+                                        {{ lang.MAIL_QUEUE_TAB_DETAILS }}
+                                    </a>
+                                </li>
+                                {#
+                                {% if (data.action != 'add') %}
+                                    {% if user_group == '1' or user_group == '2' %}
+                                        <li class="nav-item">
+                                            <a class="nav-link"
+                                               id="register-tab"
+                                               href="#tab-register"
+                                               role="tab"
+                                               aria-controls="register"
+                                               aria-selected="false">
+                                                {{ lang.MAIL_QUEUE_TAB_REGISTER }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endif %}
+                                #}
+                            </ul>
+
+                        </div>
+
+                        <div class="card-body">
+
+                            {# This shines in all tab-content #}
+                            {#<h4 class="card-title">Title 4</h4>#}
+                            {#<h6 class="card-subtitle mb-2">Title 5</h6>#}
+
+                            <div class="tab-content mt-3">
+
+                                <div class="tab-pane fade show active p-3" id="tab-details" role="tabpanel">
+
+                                    {#<h5 class="card-title text-center">{{ lang.LANG_TEXT_TAB_DETAILS }}</h5>#}
+
+                                    <div class="row">
+                                        <div class="col-md-8 offset-md-2">
+
+                                            {% if (user_group == '1' or user_group == '2') and data.action != 'add' %}
+                                                <div class="form-group">
+                                                    <label class="control-label" for="process">{{ lang.MAIL_QUEUE_PROCESS }}:</label>
+                                                    {{ reg.process }}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                <div class="form-group">
+                                                    <label class="form-label" for="send">{{ lang.MAIL_QUEUE_SEND }}:</label>
+                                                    <input  type="text"
+                                                            class="form-control"
+                                                            id="send"
+                                                            name="send"
+                                                            minlength="18"
+                                                            maxlength="18"
+                                                            value="{{ reg.send | date("d-m-Y H:i:s") }}"
+                                                            placeholder="DD-MM-YYYY hh:mm:ss"
+                                                    >
+                                                </div>
+                                            {% else %}
+                                                <div class="form-group">
+                                                    <label class="control-label" for="send">{{ lang.MAIL_QUEUE_SEND }}:</label>
+                                                    {{ reg.send | date("d-m-Y H:i:s") }}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                <div class="form-group">
+                                                    <label class="form-label" for="sent">{{ lang.MAIL_QUEUE_SENT }}:</label>
+                                                    <input  type="text"
+                                                            class="form-control"
+                                                            id="sent"
+                                                            name="sent"
+                                                            readonly="readonly"
+                                                            minlength="18"
+                                                            maxlength="18"
+                                                            value="{% if reg.sent != '' %}{{ reg.sent | date("d-m-Y H:i:s") }}{% endif %}"
+                                                            {# placeholder="DD-MM-YYYY hh:mm:ss" #}
+                                                    >
+                                                </div>
+                                            {% else %}
+                                                <div class="form-group">
+                                                    <label class="control-label" for="sent">{{ lang.MAIL_QUEUE_SENT }}:</label>
+                                                    {{ reg.sent }}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                <div class="form-group">
+                                                    <label class="form-label" for="priority">{{ lang.MAIL_QUEUE_PRIORITY }}:</label>
+                                                    <select class="form-control"
+                                                            id="priority"
+                                                            name="priority"
+                                                            value="{{ reg.priority }}"
+                                                            placeholder="{{ lang.MAIL_QUEUE_PRIORITY_SELECT }}"
+                                                    >
+                                                        {{ data.priority_options|raw }}
+                                                    </select>
+                                                </div>
+                                            {% else %}
+                                                <div class="form-group">
+                                                    <label class="control-label" for="priority">{{ lang.MAIL_QUEUE_PRIORITY }}:</label>
+                                                    {{ data.priority_value_text }}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                <div class="form-group">
+                                                    <label class="form-label" for="to_name">{{ lang.MAIL_QUEUE_TO_NAME }}:</label>
+                                                    <input  type="text"
+                                                            class="form-control"
+                                                            id="to_name"
+                                                            name="to_name"
+                                                            minlength="2"
+                                                            maxlength="100"
+                                                            value="{{ reg.to_name }}"
+                                                            placeholder="{{ lang.ENTER_NAME }}"
+                                                    >
+                                                </div>
+                                            {% else %}
+                                                <div class="form-group">
+                                                    <label class="control-label" for="to_name">{{ lang.MAIL_QUEUE_TO_NAME }}:</label>
+                                                    {{ reg.to_name }}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                <div class="form-group">
+                                                    <label class="form-label" for="to_address">{{ lang.MAIL_QUEUE_TO_ADDRESS }}:</label>
+                                                    <input  type="text"
+                                                            class="form-control"
+                                                            id="to_address"
+                                                            name="to_address"
+                                                            minlength="10"
+                                                            maxlength="100"
+                                                            value="{{ reg.to_address }}"
+                                                            placeholder="{{ lang.ENTER_ADDRESS }}"
+                                                    >
+                                                </div>
+                                            {% else %}
+                                                <div class="form-group">
+                                                    <label class="control-label" for="to_address">{{ lang.MAIL_QUEUE_TO_ADDRESS }}:</label>
+                                                    {{ reg.to_address }}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                <div class="form-group">
+                                                    <label class="conl-12" for="cc_name">{{ lang.MAIL_QUEUE_CC_NAME }}:</label>
+                                                    <input  type="text"
+                                                            class="form-control"
+                                                            id="cc_name"
+                                                            name="cc_name"
+                                                            minlength="3"
+                                                            maxlength="100"
+                                                            value="{{ reg.cc_name }}"
+                                                            placeholder="{{ lang.ENTER_NAME }}"
+                                                    >
+                                                </div>
+                                            {% else %}
+                                                <div class="form-group">
+                                                    <label class="control-label" for="cc_name">{{ lang.MAIL_QUEUE_CC_NAME }}:</label>
+                                                    {{ reg.cc_name }}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                <div class="form-group">
+                                                    <label class="form-label" for="cc_address">{{ lang.MAIL_QUEUE_CC_ADDRESS }}:</label>
+                                                    <input  type="text"
+                                                            class="form-control"
+                                                            id="cc_address"
+                                                            name="cc_address"
+                                                            minlength="10"
+                                                            maxlength="100"
+                                                            value="{{ reg.cc_address }}"
+                                                            placeholder="{{ lang.ENTER_ADDRESS }}"
+                                                    >
+                                                </div>
+                                            {% else %}
+                                                <div class="form-group">
+                                                    <label class="control-label" for="cc_address">{{ lang.MAIL_QUEUE_CC_ADDRESS }}:</label>
+                                                    {{ reg.cc_address }}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                <div class="form-group">
+                                                    <label class="conl-12" for="bcc_name">{{ lang.MAIL_QUEUE_BCC_NAME }}:</label>
+                                                    <input  type="text"
+                                                            class="form-control"
+                                                            id="bcc_name"
+                                                            name="bcc_name"
+                                                            minlength="3"
+                                                            maxlength="100"
+                                                            value="{{ reg.bcc_name }}"
+                                                            placeholder="{{ lang.ENTER_NAME }}"
+                                                    >
+                                                </div>
+                                            {% else %}
+                                                <div class="form-group">
+                                                    <label class="control-label" for="bcc_name">{{ lang.MAIL_QUEUE_BCC_NAME }}:</label>
+                                                    {{ reg.bcc_name }}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                <div class="form-group">
+                                                    <label class="form-label" for="bcc_address">{{ lang.MAIL_QUEUE_BCC_ADDRESS }}:</label>
+                                                    <input  type="text"
+                                                            class="form-control"
+                                                            id="bcc_address"
+                                                            name="bcc_address"
+                                                            minlength="10"
+                                                            maxlength="100"
+                                                            value="{{ reg.bcc_address }}"
+                                                            placeholder="{{ lang.ENTER_ADDRESS }}"
+                                                    >
+                                                </div>
+                                            {% else %}
+                                                <div class="form-group">
+                                                    <label class="control-label" for="bcc_address">{{ lang.MAIL_QUEUE_BCC_ADDRESS }}:</label>
+                                                    {{ reg.bcc_address }}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                <div class="form-group">
+                                                    <label class="form-label" for="from_name">{{ lang.MAIL_QUEUE_FROM_NAME }}:</label>
+                                                    <input  type="text"
+                                                            class="form-control"
+                                                            id="from_name"
+                                                            name="from_name"
+                                                            minlength="3"
+                                                            maxlength="100"
+                                                            value="{{ reg.from_name }}"
+                                                            placeholder="{{ lang.ENTER_NAME }}"
+                                                    >
+                                                </div>
+                                            {% else %}
+                                                <div class="form-group">
+                                                    <label class="control-label" for="from_name">{{ lang.MAIL_QUEUE_FROM_NAME }}:</label>
+                                                    {{ reg.from_name }}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                <div class="form-group">
+                                                    <label class="form-label" for="from_address">{{ lang.MAIL_QUEUE_FROM_ADDRESS }}:</label>
+                                                    <input  type="text"
+                                                            class="form-control"
+                                                            id="from_address"
+                                                            name="from_address"
+                                                            minlength="3"
+                                                            maxlength="100"
+                                                            value="{{ reg.from_address }}"
+                                                            placeholder="{{ lang.ENTER_ADDRESS }}"
+                                                    >
+                                                </div>
+                                            {% else %}
+                                                <div class="form-group">
+                                                    <label class="control-label" for="from_address">{{ lang.MAIL_QUEUE_FROM_ADDRESS }}:</label>
+                                                    {{ reg.from_address }}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if data.action == 'add' %}
+                                                <input type="hidden" name="template" value="custom_message" />
+                                            {% else %}
+                                                {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="template">{{ lang.MAIL_QUEUE_TEMPLATE }}:</label>
+                                                        <select class="form-control"
+                                                                id="template"
+                                                                name="template"
+                                                                value="{{ reg.template }}"
+                                                                placeholder="{{ lang.MAIL_QUEUE_TEMPLATE_SELECT }}"
+                                                        >
+                                                            {{ data.template_options|raw }}
+                                                        </select>
+                                                    </div>
+                                                {% else %}
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="template">{{ lang.MAIL_QUEUE_TEMPLATE }}:</label>
+                                                        {{ reg.template }}
+                                                    </div>
+                                                {% endif %}
+                                            {% endif %}
+
+                                            {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                <div class="form-group">
+                                                    <label class="form-label" for="subject">{{ lang.MAIL_QUEUE_SUBJECT }}:</label>
+                                                    <input  type="text"
+                                                            class="form-control"
+                                                            id="subject"
+                                                            name="subject"
+                                                            minlength="3"
+                                                            maxlength="255"
+                                                            value="{{ reg.subject }}"
+                                                            placeholder="{{ lang.MAIL_QUEUE_ENTER_SUBJECT }}"
+                                                    >
+                                                </div>
+                                            {% else %}
+                                                <div class="form-group">
+                                                    <label class="control-label" for="subject">{{ lang.MAIL_QUEUE_SUBJECT }}:</label>
+                                                    {{ reg.subject }}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                <div class="form-group">
+                                                    <label class="form-label" for="pre_header">{{ lang.MAIL_QUEUE_PRE_HEADER }}:</label>
+                                                    <input  type="text"
+                                                            class="form-control"
+                                                            id="pre_header"
+                                                            name="pre_header"
+                                                            minlength="3"
+                                                            maxlength="255"
+                                                            value="{{ reg.pre_header }}"
+                                                            placeholder="{{ lang.MAIL_QUEUE_ENTER_PRE_HEADER }}"
+                                                    >
+                                                </div>
+                                            {% else %}
+                                                <div class="form-group">
+                                                    <label class="control-label" for="pre_header">{{ lang.MAIL_QUEUE_PRE_HEADER }}:</label>
+                                                    {{ reg.pre_header }}
+                                                </div>
+                                            {% endif %}
+
+                                            {% if data.action == 'add' or reg.template == 'custom_message' %}
+
+                                                <div class="form-group">
+                                                    <label class="form-label" for="message">{{ lang.MAIL_QUEUE_MESSAGE }}:</label>
+                                                    <textarea
+                                                            class="form-control"
+                                                            id="message"
+                                                            name="message"
+                                                            style="height: 100px;"
+                                                            placeholder="{{ lang.MAIL_QUEUE_ENTER_MESSAGE }}">{{ reg.message }}</textarea>
+                                                </div>
+
+                                                <input type="hidden" name="headers" value="" />
+                                                <input type="hidden" name="images" value="" />
+                                                <input type="hidden" name="assign_vars" value="" />
+                                                <input type="hidden" name="block_name" value="" />
+                                                <input type="hidden" name="assign_block_vars" value="" />
+
+                                            {% else %}
+
+                                                {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="headers">{{ lang.MAIL_QUEUE_HEADER }}:</label>
+                                                        <input  type="text"
+                                                                class="form-control"
+                                                                id="headers"
+                                                                name="headers"
+                                                                minlength="3"
+                                                                maxlength="255"
+                                                                value="{{ reg.headers }}"
+                                                                placeholder="{{ lang.MAIL_QUEUE_ENTER_HEADER }}"
+                                                        >
+                                                    </div>
+                                                {% else %}
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="headers">{{ lang.MAIL_QUEUE_HEADER }}:</label>
+                                                        {{ reg.headers }}
+                                                    </div>
+                                                {% endif %}
+
+                                                {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="images">{{ lang.MAIL_QUEUE_IMAGES }}:</label>
+                                                        <input  type="text"
+                                                                class="form-control"
+                                                                id="images"
+                                                                name="images"
+                                                                minlength="3"
+                                                                maxlength="100"
+                                                                value="{{ reg.images }}"
+                                                                placeholder="{{ lang.MAIL_QUEUE_ENTER_IMAGES }}"
+                                                        >
+                                                    </div>
+                                                {% else %}
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="images">{{ lang.MAIL_QUEUE_IMAGES }}:</label>
+                                                        {{ reg.images }}
+                                                    </div>
+                                                {% endif %}
+
+                                                {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="assign_vars">{{ lang.MAIL_QUEUE_ASSIGN_VARS }}:</label>
+                                                        <textarea
+                                                                    class="form-control"
+                                                                    id="assign_vars"
+                                                                    name="assign_vars"
+                                                                    style="height: 100px;"
+                                                                    readonly="readonly"
+                                                                    placeholder="">{{ reg.assign_vars }}</textarea>
+                                                    </div>
+                                                {% else %}
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="assign_vars">{{ lang.MAIL_QUEUE_ASSIGN_VARS }}:</label>
+                                                        {{ reg.assign_vars }}
+                                                    </div>
+                                                {% endif %}
+
+                                                {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="block_name">{{ lang.MAIL_QUEUE_BLOCK_NAME }}:</label>
+                                                        <input  type="text"
+                                                                class="form-control"
+                                                                id="block_name"
+                                                                name="block_name"
+                                                                minlength="3"
+                                                                maxlength="100"
+                                                                value="{{ reg.block_name }}"
+                                                                placeholder="{{ lang.MAIL_QUEUE_ENTER_BLOCK_NAME }}"
+                                                        >
+                                                    </div>
+                                                {% else %}
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="block_name">{{ lang.MAIL_QUEUE_BLOCK_NAME }}:</label>
+                                                        {{ reg.block_name }}
+                                                    </div>
+                                                {% endif %}
+
+                                                {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="assign_block_vars">{{ lang.MAIL_QUEUE_BLOCK_VARS }}:</label>
+                                                        <textarea
+                                                                    class="form-control"
+                                                                    id="assign_block_vars"
+                                                                    name="assign_block_vars"
+                                                                    style="height: 100px;"
+                                                                    readonly="readonly"
+                                                                    placeholder="">{{ reg.assign_block_vars }}</textarea>
+                                                    </div>
+                                                {% else %}
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="assign_block_vars">{{ lang.MAIL_QUEUE_BLOCK_VARS }}:</label>
+                                                        {{ reg.assign_block_vars }}
+                                                    </div>
+                                                {% endif %}
+
+                                            {% endif %}
+
+                                            {% if (user_group == '1' or user_group == '2') and data.action != 'delete' %}
+                                                <div class="form-group">
+                                                    <label class="form-label" for="attached">{{ lang.MAIL_QUEUE_ATTACHED }}:</label>
+                                                    <input  type="text"
+                                                            class="form-control"
+                                                            id="attached"
+                                                            name="attached"
+                                                            minlength="5"
+                                                            maxlength="100"
+                                                            value="{{ reg.attached }}"
+                                                            placeholder="{{ lang.MAIL_QUEUE_ENTER_ATTACHED }}"
+                                                    >
+                                                </div>
+                                            {% else %}
+                                                <div class="form-group">
+                                                    <label class="control-label" for="attached">{{ lang.MAIL_QUEUE_ATTACHED }}:</label>
+                                                    {{ reg.attached }}
+                                                </div>
+                                            {% endif %}
+
+                                        </div>{# <div class="col-md-8 offset-md-2"> #}
+                                    </div>{# <div class="row"> #}
+
+                                </div>{# <div class="tab-pane fade show active p-3" id="tab-details" role="tabpanel"> #}
+                                {#
+                                {% if (data.action != 'add') %}
+                                    {% if user_group == '1' or user_group == '2' %}
+
+                                        <div class="tab-pane fade show p-3" id="tab-register" role="tabpanel">
+
+                                            {#<h5 class="card-title text-center">{{ lang.LANG_TEXT_TAB_REGISTER }}</h5>
+
+                                            <div class="col-9 mx-auto">
+                                                <div class="row">
+
+                                                    <div class="form-group" style="width: 100%;">
+                                                        <label class="control-label" for="createdby">{{ lang.APP_CREATED_BY }}:</label>
+                                                        {{ reg.createdby }}
+                                                    </div>
+
+                                                    <div class="form-group" style="width: 100%;">
+                                                        <label class="control-label" for="createddate">{{ lang.APP_CREATED_DATE }}:</label>
+                                                        {{ reg.createddate }}
+                                                    </div>
+
+                                                    <div class="form-group" style="width: 100%;">
+                                                        <label class="control-label" for="updatedby">{{ lang.APP_UPDATED_BY }}:</label>
+                                                        {{ reg.updatedby }}
+                                                    </div>
+
+                                                    <div class="form-group" style="width: 100%;">
+                                                        <label class="control-label" for="updateddate">{{ lang.APP_UPDATED_DATE }}:</label>
+                                                        {{ reg.updateddate }}
+                                                    </div>
+
+                                                </div>{# <div class="row">
+                                            </div>{# <div class="col-9 mx-auto">
+
+                                        </div>{# <div class="tab-pane fade show p-3" id="tab-register" role="tabpanel">
+
+                                    {% endif %}
+                                {% endif %}
+                                #}
+
+                            </div>{# <div class="tab-content mt-3"> #}
+
+                        </div>{# <div class="card-body"> #}
+                    </div>{# <div class="card"> #}
+
+                </div>{# <div class="col-8 mx-auto"> #}
+            </div>{# <div class="row"> #}
+
+            <div class="row">
+                <div class="col-12 my-4 text-center">
+                    {% if reg.sent == '' %}
+                        <button type="button" name="btn_submit" id="btn_submit" class="btn btn-info" value="1">{% if (data.action == 'delete') %}{{ lang.DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.SAVE }}{%  endif %}</button>
+                    {% endif %}
+                    <button type="button" name="btn_cancel" id="btn_cancel" class="btn btn-info" formnovalidate>{{ lang.BACK_TO_LIST }}</button>
+                </div>
+            </div>
+            <input type="hidden" name="id" value="{{ reg.id }}">
+
+            {# Filters #}
+            {% for filter_name, filter_data in filters %}
+                {% for filter_data_key, filter_data_data in filter_data %}
+                    <input type="hidden" name="filters[{{ filter_name }}][{{ filter_data_key }}]" id="filter_{{ filter_name }}_{{ filter_data_key }}" value="{{ filter_data_data }}" />
+                {% endfor %}
+            {% endfor %}
+            {# Pagination #}
+            {% for key, value in pagination %}
+                <input type="hidden" name="pagination[{{ key }}]" id="{{ key }}" value="{{ value }}" />
+            {% endfor %}
+
+            <input type="hidden" name="auth_token" value="{{ data.auth_token }}" />
+
+        </form>
+
+        </div>{# <div class="col-md-8 offset-md-2"> #}
+    </div>{# <div class="row">#}
+
+</div>{# <div class="container-fluid mb-4">#}
+
+<div class="clear"></div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/form.css') }}" type="text/css" />
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var folder = '{{ session[config['cookies_prefix']~'_folder'] }}';
+        var entity = '{{ entity }}';
+        var action = '{{ data.action }}';
+        var cancel = '{{ cancel }}';
+        var reg_id = '{{ reg.id }}';
+        var l_errors_found = '{{ lang.ERRORS_FOUND }}';
+        var l_form_has_errors = '{{ lang.ERRORS_FORM }}';
+    </script>
+    <script type="text/javascript" src="/assets/js/app/{{ config.app_skin }}/forms.js"></script>
+    <script type="text/javascript" src="/assets/js/app/{{ config.app_skin }}/scrool-to-top.js"></script>
+{% endblock %}

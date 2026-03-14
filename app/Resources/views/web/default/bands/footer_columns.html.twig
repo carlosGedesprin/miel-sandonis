@@ -1,0 +1,104 @@
+{% set path = '/assets/images/web/'~config.website_skin~'/' %}
+
+{% set image = '/assets/images/web/'~config.website_skin~'/logo_with_text_ver.png' %}
+
+<section id="footer_columns">
+    <div id="footer_columns_container">
+
+        <div id="footer_columns_content_1">
+            <div id="footer_columns_logos" class="footer_columns_item">
+                <div id="footer_columns_logo_mwa_certified">
+                    <img id="mwa_certified" src="{{ image }}" alt="" />
+                </div>
+                <div id="footer_columns_logo_text_certified">
+                    <div id="footer_columns_logo_text_certified_top">
+                        {{ lang.WEB_FOOTER_ALL_SOLUTIONS | raw }}
+                    </div>
+                    <div id="footer_columns_logo_text_certified_bottom">
+                        {{ lang.WEB_FOOTER_ALL_SOLUTION | raw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="footer_columns_content_2">
+            <div id="footer_columns_content_address" class="footer_columns_item">
+                <div id="footer_columns_address_title" class="footer_columns_title">
+                    {{ lang.WEB_MENU_FOOTER_OFFICES | raw }}
+                </div>
+                <div id="footer_columns_content_address_ES" class="footer_columns_content_address">
+                    <div class="footer_columns_content_address_title">Oficinas centrales</div>
+                    <div>Padre Claret, 7</div>
+                    <div>47004 Valladolid</div>
+                    <div>España</div>
+                </div>
+                <div id="footer_columns_content_address_UK" class="footer_columns_content_address">
+                    <div class="footer_columns_content_address_title">UK Headquater</div>
+                    <div>Kemp House</div>
+                    <div>152-160 City Road</div>
+                    <div>EC1V 2NX London</div>
+                    <div>United kingdom</div>
+                </div>
+            </div>
+        </div>
+        <div id="footer_columns_content_3">
+            {#
+            <div id="footer_columns_services" class="footer_columns_item">
+                <div id="footer_columns_services_title" class="footer_columns_title">
+                    {{ lang.WEB_MENU_IMPORTANT | raw }}
+                </div>
+                <div id="footer_columns_services_list" class="footer_columns_list">
+                    <ul id="footer_columns_services_list_ul" class="footer_columns_list_ul">
+                        <li class="footer_columns_list_li">
+                            <a href="/{{ lang.WEB_MENU_WHAT_WE_DO_LINK | raw}}" title="{{ lang.WEB_TITLE_WHAT_WE_DO | raw }}" rel="nofollow">
+                                {{ lang.WEB_MENU_WHAT_WE_DO | raw }}
+                            </a>
+                        </li>
+                        <li class="footer_columns_list_li">
+                            <a href="/{{ lang.WEB_MENU_CALCULATE_YOUR_CARBON_FOOTPRINT_LINK | raw }}" title="{{ lang.WEB_TITLE_WEB_TITLE_CALCULATE_YOUR_CARBON_FOOTPRINT | raw }}" rel="nofollow">
+                                {{ lang.WEB_MENU_CALCULATE_YOUR_CARBON_FOOTPRINT | raw }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            #}
+        </div>
+        <div id="footer_columns_content_4">
+            <div id="footer_columns_sectors" class="footer_columns_item">
+                <div id="footer_columns_sectors_title" class="footer_columns_title">
+                    {#
+                    <a href="/{{ lang.WEB_MENU_SECTORS_LINK | raw }}" title="{{ lang.WEB_TITLE_SECTORS | raw }}" {#rel="nofollow"@}>
+                        {{ lang.WEB_MENU_SECTORS | raw }}
+                    </a>
+                    #}
+                </div>
+                <div id="footer_columns_sectors_list" class="footer_columns_list">
+                    {#
+                    <ul id="footer_columns_sectors_list_ul" class="footer_columns_list_ul">
+                        {% for sector in data.sectors %}
+                            <li class="footer_columns_list_li">
+                                <a href="/sector/{{ sector.slug }}" title="{{ sector.decription }}" rel="nofollow">
+                                    {{ sector.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    #}
+                </div>
+            </div>
+            <div id="footer_columns_contact" class="footer_columns_item">
+                <div id="footer_columns_contact_title" class="footer_columns_title">
+                    {{ lang.WEB_MENU_CONTACT | raw }}
+                </div>
+                <div id="footer_columns_contact_list" class="footer_columns_list">
+                    <ul id="footer_columns_contact_list_ul" class="footer_columns_list_ul">
+                        <li class="footer_columns_list_li">
+                            {{ lang.WEB_FOOTER_CONTACT_TEAM | raw }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

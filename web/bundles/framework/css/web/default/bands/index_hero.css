@@ -1,0 +1,108 @@
+#index_hero {
+}
+#index_hero_container {
+    background-color: var(--tertiary-background);
+    /*border: solid 1px red;*/
+}
+#index_hero_content {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+    /*border: solid 1px green;*/
+}
+#index_hero_text_content {
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /*border: solid 1px red;*/
+}
+#index_hero_text {
+    width: 95%;
+    /*border: solid 1px green;*/
+}
+#index_hero_text h1 {
+    color: var(--highlight-color);
+    letter-spacing: 2px;
+}
+#index_hero_button {
+    margin-bottom: 30px;
+
+}
+#index_hero_content::before,
+#index_hero_content::after {
+    transform: none; /* Elimina la inclinación en móviles */
+    /*width: 100%;*/
+    /*height: 30%;*/
+    /*opacity: 0.3;*/
+}
+#index_hero_img {
+    width: 50%;
+    /*border: solid 1px red;*/
+}
+#index_hero_img img {
+    width: auto;
+    height: 300px;
+}
+#index_hero_content::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%; /* Ajusta el ancho de la forma */
+    height: 70%; /* Ajusta la altura de la forma */
+    background: var(--secondary-background);
+    transform: skewY(-15deg); /* Inclinación de la forma */
+    transform-origin: bottom right;
+    z-index: -20;
+    opacity: 0.5;
+}
+#index_hero_content::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 80%;
+    height: 40%;
+    background-color: var(--tertiary-background);
+    transform: skewY(-10deg);
+    transform-origin: bottom right;
+    z-index: -10;
+    opacity: 0.7;
+}
+@media (min-width: 600px) {
+}
+@media (min-width: 900px) {
+    #index_hero_container {
+        background-color: var(--white);
+    }
+    #index_hero_content {
+        margin-left: 0;
+        flex-direction: row;
+        z-index: 10;
+    }
+    #index_hero_text_content {
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    #index_hero_text {
+        width: 60%;
+    }
+    #index_hero_button {
+        margin-bottom: 0;
+    }
+    #index_hero_img img {
+        width: auto;
+        height: 600px;
+    }
+}
+@media (min-width: 1200px) {
+}
+@media (min-width: 1400px) {
+}
+

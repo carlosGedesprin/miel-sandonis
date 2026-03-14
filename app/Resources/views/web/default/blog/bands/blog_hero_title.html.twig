@@ -1,0 +1,34 @@
+{% set path_images = '/assets/images/web/'~config.website_skin~'/blog/' %}
+
+{% set image_1 = path_images ~ 'imagen.png' %}
+
+<section id="blog_hero_title" class="web_section">
+    <div id="blog_hero_title_container" class="web_container">
+        <div id="blog_hero_title_content" class="web_content">
+
+            <div id="blog_hero_title_title">
+                <h1>
+                    {% if this_page == 'blog' %}
+                        {{ lang.BLOG_HERO_TITLE | replace({'%franchise%': config.web_name }) | raw }}
+                    {% elseif this_page == 'blog_categories' %}
+                        {{ lang.WEB_TITLE_BLOG_CATEGORIES }}
+                    {% elseif this_page == 'blog_category' %}
+                        {{ category.title | raw }}
+                    {% elseif this_page == 'blog_articles' %}
+                        {{ lang.WEB_TITLE_BLOG_ARTICLES }}
+                    {% elseif this_page == 'blog_article' %}
+                        {{ article_lang.title | raw }}
+                    {% endif %}
+                </h1>
+            </div>
+            {#
+            <div id="blog_hero_subtitle">
+                <span>
+                    {{ lang.BLOG_HERO_SUBTITLE | raw }}
+                </span>
+            </div>
+            #}
+
+        </div>
+    </div>
+</section>

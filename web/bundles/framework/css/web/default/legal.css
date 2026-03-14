@@ -1,0 +1,33 @@
+.legal_section_title {
+    margin: 15px 0;
+    font-size: 1.2em;
+    border-bottom: solid 1px grey;
+}
+#legal_identity {
+    margin: 0 10px;
+    border: solid 1px transparent;
+}
+#legal_identity div {
+    margin: 5px 0;
+    border: solid 1px transparent;
+}
+.legal_p {
+    margin: 0 10px;
+    border: solid 1px transparent;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+}

@@ -1,0 +1,85 @@
+:root {
+    /* Colors */
+    --blue: hsla(222, 63%, 44%, 1); /* 2a55b7 */
+    --dark-green: hsla(147, 96%, 20%, 1);
+    --light-green: hsla(130, 92%, 51%, 0.14);
+    --red: hsla(2, 73%, 57%, 1);
+    --grey: hsla(0, 0%, 31%, 1);
+    --light-grey: hsla(210, 17%, 98%, 1);
+    --white: hsla(0, 0%, 100%, 1);
+    --black: hsla(0, 0%, 0%, 1);
+
+    --light-blue-footer: hsla(251, 99%, 34%, 1);
+    --dark-blue-footer: hsla(251, 100%, 10%, 1);
+
+    --our-blue-color: var(--blue);/*#2a55b7;*/
+    --our-green-color: var(--dark-green);/*#02642e;*/
+    --our-red-color: var(--red); /*#e24742;*/
+    --our-grey-color: var(--grey);/*#505050;*/
+    --our-light-grey-color: var(--light-grey);/*#f8f9fa;*/
+    --our-white-color: var(--white);/*#fff;*/
+    --our-black-color: var(--black);/*#000;*/
+    --our-light-green-color: var(--light-green);
+
+    --our-label-text-color: #1785e8;
+    --our-input-border-color: #1bbde8;
+    --our-input-backgroud-color: #f1f1f1;
+    --our-input-text-color: #495057;
+}
+#main {
+    position: relative;
+    top: var(--main_top);
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 1);
+    /*border: solid 1px red;*/
+}
+.app_section {
+    width: calc( 100vw - var(--scroll_width) );
+    /*border: 1px solid black;*/
+}
+.app_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /*border: solid 1px black;*/
+}
+.app_content {
+    margin: 60px 0 0 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /*border: 1px solid blue;*/
+}
+.app_wrapper {
+    /*margin: 0 0 0 0;*/
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /*border: 1px solid blue;*/
+}
+@media all and (min-width: 650px) {
+    .app_content {
+        width: 100%
+    }
+}
+@media all and (min-width: 900px) {
+    .app_content {
+        width: 100%
+    }
+    .app_wrapper {
+        width: 80%
+    }
+}
+@media all and (min-width: 1400px) {
+    .app_content {
+        width: 100%
+    }
+    .app_wrapper {
+        width: 70%
+    }
+}

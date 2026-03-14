@@ -1,0 +1,74 @@
+# Avoid cache with this files
+#<FilesMatch "\.(html|htm|php)">
+#FileETag None
+#Header unset ETag
+#Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+#Header set Pragma "no-cache"
+#Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+#</FilesMatch>
+
+# https://web.dev/samesite-cookies-explained/
+#Header always edit Set-Cookie ^(.")$ $1;HttpOnly;Secure
+Header always edit Set-Cookie ^(.*)$ $1;SameSite=Strict;Secure=true
+
+#<IfModule mod_headers.c>
+    #Header set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Origin "*"
+    Header add Access-Control-Allow-Methods "GET, POST"
+    Header always set Access-Control-Allow-Headers "content-type"
+    Header always set Access-Control-Max-Age "600"
+    Header always set Access-Control-Allow-Credentials "true"
+    #Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    #Header always set X-Content-Type-Options: nosniff
+    Header always unset X-Powered-By
+    #Header always set X-Frame-Options "SAMEORIGIN"
+#</IfModule>
+
+<Files "*.env">
+    Require all denied
+</Files>
+<Files "phpinfo.*">
+    Require all denied
+</Files>
+<Files "wlwmanifest.xml">
+    Require all denied
+</Files>
+<Files "xmlrpc.php">
+    Require all denied
+</Files>
+<Files "llms.txt">
+  Header set X-Robots-Tag "llms-txt"
+</Files>
+
+RewriteEngine on
+
+# --- CANONICALIZACIÓN DE HOST (quitar www) ---
+# Redirige www.midominio.com -> midominio.com
+#RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+#RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+# --- QUITAR BARRA FINAL (excepto raíz y directorios reales) ---
+# midominio.com/pagina/ -> midominio.com/pagina
+#RewriteCond %{REQUEST_URI} .+/$
+#RewriteCond %{REQUEST_URI} !^/$
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^(.+?)/$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+#####################################################
+# Stop SQL Injection
+#https://thrivewp.com/sql-injections-hack-wordpress-security/
+#https://stackoverflow.com/questions/21118511/htaccess-301-redirect-remove-query-string-qsa
+#####################################################
+#RewriteCond %{QUERY_STRING} ^.*(globals|encode|localhost|loopback).* [NC,OR]
+#RewriteCond %{QUERY_STRING} ^.*(request|select|insert|union|declare|update|delete|like|drop|alter|create).* [NC]
+#RewriteRule ^(.*)$ / [R=301,L,QSD]
+#####################################################
+
+# Assets to bundles/framework
+RewriteRule ^assets/(.*)$ /bundles/framework/$1 [L,NC]
+
+# .htaccess main domain to subdirectory redirect
+RewriteCond %{REQUEST_URI} !^/web/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /web/$1
+RewriteRule ^(/)?$ web/app.php [L]

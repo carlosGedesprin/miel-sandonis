@@ -1,0 +1,13 @@
+
+<header id="header">
+
+    {% if env.developer == 'carlos' %}
+        {% include 'web/' ~ config.website_skin ~ '/header_helpers.html.twig' %}
+    {% endif %}
+
+</header>
+<!--[if lte IE 8]>
+<p class="chromeframe">
+        You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/?locale=en">upgrade your browser</a>.
+</p>
+<![endif]-->

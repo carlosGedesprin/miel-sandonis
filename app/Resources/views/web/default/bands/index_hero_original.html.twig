@@ -1,0 +1,56 @@
+{% set path = '/assets/images/web/'~config.website_skin~'/bands/template/' %}
+{% set img_1 = path ~ 'image_1.png' %}
+
+<section id="index_hero" class="web_section">
+    <div id="index_hero_container" class="web_container">
+        <div id="index_hero_content" class="web_content">
+
+            {#
+            <div id="index_hero_wrapper">
+                <div id="index_hero_texts">
+                    <h1>
+                        Crece más rápido y con más beneficios
+                        {#Automatizaciones con Inteligencia Artificial
+                    </h1>
+                    <p>
+                        Ahorra tiempo, reduce costes y dedícate a lo que importa
+                    </p>
+                    <p>
+                        Libera a tu negocio de esas tareas repetitivas de bajo valor y alto coste
+                    </p>
+                    <p>
+                        <a href="{{ lang.WEB_MENU_CONTACT_LINK }}">
+                            Empezamos >
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <div id="index_hero_img">
+                <img src="{{ img_1 }}" alt="">
+            </div>
+            #}
+
+
+            <div class="index_hero_wrapper">
+                <div class="container">
+                    <div class="content">
+                        <h1>Crece más rápido y con más beneficios</h1>
+                        <p>Ahorra tiempo, reduce costes y dedícate a lo que importa</p>
+                        <p>Libera a tu negocio de esas tareas repetitivas de bajo valor y alto coste</p>
+                        <div>
+                            <p>
+                                <a href="{{ lang.WEB_MENU_CONTACT_LINK }}">
+                                    Empezamos >
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="image-placeholder">
+                        <img src="{{ img_1 }}" alt="">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

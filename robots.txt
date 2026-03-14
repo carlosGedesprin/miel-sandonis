@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /sectors/*
+Disallow: /sectoress/*
+
+Sitemap: https://altiraautomations.com/sitemap.xml
+Sitemap: https://www.altiraautomations.com/sitemap.xml

@@ -1,0 +1,429 @@
+{% extends 'app/' ~ config.app_skin ~ '/app.html.twig' %}
+
+{% set entity = 'automation' %}
+
+{% block title %} {{ parent() }} &bull; {% if (data.action == 'delete') %}{{ lang.AUTOMATION_DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.AUTOMATION_EDIT }}{%  endif %}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid mb-4">
+
+    <a href="#" id="topofthepage"></a>
+
+    <div class="col-md-8 offset-md-2 col-sm-12 my-4 p-2 rounded-3 font-weight-bold {% if (data.action == 'delete') %}is_delete{%  else %} bg-light{%  endif %}">
+        {% if (data.action == 'delete') %}
+            {{ lang.AUTOMATION_DELETE }}
+        {% elseif (data.action == 'edit') %}
+            {{ lang.AUTOMATION_EDIT }}
+        {% elseif  (data.action == 'add') %}
+            {{ lang.AUTOMATION_ADD }}
+        {%  endif %}
+        : {{ reg.name }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-sm-12 mx-auto">
+
+            <form id="item-form"
+                  method="post"
+                  role="form"
+                  enctype="multipart/form-data"
+            >
+
+                <div class="row">
+                    <div class="col-md-10 col-sm-12 mx-auto">
+
+                        <div id="box-result">
+                            <div class="alert">
+                            </div>
+                        </div>
+
+                        <div class="card">
+
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs" id="tabs-list" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active"
+                                           id="details-tab"
+                                           href="#tab-details"
+                                           role="tab"
+                                           aria-controls="details"
+                                           aria-selected="true">
+                                            {{ lang.AUTOMATION_TAB_DETAILS }}
+                                        </a>
+                                    </li>
+                                    {% if (data.action == 'test') %}
+                                        {% if user_group == '1' or user_group == '2' %}
+                                            <li class="nav-item">
+                                                <a class="nav-link"
+                                                   id="image-tab"
+                                                   href="#tab-image"
+                                                   role="tab"
+                                                   aria-controls="register"
+                                                   aria-selected="false">
+                                                    {{ lang.AUTOMATION_TAB_REGISTER }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+
+                                {# This shines in all tab-content #}
+                                {#<h4 class="card-title">Title 4</h4>#}
+                                {#<h6 class="card-subtitle mb-2">Title 5</h6>#}
+
+                                <div class="tab-content mt-3">
+
+                                    <div class="tab-pane fade show active p-3" id="tab-details" role="tabpanel" aria-labelledby="details-tab">
+
+                                        {#<h5 class="card-title text-center">{{ lang.LANG_TEXT_TAB_DETAILS }}</h5>#}
+
+                                        <div class="row">
+                                            <div class="col-md-8 offset-md-2">
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="name">{{ lang.AUTOMATION_NAME }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="name"
+                                                           name="name"
+                                                           minlength="4"
+                                                           maxlength="30"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{% endif %}
+                                                           value="{{ reg.name }}"
+                                                           placeholder="{{ lang.ENTER_NAME }}">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="account">{{ lang.AUTOMATION_ACCOUNT }}:</label>
+                                                    <select class="form-control"
+                                                            id="account"
+                                                            name="account"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.account }}"
+                                                            placeholder="{{ lang.ACCOUNT_SELECT }}">
+                                                        {{ data.account_options | raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="billing_account">{{ lang.AUTOMATION_BILLING_ACCOUNT }}:</label>
+                                                    <select class="form-control"
+                                                            id="billing_account"
+                                                            name="billing_account"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.billing_account }}"
+                                                            placeholder="{{ lang.ACCOUNT_SELECT }}">
+                                                        {{ data.billing_account_options | raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="agent">{{ lang.ACCOUNT_AGENT }}:</label>
+                                                    <select class="form-control"
+                                                            id="agent"
+                                                            name="agent"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.agent }}"
+                                                            placeholder="{{ lang.SELECT }}"
+                                                            aria-labelledby="agentAriaDesc">
+                                                        {{ data.agent_options | raw }}
+                                                    </select>
+                                                </div>
+                                                <span id="agentAriaDesc" class="d-none">{{ lang.ACCOUNT_PARTNER_DESC }}</span>
+
+                                                <div class="form-group" id="date_reg_div">
+                                                    <label class="control-label" for="date_reg">{{ lang.AUTOMATION_DATE_REG }}:</label>
+                                                    {% if user_group == '1' or user_group == '2' %}
+                                                        <input id="date_reg"
+                                                               type="text"
+                                                               name="date_reg"
+                                                               class="form-control datepicker"
+                                                               value="{{ reg.date_reg }}"
+                                                                {#required="required"#}
+                                                               placeholder="{{ lang.ENTER_DATE }}"
+                                                        >
+                                                    {% else %}
+                                                        {{ reg.date_reg }}
+                                                        <input type="hidden" name="date_reg" value="{{ reg.date_reg }}">
+                                                    {% endif %}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="product_setup">{{ lang.AUTOMATION_PRODUCT_SETUP }}:</label>
+                                                    <select class="form-control"
+                                                            id="product_setup"
+                                                            name="product_setup"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.product_setup }}"
+                                                            placeholder="{{ lang.PRODUCT_SELECT }}">
+                                                        {{ data.product_setup_options | raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="product_renewal">{{ lang.AUTOMATION_PRODUCT_RENEWAL }}:</label>
+                                                    <select class="form-control"
+                                                            id="product_renewal"
+                                                            name="product_renewal"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.product_renewal }}"
+                                                            placeholder="{{ lang.PRODUCT_SELECT }}">
+                                                        {{ data.product_renewal_options | raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="price_setup">{{ lang.AUTOMATION_PRICE_SETUP }}:</label>
+                                                    <input type="text"
+                                                           class="form-control money"
+                                                           id="price_setup"
+                                                           name="price_setup"
+                                                           minlength="2"
+                                                           maxlength="10"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.price_setup }}"
+                                                           placeholder="{{ lang.ENTER_NUMBER }}">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="price_renewal">{{ lang.AUTOMATION_PRICE_RENEWAL }}:</label>
+                                                    <input type="text"
+                                                           class="form-control money"
+                                                           id="price_renewal"
+                                                           name="price_renewal"
+                                                           minlength="2"
+                                                           maxlength="10"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.price_renewal }}"
+                                                           placeholder="{{ lang.ENTER_NUMBER }}">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="coupon">{{ lang.AUTOMATION_COUPON }}:</label>
+                                                    <select class="form-control"
+                                                            id="coupon"
+                                                            name="coupon"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.coupon }}"
+                                                            placeholder="{{ lang.COUPON_SELECT }}">
+                                                        {{ data.coupon_options | raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col-1">
+                                                        <label class="switch my-auto">
+                                                            <input type="checkbox"
+                                                                   class="switch_input my-auto"
+                                                                   id="auto_renew"
+                                                                   name="auto_renew"
+                                                                   aria-describedby="autoRenewAriaDesc"
+                                                                   {% if reg.auto_renew == '1' %}checked="checked"{% endif %}
+                                                                   value="{{ reg.auto_renew }}"
+                                                            >
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-label col-10 ml-20 my-auto mx-left" for="auto_renew">{{ lang.AUTOMATION_AUTORENEW }}</div>
+                                                </div>
+                                                <span id="autoRenewAriaDesc" class="d-none">{{ lang.AUTOMATION_AUTO_RENEW_DESC }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="control-label" for="date_start">{{ lang.AUTOMATION_DATE_START }}:</label>
+                                                    {% if user_group == '1' or user_group == '2' %}
+                                                        <input id="date_start"
+                                                               type="text"
+                                                               name="date_start"
+                                                               class="form-control datepicker"
+                                                               value="{{ reg.date_start }}"
+                                                                {#required="required"#}
+                                                               placeholder="{{ lang.ENTER_DATE }}"
+                                                        >
+                                                    {% else %}
+                                                        {{ reg.date_start }}
+                                                        <input type="hidden" name="date_start" value="{{ reg.date_start }}">
+                                                    {% endif %}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label" for="date_end">{{ lang.AUTOMATION_DATE_END }}:</label>
+                                                    {% if user_group == '1' or user_group == '2' %}
+                                                        <input id="date_end"
+                                                               type="text"
+                                                               name="date_end"
+                                                               class="form-control datepicker"
+                                                               value="{{ reg.date_end }}"
+                                                                {#required="required"#}
+                                                               placeholder="{{ lang.ENTER_DATE }}"
+                                                        >
+                                                    {% else %}
+                                                        {{ reg.date_end }}
+                                                        <input type="hidden" name="date_end" value="{{ reg.date_end }}">
+                                                    {% endif %}
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col-1 align-content-end">
+                                                        <label class="switch align-self-start">
+                                                            <input type="checkbox"
+                                                                   class="switch_input"
+                                                                   id="active"
+                                                                   name="active"
+                                                                   {% if (reg.active == '1') %}checked="checked"{%  endif %}
+                                                                   value="{{ reg.active }}"
+                                                            >
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-label col-5 ml-30 my-auto mx-right" for="active">{{ lang.AUTOMATION_ACTIVE }}</div>
+                                                </div>
+
+                                            </div>{# <div class="col-md-8 offset-md-2"> #}
+                                        </div>{# <div class="row"> #}
+
+                                    </div>{# <div class="tab-pane fade show active p-3" id="tab-details" role="tabpanel" aria-labelledby="details-tab"> #}
+
+                                    {% if (data.action == 'test') %}
+                                        {% if user_group == '1' or user_group == '2' %}
+
+                                            <div class="tab-pane fade show p-3" id="tab-image" role="tabpanel" aria-labelledby="register-tab">
+
+                                            {#<h5 class="card-title text-center">{{ lang.AUTOMATION_TAB_IMAGE }}</h5>#}
+
+                                            <div class="col-9 mx-auto">
+                                                <div class="row">
+
+
+                                                </div>{# <div class="row">#}
+                                            </div>{# <div class="col-9 mx-auto">#}
+
+                                            </div>{# <div class="tab-pane fade show p-3" id="tab-register" role="tabpanel" aria-labelledby="register-tab">#}
+
+                                        {% endif %}
+                                    {% endif %}
+
+                                </div>{# <div class="tab-content mt-3"> #}
+
+                            </div>{# <div class="card-body"> #}
+                        </div>{# <div class="card"> #}
+
+                    </div>{# <div class="col-8 mx-auto"> #}
+                </div>{# <div class="row"> #}
+
+                <div class="row">
+                    <div class="col-12 my-4 text-center">
+                        <button type="button" name="btn_submit" id="btn_submit" class="btn btn-info" value="1">{% if (data.action == 'delete') %}{{ lang.DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.SAVE }}{%  endif %}</button>
+                        <button type="button" name="btn_cancel" id="btn_cancel" class="btn btn-info" formnovalidate>{{ lang.BACK_TO_LIST }}</button>
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="{{ reg.id }}">
+
+                {# Filters #}
+                {% for filter_name, filter_data in filters %}
+                    {% for filter_data_key, filter_data_data in filter_data %}
+                        <input type="hidden" name="filters[{{ filter_name }}][{{ filter_data_key }}]" id="filter_{{ filter_name }}_{{ filter_data_key }}" value="{{ filter_data_data }}" />
+                    {% endfor %}
+                {% endfor %}
+                {# Pagination #}
+                {% for key, value in pagination %}
+                    <input type="hidden" name="pagination[{{ key }}]" id="{{ key }}" value="{{ value }}" />
+                {% endfor %}
+
+                <input type="hidden" name="auth_token" value="{{ data.auth_token }}" />
+
+            </form>
+
+        </div>{# <div class="col-10 mx-auto"> #}
+    </div>{# <div class="row">#}
+
+</div>{# <div class="container-fluid mb-4">#}
+
+<div class="clear"></div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" type="text/css" />
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/form.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/input_switch.css') }}" type="text/css" />
+{% endblock %}
+{% block javascripts %}
+     {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            {# app/automationForm.html.twig #}
+
+        });
+        (function($) {
+            'use strict';
+
+        })(jQuery);
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
+    <script type="text/javascript" src="/assets/js/app/{{ config.app_skin }}/jquery.mask.js"></script>
+    <script>
+        $(document).ready(function($){
+            {# app/automationForm.html.twig #}
+
+            let today = new Date();
+            let t_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+(today.getDate());
+            {#
+            var time = today.getHours() + ":" + today.getMinutes();
+            var dateTime = date+' '+time;
+            console.log(t_date);
+            #}
+            $('.datepicker').datepicker({
+                language: 'es',
+                format: 'dd-mm-yyyy',
+                todayBtn: true,
+                todayHighlight: true,
+                startDate: t_date,
+                autoclose: true,
+            });
+
+            {#$("#price").inputmask("9{1,6}.9{0,2}");#}
+            $('.money').mask('000.000.000.000.000,00', {reverse: true});
+        });
+        (function($) {
+            'use strict';
+
+            $('#btn_submit').click(function(e) {
+
+                $('#price_setup').css('display', 'none');
+                var price_setup = $('#price_setup').cleanVal();
+                $('#price_setup').val(price_setup);
+
+                $('#price_renewal').css('display', 'none');
+                var price_renewal = $('#price_renewal').cleanVal();
+                $('#price_renewal').val(price_renewal);
+
+            });
+
+        })(jQuery);
+    </script>
+    <script type="text/javascript">
+        var folder = '{{ session[config['cookies_prefix']~'_folder'] }}';
+        var entity = '{{ entity }}';
+        var action = '{{ data.action }}';
+        var cancel = '{{ cancel }}';
+        var reg_id = '{{ reg.id }}';
+        var l_errors_found = '{{ lang.ERRORS_FOUND }}';
+        var l_form_has_errors = '{{ lang.ERRORS_FORM }}';
+    </script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/forms.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/input_switch.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/scrool-to-top.js') }}"></script>
+    <script type="text/javascript">
+        var api_protocol = '{{ env.protocol }}';
+        var api_domain = '{{ env.domain }}';
+        var url_get_product_call = '{{ data.get_product_url }}';
+        var api_key = '{{ config.locations_api_key }}';
+    </script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/automationForm.js') }}"></script>
+{% endblock %}

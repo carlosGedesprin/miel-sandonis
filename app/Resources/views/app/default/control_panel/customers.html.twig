@@ -1,0 +1,156 @@
+{% extends 'app/' ~ config.app_skin ~ '/app.html.twig' %}
+
+{% set entity = 'customer' %}
+{% set folder = 'control_panel' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.ACCOUNT_CUSTOMERS }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- pagination css -->
+    <link rel="stylesheet" href="/assets/css/app/{{ config.app_skin }}/pagination.css" type="text/css" />
+    <link rel="stylesheet" href="/assets/css/app/{{ config.app_skin }}/lists.css" type="text/css" />
+    <style>
+        .pagination li.next a{
+            background: url("/assets/images/app/{{ config.app_skin }}/icon_pagination_next.png");
+        }
+        .pagination li.previous a{
+            background: url("/assets/images/app/{{ config.app_skin }}/icon_pagination_prev.png");
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-10 offset-1 my-4 p-2 rounded-3 bg-light font-weight-bold">
+                {{ lang.ACCOUNT_CUSTOMERS }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 offset-1">
+
+                {% if session.alert %}
+                    <div class="row" id="messages">
+                        <div class="col-12">
+                            <div class="alert alert-{{ session.alert.type }}">
+                                {{ session.alert.message|raw }}
+                            </div>
+                        </div>
+                    </div>
+                    {{ deleteMessages() }}
+                {% endif %}
+
+                <div class="row no-gutters justify-content-between">
+                    <div class="col-sm-12 col-md-2">
+                        <button type="button" class="btn btn-info item-add" data-item="/{{ folder }}/{{ entity }}/edit/0">{{ lang.ACCOUNT_CUSTOMER_ADD }}</button>
+                    </div>
+                    <div class="col-auto p-0">
+                        {% include 'app/' ~ config.app_skin ~ '/common/list_filters.twig' %}
+                    </div>
+                </div>
+                {% include 'app/' ~ config.app_skin ~ '/common/list_pagination.twig' %}
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <table class="table table-hover table-condensed">
+                            <thead>
+                            <tr>
+                                {#
+                                <th>
+                                    {% set column_field = 'id' %}
+                                    {% set column_name = '#' %}
+                                    <span class="titleItem" data-order-by="{{ column_field }}" title="{{ column_name }}">{{ column_name }}</span>
+                                    {% if pagination.order == column_field and pagination.order_dir == "ASC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_up }}"></i></button>
+                                    {% elseif pagination.order == column_field and pagination.order_dir == "DESC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_down }}"></i></button>
+                                    {% endif %}
+                                </th>
+                                #}
+                                <th>
+                                    {% set column_field = 'name' %}
+                                    {% set column_name = lang.ACCOUNT_NAME %}
+                                    <span class="titleItem" data-order-by="{{ column_field }}" title="{{ column_name }}">{{ column_name }}</span>
+                                    {% if pagination.order == column_field and pagination.order_dir == "ASC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_up }}"></i></button>
+                                    {% elseif pagination.order == column_field and pagination.order_dir == "DESC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_down }}"></i></button>
+                                    {% endif %}
+                                </th>
+                                <th>
+                                    {% set column_field = 'company' %}
+                                    {% set column_name = lang.ACCOUNT_COMPANY %}
+                                    <span class="titleItem" data-order-by="{{ column_field }}" title="{{ column_name }}">{{ column_name }}</span>
+                                    {% if pagination.order == column_field and pagination.order_dir == "ASC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_up }}"></i></button>
+                                    {% elseif pagination.order == column_field and pagination.order_dir == "DESC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_down }}"></i></button>
+                                    {% endif %}
+                                </th>
+                                <th>
+                                    {% set column_field = 'main_user' %}
+                                    {% set column_name = lang.ACCOUNT_MAIN_USER %}
+                                    <span class="titleItem" data-order-by="{{ column_field }}" title="{{ column_name }}">{{ column_name }}</span>
+                                    {% if pagination.order == column_field and pagination.order_dir == "ASC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_up }}"></i></button>
+                                    {% elseif pagination.order == column_field and pagination.order_dir == "DESC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_down }}"></i></button>
+                                    {% endif %}
+                                </th>
+{#
+                                <th><span class="titleItem itemOptions" title="{{ lang.OPTIONS }}">{{ lang.OPTIONS }}</span></th> 
+#}
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if res %}
+                                {% for item in res %}
+                                    <tr class="item-edit-row">
+                                        {#<td class="item-edit" data-item="/{{ folder }}/{{ entity }}/edit/{{ item.account_key }}">{{ item.id }}</td>}#}
+                                        <td class="item-edit" data-item="/{{ folder }}/{{ entity }}/edit/{{ item.account_key }}">{{ item.name | raw }}</td>
+                                        <td class="item-edit" data-item="/{{ folder }}/{{ entity }}/edit/{{ item.account_key }}">{{ item.company | raw }}</td>
+                                        <td class="item-edit" data-item="/{{ folder }}/{{ entity }}/edit/{{ item.account_key }}">{{ item.main_user | getUserName | raw }}</td>
+{#
+                                        <td>
+                                            <span data-item="/{{ folder }}/{{ entity }}/delete/{{ item.account_key }}" class="item-delete" aria-hidden="true" style="text-decoration: none" title="{{ lang.DELETE }}">
+                                                <i class="{{ icon_delete }}" aria-hidden="true" title="{{ lang.DELETE }}"></i>
+                                            </span>
+                                        </td> 
+#}
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                    <tr><td colspan="5">{{ lang.ACCOUNT_CUSTOMER_NOT_FOUND }}</td></tr>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+
+            </div>{#<div class="col-md-10 offset-md-1">#}
+        </div>{#<div class="row">#}
+
+    </div>{#<div class="container-fluid">#}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/pagination.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/messaging.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/lists.js') }}"></script>
+    <script>
+    $(document).ready(function(){
+
+    });
+    (function($) {
+    'use strict';
+
+    })(jQuery);
+    </script>
+
+{% endblock %}

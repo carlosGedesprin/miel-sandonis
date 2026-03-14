@@ -1,0 +1,145 @@
+
+#corresponsables_accedeme {
+}
+#corresponsables_accedeme_container {
+}
+#corresponsables_accedeme_content {
+    /*flex-direction: column;*/
+    border: solid 1px black;
+}
+.corresponsables_accedeme {
+}
+.corresponsables_accedeme_container {
+}
+.corresponsables_accedeme_content {
+}
+#corresponsables_accedeme_columns {
+    display: flex;
+    flex-direction: column;
+    border: solid 1px red;
+}
+#corresponsables_accedeme_left {
+    width: 50%;
+    border: solid 1px black;
+}
+#corresponsables_accedeme_right {
+    width: 50%;
+    border: solid 1px black;
+}
+.corresponsables_accedeme_column {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+}
+
+/* Estilos generales y del contenedor de la tarjeta */
+.card {
+    width: 350px; /* Ajusta el ancho según sea necesario */
+    background-color: #ffffff;
+    border: 1px solid var(--secondary-color); /* Borde inicial */
+    border-radius: var(--box-border-radius);
+    overflow: hidden; /* Importante para la imagen redondeada */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: border-color 0.3s ease; /* Transición para el borde */
+    margin: 20px; /* Espacio para visualización */
+    font-family: sans-serif; /* Fuente similar a la de la captura */
+}
+
+/* Efecto Hover: Cambia el color del borde */
+.card:hover {
+    border-color: var(--highlight-color); /* Color de borde al pasar el ratón (ejemplo: naranja) */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor de la imagen  */
+.card-image-container {
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden; /* Esencial para el efecto de zoom */
+}
+
+.card-image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    /* Transición para el efecto de zoom suave */
+    transition: transform 0.3s ease;
+}
+
+/* Efecto Hover: Zoom a la imagen, manteniendo proporciones */
+.card:hover .card-image-container img {
+    transform: scale(1.05); /* Acercamiento del 5% */
+}
+
+/* Estilos del contenido de texto */
+.card-content {
+    padding: 15px 20px 25px;
+}
+
+.card-content h2 {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.card-content p {
+    font-size: 1em;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.read-more {
+    display: inline-block;
+    padding: 10px 15px;
+    border: 1px solid var(--highlight-color);
+    border-radius: 6px;
+    text-decoration: none;
+    color: #444;
+    font-weight: bold;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.read-more:hover {
+    background-color: #f5f5f5;
+    border-color: #ccc;
+}
+.blog_article_extra_data_content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color:  var(--secondary-color);
+    /*border: solid 1px blue;*/
+}
+.blog_article_author {
+    color: var(--our-grey-color);
+    font-size: 0.8em;
+    text-align: left;
+    margin-bottom: 0;
+    /*border: solid 1px red;*/
+}
+.blog_article_date {
+    color: var(--our-grey-color);
+    font-size: 0.8em;
+    text-align: left;
+    margin-bottom: 0;
+    /*border: solid 1px red;*/
+}
+
+
+@media only screen and (min-width: 600px) {
+}
+@media only screen and (min-width: 900px) {
+    #corresponsables_accedeme_content {
+        /*flex-direction: row;*/
+    }
+    #corresponsables_accedeme_columns {
+        flex-direction: row;
+    }
+}
+@media only screen and (min-width: 1200px) {
+}
+@media only screen and (min-width: 1400px) {
+}

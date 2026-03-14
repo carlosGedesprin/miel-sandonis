@@ -1,0 +1,28 @@
+{% extends 'app/' ~ config.app_skin ~ '/emails/emailBase.html.twig' %}
+{# app/Resources/views/emails/user_welcome.html.twig #}
+{% set email_ref = 'user_welcome' %}
+
+{% block body %}
+<table class="container" width="800" border="0">
+    <tr>
+        <td style="padding-top:20px;">
+            <table width="100%">
+                <tr>
+                    <td class="mail_text">
+                        {{ lang.MAIL_WELCOME_ACCOUNT_ACTIVATED | raw }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mail_padding_link">
+                        <a href="{{ data.confirmation_link }}" class="mail_link">
+                            <div class="mail_button">
+                                {{ lang.MAIL_WELCOME_ACCOUNT_LINK_TEXT }}
+                            </div>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+{% endblock %}

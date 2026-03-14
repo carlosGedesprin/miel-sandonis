@@ -1,0 +1,206 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'redsys_get_card_details' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.PAY_A_QUOTE_TITLE }}{% endblock %}
+
+{% block body %}
+
+    <div id="payment_hero" class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div id="payment_title">
+                            {{ lang.PAY_A_QUOTE_TITLE }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="carousel slide" id="myCarousel">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <div class="row">
+                                        <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/e499e4/fff&amp;text=1" class="img-responsive"></a></div>
+                                        <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/e499e4/fff&amp;text=2" class="img-responsive"></a></div>
+                                        <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/e499e4/fff&amp;text=3" class="img-responsive"></a></div>
+                                        <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/e499e4/fff&amp;text=4" class="img-responsive"></a></div>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="row">
+                                        <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/e499e4/fff&amp;text=5" class="img-responsive"></a></div>
+                                        <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/e499e4/fff&amp;text=6" class="img-responsive"></a></div>
+                                        <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/e499e4/fff&amp;text=7" class="img-responsive"></a></div>
+                                        <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/e499e4/fff&amp;text=8" class="img-responsive"></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                            <a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{ lang.QUOTE }}: {{ data.quote.id }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{ lang.ACCOUNT }}: {{ data.account.name }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{ lang.PAY_A_QUOTE_QUOTE_TITLE }}: {{ data.quote_line.description }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{ lang.QUOTE_TOTALS }}: {{ data.quote.total_to_pay }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="item-form"
+                      method="post"
+                      role="form"
+                      enctype="multipart/form-data"
+                >
+                    <div class="row">
+                        <div class="col-10 offset-1">
+                            <div class="payment_section_title">
+                                {{ lang.PAY_A_QUOTE_PAY_THIS_QUOTE }} <div id="timeOrder"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 my-4">
+
+                                    <div class="cardinfo-card-number">
+                                        <label class="cardinfo-label" for="card-number">Numero de tarjeta</label>
+                                        <div class='input-wrapper' id="card-number"></div>
+                                    </div>
+                                    <div class="expiry-date">
+                                        <div class="cardinfo-exp-date">
+                                            <label class="cardinfo-label" for="expiration-date">Mes Caducidad (MM)</label>
+                                            <div class='input-wrapper' id="expiration-month"></div>
+                                        </div>
+                                        <div class="cardinfo-exp-date2">
+                                            <label class="cardinfo-label" for="expiration-date2">Año Caducidad (AA)</label>
+                                            <div class='input-wrapper' id="expiration-year"></div>
+                                        </div>
+                                        <div class="cardinfo-cvv">
+                                            <label class="cardinfo-label" for="cvv">CVV</label>
+                                            <div class='input-wrapper' id="cvv"></div>
+                                        </div>
+                                        <div class="">
+                                            <div class='' id="boton"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 my-4 text-center">
+                                    <button type="button" name="btn_submit" id="btn_submit" class="btn btn-info">{{ lang.PAY_A_QUOTE_PAY_THIS_QUOTE }}</button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="quote_id" value="{{ data.quote_id }}">
+                            <input type="hidden" name="website_id" value="{{ data.website_id }}">
+                            <input type="hidden" name="website_key" value="{{ data.website_key }}">
+                            <input type="hidden" name="license_key" value="{{ data.license_key }}">
+                            <input type="hidden" id="token"></input>
+                            <input type="hidden" id="errorCode"></input>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/css/web/{{ config.website_skin }}/payment.css" rel="stylesheet">
+    <link href="/assets/css/web/{{ config.website_skin }}/payment_redsys.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script id="view" type="text/javascript">
+        var view = 'redsys_get_card_details';
+    </script>
+    <script>
+        $(document).ready(function(){
+
+        });
+        (function($) {
+            // Avoid conflicts with other libraries
+            'use strict';
+            {#
+            $( "#btn_submit" ).click(function() {
+                window.location.replace("/pay_gateway/charge_pay/{{ charge.id }}");
+            });
+            $( ".payment-gateways li img" ).click(function() {
+                //alert( $(this).attr("data-control") );
+                window.location.replace("/pay_gateway/charge_pay/{{ charge.id }}");
+                /*
+                var $gateway = $(this).attr('data-control');
+                window.location.replace("/charge_pay/" + $gateway + "/{{ reg.id }}");
+                */
+            });
+            #}
+        })(jQuery);
+    </script>
+    {% if false %}
+        {# Production #}
+        <script src="https://sis.redsys.es/sis/NC/redsysV2.js"></script>
+    {% else %}
+        {# Development #}
+        <script src="https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV2.js"></script>
+    {% endif %}
+    <script>
+
+        function merchantValidationEjemplo(){
+            //Insertar validaciones…
+            //console.log('Validaciones del Merchand');
+            $('#boton').hide();
+            $('#item-form').submit();
+            return true;
+        }
+
+        <!-- Listener de recepción de ID de operación -->
+        window.addEventListener("message", function receiveMessage(event) {
+            storeIdOper(event,"token", "errorCode", merchantValidationEjemplo);
+        });
+
+        function pedido()
+        {
+            const d = new Date();
+            const pedidoOrder = d.getTime();
+            return pedidoOrder.toString();
+        }
+        document.getElementById("timeOrder").innerHTML = pedido();
+
+        {# https://pagosonline.redsys.es/conexion-insite.html #}
+        getCardInput('card-number','border: solid 1px red');
+        getExpirationMonthInput('expiration-month', 'border: solid 1px red');
+        getExpirationYearInput('expiration-year', 'border: solid 1px red');
+        getCVVInput('cvv', 'border: solid 1px red');
+        getPayButton('boton', 'width: 100px; height: 20px;border: solid 1px red;', 'Pagar ahora', '356112847', '001', pedido());
+
+    </script>
+
+{% endblock %}

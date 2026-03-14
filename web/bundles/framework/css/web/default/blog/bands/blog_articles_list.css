@@ -1,0 +1,227 @@
+#blog_articles_list {
+}
+#blog_articles_list_container {
+}
+#blog_articles_list_content {
+	flex-direction: column;
+	/*border: solid 1px black;*/
+}
+#blog_articles_list_title {
+	width: 90%;
+	text-align: left;
+	/*border: solid 1px black;*/
+}
+#blog_articles_content_list {
+	width: 98%;
+	margin-bottom: 60px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	/*border: solid 1px red;*/
+}
+.blog_articles_article_panel {
+	margin: 20px 0 20px 10px;
+	display: flex;
+	flex-direction: column;
+	border-radius: var(--box-border-radius);
+	border: solid 2px var(--highlight-color);
+}
+.blog_articles_article_panel a {
+	text-decoration: none;
+}
+.blog_articles_article_panel a:hover {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	transition: all .3s;
+}
+.blog_articles_article_img {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	/*border: solid 1px red;*/
+}
+.blog_articles_article_img img {
+	height: 100%;
+	width: 100%;
+	/*border: solid 1px red;*/
+}
+.blog_articles_article_img img:hover {
+	transform: scale(1);
+}
+.blog_article_texts_content {
+	padding: 0 10px;
+	/*border: solid 1px black;*/
+}
+.blog_article_title {
+	padding: 12px 0;
+	min-height: 10px;
+	font-size: 1.2rem;
+	color: var(--primary-color);
+	/*border-bottom: solid 1px var(--primary-color);*/
+	/*border: solid 1px red;*/
+}
+.blog_article_category_title {
+	/*padding: 5px 10px;*/
+	/*margin-bottom: 20px;*/
+	/*color:  var(--primary-color);*/
+	font-size: 0.8em;
+	/*border: solid 1px red;*/
+}
+.blog_article_texts_content_p {
+	font-size: 0.8rem;
+	/*display: none;*/
+	/*display: -webkit-box;*/
+	/*-webkit-line-clamp: 3;*/
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	color:  var(--secondary-color);
+	/*border: solid 1px blue;*/
+}
+.blog_article_extra_data_content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	color:  var(--secondary-color);
+	/*border: solid 1px blue;*/
+}
+.blog_article_author {
+	color: var(--our-grey-color);
+	font-size: 0.6em;
+	text-align: left;
+	margin-bottom: 0;
+	/*border: solid 1px red;*/
+}
+.blog_article_date {
+	color: var(--our-grey-color);
+	font-size: 0.6em;
+	text-align: left;
+	margin-bottom: 0;
+	/*border: solid 1px red;*/
+}
+.blog_article_metadescription {
+	/*border: solid 1px red;*/
+}
+
+/* Estilos generales y del contenedor de la tarjeta */
+.card {
+	width: 350px; /* Ajusta el ancho según sea necesario */
+	border: 1px solid #ccc; /* Borde inicial */
+	border-radius: var(--box-border-radius);
+	overflow: hidden; /* Importante para la imagen redondeada */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+	transition: border-color 0.3s ease; /* Transición para el borde */
+	margin: 20px; /* Espacio para visualización */
+}
+
+/* Efecto Hover: Cambia el color del borde */
+.card:hover {
+	border-color: var(--highlight-color); /* Color de borde al pasar el ratón (ejemplo: naranja) */
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor de la imagen  */
+.card-image-container {
+	margin-top: 20px;
+	position: relative;
+	overflow: hidden; /* Esencial para el efecto de zoom */
+}
+
+.card-image-container img {
+	width: 100%;
+	height: auto;
+	display: block;
+	object-fit: cover;
+	/* Transición para el efecto de zoom suave */
+	transition: transform 0.3s ease;
+}
+
+/* Efecto Hover: Zoom a la imagen, manteniendo proporciones */
+.card:hover .card-image-container img {
+	transform: scale(1.05); /* Acercamiento del 5% */
+}
+
+/* Estilos del contenido de texto */
+.card-content {
+	padding: 15px 20px 25px;
+}
+
+.card-content h2 {
+	height: 90px;
+	font-size: 1.2rem;
+	color: var(--primary-color);
+	margin-top: 0;
+	margin-bottom: 10px;
+	line-height: 1.2;
+	/*border: solid 1px red;*/
+}
+
+.card-content p {
+	font-size: 1rem;
+	color: var(--secondary-color);
+	margin-bottom: 20px;
+	line-height: 1.6;
+}
+
+.read-more {
+	width: 100%;
+	display: inline-block;
+	padding: 6px;
+	border: 1px solid var(--highlight-color);
+	border-radius: var(--box-border-radius);
+	text-decoration: none;
+	font-size: 1rem;
+	text-align: center;
+	color: var(--secondary-color);
+	transition: background-color 0.3s, border-color 0.3s;
+}
+
+.read-more:hover {
+	background-color: var(--tertiary-background);
+	border-color: #ccc;
+}
+@media all and (min-width: 600px) {
+	.card {
+		width: 244px;
+	}
+}
+@media all and (min-width: 900px) {
+	#blog_articles_list_title {
+		width: 80%;
+	}
+}
+@media all and (min-width: 1200px) {
+	#blog_articles_list_title {
+		width: 95%;
+	}
+	.blog_article_extra_data_content {
+		flex-direction: row;
+	}
+	.card {
+		width: 450px;
+	}
+	.blog_article_texts_content_p {
+		width: 95%;
+	}
+}
+@media all and (min-width: 1400px) {
+	#blog_articles_list_title {
+		width: 80%;
+	}
+	.card {
+		width: 374px;
+	}
+	.blog_article_texts_content_p {
+		width: 100%;
+	}
+}
+@media all and (min-width: 1600px) {
+	.card {
+		width: 450px;
+	}
+	.card-content h2 {
+		height: 50px;
+	}
+	.blog_article_metadescription {
+		min-height: 50px;
+	}
+}

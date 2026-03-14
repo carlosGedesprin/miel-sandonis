@@ -1,0 +1,755 @@
+{% extends 'app/' ~ config.app_skin ~ '/app.html.twig' %}
+
+{% set entity = 'user' %}
+
+{% block title %} {{ parent() }} &bull; {% if (data.action == 'delete') %}{{ lang.USER_DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.USER_EDIT }}{%  endif %}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid mb-4">
+
+    <a href="#" id="topofthepage"></a>
+
+    <div class="col-md-8 offset-md-2 col-sm-12 my-4 p-2 rounded-3 font-weight-bold {% if (data.action == 'delete') %}is_delete{%  else %} bg-light{%  endif %}">
+        {% if (data.action == 'delete') %}
+            {{ lang.USER_DELETE }}
+        {% elseif (data.action == 'edit') %}
+            {{ lang.USER_EDIT }}
+        {% elseif  (data.action == 'add') %}
+            {{ lang.USER_ADD }}
+        {%  endif %}
+        : {{ reg.name }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-sm-12 mx-auto">
+
+            <form id="item-form"
+                  method="post"
+                  role="form"
+                  enctype="multipart/form-data"
+            >
+
+                <div class="row">
+                    <div class="col-md-10 col-sm-12 mx-auto">
+
+                        <div id="box-result">
+                            <div class="alert">
+                            </div>
+                    </div>
+
+                    <div class="card">
+
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" id="tabs-list" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active"
+                                       id="user-tab"
+                                       href="#tab-user"
+                                       role="tab"
+                                       aria-controls="user"
+                                       aria-selected="true">
+                                        {{ lang.USER_TAB_DETAILS }}
+                                    </a>
+                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                           id="profile-tab"
+                                           href="#tab-profile"
+                                           role="tab"
+                                           aria-controls="profile"
+                                           aria-selected="false">
+                                            {{ lang.USER_TAB_PROFILE }}
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                           id="photo-tab"
+                                           href="#tab-photo"
+                                           role="tab"
+                                           aria-controls="photo"
+                                           aria-selected="false">
+                                            {{ lang.USER_TAB_PHOTO }}
+                                        </a>
+                                    </li>
+                                    {% if user_group == '1' or user_group == '2' or user_group == '3' %}
+                                        <li class="nav-item">
+                                            <a class="nav-link"
+                                               id="notes-tab"
+                                               href="#tab-notes"
+                                               role="tab"
+                                               aria-controls="notes"
+                                               aria-selected="false">{{ lang.USER_TAB_NOTES }}</a>
+                                        </li>
+                                    {% endif %}
+                                    {#
+                                    {% if (data.action != 'add') %}
+                                        {% if user_group == '1' or user_group == '2' %}
+                                            <li class="nav-item">
+                                                <a class="nav-link"
+                                                   id="register-tab"
+                                                   href="#tab-register"
+                                                   role="tab"
+                                                   aria-controls="register"
+                                                   aria-selected="false">
+                                                    {{ lang.USER_TAB_REGISTER }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                    #}
+                                </ul>
+
+                            </div>
+
+                            <div class="card-body">
+
+                                {# This shines in all tab-content #}
+                                {% if data.action != 'add' and not reg.active %}
+                                    <div class="row">
+                                        <div class="col-9 mx-auto card-title-notactive">
+                                            {{ lang.USER_NOT_ACTIVE }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                <div class="tab-content mt-3">
+
+                                    <div class="tab-pane fade show active p-3 {% if data.action != 'add' and not reg.active %}reg_not_active{% else %}reg_active{% endif %}" id="tab-user" role="tabpanel">
+
+                                        {#<h5 class="card-title text-center">{{ lang.USER_TAB_DETAILS }}</h5>#}
+
+                                        <div class="row">
+                                            <div class="col-md-8 offset-md-2">
+
+                                                {% if ( data.action != 'add' ) %}
+                                                    <div class="form-group">
+                                                        <label class="col-12" for="lastlogin">{{ lang.USER_LAST_LOGIN }}:</label> {{ reg.lastlogin }}
+                                                        <input type="hidden" name="lastlogin" value="{{ reg.lastlogin }}">
+                                                    </div>
+                                                {% endif %}
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="name">{{ lang.USER_NAME }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="user_name"
+                                                           name="name"
+                                                           minlength="2"
+                                                           maxlength="100"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.name }}"
+                                                           placeholder="{{ lang.ENTER_NAME }}">
+                                                </div>
+
+                                                {% if (data.action != 'delete') %}
+                                                    <div class="form-group">
+                                                        <label class="col-12" for="current-password">{% if (data.action == 'edit') %}{{ lang.USER_PASSWORD_CHANGE }}{% else %}{{ lang.USER_PASSWORD }}{% endif %}:</label>
+                                                        <input type="password"
+                                                               class="form-control"
+                                                               {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                               id="current_password"
+                                                               name="data[current-password]"
+                                                               minlength="3"
+                                                               maxlength="64"
+                                                               autocomplete="current-password"
+                                                               placeholder="{{ lang.ENTER_PASSWORD }}">
+                                                    </div>
+                                                {% endif %}
+
+                                                {% if user_group == '1' or user_group == '2' or user_group == '3' %}
+                                                    <div class="form-group">
+                                                        {% if (data.action != 'delete') %}
+                                                            <label class="col-12" for="account">{{ lang.ACCOUNT }}:</label>
+                                                            <select class="form-control"
+                                                                    id="account"
+                                                                    name="account"
+                                                                    {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                    value="{{ reg.account }}"
+                                                                    placeholder="{{ lang.ACCOUNT_SELECT }}">
+                                                                {{ data.account_options | raw }}
+                                                            </select>
+                                                        {% else %}
+                                                            <label class="control-label" for="account">{{ lang.ACCOUNT }}:</label>
+                                                            {{ reg.account | getAccountName }}
+                                                        {% endif %}
+                                                    </div>
+                                                {% else %}
+                                                    <input type="hidden" name="account" value="{{ reg.account }}">
+                                                {% endif %}
+                                                <input type="hidden" name="data[account_ini]" value="{{ data.account_ini }}">
+
+                                                {% if user_group == '1' or user_group == '2' or user_group == '3' %}
+                                                    <div class="form-group">
+                                                        {% if (data.action != 'delete') %}
+                                                            <label class="col-12" for="role">{{ lang.USER_ROLE }}:</label>
+                                                            <select class="form-control"
+                                                                    id="role"
+                                                                    name="role"
+                                                                    {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                    value="{{ reg.role }}"
+                                                                    placeholder="{{ lang.USER_ROLE_SELECT }}">
+                                                                {{ data.user_role_options | raw }}
+                                                            </select>
+                                                        {% else %}
+                                                            <label class="control-label" for="role">{{ lang.USER_ROLE }}:</label>
+                                                            {{ reg.role | getUserRoleName }}
+                                                        {% endif %}
+                                                    </div>
+                                                {% else %}
+                                                    <input type="hidden" name="account" value="{{ reg.account }}">
+                                                {% endif %}
+
+                                                <div id="account_fields_div" class="form-group">
+
+                                                    {% if ( data.action != 'delete' ) %}
+                                                        <div class="form-group">
+                                                            <label class="col-12" for="account_name">{{ lang.ACCOUNT_NAME }}:</label>
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   id="account_name"
+                                                                   name="new_account[name]"
+                                                                   minlength="2"
+                                                                   maxlength="15"
+                                                                   {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                   value="{{ account.name }}"
+                                                                   placeholder="{{ lang.ENTER_NAME }}"
+                                                                   aria-describedby="accountnameAriaDesc">
+                                                        </div>
+                                                        <span id="accountnameAriaDesc" class="d-none">{{ lang.ACCOUNT_NAME }}</span>
+                                                    {% endif %}
+
+                                                    {% if ( data.action != 'delete' ) %}
+                                                        <div class="form-group">
+                                                            <label class="col-12" for="account_group">{{ lang.GROUP }}:</label>
+                                                            <select class="form-control"
+                                                                    id="account_group"
+                                                                    name="new_account[group]"
+                                                                    {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                    value="{{ account.group }}"
+                                                                    placeholder="{{ lang.GROUP_SELECT }}">
+                                                                {{ data.group_options | raw }}
+                                                            </select>
+                                                        </div>
+                                                    {% endif %}
+
+                                                    {% if ( data.action != 'delete' ) %}
+                                                        <div class="form-group">
+                                                            <label class="col-12" for="vat">{{ lang.ACCOUNT_VAT }}:</label>
+                                                            <input type="text"
+                                                                   class="form-control"
+                                                                   id="account_vat"
+                                                                   name="new_account[vat]"
+                                                                   minlength="2"
+                                                                   maxlength="25"
+                                                                   {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                   value="{{ account.vat }}"
+                                                                   placeholder="{{ lang.ENTER_NUMBER }}"
+                                                                   aria-describedby="vatAriaDesc">
+                                                        </div>
+                                                        <span id="vatAriaDesc" class="d-none">{{ lang.ACCOUNT_VAT }}</span>
+                                                    {% endif %}
+
+                                                </div>
+
+                                                {#
+                                                {% if (data.action == 'delete') %}
+                                                    <input type="hidden" name="password_second" value="{{ reg.password }}">
+                                                {%  else %}
+                                                    <div class="form-group">
+                                                        <label class="col-12" for="password_second">{% if (data.action == 'edit') %}{{ lang.USER_REPEAT_PASSWORD }}{% else %}{{ lang.USER_REPEAT_PASSWORD }}{% endif %}:</label>
+                                                        <input type="password"
+                                                               class="form-control"
+                                                               {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                               id="password_second"
+                                                               name="password_second"
+                                                               placeholder="{{ lang.USER_REPEAT_PASSWORD }}">
+                                                    </div>
+                                                {% endif %}
+                                                #}
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="email">{{ lang.USER_EMAIL }}:</label>
+                                                    <input type="email"
+                                                           class="form-control"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           id="user_email"
+                                                           name="email"
+                                                           maxlength="255"
+                                                           value="{{ reg.email }}"
+                                                           autocomplete="email"
+                                                           placeholder="{{ lang.ENTER_EMAIL }}">
+                                                </div>
+                                                <input type="hidden" name="data[email_ini]" value="{{ data.email_ini }}">
+{#
+                                                {% if (data.action == 'delete') %}
+                                                    <input type="hidden" name="email_second" value="{{ reg.email }}">
+                                                {%  else %}
+
+                                                    <div class="form-group">
+                                                        <label class="col-12" for="email_second">{{ lang.USER_REPEAT_EMAIL }}:</label>
+                                                        <input type="email"
+                                                               class="form-control"
+                                                                {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                               id="email_second"
+                                                               name="email_second"
+                                                               value="{{ data.email_second }}"
+                                                               placeholder="{{ lang.APP_REPEAT_EMAIL }}">
+                                                    </div>
+                                                {%  endif %}
+#}
+                                                <div class="form-group">
+                                                    <label class="col-12" for="user_locale">{{ lang.USER_LANGUAGE }}:</label>
+                                                    <select class="form-control"
+                                                            id="user_locale"
+                                                            name="locale"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ user.locale }}"
+                                                            placeholder="{{ lang.LANG_SELECT }}">
+                                                        {{ data.locale_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                {% if (data.action == 'edit' and reg.activation_key != '') %}
+                                                    <div class="form-group">
+                                                        <label class="col-12" for="activation_key">{{ lang.USER_ACTIVATION_KEY }}:</label>
+                                                        <input type="text"
+                                                                id="user_activation_key"
+                                                                name="activation_key"
+                                                                maxlength="10"
+                                                                readonly="readonly"
+                                                                value="{{ reg.activation_key }}">
+                                                    </div>
+                                                {% endif %}
+
+                                                {% if (data.action != 'delete') %}
+                                                    {% if user_group == '1' or user_group == '2' %}
+                                                        <div class="form-group row">
+                                                            <div class="col-1 align-content-end">
+                                                                <label class="switch align-self-start">
+                                                                    <input type="checkbox"
+                                                                           class="switch_input"
+                                                                           id="show_to_staff"
+                                                                           name="show_to_staff"
+                                                                           {% if (reg.show_to_staff == '1') %}checked="checked"{%  endif %}
+                                                                           value="{{ reg.show_to_staff }}"
+                                                                    >
+                                                                    <span class="slider round"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-label col-5 ml-20 my-auto mx-right" for="show_to_staff">{{ lang.USER_SHOW_TO_STAFF }}</div>
+                                                        </div>
+                                                    {%  else %}
+                                                        <input type="hidden" name="show_to_staff" value="{{ reg.show_to_staff }}">
+                                                    {% endif %}
+                                                {% endif %}
+
+                                                <div class="form-group row">
+                                                    <div class="col-1 align-content-end">
+                                                        <label class="switch align-self-start">
+                                                            <input type="checkbox"
+                                                                   class="switch_input"
+                                                                   id="active"
+                                                                   name="active"
+                                                                   {% if (reg.active == '1') %}checked="checked"{%  endif %}
+                                                                   value="{{ reg.active }}"
+                                                            >
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-label col-5 ml-20 my-auto mx-right" for="active">{{ lang.USER_ACTIVE }}</div>
+                                                </div>
+                                                <input type="hidden" name="data[active_ini]" value="{{ data.active_ini }}">
+
+                                                {% if ( data.action == 'add' ) %}
+                                                    <div class="form-group row">
+                                                        <div class="form-label col-3 my-auto mx-left" for="send_email">{{ lang.ACCOUNT_CUSTOMER_SEND_MAIL }}</div>
+                                                        <div class="col-2 align-content-end">
+                                                            <label class="switch align-self-end">
+                                                                <input type="checkbox"
+                                                                       class="switch_input"
+                                                                       id="send_email"
+                                                                       name="send_email"
+                                                                       {% if (data.send_email == '1') %}checked="checked"{%  endif %}
+                                                                       value="{{ data.send_email }}"
+                                                                >
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div id="senMailHelp" class="col-11 form-text font-color-grey">{{ lang.ACCOUNT_CUSTOMER_SEND_MAIL_HELP | raw }}</div>
+                                                    </div>
+                                                {% endif %}
+
+                                            </div>{# <div class="col-md-8 offset-md-2"> #}
+                                        </div>{# <div class="row"> #}
+
+                                    </div>{# <div class="tab-pane fade show active p-3" id="user" role="tabpanel"> #}
+
+                                    <div class="tab-pane fade show p-3 {% if data.action != 'add' and not reg.active %}reg_not_active{% else %}reg_active{% endif %}" id="tab-profile" role="tabpanel">
+
+                                        {#<h5 class="card-title text-center">{{ lang.USER_TAB_PROFILE }}</h5>#}
+
+                                        <div class="row">
+                                            <div class="col-md-8 offset-md-2">
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="address">{{ lang.USER_PROFILE_ADDRESS }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="user_profile_address"
+                                                           name="user_profile[address]"
+                                                           minlength="4"
+                                                           maxlength="255"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ user_profile.address }}"
+                                                           placeholder="{{ lang.ENTER_ADDRESS }}">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="post_code">{{ lang.USER_PROFILE_POST_CODE }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="user_profile_post_code"
+                                                           name="user_profile[post_code]"
+                                                           minlength="4"
+                                                           maxlength="10"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ user_profile.post_code }}"
+                                                           placeholder="{{ lang.ENTER_POST_CODE }}">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="country">{{ lang.COUNTRY }}:</label>
+                                                    <select class="form-control"
+                                                            id="country"
+                                                            name="user_profile[country]"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ user_profile.country }}"
+                                                            placeholder="{{ lang.COUNTRY_SELECT }}">
+                                                        {{ data.country_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="region">{{ lang.REGION }}:</label>
+                                                    <select class="form-control"
+                                                            id="region"
+                                                            name="user_profile[region]"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ user_profile.region }}"
+                                                            placeholder="{{ lang.SELECT_REGION }}">
+                                                        {{ data.region_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="city">{{ lang.CITY }}:</label>
+                                                    <select class="form-control"
+                                                            id="city"
+                                                            name="user_profile[city]"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ user_profile.city }}"
+                                                            placeholder="{{ lang.SELECT_CITY }}">
+                                                        {{ data.city_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group" id="alt_city_div">
+                                                    <label class="col-12" for="alt_city">{{ lang.CITY_ALT_CITY }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="alt_city"
+                                                           name="user_profile[alt_city]"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ user_profile.alt_city }}"
+                                                           placeholder="{{ lang.ENTER_CITY }}">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="phone">{{ lang.USER_PROFILE_PHONE }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="user_profile_phone"
+                                                           name="user_profile[phone]"
+                                                           maxlength="15"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ user_profile.phone }}"
+                                                           placeholder="{{ lang.ENTER_PHONE }}">
+                                                </div>
+
+                                            </div>{# <div class="col-md-8 offset-md-2"> #}
+                                        </div>{# <div class="row"> #}
+
+                                    </div>{# <div class="tab-pane fade show p-3" id="profile" role="tabpanel"> #}
+
+                                    <div class="tab-pane fade show p-3 {% if data.action != 'add' and not reg.active %}reg_not_active{% else %}reg_active{% endif %}" id="tab-photo" role="tabpanel">
+
+                                        {#<h5 class="card-title text-center">{{ lang.USER_TAB_PHOTO }}</h5>#}
+
+                                        <div class="row">
+                                            <div class="col-9 mx-auto">
+
+                                                <div class="form-group">
+                                                    {# File upload start #}
+                                                    {# Files labels names #}
+                                                    {% set labels = [ "", lang.USER_PROFILE_PICTURE] %}{# start with "" because array indexes starts with 0 #}
+                                                    {# Using for indexes matching twig files array and php $files array#}
+                                                    {# js expects this index #}
+                                                    {% for i in 1..1 %}
+                                                        {# user_profile.photo #}
+                                                        {# Files hidden field - Database field name #}
+                                                        {#<input type="hidden" name="{{ files[i].view_array_name }}[{{ files[i].view_field }}]" id="{{ files[i].input_id }}" value="{{ attribute(_context[files[i].view_array_name], files[i].view_field) }}" />#}
+                                                        {# Files hidden field - File name and extension #}
+                                                        <input type="hidden" name="{{ files[i].input_name }}_name" id="{{ files[i].input_id }}_name" value="{{ files[i].file_name }}" />
+                                                        <input type="hidden" name="{{ files[i].input_name }}_extension" id="{{ files[i].input_id }}_extension" value="{{ files[i].file_extension }}" />
+                                                        {% if ( data.action != 'delete' ) %}
+                                                            <div id="file-div-{{ i }}" class="form-group file-div" data-item="{{ i }}">
+                                                                <label class="control-label" for="file_upload_{{ i }}">{{ labels[i] }}:</label>
+                                                                <div class="row">
+                                                                    <div class="col-8 mx-auto">
+                                                                        <div id="file-holder-{{ i }}" class="dropBox" title="{{ lang.FILE_CLICK_DROP_IMAGE_CHANGE }}">
+                                                                        </div>
+                                                                        <div id="dropBox_{{ i }}" class="dropBox dropBoxdrop mx-auto">
+                                                                            <p>{{ lang.FILE_DROP_SELECT }}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div id="fileBox_{{ i }}" style="display: none">
+                                                                    <input type="file"
+                                                                           name="file_input_{{ i }}"
+                                                                           id="file_input_{{ i }}"
+                                                                           data-item="{{ i }}"
+                                                                            {# multiple #} />
+                                                                </div>
+                                                            </div>
+                                                        {% else %}
+                                                            <label class="control-label" for="file_upload">{{ labels[i] }}:</label>
+                                                            <div class="row">
+                                                                <div class="col-8 mx-auto">
+                                                                    <div id="file-holder-{{ i }}">
+                                                                        <img src="{{ files[i].file_link }}"
+                                                                             class="img-fluid"
+                                                                             style="width: 100%;">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                    {# File upload end #}
+                                                </div>
+
+                                            </div>{# <div class="col-md-8 offset-md-2">#}
+                                        </div>{# <div class="row"> #}
+
+                                    </div>{# <div class="tab-pane fade show p-3" id="tab-photo" role="tabpanel"> #}
+
+                                    {% if user_group == '1' or user_group == '2' or user_group == '3' %}
+                                        <div class="tab-pane fade show p-3 {% if data.action != 'add' and not reg.active %}reg_not_active{% else %}reg_active{% endif %}" id="tab-notes" role="tabpanel">
+
+                                            {#<h5 class="card-title text-center">{{ lang.USER_TAB_NOTES }}</h5>#}
+
+                                            <div class="row">
+                                                <div class="col-9 mx-auto">
+
+                                                    {% for user_notes_item in user_notes %}
+
+                                                        <div class="form-group" style="width: 100%;">
+                                                            <label class="form-label" for="user_notes_{{ user_notes_item.id }}">{{ lang.USER_NOTES }} - {{ user_notes_item.group|getGroupName }} :</label>
+                                                            <textarea
+                                                                    class="form-control"
+                                                                    id="user_notes_{{ user_notes_item.id }}"
+                                                                    name="user_notes[{{ user_notes_item.id }}][notes]"
+                                                                    {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                    style="height: 300px;"
+                                                                    placeholder="{{ lang.USER_NOTES }}">{{ user_notes_item.notes }}</textarea>
+                                                        </div>
+
+                                                        <input type="hidden" name="user_notes[{{ user_notes_item.id }}][group]" value="{{ user_notes_item.group }}">
+                                                        
+                                                    {% endfor %}
+
+                                                </div>{# <div class="col-md-8 offset-md-2">#}
+                                            </div>{# <div class="row"> #}
+
+                                        </div>{# <div class="tab-pane fade show p-3" id="tab-notes" role="tabpanel" aria-labelledby="notes-tab"> #}
+                                    {% endif %}
+
+                                    {#
+                                        {% if (data.action != 'add') %}
+                                            {% if user_group == '1' or user_group == '2' %}
+
+                                                <div class="tab-pane fade show p-3 {% if data.action != 'add' and not reg.active %}reg_not_active{% else %}reg_active{% endif %}" id="tab-register" role="tabpanel" aria-labelledby="register-tab">
+
+                                                    {#<h5 class="card-title text-center">{{ lang.ENTITY_TAB_REGISTER }}</h5>
+
+                                                    <div class="row">
+                                                        <div class="col-md-8 offset-md-2">
+
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="createdby">{{ lang.APP_CREATED_BY }}:</label>
+                                                                {{ reg.createdby }}
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="createddate">{{ lang.APP_CREATED_DATE }}:</label>
+                                                                {{ reg.createddate }}
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="updatedby">{{ lang.APP_UPDATED_BY }}:</label>
+                                                                {{ reg.updatedby }}
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="updateddate">{{ lang.APP_UPDATED_DATE }}:</label>
+                                                                {{ reg.updateddate }}
+                                                            </div>
+
+                                                        </div>{# <div class="col-md-8 offset-md-2">
+                                                    </div>{# <div class="row">
+
+                                                </div>{# <div class="tab-pane fade show p-3" id="tab-register" role="tabpanel" aria-labelledby="register-tab">
+                                            {% endif %}
+                                        {% endif %}
+                                        #}
+
+                                </div>{# <div class="tab-content mt-3"> #}
+
+                            </div>{# <div class="card-body"> #}
+                        </div>{# <div class="card"> #}
+
+                    </div>{# <div class="col-8 mx-auto"> #}
+                </div>{# <div class="row"> #}
+
+                <div class="row">
+                    <div class="col-12 my-4 text-center">
+                        <button type="button" name="btn_submit" id="btn_submit" class="btn btn-info" value="1">{% if (data.action == 'delete') %}{{ lang.DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.SAVE }}{%  endif %}</button>
+                        <button type="button" name="btn_cancel" id="btn_cancel" class="btn btn-info" formnovalidate>{{ lang.BACK_TO_LIST }}</button>
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="{{ reg.id }}">
+                <input type="hidden" name="user_key" value="{{ reg.user_key }}">
+                <input type="hidden" name="user_profile[id]" value="{{ user_profile.id }}">
+
+                {# Filters #}
+                {% for filter_name, filter_data in filters %}
+                    {% for filter_data_key, filter_data_data in filter_data %}
+                        <input type="hidden" name="filters[{{ filter_name }}][{{ filter_data_key }}]" id="filter_{{ filter_name }}_{{ filter_data_key }}" value="{{ filter_data_data }}" />
+                    {% endfor %}
+                {% endfor %}
+                {# Pagination #}
+                {% for key, value in pagination %}
+                    <input type="hidden" name="pagination[{{ key }}]" id="{{ key }}" value="{{ value }}" />
+                {% endfor %}
+
+                <input type="hidden" name="auth_token" value="{{ data.auth_token }}" />
+
+            </form>
+
+        </div>{# <div class="col-10 mx-auto"> #}
+    </div>{# <div class="row">#}
+
+</div>{# <div class="container-fluid mb-4"> #}
+
+<div class="clear"></div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/form.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/tabs.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/input_switch.css') }}" type="text/css" />
+    {# File upload start #}
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/files.css') }}" type="text/css" />
+    <style>
+    </style>
+    {# File upload end #}
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+    <script>
+        $(document).ready(function(){
+            {# app/userForm.html.twig #}
+
+            $('#account_fields_div').hide();
+
+        });
+        (function($) {
+            'use strict';
+
+        })(jQuery);
+    </script>
+    <script type="text/javascript">
+        var url_regions_call = '{{ config.locations_api }}/get_regions';
+        var url_cities_call = '{{ config.locations_api }}/get_cities';
+        var api_key = '{{ config.locations_api_key }}';
+        var user_locale = '{{ session[config['cookies_prefix']~'_locale'] }}';
+        var l_working = '{{ lang.WORKING }}';
+        var l_general_error = '{{ lang.GENERAL_ERROR }}';
+        var l_select_country = '{{ lang.COUNTRY_SELECT }}';
+        var l_select_region = '{{ lang.REGION_SELECT }}';
+        var l_select_city = '{{ lang.CITY_SELECT }}';
+        var l_no_regions = '{{ lang.REGION_NOT_FOUND }}';
+        var l_no_cities = '{{ lang.REGION_CITIES_NOT_FOUND }}';
+        var l_not_in_list = '{{ lang.CITY_NOT_IN_THE_LIST }}';
+    </script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/location.jquery.js') }}"></script>
+    <script type="text/javascript">
+        var folder = '{{ session[config['cookies_prefix']~'_folder'] }}';
+        var entity = '{{ entity }}';
+        var action = '{{ data.action }}';
+        var cancel = '{{ cancel }}';
+        var reg_id = '{{ reg.id }}';
+        var l_errors_found = '{{ lang.ERRORS_FOUND }}';
+        var l_form_has_errors = '{{ lang.ERRORS_FORM }}';
+    </script>
+    {# File upload start #}
+    <script type="text/javascript">
+        {# Files texts #}
+        var l_file_drop_here = '{{ lang.FILE_DROP_HERE }}';
+        var l_file_drop_select = '{{ lang.FILE_DROP_SELECT }}';
+        var l_file_drop_click = '{{ lang.FILE_DROP_CLICK }}';
+        var l_file_drop_selected = '{{ lang.FILE_DROP_SELECTED }}';
+        var l_err_ajax_error = '{{ lang.ERR_AJAX_ERROR }}';
+        var l_file_not_suitable = '{{ lang.FILE_NOT_SUITABLE }}';
+        {# Make a js array with twig array#}
+        var files_array_input_id = 0;
+        var files_array_input_name = 1;
+        var files_array_required = 2;
+        var files_array_file_name = 3;
+        var files_array_file_extension = 4;
+        var files_array_file_link = 5;
+        var files_array_image_height = 6;
+        var files_array_image_width = 7;
+        var files_array = new Array("");
+        {% for file in files %}
+            var file_item = new Array(
+                                    "{{ file.input_id }}",
+                                    "{{ file.input_name }}",
+                                    "{{ file.input_required }}",
+                                    "{{ file.file_name }}",
+                                    "{{ file.file_extension }}",
+                                    "{{ file.file_link }}",
+                                    "{{ file.image_height }}",
+                                    "{{ file.image_width }}",
+            );
+            files_array.push(file_item);
+        {% endfor %}
+        var num_files = files_array.length - 1;
+        {#
+        files_array.forEach(myFunction);
+        function myFunction(value) {
+            //console.log(value);
+        }
+        #}
+    </script>
+    {# File upload end #}
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/forms.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/input_switch.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/scrool-to-top.js') }}"></script>
+    <script type="text/javascript">
+        var l_age = '{{ lang.USER_PROFILE_DOB_AGE }}';
+    </script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/userForm.js') }}"></script>
+{% endblock %}

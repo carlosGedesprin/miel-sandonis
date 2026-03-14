@@ -1,0 +1,49 @@
+{% set path = '/assets/images/web/'~config.website_skin~'/bands/solutions/' %}
+{% set img_1 = path ~ 'solution_invoices.png' %}
+
+
+<section id="solution_invoices_explain" class="web_section">
+    <div id="solution_invoices_explain_container" class="web_container">
+        <div id="solution_invoices_explain_content" class="web_content">
+
+            <div id="solution_invoices_explain_wrapper" class="web_wrapper">
+
+                <div id="solution_invoices_explain_image">
+                    <img id="solution_invoices_explain_img"
+                         src="{{ img_1 }}"
+                         decoding="async"
+                         alt="">
+                </div>
+                <div id="solution_invoices_explain_texts">
+                    <div id="solution_invoices_explain_title">
+                        <h2>
+                            Cómo funciona {#Asistente personal#}
+                        </h2>
+                    </div>
+                    <div id="solution_invoices_explain_texts_texts">
+                        <div id="solution_invoices_explain_subtext">
+                            <h3>Tu asistente personal conectado a tu negocio.</h3>
+                        </div>
+                        <div id="solution_invoices_explain_text_p">
+                            <p>
+                                Tu equipo no necesita nuevos portales, usuarios ni procesos complicados. Simplemente usa los canales que ya conoce —WhatsApp y Telegram— y la automatización se encarga del resto.{#Haz una petición desde WhatsApp, Slack o Telegram y genera tareas, correos, citas o informes automáticamente.<br>#}
+                            </p>
+                            <p>
+                                {#¿Necesitas que el bot recuerde información específica de tu negocio?<br>
+                                Podemos activar la <strong>memoria RAG</strong> y conecta tu documentación (PDFs, Notion, webs, etc.) para que responda con rapidez y precisión.#}
+                            </p>
+                        </div>
+                        {#
+                        <div id="solution_invoices_explain_button" class="generic_button">
+                            <a href="/{{ lang.WEB_MENU_CONTACT_LINK }}">
+                                Contratar &gt;
+                            </a>
+                        </div>
+                        #}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,42 @@
+
+{% set image_article = path_blog_images ~ article.picture %}
+{#
+    article.category
+    article.metadescription
+#}
+<section id="blog_article" class="web_section">
+    <div id="blog_article_container" class="web_container">
+        <div id="blog_article_content" class="web_content">
+
+            {% if article.id %}
+                <div id="blog_article_image">
+                    <img src="{{ image_article }}" alt="{{ article.picture_alt_text }}">
+                </div>
+                {#
+                <div id="blog_article_title">
+                    {{ article.title | raw }}
+                </div>
+                #}
+                <div id="blog_article_article">
+                    {{ article.text | raw }}
+                </div>
+                {#
+                <div id="blog_article_date">
+                    {{ lang.BLOG_ARTICLE_DATE_PUBLISHED }}:{{ article.date }}
+                </div>
+                <div id="blog_article_author">
+                    {{ lang.BLOG_ARTICLE_AUTHOR }}: {{ article.author }}
+                </div>
+                <div id="blog_article_visits">
+                    {{ lang.BLOG_ARTICLE_VISITS }}: {{ article.visits }}
+                </div>
+                #}
+            {% else %}
+                <div id="blog_article_not_found">
+                    {{ lang.BLOG_ARTICLE_NOT_FOUND }}
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+</section>

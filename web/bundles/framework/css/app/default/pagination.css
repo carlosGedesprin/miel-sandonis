@@ -1,0 +1,97 @@
+/* Search box styles */
+::-ms-clear {
+    display: none;
+}
+.form-control-clear {
+    z-index: 10;
+    pointer-events: auto;
+    cursor: pointer;
+}
+/* Pagination styles */
+ul ul{
+    list-style-type: circle;
+}
+li{
+    display: list-item;
+}
+input{
+    font-weight: normal;
+    vertical-align: middle;
+    font-size: 2em;
+}
+input[type="button"], input[type="submit"], input[type="checkbox"], input[type="radio"]{
+    cursor: pointer;
+}
+.inputbox{
+    border: 1px solid #b4bac0;
+    padding: 2px;
+    background-color: #FFFFFF;
+    color: #333333;
+}
+.input[type="number"]{
+    -moz-padding-end: inherit;
+}
+.input.button1, .input.button2{
+    font-size: 1em;
+    width: auto !important;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    background: transparent none repeat-x top left;
+}
+.pagination{
+    float: right;
+    margin-top: 3px;
+    text-align: right;
+    width: auto;
+}
+.pagination > ul{
+    list-style: none !important;
+}
+.pagination > ul > li{
+    display: inline-block !important;
+    padding: 0;
+    font-size: 100%;
+    line-height: normal;
+    vertical-align: middle;
+}
+.pagination li a, .pagination li span{
+    border: 1px solid transparent;
+    border-radius: 2px;
+    display: block;
+    line-height: 1.4em;
+    min-width: 10px;
+    padding: 3px;
+    text-align: center;
+    text-decoration: none;
+}
+.pagination li a{
+    background-color: #00ffff;
+    border-color: #b4bac0;
+    color: #5c758c;
+}
+.pagination li a, .pagination li span{
+    border: 1px solid transparent;
+    border-radius: 2px;
+    display: block;
+    font-size: 0.9em;
+    font-weight: normal;
+    line-height: 1.4em;
+    min-width: 25px;
+    text-align: center;
+    text-decoration: none;
+}
+.pagination li.next a, .pagination li.previous a, .pagination li.page-jump a{
+    background-repeat: no-repeat;
+    font-size: 0;
+    height: 13px;
+}
+.pagination li.page-jump{
+    width: 24px;
+    margin-right: 5px;
+    background-position: 0 2px;
+}
+.pagination li.active span{
+    background-color: #4692bf;
+    border-color: #4692bf;
+    color: #FFFFFF;
+}

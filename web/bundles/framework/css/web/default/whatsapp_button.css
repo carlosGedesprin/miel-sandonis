@@ -1,0 +1,115 @@
+#contact-wa
+{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin-bottom: 15px;
+}
+#contact-wa > #wa-icon
+{
+    padding: 3px 15px; 
+    border-radius: 35px; 
+    background-color: #25D366; 
+    color: #fff; 
+    text-decoration: none; 
+    font-family: sans-serif; 
+    font-size: 40px;
+    cursor: pointer;
+}
+#contact-wa > #wa-icon:hover
+{
+    background-color: #198842;
+}
+#contact-wa > #wa-icon:focus
+{
+    background-color: #198842;
+}
+#contact-wa > #wa-icon.deactivated
+{
+    display: none;
+}
+#contact-wa > #wa-link-container
+{
+    display: none;
+    margin-left: 10px;
+}
+#contact-wa > #wa-link-container.active
+{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 30px 5px #7E7E7E;
+    -webkit-box-shadow: 0px 0px 30px 5px #7E7E7E;
+    border-radius: 10px;
+    overflow: hidden;
+}
+#contact-wa #wa-link-container.active #wa-link-header
+{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+    color: #fff;
+    background-color: #25D366;
+    padding: 15px 26px;
+    width: 100%;
+}
+#contact-wa #wa-link-container.active #wa-link-header #wa-link-wa-svg
+{
+    fill: #ffffffc4;
+}
+#contact-wa #wa-link-container.active #wa-link-header #wa-link-close
+{
+    padding: 7px 14px;
+    border-radius: 25px;
+    background-color: #0000007e;
+    cursor: pointer;
+}
+#contact-wa #wa-link-container.active #wa-link-content
+{
+    padding: 15px;
+    background-color: #fff;
+}
+#contact-wa #wa-link-container.active #wa-link-content #wa-link-message
+{
+    position: relative;
+    min-height: 60px;
+    padding: 17px 20px;
+    margin: 0 26px 26px;
+    border-radius: 32px;
+    background: #fff;
+    color: #4a4a4a;
+    word-break: break-word;
+    filter: drop-shadow(0 1px 2px rgb(0 0 0 / 30%));
+    transform: translateZ(0);
+}
+#contact-wa #wa-link-container.active #wa-link-content #wa-link-message::before
+{
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 15px;
+    left: -10px;
+    width: 17px;
+    height: 25px;
+    background: linear-gradient(to bottom right, transparent 0%, transparent 50%, #fff 50%, #fff 100%);
+}
+#contact-wa #wa-link-container.active #wa-link-content #wa-link
+{
+    background-color: #25D366;
+    padding: 10px 25px;
+    border-radius: 35px; 
+    color: #fff; 
+    text-decoration: none;
+    font-weight: bold;
+}
+#contact-wa #wa-link-container.active #wa-link-content #wa-link:hover
+{
+    background-color: #198842;
+}
+#contact-wa #wa-link-container.active #wa-link-content #wa-link:focus
+{
+    background-color: #198842;
+}

@@ -1,0 +1,38 @@
+{% extends 'app/' ~ config.app_skin ~ '/emails/emailBase.html.twig' %}
+{# app/Resources/views/emails/user_pass_change.html.twig #}
+{% set email_ref = 'user_pass_change' %}
+
+{% block body %}
+<table class="container" width="800" border="0">
+    <tr>
+        <td style="padding-top:20px;">
+            <table width="100%">
+                <tr>
+                    <td class="mail_text">
+                        {{ lang.MAIL_SECURITY_CHANGE_PASS_EXP | raw }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mail_text">
+                        {{ lang.MAIL_SECURITY_CHANGE_PASS_EXP_1 | raw }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mail_text">
+                        {{ lang.MAIL_SECURITY_CHANGE_PASS_EXP_2 | raw }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mail_padding_link">
+                        <a href="{{ data.confirmation_link }}" class="mail_link">
+                            <div class="mail_button">
+                                {{ lang.MAIL_SECURITY_CHANGE_PASS_LINK_TEXT | raw }}
+                            </div>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+{% endblock %}

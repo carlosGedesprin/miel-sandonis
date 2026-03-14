@@ -1,0 +1,56 @@
+{% set path = '/assets/images/web/'~config.website_skin~'/bands/template/' %}
+{% set img_1 = path ~ 'image_1.png' %}
+
+<section id="template_hero" class="web_section">
+    <div id="template_hero_container" class="web_container">
+        <div id="template_hero_content" class="web_content">
+
+                <div id="template_hero_template_title">
+                    template_hero
+                </div>
+
+            <div id="template_hero_wrapper" class="web_wrapper">
+                <div id="template_hero_left">
+                    <h1>
+                        Altira Automations:
+                    </h1>
+                    <h2>
+                        Innovación y Control Inteligente para tu Empresa
+                    </h2>
+                    <p>
+                        Soluciones avanzadas de automatización que transforman procesos empresariales.
+                    </p>
+                    <p>
+                        Maximizamos eficiencia y reducimos costes operativos.
+                    </p>
+                    <div id="template_hero_buttons">
+                        <a id="template_hero_button_demo"
+                           class="template_hero_button"
+                           href="/{{ lang.WEB_MENU_CONTACT_LINK }}"
+                           title="{{ lang.WEB_MENU_CONTACT_TITLE }}"
+                        >
+                            Solicitar Demo
+                        </a>
+                        <a id="template_hero_button_solutions"
+                           class="template_hero_button"
+                           href="/{{ lang.WEB_MENU_SOLUTIONS_LINK }}"
+                           title="{{ lang.WEB_MENU_SOLUTIONS_TITLE }}"
+                        >
+                            Conoce nuestras soluciones
+                        </a>
+                    </div>
+                </div>
+                <div id="template_hero_right">
+                    <div id="template_hero_image">
+                        <img id="hero_main_image_img"
+                             src="{{ img_1 }}"
+                             decoding="async"
+                             alt=""
+                        >
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

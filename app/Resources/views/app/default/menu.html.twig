@@ -1,0 +1,320 @@
+
+<nav class="navbar navbar-expand-lg navbar-light">
+    <button class="navbar-toggler navbar-toggler-right"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbar"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/home">
+        <img id="identification_image"
+             src="/assets/images/web/{{ config.website_skin }}/logo.png"
+             alt="Logo {{ config.web_name }}"
+             width="80px"
+             data-retina="true" >
+    </a>
+    <div class="collapse navbar-collapse justify-content-between" id="navbar">
+        <ul class="navbar-nav" style="padding-left: 50px;">{# left side #}
+            {% if session[config['cookies_prefix']~'_CurUser'] %}
+                {# SuperAdmin or Admin or Staff #}
+                {% if session[config['cookies_prefix']~'_UserGroup'] == group_super_admin or session[config['cookies_prefix']~'_UserGroup'] == group_admin or session[config['cookies_prefix']~'_UserGroup'] == group_staff %}
+                    {# SuperAdmin or Admin #}
+                    {% if session[config['cookies_prefix']~'_UserGroup'] == group_super_admin or session[config['cookies_prefix']~'_UserGroup'] == group_admin %}
+                            <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle"
+                                       data-toggle="dropdown"
+                                       aria-haspopup="true"
+                                       aria-expanded="false">{{ lang.APP_SYSTEM }} <span class="caret"></span></a>
+                                    <div class="dropdown-menu dropdown-menu-lg-left dropdown-secondary">
+                                        <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.BOTS_LINK }}" >{{ lang.APP_BOTS }}</a>
+                                        <hr>
+                                        <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.CRON_PROCESS_LINK }}" >{{ lang.APP_CRON }}</a>
+                                        {% if session[config['cookies_prefix']~'_UserGroup'] == group_super_admin %}{# SuperAdmin #}
+                                            <hr>
+                                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/clean_cookies" >{{ lang.APP_CLEAN_COOKIES }}</a>
+                                            <hr>
+                                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/config" >{{ lang.APP_CONFIG }}</a>
+                                        {%  endif %}
+                                    </div>
+                            </li>
+                    {% endif %}
+                    {% if session[config['cookies_prefix']~'_UserGroup'] == group_super_admin or session[config['cookies_prefix']~'_UserGroup'] == group_admin %}{# SuperAdmin or Admin #}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"
+                               data-toggle="dropdown"
+                               aria-haspopup="true"
+                               aria-expanded="false">{{ lang.APP_AUX_TABLES }} <span class="caret"></span></a>
+                            <div class="dropdown-menu dropdown-menu-lg-left dropdown-secondary">
+                                {#
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/product_types">{{ lang.PRODUCT_TYPE }}</a>
+                                <hr>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/quote_types">{{ lang.QUOTE_TYPES }}</a>
+                                <hr>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/payment_types">{{ lang.PAYMENT_TYPES }}</a>
+                                <hr>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.APP_WCAG_TECHNIQUE_SECTIONS_LINK }}">{{ lang.APP_WCAG_TECHNIQUE_SECTIONS_TEXT }}</a>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.APP_WCAG_TECHNIQUE_LINK }}">{{ lang.APP_WCAG_TECHNIQUE_TEXT }}</a>
+                                <hr>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/wcag_report_types">{{ lang.WCAG_REPORT_TYPES }}</a>
+                                <hr>
+                                #}
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/langs">{{ lang.LANGS }}</a>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/langtexts">{{ lang.LANG_TEXTS }}</a>
+                                <hr>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.PRODUCT_TYPES_LINK }}">{{ lang.PRODUCT_TYPES }}</a>
+                                <hr>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.VAT_TYPES_LINK }}">{{ lang.VAT_TYPES }}</a>
+                                <hr>
+                                <a class="dropdown-item" href="/app/payment_types">{{ lang.PAYMENT_TYPES }}</a>
+                                <hr>
+                                <a class="dropdown-item" href="/app/{{ lang.CREDENTIAL_TYPES_LINK }}">{{ lang.CREDENTIAL_TYPES }}</a>
+                                <hr>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.COUNTRIES_LINK }}">{{ lang.COUNTRIES }}</a>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.REGIONS_LINK }}">{{ lang.REGIONS }}</a>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.CITIES_LINK }}">{{ lang.CITIES }}</a>
+                                <hr>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.SPAMMERS_LINK }}">{{ lang.SPAMMERS }}</a>
+                                <hr>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.SITEMAPS_LINK }}">{{ lang.APP_SITEMAPS }}</a>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">{{ lang.APP_TABLES }} <span class="caret"></span></a>
+                        <div class="dropdown-menu dropdown-menu-lg-left dropdown-secondary">
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.SECTORS_LINK }}">{{ lang.SECTORS }}</a>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.SUB_SECTORS_LINK }}">{{ lang.SUB_SECTORS }}</a>
+                            <hr>
+                            {#
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/userskins">{{ lang.USER_SKINS }}</a>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/templates">{{ lang.TEMPLATES }}</a>
+                            <hr>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/paymenttypes">{{ lang.PAYMENT_TYPES }}</a>
+                            <hr>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.PLANS_LINK }}">{{ lang.APP_PLANS }}</a>
+                            #}
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.PRODUCTS_LINK }}">{{ lang.APP_PRODUCTS }}</a>
+                            <hr>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.BANK_ACCOUNTS_LINK }}">{{ lang.BANK_ACCOUNTS }}</a>
+                            <hr>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.MAIL_QUEUES_LINK }}">{{ lang.APP_MAIL_QUEUE }}</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">{{ lang.APP_MANAGEMENT }} <span class="caret"></span></a>
+                        <div class="dropdown-menu dropdown-menu-lg-left dropdown-secondary">
+                            {% if session[config['cookies_prefix']~'_UserGroup'] == group_super_admin or session[config['cookies_prefix']~'_UserGroup'] == group_admin %}{# SuperAdmin or Admin #}
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.GROUPS_LINK }}" >{{ lang.APP_GROUPS }}</a>
+                                <hr>
+                            {% endif %}
+                            {% if session[config['cookies_prefix']~'_UserGroup'] == group_super_admin or session[config['cookies_prefix']~'_UserGroup'] == group_admin %}{# SuperAdmin or Admin #}
+                            {% endif %}
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.ACCOUNTS_LINK }}">{{ lang.ACCOUNTS }}</a>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.USERS_LINK }}">{{ lang.APP_USERS }}</a>
+                            <hr>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/account_payment_methods">{{ lang.APP_PAYMENT_METHOD }}</a>
+                            <hr>
+                            {% if session[config['cookies_prefix']~'_UserGroup'] == group_super_admin or session[config['cookies_prefix']~'_UserGroup'] == group_admin %}
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.MYUSERS_LINK }}">{{ lang.APP_STAFF }}</a>
+                                <hr>
+                            {% endif %}
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.LEADS_LINK }}">{{ lang.LEADS }}</a>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.N8N_LEADS_LINK }}">{{ lang.N8N_LEADS }}</a>
+                            {#
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/customers">{{ lang.APP_CUSTOMERS }}</a>
+                            <hr>
+                            #}
+                            {% if session[config['cookies_prefix']~'_UserGroup'] == group_super_admin or session[config['cookies_prefix']~'_UserGroup'] == group_admin %}
+                            {% endif %}
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">{{ lang.APP_SERVICES }} <span class="caret"></span></a>
+                        <div class="dropdown-menu dropdown-menu-lg-left dropdown-secondary">
+                            {% if session[config['cookies_prefix']~'_UserGroup'] == group_super_admin or session[config['cookies_prefix']~'_UserGroup'] == group_admin %}
+                                {#
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/domains">{{ lang.DOMAINS }}</a>
+                                <hr>
+                                #}
+                            {% endif %}
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.AUTOMATIONS_LINK }}">{{ lang.AUTOMATIONS }}</a>
+                            <hr>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.SERVERS_LINK }}">{{ lang.SERVERS }}</a>
+                            <hr>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.RAGS_LINK }}">{{ lang.RAGS }}</a>
+                            <hr>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.RAG_DOCUMENTS_LINK }}">{{ lang.RAG_DOCUMENTS }}</a>
+                            <hr>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.SOLUTIONS_LINK }}">{{ lang.SOLUTIONS }}</a>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.CREDENTIALS_LINK }}">{{ lang.CREDENTIALS }}</a>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.WORKFLOWS_LINK }}">{{ lang.WORKFLOWS }}</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">{{ lang.APP_INVOICING }} <span class="caret"></span></a>
+                        <div class="dropdown-menu dropdown-menu-lg-left dropdown-secondary">
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/quotes">{{ lang.APP_QUOTES }}</a>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/invoices">{{ lang.APP_INVOICES }}</a>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/payments">{{ lang.PAYMENTS }}</a>
+                            <hr>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/payments">{{ lang.APP_PAYMENTS }}</a>
+                            {% if session[config['cookies_prefix']~'_UserGroup'] == group_super_admin or session[config['cookies_prefix']~'_UserGroup'] == group_admin %}
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/payment_transactions">{{ lang.PAYMENT_TRANSACTIONS }}</a>
+                                <hr>
+                                <a class="dropdown-item" href="/app/account_funds">{{ lang.ACCOUNT_FUNDS }}</a>
+                                <a class="dropdown-item" href="/app/lead_fundings">{{ lang.LEAD_FUNDINGS }}</a>
+                                {#
+                                <hr>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/commissions">{{ lang.COMMISSIONS }}</a>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/settlements">{{ lang.SETTLEMENTS }}</a>
+                                #}
+                            {% endif %}
+                            {#
+                            <hr>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/coupons">{{ lang.COUPONS }}</a>
+                            #}
+                        </div>
+                    </li>
+                    {% if session[config['cookies_prefix']~'_UserGroup'] in [group_super_admin, group_admin] %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"
+                               data-toggle="dropdown"
+                               aria-haspopup="true"
+                               aria-expanded="false">{{ lang.APP_RESOURCES }} <span class="caret"></span></a>
+                            <div class="dropdown-menu dropdown-menu-lg-left dropdown-secondary">
+                                {% if session[config['cookies_prefix']~'_UserGroup'] in [group_super_admin, group_admin] %}
+                                    {#
+                                    <a class="dropdown-item" href="/app/n8n_leads">{{ lang.APP_LEADS }}</a>
+                                    <hr>
+                                    <a class="dropdown-item" href="/app/lead_phases">{{ lang.APP_LEAD_PHASES }}</a>
+                                    #}
+                                    <a class="dropdown-item" href="/app/lead_origins">{{ lang.APP_LEAD_ORIGINS }}</a>
+                                    <a class="dropdown-item" href="/app/lead_markets">{{ lang.APP_LEAD_MARKETS }}</a>
+                                    <hr>
+                                    <a class="dropdown-item" href="/app/{{ lang.N8N_WARM_IP_ACCOUNTS_LINK }}">{{ lang.APP_WARM_IP_ACCOUNTS }}</a>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endif %}
+                    {% if session[config['cookies_prefix']~'_UserGroup'] in [group_super_admin, group_admin] %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"
+                               data-toggle="dropdown"
+                               aria-haspopup="true"
+                               aria-expanded="false">{{ lang.APP_BLOG }} <span class="caret"></span></a>
+                            <div class="dropdown-menu dropdown-menu-lg-left dropdown-secondary">
+                                <a class="dropdown-item" href="/app/blog_articles">{{ lang.APP_BLOG_ARTICLES }}</a>
+                                <hr>
+                                <a class="dropdown-item" href="/app/blog_categories">{{ lang.APP_BLOG_CATEGORIES }}</a>
+                                <hr>
+                                <a class="dropdown-item" href="/app/blog_authors">{{ lang.APP_BLOG_AUTHORS }}</a>
+                            </div>
+                        </li>
+                    {% endif %}
+
+                {% endif %}
+                {% if session[config['cookies_prefix']~'_UserGroup'] == group_customer %}
+                    {# 4-customer #}
+                    {#
+                    <li class="nav-item"><a class="nav-link" href="/{{ session[config['cookies_prefix']~'_folder'] }}/widgets">{{ lang.WIDGETS_MY }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/{{ session[config['cookies_prefix']~'_folder'] }}/myusers">{{ lang.USERS_MY }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/{{ session[config['cookies_prefix']~'_folder'] }}/invoices">{{ lang.INVOICES }}</a></li>
+                    #}
+                {% endif %}
+                {#
+                    {% if session[config['cookies_prefix']~'_UserGroup'] == group_super_admin or session[config['cookies_prefix']~'_UserGroup'] == group_admin or session[config['cookies_prefix']~'_UserGroup'] == group_staff %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"
+                               data-toggle="dropdown"
+                               aria-haspopup="true"
+                               aria-expanded="false">{{ lang.APP_ACADEMY }} <span class="caret"></span></a>
+                            <div class="dropdown-menu dropdown-menu-lg-left dropdown-secondary">
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/course_plans">{{ lang.COURSE_PLANS }}</a>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/courses">{{ lang.COURSES }}</a>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/subjects">{{ lang.SUBJECTS }}</a>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/classes">{{ lang.CLASSES }}</a>
+                            </div>
+                        </li>
+                    {% endif %}
+                    {% if session[config['cookies_prefix']~'_UserGroup'] == group_super_admin or session[config['cookies_prefix']~'_UserGroup'] == group_admin or session[config['cookies_prefix']~'_UserGroup'] == group_staff %}
+                            <li class="nav-item"><a class="nav-link" href="/{{ session[config['cookies_prefix']~'_folder'] }}/teachers">{{ lang.APP_TEACHERS }}popo</a></li>
+                    {% endif %}
+                    {% if session[config['cookies_prefix']~'_UserGroup'] == group_super_admin or session[config['cookies_prefix']~'_UserGroup'] == group_admin or session[config['cookies_prefix']~'_UserGroup'] == group_staff or session[config['cookies_prefix']~'_UserGroup'] == group_agent %}
+                            <li class="nav-item"><a class="nav-link" href="/{{ session[config['cookies_prefix']~'_folder'] }}/students">{{ lang.APP_STUDENTS }}</a></li>
+                    {% endif %}
+                    {% if config['ticketing_run'] == '1' %}
+                            {% if session[config['cookies_prefix']~'_UserGroup'] == group_super_admin or session[config['cookies_prefix']~'_UserGroup'] == group_admin or session[config['cookies_prefix']~'_UserGroup'] == group_staff or session[config['cookies_prefix']~'_UserGroup'] == group_customer or session[config['cookies_prefix']~'_UserGroup'] == group_agent %}
+                                    <li class="nav-item"><a class="nav-link" href="/ticketing/">{{ lang.APP_TICKETS }}</a></li>
+                            {% endif %}
+                    {% endif %}
+                #}
+            {% else %}
+                    {# NOBODY HAS TO SEE THIS #}
+                    <li class="nav-item"><a class="nav-link" href="/">{{ lang.APP_HOME }}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/">{{ lang.APP_CONTACT_US }}</a></li>
+            {% endif %}
+        </ul>
+        {# Menu on the right #}
+        {% if session[config['cookies_prefix']~'_CurUser'] %}
+            <ul class="navbar-nav">
+                {% if session[config['cookies_prefix']~'_UserGroup'] != group_super_admin and session[config['cookies_prefix']~'_UserGroup'] != group_admin %}
+                    <li id="dashboard_user_name" class="nav-link">
+                        {{lang.NAVBAR_NAVUSER_NAME }} {{ session[config['cookies_prefix']~'_CurUser'] | getUserName }}
+                    </li>
+                    {% if session[config['cookies_prefix']~'_UserGroup'] != group_staff %}
+                        <li id="btn-dashboard" class="nav-link">
+                            <a class="btn btn-lg btn-outline btn-ml btn-dashboard" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.APP_DASHBOARD_LINK }}" title="{{ lang.APP_DASHBOARD_GOTO }}">{{ lang.APP_DASHBOARD }}</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link">
+                        {#<i class="{{ envelope }}" aria-hidden="true"></i>#}
+                        {#<i class="{{ envelope_o }}" aria-hidden="true"></i>#}
+                    </a>
+                </li>
+                <li class="nav-item avatar dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-343" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {#<img src="/assets/images/avatars/avatar-2.jpg" class="rounded-circle z-depth-0 h-40" alt="avatar image">#}
+                        <img src="/assets/images/avatars/avatar-generic.png"
+                             class="rounded-circle z-depth-0 h-40"
+                             alt="">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary">
+                        {#<a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/dashboard">{{ lang.APP_DASHBOARD }}</a>#}
+                        {% if session[config['cookies_prefix']~'_UserGroup'] == group_super_admin or session[config['cookies_prefix']~'_UserGroup'] == group_admin %}
+                            {#
+                            <hr/>
+                            <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.USERS_MY_LINK }}">{{ lang.USERS_MY }}</a>
+                            #}
+                        {% elseif session[config['cookies_prefix']~'_UserGroup'] == group_customer %}
+                            {% if session[config['cookies_prefix']~'_CurUser'] == session[config['cookies_prefix']~'_CurAccount'] | getAccountMainUser %}
+                                {#<hr/>#}
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.ACCOUNT_MY_LINK }}">{{ lang.ACCOUNT_MY }}</a>
+                                <hr/>
+                                <a class="dropdown-item" href="/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.USERS_MY_LINK }}">{{ lang.USERS_MY }}</a>
+                                <hr/>
+                            {% endif %}                            
+                        {% endif %}
+                        <a class="dropdown-item" href="/{{ lang.APP_LOGOUT_LINK }}">{{ lang.APP_LOGOUT }}</a>
+                    </div>
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+</nav>

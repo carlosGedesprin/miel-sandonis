@@ -1,0 +1,33 @@
+{% extends 'web/default.html.twig' %}
+
+{% set this_page = 'sector' %}
+
+{% block metadescription %}{% if (lang.WEB_METADESCRIPTION_SECTOR ~ data.sector ) != '' %}{{ lang.WEB_METADESCRIPTION_SECTOR ~ data.sector }}{% else %}{{ lang.WEB_METADESCRIPTION_SECTOR }}{% endif %}{% endblock %}
+{% block metarobots %}index, follow{% endblock %}
+{% block title %} {{ lang.WEB_TITLE_SECTOR }} {{ data.sector }} - {{ parent() }}{% endblock %}
+
+{% block rel_alternate_links %}
+    {{ data.canonical | replace({'%this_route%': this_route }) | raw }}
+    {{ data.alternate_langs | replace({'%this_route%': this_route }) | raw }}
+{% endblock %}
+
+{% block body %}
+
+    <main id="sector_main">
+
+		{% include 'web/default/bands/sector_hero.html.twig' %}
+		{% include 'web/default/bands/sector_detail.html.twig' %}
+
+	</main>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/bundles/framework/css/web/{{ config.website_skin }}/bands/sector_hero.css" rel="stylesheet">
+    <link href="/bundles/framework/css/web/{{ config.website_skin }}/bands/sector_detail.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

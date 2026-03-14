@@ -1,0 +1,51 @@
+{% extends 'web/default.html.twig' %}
+
+{% set this_page = 'unsubscribe' %}
+
+{% block rel_alternate_links %}
+    {{ data.canonical | replace({'%this_route%': this_route }) | raw }}
+    {{ data.alternate_langs | replace({'%this_route%': this_route }) | raw }}
+{% endblock %}
+
+{% block body %}
+    <div id="unsubscribe_main" style="min-height: 400px;">
+
+
+        <div class="row">
+            <div class="col-12 mt-100">
+
+                <div class="row">
+                    <div class="col-6 mx-auto">
+                        <div class="alert alert-danger">
+                            Su mail y resto de datos que teníamos asociados a {{ data.email }} han sido eliminados.
+                            <br /><br />
+                            Disculpe las molestias.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/bundles/framework/css/web/default/unsubscribe.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function(){
+
+        });
+        (function($) {
+            'use strict';
+
+        })(jQuery);
+    </script>
+{% endblock %}

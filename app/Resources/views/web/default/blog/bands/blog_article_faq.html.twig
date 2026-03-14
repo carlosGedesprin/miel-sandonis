@@ -1,0 +1,42 @@
+
+{% if article_faqs %}
+    <section id="blog_article_faq" class="web_section">
+        <div id="blog_article_faq_container" class="web_container">
+            <div id="blog_article_faq_content" class="web_content">
+
+                    <div id="blog_article_faq_title">
+                        <h2>
+                            {% if article.faq_title != '' %}{{ article.faq_title }}{% else %}{{ lang.BLOG_ARTICLE_FAQ_TITLE_TEXT | raw }}{% endif %}
+                        </h2>
+                    </div>
+
+                    <div class="blog_article_faq_band">
+                        <div class="blog_article_faq_band_container">
+                            {% for article_faq in article_faqs %}
+
+                                {% if article_faq.question != '' %}
+
+                                    <div class="faq_band_content">
+                                        <div id="blog_article_faq_{{ loop.index }}" class="blog_article_faq_band_question">
+                                            <div class="blog_article_faq_band_question_text bold_text">
+                                                <h3>
+                                                    {{ article_faq.question | raw }}
+                                                </h3>
+                                            </div>
+                                            <div class="faq_band_question_icon">+</div>
+                                        </div>
+                                        <div class="faq_band_reply">
+                                            {{ article_faq.reply | raw }}
+                                        </div>
+                                    </div>
+
+                                {% endif %}
+
+                            {% endfor %}
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    </section>
+{% endif %}

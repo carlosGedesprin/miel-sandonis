@@ -1,0 +1,168 @@
+{% extends 'app/' ~ config.app_skin ~ '/emails/emailBase.html.twig' %}
+{# app/Resources/views/emails/web_contact_sender.html.twig #}
+{% set email_ref = 'web_contact_sender' %}
+
+{# Al visitante #}
+
+{% block body %}
+    <tr>
+        <td style="margin-top: 10px; text-align: left;">
+            <table border="0" cellspacing="0" cellpadding="0" width="800">
+                <tr>
+                    <td class="mail_text">
+                        <p>
+                            {{ lang.MAIL_CONTACT_FAIR_TEXT_1 | replace({'%1$s': config.web_name, '%2$s': 'Technology Show 2025'}) | raw }}{# Thank you so much for visiting the <b>%1$s</b> booth at the <b>%2$s</b>! #}
+                        </p>
+                        <p>
+                            {{ lang.MAIL_CONTACT_FAIR_TEXT_2 | raw }}{# It was a pleasure to share with you our vision on how tailored automation and AI can increase your <b>efficiency</b> and <b>reduce your costs</b>. #}
+                        </p>
+                        <p>
+                            {{ lang.MAIL_CONTACT_FAIR_TEXT_3 | raw }}{# For us, your time is your most valuable asset. That\'s why we want to continue this conversation in a practical way: #}
+                        </p>
+                        <p style="padding-left: 40px; color: #16559C; font-size: 20px; font-weight: bold; line-height: 1.6;">
+                            {{ lang.MAIL_CONTACT_FAIR_TEXT_4 | raw }}{# We invite you to schedule a quick 15-minute meeting with our team. #}
+                        </p>
+                        <div style="text-align: center">
+                            <a href="https://cal.com/altira-automations/auditoria-gratuita"  style="padding: 7px 32px; background-color: #FFFFFF; color: #16559C; border: solid 1px #16559C; font-size: 1.6rem; text-decoration: none; border-radius: 0.35rem;">
+                                {{ lang.MAIL_CONTACT_FAIR_TEXT_5 }}{# Let\s start > #}
+                            </a>
+                        </div>
+                        <p>
+                            {{ lang.MAIL_CONTACT_FAIR_TEXT_6 | raw }}{# It\'s the best way to start designing a flexible solution that\'s 100% tailored to your needs. #}
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mail_text" style="border-bottom: 3px solid #16559C;">
+                        {{ lang.MAIL_CONTACT_MAIL_YOUR_DATA }}: {# You have provided us with this information #}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mail_text">
+                        {{ lang.MAIL_CONTACT_MAIL_YOUR_NAME }}: {{ data.contact_name }}{# Your name#}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mail_text">
+                        {{ lang.MAIL_CONTACT_MAIL_YOUR_EMAIL }}: {{ data.contact_email }}{# Your email#}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mail_text" style="padding-top: 20px">
+                        {{ lang.MAIL_CONTACT_MAIL_YOUR_PHONE }}: {{ data.contact_phone }}{# Your phone#}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mail_text" style="border-bottom: 3px solid #16559C;">
+                {#
+                        {{ lang.MAIL_CONTACT_MAIL_NOTES }}
+                        <p>{{ data.contact_notes | raw }}</p>
+                #}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mail_text">
+                        <p>
+                            {{ lang.MAIL_CONTACT_FAIR_TEXT_7 | replace({'%1$s': env.protocol ~ '://' ~ env.domain}) | raw }}{# You can find more information about our services on <a href="%1$s">our website</a> #}
+                        </p>
+                        <p>
+                            {{ lang.MAIL_CONTACT_FAIR_TEXT_8 | raw }}{# We remain at your disposal. #}
+                        </p>
+                        {#
+                        <p>
+                            {{ lang.MAIL_CONTACT_FAIR_TEXT_9 | raw }}{# Kind regards, @}
+                        </p>
+                        #}
+                    </td>
+                </tr>
+                {#
+                <tr>
+                    <td>
+                        <pre>
+                            {{ dump(data) }}
+                        </pre>
+                    </td>
+                </tr>
+                #}
+                <tr>
+                    <td>
+                        <div id="signature_global">
+                            <div id="signature_box" style="border: solid 1px transparent;">
+                                <table id="table_0" style="width: 520px; box-sizing: border-box; border-collapse: collapse; border-spacing: 0px;">
+                                    <tbody>
+                                    <tr>
+                                        <td style="padding: 0cm; word-break: break-word; width: 246px; height: 150px; box-sizing: border-box; border: solid 1px transparent;">
+                                            <div style="font-family: Arial, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);">
+                                                <span>
+                                                    <img id="img_signature"
+                                                         src="{{ data.image_signature }}"
+                                                         width="120px"
+                                                         style="margin: 0 auto; width: 120px; border: solid 1px transparent;"
+                                                         alt="CEO {{ config.web_name }} - Carlos Cusí"
+                                                    />
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td style="padding: 20px; word-break: break-word; width: 369px; box-sizing: border-box; border: solid 1px transparent;">
+                                            <div style="line-height: normal; margin: 0cm; font-family: Arial, Helvetica, sans-serif; color: rgb(66,84,92);">
+                                                <span style="font-size: 20pt; margin-bottom: 5px;">
+                                                  <b>Carlos Cusí</b>
+                                                </span>
+                                                <span style="font-size: 9.5pt;"><br></span>
+                                                <span style="font-size: 9.5pt; color: rgb(22,85,156);">IA, the new paradigm</span>
+                                            </div>
+                                            {#
+                                            <div style="margin-top: 20px; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 9.5pt; color: rgb(66,84,92);">
+                                                <u>
+                                                    663 42 62 98
+                                                </u>
+                                            </div>
+                                            #}
+                                            <div style="margin-top: 20px; line-height: normal; font-family: Arial, Helvetica, sans-serif; font-size: 9.5pt; color: rgb(66,84,92);">
+                                                <u>
+                                                    <a href="https://cal.com/altira-automations/one-to-one-with-carlos" id="book_a_meeting" style="color: rgb(66,84,92);">
+                                                        ¿Quieres hablar conmigo?
+                                                    </a>
+                                                </u>
+                                            </div>
+                                            <div style="line-height: normal; margin: 0cm; font-family: Arial, Helvetica, sans-serif; font-size: 9.5pt; color: rgb(66,84,92);">
+                                                <u>
+                                                    <a href="mailto:carlos@altiraautomations.com" id="mail_address" style="color: rgb(66,84,92);">
+                                                        carlos@altiraautomations.com
+                                                    </a>
+                                                </u>
+                                            </div>
+                                            <div style="line-height: normal; margin: 0cm; font-family: Arial, Helvetica, sans-serif; font-size: 9.5pt; color: rgb(81, 167, 249);">
+                                                <u>
+                                                    <a href="http://altiraautomations.com" target="_blank" id="web_url" style="color: rgb(66,84,92);">
+                                                        altiraautomations.com
+                                                    </a>
+                                                </u>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="signature_slogan_1" style="border: solid 1px transparent;">
+                                <table id="table_1" style="height: 40px; box-sizing: border-box; border-collapse: collapse; border-spacing: 0px;">
+                                    <tbody>
+                                    <tr>
+                                        <td style="padding: 0; width: 100%; word-break: break-word; box-sizing: border-box; border: solid 1px transparent;">
+                                            <div style="line-height: normal; margin: 0cm; font-family: Arial, Helvetica, sans-serif; color: rgb(22,85,156);">
+                                                <span style="font-size: 12pt; margin-top: 0;">
+                                                  <b>Nuestro trabajo es hacer el tuyo más fácil, <span style="font-size: 15pt; color: rgb(22,85,156);">no lo olvides.</span></b>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+{% endblock %}

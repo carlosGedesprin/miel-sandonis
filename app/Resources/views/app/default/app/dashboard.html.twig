@@ -1,0 +1,26 @@
+{% extends 'app/' ~ config.app_skin ~ '/app.html.twig' %}
+
+{# Actual groups: 1-SuperAdmin 2-Admin 3-Staff 4-Customer #}
+{% if session[config['cookies_prefix']~'_CurUser'] == '1' %}
+    {% set dashboard_name = lang.APP_DASHBOARD_SADMIN %}
+{% elseif session[config['cookies_prefix']~'_CurUser'] == '2' %}
+    {% set dashboard_name = lang.APP_DASHBOARD_ADMIN %}
+{% elseif session[config['cookies_prefix']~'_CurUser'] == '3' %}
+    {% set dashboard_name = lang.APP_DASHBOARD_STAFF %}
+{% endif %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.dashboard_name }}{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-10 offset-1 my-4 p-2 rounded-3 bg-light font-weight-bold">
+                {{ dashboard_name }} - {{ session[config['cookies_prefix']~'_UserName'] }}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

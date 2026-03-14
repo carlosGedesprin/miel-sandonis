@@ -1,0 +1,86 @@
+{% extends 'web/default.html.twig' %}
+
+{% block title %} {{ parent() }} &bull; Mensaje{% endblock %}
+
+{% block body %}
+
+    {# Messaje #}
+
+    <div id="message_container_fluid" class="container-fluid">
+{#
+        <div class="row">
+            <div class="col-12 text-center my-3">
+                <img src="/bundles/framework/images/web/{{ config.website_skin }}/{{ config.web_name }}{{ config.company_header }}" class="img-fluid" />
+            </div>
+        </div>
+#}
+
+        {% if section %}
+            <div class="col-8 offset-2 my-2 p-2 rounded-3 {% if session['ACCSSME_UserGroup'] != '3' %}bg-light{% endif %} font-weight-bold">
+                {{ section }}
+            </div>
+        {% endif %}
+
+        {% if alert_type == 'danger' %}
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="alert bg-red">{{ title }}</div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-12 col-md-6 offset-md-3">
+                <div class="alert alert-{{ alert_type }}">
+                    {{ message|raw }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-3 offset-md-6">
+                <div id="message_redirect" class="alert alert-info">
+                    Redirigiendo...
+                </div>
+            </div>
+        </div>
+
+        <div class="clear my-4 py-4"></div>
+
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/bundles/framework/css/app/default/message.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+
+            {% if env.env_env == 'prod' %}
+            {% endif %}
+
+            $( "a" ).click(function( event ) {
+                event.preventDefault();
+            });
+
+            {% if not redirect_wait %}
+                {% set redirect_wait = '3000' %}
+            {% endif %}
+
+            {% if redirect is defined %}
+                setTimeout(function(){
+                    $('#message_redirect').text('{{ lang.MESSAGE_REDIRECTING }}');
+                }, {{ redirect_wait - 1500 }});
+                setTimeout(function(){
+                    window.location = "{{ redirect }}";
+                }, {{ redirect_wait }});
+            {% endif %}
+
+        });
+    </script>
+{% endblock %}

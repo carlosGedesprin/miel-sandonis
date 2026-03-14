@@ -1,0 +1,112 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'info_payment_free' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.PAYMENT_FREE_TITLE }}{% endblock %}
+
+{% block body %}
+    <div id="info_payment">
+        <div class="container">
+
+
+            <form id="info_payment_free_form"
+                  class="step_form"
+                  method="post">
+            </form>
+
+            <div class="row">
+                <div id="info_payment_main_container" class="col-12">
+                    <div id="info_payment_top_container">
+                        <div class="info_payment_top_container_text">
+                            <h1>
+                                {{ lang.PAYMENT_FREE_HEADER }} Puedes continuar
+                            </h1>
+                        </div>
+                        <div id="info_payment_top_container_icon_container">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    {#
+                    <div id="info_payment_bottom_container">
+                        <div id="info_payment_bottom_container_top_text">
+                            {{ lang.PAYMENT_FREE_INFORM }}{{ data.product_name }}
+                        </div>
+                    </div>
+                    #}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 mx-auto">
+
+                    <div class="d-flex flex-row justify-content-around mt-30">
+                        {% if data.next_action != '' %}
+                            {#
+                            <div id="info_payment_button_next_action">
+                                <div id="info_payment_button_next_action_div">
+                                    <a href="{{ data.next_action }}" class="info_payment_button_next_action_button">
+                                        {{ lang.PAYMENT_NEXT_ACTION | raw }}
+                                    </a>
+                                </div>
+                            </div>
+                            #}
+                            <button type="text"
+                                    id="next_action"
+                                    value="1"
+                                    title="{{ lang.SECURITY_LOGIN }}"
+                                    aria-label="{{ lang.SECURITY_LOGIN }}"
+                                    class="btn btn-info">
+                                {{ lang.SECURITY_LOGIN }}
+                            </button>
+                        {% else %}
+                            <button type="text"
+                                    id="control_panel"
+                                    value="1"
+                                    title="{{ lang.WEB_DASHBOARD }}"
+                                    aria-label="{{ lang.WEB_DASHBOARD }}"
+                                    class="btn btn-info">
+                                {{ lang.WEB_DASHBOARD_GOTO }}
+                            </button>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/css/web/{{ config.website_skin }}/payment.css" rel="stylesheet">
+    <link href="/assets/css/web/{{ config.website_skin }}/payment_info.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script id="view" type="text/javascript">
+        var view = 'info_payment_free';
+    </script>
+    <script>
+        $(document).ready(function(){
+
+        });
+        (function($) {
+            // Avoid conflicts with other libraries
+            'use strict';
+
+            $('#next_action').click(function() {
+                $('#info_payment_free_form').attr('action', '/{{ data.next_action }}');
+                $('#info_payment_free_form').submit();
+            });
+
+            $('#control_panel').click(function() {
+                {#console.log('Link', '/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.WEB_DASHBOARD_LINK }}');#}
+                $('#info_payment_free_form').attr('action', '/{{ session[config['cookies_prefix']~'_folder'] }}/{{ lang.WEB_DASHBOARD_LINK }}');
+                $('#info_payment_free_form').submit();
+            });
+            
+        })(jQuery); // Avoid conflicts with other libraries
+    </script>
+{% endblock %}

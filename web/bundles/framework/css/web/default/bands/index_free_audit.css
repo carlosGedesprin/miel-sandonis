@@ -1,0 +1,31 @@
+
+#index_free_audit {
+}
+#index_free_audit_container {
+}
+#index_free_audit_content {
+    margin-bottom: 50px;
+    flex-direction: column;
+    /*border: solid 1px blue;*/
+}
+#index_free_audit_wrapper {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    /*border: solid 1px orange;*/
+}
+#index_free_audit_button {
+    width: 100%;
+    margin-top: 5px;
+    /*border: solid 1px orange;*/
+}
+@media (min-width: 600px) {
+}
+@media (min-width: 900px) {
+}
+@media (min-width: 1200px) {
+}
+@media (min-width: 1400px) {
+}
+

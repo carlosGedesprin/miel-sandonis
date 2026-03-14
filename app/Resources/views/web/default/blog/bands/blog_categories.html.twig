@@ -1,0 +1,16 @@
+{% set path_images = '/assets/images/web/'~config.website_skin~'/blog/' %}
+
+{% set image_1 = path_images ~ 'imagen.png' %}
+
+<section id="blog_categories" class="row no-gutters">
+    <div id="blog_categories_container" class="col-12">
+        <div id="blog_categories_content">
+            <div id="blog_categories_image">
+                <img src="{{ image_1 }}" alt="">
+            </div>
+            <div id="blog_categories_title">
+                {{ lang.BLOG_CATEGORIES_TITLE | raw }}Categorias
+            </div>
+        </div>
+    </div>
+</section>

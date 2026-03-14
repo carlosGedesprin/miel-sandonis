@@ -1,0 +1,154 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'choose_quote_payment_method' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.PAYMENT_CHOOSE_PAYMENT_METHOD }}{% endblock %}
+
+{% block body %}
+
+    <a href="#" id="topofthepage" aria-label="{{ lang.WEB_TOP_OF_THE_PAGE }}"></a>
+
+    <div id="payment_hero" class="container-fluid">
+        <div id="payment_hero_content">
+            <div id="payment_hero_colum_left">
+                <div id="payment_hero_colum_left_image">
+                    <img src="/assets/images/web/{{ config.website_skin }}/bands/payment_stripe/movil.png" alt="">
+                </div>
+            </div>
+            <div id="payment_hero_colum_right">
+{# **************************************************************************** #}
+                <form id="payment_form" class="payment_hero_form" method="POST">
+                    <div id="payment_choose_method_title">
+                        <h2>
+                            {{ lang.PAYMENT_CHOOSE_PAYMENT_METHOD_SUBTITLE }}
+                        </h2>
+                    </div>
+                    <div id="payment_choose_method_list_cards">
+
+                        <div id="box-result">
+                            <div class="alert">
+                            </div>
+                        </div>
+
+                        {% for payment_method in payment_methods %}
+
+                            <div id="payment_choose_method_list_card_{{ payment_method.key }}" class="payment_choose_method_list_card {% if payment_method.expired == '1' %}payment_choose_method_unactive{% else %}{% if payment_method.preferred == '1' %}payment_choose_method_preferred {% endif %}{% endif %}">
+                                <div class="payment_choose_method_list_card_preferred payment_choose_method_green_mark_big">
+                                    {% if payment_method.expired == '1' %}
+                                        <div class="payment_choose_method_list_card_expired">
+                                            {{ lang.PAYMENT_METHOD_EXPIRED }}
+                                        </div>
+                                    {% else %}
+                                        {% if payment_method.preferred == '1' %}
+                                            <img src="/assets/images/web/{{ config.website_skin }}/mark_green.png" class="payment_choose_method_preferred_img" />
+                                        {% else %}
+                                            &nbsp;
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                                <div class="payment_choose_method_list_card_left">
+                                    <div class="payment_choose_method_list_card_name">
+                                        <div class="payment_choose_method_list_card_name_img">
+                                            {% if payment_method.preferred == '1' %}
+                                                <img src="/assets/images/web/{{ config.website_skin }}/mark_green.png" class="payment_choose_method_preferred_img payment_choose_method_green_mark_small" alt="" />
+                                            {% else %}
+                                                &nbsp;
+                                            {% endif %}
+                                        </div>
+                                        <div class="payment_choose_method_list_card_name_text">
+                                            {{ payment_method.name }}
+                                        </div>
+                                    </div>
+                                    <div class="payment_choose_method_list_card_expires">
+                                        {{ lang.PAYMENT_CHOOSE_PAYMENT_METHOD_LAST_4 }} **** **** **** {{ payment_method.last_4 }}
+                                    </div>
+                                    <div class="payment_choose_method_list_card_expires">
+                                        {{ lang.PAYMENT_CHOOSE_PAYMENT_METHOD_EXP }} {{ payment_method.exp_month }}/{{ payment_method.exp_year }}
+                                    </div>
+                                </div>
+                                <div class="payment_choose_method_list_card_right">
+                                    {% if payment_method.expired == '1' %}
+                                        <div class="payment_choose_method_list_card_pay_button {% if payment_method.expired == '1' %}payment_choose_method_button_unactive{% endif %} loading">
+                                            {{ lang.PAYMENT_CHOOSE_PAYMENT_METHOD_PAY_THIS }}
+                                        </div>
+                                    {% else %}
+                                        <button id="btn_submit_button"
+                                                class="btn_submit payment_choose_method_list_card_pay_button {% if payment_method.expired == '1' %}payment_choose_method_button_unactive{% endif %} loading"
+                                                data-source="{{ payment_method.key }}">
+                                            {{ lang.PAYMENT_CHOOSE_PAYMENT_METHOD_PAY_THIS }}
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <input type="hidden" id="submit" name="submit" value="">
+                        <input type="hidden" id="payment_method" name="payment_method" value="">
+
+                    </div>
+                    <div id="payment_choose_method_new_payment">
+                        <button class="btn_new_card payment_choose_method_list_new_card_button loading">
+                            {{ lang.PAYMENT_CHOOSE_PAYMENT_METHOD_PAY_NEW }}
+                        </button>
+                    </div>
+                </form>
+{# **************************************************************************** #}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/css/web/{{ config.website_skin }}/payment.css" rel="stylesheet">
+    <link href="/assets/css/web/{{ config.website_skin }}/choose_quote_payment_method.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var folder = '{{ session[config['cookies_prefix']~'_folder'] }}';
+        var entity = '';
+        var url_action = '{{ data.url_action }}';
+        var action = '{{ data.action }}';
+        var cancel = '{{ cancel }}';
+        var reg_id = '';
+        var l_errors_found = '{{ lang.ERRORS_FOUND }}';
+        var l_form_has_errors = '{{ lang.ERRORS_FORM }}';
+        var view = 'choose_quote_payment_method';
+    </script>
+    <script type="text/javascript" src="/assets/js/app/{{ config.app_skin }}/forms.js"></script>
+    <script type="text/javascript" src="/assets/js/app/{{ config.app_skin }}/scrool-to-top.js"></script>
+    <script>
+        $(document).ready(function(){
+            {# web/choose_quote_payment_method.html.twig #}
+
+        });
+        (function($) {
+            'use strict';
+
+            $('.loading').on('click', function () {
+                scrool_to_top_of_page();
+                $("#btn_submit_button").hide();
+                $(document.body).prepend('<div id="loading"><div id="loading_div"><div id="loading_div_texts"><p>{{ lang.LOADING_WORKING }}</p><p>{{ lang.LOADING_NOT_RELOAD }}</p><p>{{ lang.LOADING_TAKES_MINUTES }}</p></div><img id="loading_img" src="/assets/images/app/default/loading_icon.webp"></div></div>');
+                $("#loading").css('height', $('body').outerHeight(true));
+                {#console.log('outerHeight', $('body').outerHeight(true), 'w.height', $(window).height(), 'd.height', $(document).height() );#}
+            });
+
+            $('.btn_new_card').click(function(e) {
+                $('#payment_method').attr( 'value', 'new_card' );
+                $('#submit').attr( 'value', '1' );
+                $('#payment_form').submit();
+            });
+
+            $('.btn_submit').click(function(e) {
+                let payment_method = $(this).data('source');
+                //console.log('Payment method', payment_method);
+                $('#payment_method').attr( 'value', payment_method );
+                $('#submit').attr( 'value', '1' );
+                $('#payment_form').submit();
+            });
+
+        })(jQuery);
+    </script>
+{% endblock %}

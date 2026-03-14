@@ -1,0 +1,115 @@
+#template_five {
+    /*border: solid 2px red;*/
+}
+#template_five_container {
+    position: relative;
+    min-height: 500px;
+}
+/*
+#template_five_container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 0;
+}
+*/
+#template_five_content {
+    width: 80%;
+    flex-direction: column;
+    border: solid 1px blue;
+}
+#template_five_wrapper {
+    width: 100%;
+    flex-direction: column;
+    border: solid 1px orange;
+}
+#template_five_template_title {
+    color: var(--cuartiary-color);
+    font-size: 2rem;
+    font-weight: bold;
+}
+#template_five_title {
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    white-space: normal;
+    border: solid 1px blue;
+}
+#template_five_title h2 {
+    color: var(--cuartiary-color);
+}
+#template_five_panels {
+    margin: 0.7rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    list-style: none;
+    border: solid 1px blue;
+}
+.template_five_panel {
+    width: 85vw;
+    /*border: solid 1px var(--cuartiary-color);*/
+    /*border-left:  solid 5px var(--cuartiary-color);*/
+    /*border-radius: var(--box-border-radius);*/
+}
+.template_five_panel_icon {
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    /*border: solid 1px red;*/
+}
+.template_five_panel_ring {
+    display: flex;
+    flex-direction: row;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--tertiary-background);
+    /*border: solid 1px black;*/
+}
+.template_five_panel_icon_img {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    /*border: solid 1px red;*/
+}
+.template_five_panel_number {
+    margin: 5px 10px;
+    font-size: 6rem;
+    font-weight: bold;
+    color: var(--cuartiary-color);
+}
+.template_five_panel_text {
+    margin-top: 20px;
+    color: var(--cuartiary-color);
+}
+#template_five_footer_text {
+    padding: 10px 10px;
+    font-size: 1.37rem;
+    color: var(--cuartiary-color);
+}
+.template_five_footer_text {
+    margin-top: 30px;
+}
+@media (min-width: 900px) {
+    .template_five_panel {
+        width: 35vw;
+    }
+}
+@media (min-width: 1200px) {
+    .template_five_panel {
+        width: 20vw;
+    }
+}

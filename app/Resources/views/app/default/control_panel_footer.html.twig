@@ -1,0 +1,22 @@
+
+    <footer role="contentinfo">
+		{#<span class="footer-link">
+			<a aria-labelledby="{{ lang.HOME }}" href="/">Home</a>
+			<a aria-labelledby="{{ lang.OUR_AIM }}" href="/aim">Our Aim</a>
+			<a aria-labelledby="{{ lang.SOLUTION }}" href="/solution">Our Solution</a>
+			<a aria-labelledby="{{ lang.LAW }}" href="/law">It&#039;s The Law</a>
+			<a aria-labelledby="{{ lang.BENEFITS }}" href="/benefits">Benefits</a>
+			<a aria-labelledby="{{ lang.REPORTS }}" href="/report">Report Site</a>
+			<a aria-labelledby="{{ lang.CONTACT }}" href="/contact">Contact Us</a>
+		</span>
+		<br />
+		<div class="row no-gutters">
+			<div class="col-12 text-center">
+				<span class="footer-title">{{ lang.APP_CONTACT_US }}:</span>
+				<i class="fa fa-phone" aria-hidden="true"></i>&nbsp;{{ config.web_info_phone }}&nbsp;&nbsp;
+				<i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;{{ config.web_info_email }}&nbsp;&nbsp;
+				<i class="fa fa-copyright" aria-hidden="true"></i>&nbsp;{{ "now"|date("Y") }} {{ config.web_name }}. {{ lang.COPYRIGHT }}
+			</div>
+		</div>
+		#}
+    </footer>

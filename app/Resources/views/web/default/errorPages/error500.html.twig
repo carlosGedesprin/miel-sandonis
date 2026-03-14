@@ -1,0 +1,27 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.ERR_RESOURCE_NOT_ALLOWED }}{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-12 mt-100">
+
+            <div class="row">
+                <div class="col-6 mx-auto">
+                    <h1>{{ lang.ERR_RESOURCE_UNDER_MAINTENANCE }}</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 mx-auto">
+                    <div class="alert alert-danger">
+                        {{ lang.ERR_RESOURCE_UNDER_MAINTENANCE | raw }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

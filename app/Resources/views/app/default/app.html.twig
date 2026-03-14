@@ -1,0 +1,180 @@
+{% set user_id = session[config['cookies_prefix']~'_CurUser'] %}
+{% set user_name = session[config['cookies_prefix']~'_UserName'] %}
+{% set user_group = session[config['cookies_prefix']~'_UserGroup'] %}
+
+{% set group_super_admin = '1' %}
+{% set group_admin = '2' %}
+{% set group_staff = '3' %}
+{% set group_customer = '4' %}
+{% set group_agent = '5' %}
+{% set group_supervisor = '6' %}
+{% set group_verificator_l1 = '7' %}
+{% set group_verificator_l2 = '8' %}
+
+{% set user_role_manager = '1' %}
+{% set user_role_supervisor = '2' %}
+{% set user_role_verificator = '3' %}
+
+{#  include 'app/' ~ config.app_skin ~ '/common/font_awesome_5_15.html.twig' #}
+{% set envelope = 'fas fa-envelope' %}
+{% set envelope_o = 'far fa-envelope-open' %}
+
+{% set thumbs_up = 'far fa-thumbs-up' %}
+{% set thumbs_down = 'far fa-thumbs-down' %}
+{% set icon_delete = 'icon ico-eraser-solid' %}
+{% set icon_active = 'fa fa-check-square' %}
+{% set icon_unactive = 'far fa-square' %}
+{% set icon_document = 'fa fa-file' %}
+{% set icon_choose_product = 'icon ico-project-diagram' %}
+{% set icon_pay_visa = 'icon ico-cc-visa' %}
+{% set icon_pay_stripe = 'icon ico-cc-stripe' %}
+{% set icon_pay_bank = 'icon ico-cc-bank' %}
+{% set icon_pay_quote_alt = 'icon ico-money-check-alt' %}
+{% set icon_show_certification = 'fas fa-certificate' %}
+{% set icon_show_report = 'far fa-file-alt' %}
+
+{% set icon_refresh = 'fas fa-sync-alt' %}
+
+{% set bars = 'fas fa-bars' %}
+{% set close = 'far fa-window-close' %}
+
+{# This is defined on a css #}
+{% set pdf = 'icon ico-file-pdf' %}
+{% set excel = 'icon ico-file-excel' %}
+{% set ira_tips = 'icon ico-ira-tips' %}
+{% set link = 'icon ico-link' %}
+{% set link_2 = 'icon ico-link-2' %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <meta name="author" content="Carum-UK.com">
+
+    <meta name="robots" content="index,follow,all" />
+    <meta name="description" content="{{ config.web_description }}" />
+    <meta name="keywords" content="{{ config.web_keywords }}" />
+    <meta name="copyright" content="{{ config.web_copy_right }}" />
+    <meta name="language" content="{{ session[config['cookies_prefix']~'_locale'] }}" />
+    <meta name="rating" content="general" />
+    <meta name="security" content="public" />
+    <meta name="distribution" content="global" />
+    <meta name="country" content="ES, Spain" />
+    <meta name="geo.region" content="ES-MAD" />
+    <meta name="geo.country" content="ES" />
+    <meta name="tgn.nation" content="Spain" />
+
+    <title>{{ config.web_name }}{% block title %}{% endblock %}{% if env.env_env == 'dev' %} &bullet; {{ server.SERVER_ADDR }}{% endif %}</title>
+
+    {% include 'app/' ~ config.app_skin ~ '/common/favicons.html.twig' %}
+
+    {% block stylesheets %}
+        {# Latest compiled and minified CSS #}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        {# Fonts #}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" />
+        {#<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,900">#}
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+        {# Our css's #}
+        <link href="/assets/css/main-general.css" rel="stylesheet">
+        <link href="/assets/css/bootstrap-extra.css" rel="stylesheet">
+        <link href="/assets/css/app/{{ config.app_skin }}/main.css" rel="stylesheet">
+        <link href="/assets/css/app/{{ config.app_skin }}/icons.css" rel="stylesheet">
+        {% if env.developer == 'carlos' %}
+            <link href="/assets/css/web/{{ config.website_skin }}/header_helpers.css" rel="stylesheet">
+        {% endif %}
+        <link href="/assets/css/app/{{ config.app_skin }}/header.css" rel="stylesheet">
+        <link href="/assets/css/app/{{ config.app_skin }}/footer.css" rel="stylesheet">
+        {#<link rel="stylesheet" href="{{ asset('assets/css/aria.css') }}" type="text/css" />#}
+        <link href="/assets/css/app/{{ config.app_skin }}/control_panel.css" rel="stylesheet">
+        <link href="/assets/css/app/{{ config.app_skin }}/menu.css" rel="stylesheet">
+    {% endblock %}
+
+    {#
+    {# https://stackoverflow.com/questions/6121725/favicon-ico-or-png-correct-tags #}
+    {# Generator: https://realfavicongenerator.net/ #}
+
+</head>
+<body>
+<style>
+    {# Styles with twig commands #}
+    :root
+    {
+        --scroll_width: 17px;
+        --header_helpers_height: {% if env.developer == 'carlos' %}40px{% else %}0px{% endif %};
+        --header_helpers_width: calc( 100vw - var(--scroll_width) );
+        --main_top: calc(var(--header_helpers_height));
+    }
+
+</style>
+
+    <div class="clear"></div>
+
+    {% if user_group == group_super_admin %}
+        {% set dashboard_name = lang.APP_DASHBOARD_SADMIN %}
+    {% elseif user_group == group_admin %}
+        {% set dashboard_name = lang.APP_DASHBOARD_ADMIN %}
+    {% elseif user_group == group_staff %}
+        {% set dashboard_name = lang.APP_DASHBOARD_STAFF %}
+    {% elseif user_group == group_customer %}
+        {% set dashboard_name = lang.APP_DASHBOARD_CUSTOMER %}
+    {% elseif user_group == group_agent %}
+        {% set dashboard_name = lang.APP_DASHBOARD_AGENT %}
+    {% elseif user_group == group_supervisor %}
+        {% set dashboard_name = lang.APP_DASHBOARD_SUPERVISOR %}
+    {% elseif user_group == group_verificator_l1 %}
+        {% set dashboard_name = lang.APP_DASHBOARD_VERIFICATOR %}
+    {% elseif user_group == group_verificator_l2 %}
+        {% set dashboard_name = lang.APP_DASHBOARD_VERIFICATOR %}
+    {% endif %}
+
+    {# include 'app/' ~ config.app_skin ~ '/common/font_awesome.html.twig' #}
+
+    {%  include 'app/' ~ config.app_skin ~ '/header.html.twig' %}
+
+    <main id="main">
+
+        {% include 'app/' ~ config.app_skin ~ '/menu.html.twig' %}
+
+        {% block body %}{% endblock %}
+
+    </main>
+
+    {% include 'app/' ~ config.app_skin ~ '/footer.html.twig' %}
+
+    <div class="clear"></div>
+
+    <img src="/cron/cron_image.php?sid={{ cookies['PHPSESSID'] }}" width="1" height="1" alt="cron" />
+
+    {% block javascripts %}
+
+        {# JQuery #}
+        {# jQuery first, then Popper.js, then Bootstrap JS #}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" referrerpolicy="no-referrer"></script>
+        {#<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>#}
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+
+        <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function(){
+
+                $(":input:first").focus();
+
+            });
+            (function($) {
+                'use strict';
+
+            })(jQuery);
+        </script>
+
+    {% endblock %}
+
+</body>
+</html>

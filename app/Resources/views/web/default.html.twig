@@ -1,0 +1,405 @@
+{# Icons for font awesome 5.15 #}
+{% set step = 'fas fa-shoe-prints' %}
+{% set sign_in = 'fas fa-sign-in-alt' %}
+
+{# Colors for twig && CSS #}
+{% set white_color = 'hsla(0, 0%, 100%, 1)' %} {# #FFFFFF * #}
+{% set black_color = 'hsla(0, 0%, 0%, 1)' %} {# #000000 * #}
+{% set red_color = 'hsla(0, 100%, 50%, 1)' %} {# #FF0000 * #}
+{% set primary_color = 'hsla(0, 0%, 0%, 1)' %} {# #000000 * Black #}
+{% set secondary_color = 'hsla(0, 0%, 34%, 1)' %} {# #575757 * Grey #}
+{% set tertiary_color = 'hsla(0, 0%, 0%, 1)' %} {# #000000 * Black #}
+{% set cuartiary_color = 'hsla(0, 0%, 90%, 1)' %} {# #575757 * Light grey #}
+{% set highlight_color = 'hsla(212, 75%, 35%, 1)' %} {# #16559C * Blue #}
+{% set primary_background = 'hsla(0, 0%, 100%, 1)' %} {# #FFFFFF * White #}
+{% set secondary_background = 'hsla(0, 0%, 85%, 1)' %} {# #CCCCCC * Grey #}
+{% set tertiary_background = 'hsla(0, 0%, 99%, 1)' %} {# #F2F2F2 * Light grey #}
+
+{% set box_border_radius = '0.35rem' %}
+{% set button_border_radius = '0.35rem' %}
+
+{% set general_font_size = '1rem' %}
+{% set title_1_font_size = '1.37rem' %}
+{% set title_2_font_size = '1.1rem' %}
+
+{# for a hrefs #}
+{% set site_url = env.protocol~'://'~env.domain %}
+
+{% set facebook = 'fab fa-facebook-square' %}
+{% set linkedin = 'fab fa-linkedin-in' %}
+{% set youtube = 'fab fa-youtube' %}
+{% set twitter = 'fab fa-twitter' %}
+{% set instagram = 'fab fa-instagram' %}
+{% set pinterest = 'fab fa-pinterest' %}
+{% set mail = 'far fa-envelope' %}
+{% set whatsapp = 'fab fa-whatsapp' %}
+{% set phone = 'fas fa-phone' %}
+
+<!DOCTYPE html>
+<html lang="{{ session[config['cookies_prefix']~'_locale'] }}" xml:lang="{{ session[config['cookies_prefix']~'_locale'] }}" prefix="og: https://ogp.me/ns#">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+
+    <meta name="author" content="{{ config.web_meta_author }}" />
+
+    {% block seo_meta %}{% endblock %}
+
+    <link rel="profile" href="http://gmpg.org/xfn/11" />
+    {#<link rel="pingback" href="{{ site_url }}/xmlrpc.php">#}
+
+    <meta name="description" content="{% block metadescription %}{% endblock %}" />
+    <meta name="robots" content="{% block metarobots %}{% endblock %}" />
+
+    <meta name="keywords" content="{{ config.web_keywords }}" />
+    <meta name="copyright" content="{{ config.web_copy_right }}" />
+    <meta name="language" content="{{ session[config['cookies_prefix']~'_locale'] }}" />
+    <meta name="rating" content="general" />
+    <meta name="security" content="public" />
+    <meta name="distribution" content="global" />
+    <meta name="country" content="{{ config.meta_country }}" />
+    <meta name="geo.region" content="{{ config.web_meta_geo_region }}" />
+    <meta name="geo.country" content="{{ config.web_meta_geo_country }}" />
+    <meta name="tgn.nation" content="{{ config.web_meta_geo_country }}" />
+
+    {% block rel_alternate_links %}{% endblock %}
+
+    <link rel="alternate" type="application/rss+xml" title="{{ config.web_name }} – {{ config.web_description }} » Feed" href="{{ site_url }}/feed" />
+
+    {% if env.env_env == 'prod' %}
+        <!-- Google tag (gtag.js) -->
+        {#
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-865QYZ5R6Y"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-865QYZ5R6Y');
+        </script>
+        #}
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-NRQWH6VB');</script>
+        <!-- End Google Tag Manager -->
+    {% endif %}
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "{{ config.web_name }}",
+            "alternateName": "{{ config.web_name }} - {{ config.web_description }}",
+            "url": "{{ env.protocol }}://{{ env.domain }}",
+            "logo": "{{ env.protocol }}://{{ env.domain }}/assets/images/web/logo_with_text_hor.png",
+            "image": "{{ env.protocol }}://{{ env.domain }}/assets/images/web/default/logo_with_text_hor.png",
+            "description": "{{ lang.WEB_LDJSON_COMPANY_DESCRIPTION }}",
+            "foundingDate": "2021-10-15",
+            "founder": {
+                "@type": "Person",
+                "name": "Carlos Cusí"
+            },
+            "sameAs": [
+                      {% if config.company_facebook != '' %}"{{ config.company_facebook }}",{% endif %}
+                      {% if config.company_twitter != '' %}"{{ config.company_twitter }}",{% endif %}
+                      {% if config.company_instagram != '' %}"{{ config.company_instagram }}",{% endif %}
+                      {% if config.company_linkedin != '' %}"{{ config.company_linkedin }}",{% endif %}
+                      {% if config.company_youtube != '' %}"{{ config.company_youtube }}",{% endif %}
+                      {% if config.company_pinterest != '' %}"{{ config.company_pinterest }}"{% endif %}
+            ],
+            "contactPoint": [
+                                {
+                                    "@type": "ContactPoint",
+                                    "telephone": "{{ config.web_info_phone }}",
+                                    "contactType": "Customer Service",
+                                    "areaServed": "{{ env.country }}",
+                                    "availableLanguage": [
+                                                          "Spanish",
+                                                          "English"
+                                                        ]
+                                },
+                                {
+                                "@type": "ContactPoint",
+                                "telephone": "{{ config.web_info_phone }}",
+                                "contactType": "Techniocal Support",
+                                "areaServed": "{{ env.country }}",
+                                "availableLanguage": [
+                                                      "Spanish",
+                                                      "English"
+                                                    ]
+                                }
+             ],
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "{{ config.company_address_1 }}",
+                "addressLocality": "{{ config.company_address_4 }}",
+                "addressRegion": "{{ config.company_address_5 }}",
+                "postalCode": "{{ config.company_postcode }}",
+                "addressCountry": "{{ env.country }}"
+            },
+            "knowsAbout": [
+                "{{ lang.WEB_LDJSON_COMPANY_KNOWSABOUT }}",
+                "CHATGPT, COPILOT,CLAUDE, GEMINI, DEEPSEEK",
+                "ZAPIER,MAKE, N8N, RAG"
+            ]
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "{{ config.web_name }}",
+            "url": "{{ env.protocol }}://{{ env.domain }}",
+            "inLanguage": "{{ env.lang }}",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "{{ env.protocol }}://{{ env.domain }}/?s={search_term_string}",
+                "query-input": "required name=search_term_string"
+            },
+            "sameAs": [
+                      {% if config.company_facebook != '' %}"{{ config.company_facebook }}",{% endif %}
+                      {% if config.company_twitter != '' %}"{{ config.company_twitter }}",{% endif %}
+                      {% if config.company_instagram != '' %}"{{ config.company_instagram }}",{% endif %}
+                      {% if config.company_linkedin != '' %}"{{ config.company_linkedin }}",{% endif %}
+                      {% if config.company_youtube != '' %}"{{ config.company_youtube }}",{% endif %}
+                      {% if config.company_pinterest != '' %}"{{ config.company_pinterest }}"{% endif %}
+            ],
+            "mainEntity": [
+                {
+                    "@type": "SiteNavigationElement",
+                    "name": "Inicio",
+                    "url": "{{ env.protocol }}://{{ env.domain }}",
+                    "description": "Página principal con información general sobre Automatización de procesos empresariales.",
+                    "potentialAction": {
+                        "@type": "ViewAction",
+                        "target": "{{ env.protocol }}://{{ env.domain }}",
+                        "name": "Ver página de inicio"
+                    }
+                },
+                {
+                    "@type": "SiteNavigationElement",
+                    "name": "Soluciones",
+                    "url": "{{ env.protocol }}://{{ env.domain }}/solutions",
+                    "description": "Soluciones para automatizar procesos.",
+                    "potentialAction": {
+                        "@type": "ViewAction",
+                        "target": "{{ env.protocol }}://{{ env.domain }}/solutions",
+                        "name": "Explorar soluciones de Automatizacion de procesos empresariales"
+                    }
+                },
+                {
+                    "@type": "SiteNavigationElement",
+                    "name": "Conócenos",
+                    "url": "{{ env.protocol }}://{{ env.domain }}/conocenos",
+                    "description": "Información sobre equipo, misión y valores.",
+                    "potentialAction": {
+                        "@type": "ViewAction",
+                        "target": "{{ env.protocol }}://{{ env.domain }}/conocenos",
+                        "name": "Conoce quienes somos y porqué hacemos lo que hacemos"
+                    }
+                },
+                {
+                    "@type": "SiteNavigationElement",
+                    "name": "Blog",
+                    "url": "{{ env.protocol }}://{{ env.domain }}/blog",
+                    "description": "Artículos y noticias sobre inteligencia artificial, soluciones de automatizaciones y tecnología relacionada.",
+                    "potentialAction": {
+                        "@type": "ViewAction",
+                        "target": "{{ env.protocol }}://{{ env.domain }}/blog",
+                        "name": "Leer el blog"
+                    }
+                },
+                {
+                    "@type": "SiteNavigationElement",
+                    "name": "Contacto",
+                    "url": "{{ env.protocol }}://{{ env.domain }}/contact",
+                    "description": "Formulario y datos de contacto para consultas o colaboraciones.",
+                    "potentialAction": {
+                        "@type": "ViewAction",
+                        "target": "{{ env.protocol }}://{{ env.domain }}/contact",
+                        "name": "Contactar con un experto en automatización de procesos"
+                    }
+                }
+            ]
+        }
+    </script>
+
+    {% block ld_json %}{% endblock %}
+
+    <title>{% block title %}{{ config.web_name }}{% if env.env_env == 'dev' %} · Dev · {{ server.SERVER_ADDR }}{% endif %}{% endblock %}</title>
+
+    {% include 'web/' ~ config.website_skin ~ '/common/favicons.html.twig' %}
+
+    {% block stylesheets %}
+        {# Bootstrap #}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        {#<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css" integrity="sha256-rnmbX+ZXZml9xbNUKt/qXfgpCi6zLJX7qqR+7vX/1ZY=" crossorigin="anonymous" rel="stylesheet" />#}
+        {#<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />#}
+        {# Fonts #}
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200..700&display=swap" rel="stylesheet">
+        {#<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">#}
+        {#<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">#}
+        {#<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@200..700&display=swap" rel="stylesheet">#}
+        {#<link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">#}
+        {#<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,700,900" rel="stylesheet">#}
+        {#<link href="https://fonts.googleapis.com/css?family=Gochi+Hand|Lato:300,400|Montserrat:400,400i,700,700i" rel="stylesheet">#}
+        {#<link href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous" rel="stylesheet">#}
+        {# Font Awesome #}
+        {#<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">#}
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+        {# Simple Icons - https://simplelineicons.github.io/ #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
+        {# cookies consent css #}
+        {# <link rel="stylesheet" href="/bundles/framework/css/web/{{ config.website_skin }}/cookieconsent.css"> #}
+        {#<link rel="stylesheet" href="/bundles/framework/css/web/{{ config.website_skin }}/cookieconsent.css" media="print" onload="this.media='all'">#}
+
+        {# Our css s #}
+        <link href="/bundles/framework/css/main-general.css" rel="stylesheet">
+        <link href="/bundles/framework/css/bootstrap-extra.css" rel="stylesheet">
+        <link href="/bundles/framework/css/web/{{ config.website_skin }}/styles.css" rel="stylesheet">
+
+        <style>
+            :root {
+                --white: {{ white_color }};
+                --black: {{ black_color }};
+                --red: {{ red_color }};
+
+                --primary-color: {{ primary_color }};
+                --secondary-color: {{ secondary_color }};
+                --tertiary-color: {{ tertiary_color }};
+                --cuartiary-color: {{ cuartiary_color }};
+                --highlight-color: {{ highlight_color }};
+                --primary-background: {{ primary_background }};
+                --secondary-background: {{ secondary_background }};
+                --tertiary-background: {{ tertiary_background }};
+
+                --new-dark-blue: {{ dark_blue }};
+                --new-light-blue: {{ light_blue }};
+
+                --box-border-radius: {{ box_border_radius }};
+                --button-border-radius: {{ button_border_radius }};
+
+                --general_font_size: {{ general_font_size }};
+                --title_1_font_size: {{ title_1_font_size }};
+                --title_2_font_size: {{ title_2_font_size }};
+            }
+        </style>
+        {% if env.developer == 'carlos' %}
+            <link href="/assets/css/web/{{ config.website_skin }}/header_helpers.css" rel="stylesheet">
+        {% endif %}
+        <link href="/assets/css/web/{{ config.website_skin }}/header.css" rel="stylesheet">
+        {# <link href="/bundles/framework/css/web/{{ config.website_skin }}/phone_contact.css" rel="stylesheet">
+        <link href="/bundles/framework/css/web/{{ config.website_skin }}/whatsapp_button.css" rel="stylesheet"> #}
+        <link href="/bundles/framework/css/web/{{ config.website_skin }}/main.css" rel="stylesheet">
+        <link href="/bundles/framework/css/web/{{ config.website_skin }}/footer.css" rel="stylesheet">
+    {% endblock %}
+
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NRQWH6VB" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<style>
+    {# Styles with twig commands #}
+    :root
+    {
+        --scroll_width: 17px;
+        --header_helpers_height: {% if env.developer == 'carlos' %}40px{% else %}0px{% endif %};
+        --header_helpers_width: calc( 100vw - var(--scroll_width) );
+        --header_contact_height_mobile: 55px;
+        --header_contact_height_desktop: 35px;
+        --header_contact_top: {% if env.developer == 'carlos' %}calc( var(--header_helpers_height) + 5px ){% else %}var(--header_helpers_height){% endif %};
+        --header_menu_height: 115px;
+        --header_menu_top_mobile: calc(var(--header_helpers_height) + var(--header_contact_height_mobile));
+        --header_menu_top_desktop: calc(var(--header_helpers_height) + var(--header_contact_height_desktop));
+        --header_height_mobile: calc(var(--header_helpers_height) + var(--header_contact_height_mobile) + var(--header_menu_height));
+        --header_height_desktop: calc(var(--header_helpers_height) + var(--header_contact_height_desktop) + var(--header_menu_height));
+    }
+    #header {
+        height: var(--header_height_mobile);
+    }
+    #main {
+        margin-top: var(--header_height_mobile);
+    }
+    @media (min-width: 400px) {
+        #header {
+            height: var(--header_height_desktop);
+        }
+        #main {
+            margin-top: var(--header_height_desktop);
+        }
+    }
+</style>
+
+{% include 'web/' ~ config.website_skin ~ '/header.html.twig' %}
+
+<main id="main">
+
+    {% block body %}{% endblock %}
+
+</main>
+
+{% include 'web/' ~ config.website_skin ~ '/footer.html.twig' %}
+
+{% if env.developer == 'carlos' %}
+    <img src="/cron/cron_image.img?sid={{ cookies['PHPSESSID'] }}" width="1" height="1" alt="cron" />
+{% endif %}
+
+{% block javascripts %}
+
+    {# Jquery #}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+    {# Bootstrap #}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    {# onscroll animation #}
+    {#<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>#}
+
+    {# Cloudflare turnstile #}
+    {% if env.env_env == 'prod' %}
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    {% endif %}
+
+    {# cookies consent #}
+    {# <script defer src="/bundles/framework/js/web/{{ config.website_skin }}/cookieconsent.js"></script>
+     <script defer src="/bundles/framework/js/web/{{ config.website_skin }}/cookieconsent-init.js"></script> #}
+
+    {# site vars #}
+    <script type="text/javascript">
+        var this_page = '{{ this_page }}';
+        var contact_link = '{{ lang.WEB_MENU_CONTACT_LINK }}';
+        var l_errors_found = '{{ lang.ERRORS_FOUND }}';
+        var l_form_has_errors = '{{ lang.ERRORS_FORM }}';
+    </script>
+
+    {# site scripts #}
+    <script src="/bundles/framework/js/web/{{ config.website_skin }}/scripts.js"></script>
+
+    <script src="/assets/js/web/{{ config.website_skin }}/header_menu.js"></script>
+    <script src="/assets/js/web/{{ config.website_skin }}/footer.js"></script>
+    <script>
+        $(document).ready(function(){
+
+        });
+        (function($) {
+            'use strict';
+
+        })(jQuery);
+    </script>
+
+    <!-- accessability tool -->
+    {#<script id="accessme" src="https://cdn.access-me.software/accssme/accssmetool.js"></script>#}
+{% endblock %}
+</body>
+</html>

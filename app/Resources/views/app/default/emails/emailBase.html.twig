@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="content-language" content="{{ data.language }}" />
+    <meta name="content-language" content="{{ data.language }}" />
+    <meta name="title" content="{{ data.title }}" />
+    <meta name="category" content="general" />
+    <meta name="robots" content="index,follow" />
+    <meta name="distribution" content="global" />
+    <meta name="resource-type" content="document" />
+    <meta name="copyright" content="{{ data.copyright }}" />
+    <meta name="x-apple-disable-message-reformatting">
+
+    {% block stylesheets %}
+        <style>
+            #wrapper{
+                width: 800px;
+                margin: 0 0 0 10px;
+            }
+            .social {
+                color: #de3723;
+                display: block;
+                font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+                font-size: 16px;
+                font-weight: 400;
+                text-decoration: none
+            }
+            .mail_base_text {
+                color: #505050;
+                text-align:justify;
+                text-justify:inter-word;
+                font-size: 1.2em;
+                line-height: 1.8;
+            }
+            .mail_text {
+                padding-top:10px;
+                color: #505050;
+                text-align:justify;
+                text-justify:inter-word;
+                font-size: 1.2em;
+                line-height: 1.8;
+            }
+            .mail_button {
+                width: 60%;
+                margin: 0 auto;
+                border-radius: 10px;
+                background-color: #02642e;
+                padding: 12px;
+                color: #ffffff;
+                font-size: 1.5em;
+                font-weight: bold;
+                letter-spacing: 2px;
+                text-decoration: none;
+            }
+            .mail_link {
+                width: 100%;
+                text-align:center;
+                text-decoration: none;
+            }
+            .mail_padding_link{
+                padding-top:50px;
+                padding-bottom:50px;
+            }
+            .mail_padding_link_small{
+                padding-top:20px;
+                padding-bottom:20px;
+            }
+            .mail_text_bold {
+                font-weight: bold;
+            }
+            .mail_certification_data {
+                width: 400px;
+                margin: 10px 0;
+                padding: 15px;
+                text-align:center;
+                background-color: black;
+                color: #ffffff;
+            }
+            .mail_text_box {
+                width: 500px;
+                min-height: 100px;
+                padding-left: 10px;
+                border: 1px solid #02642e;
+                border-radius: 5px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+
+            @media screen and (max-width: 480px) {
+                .mobile-hide {
+                    display: none !important
+                }
+            }
+            @media screen and (max-width: 530px) {
+                .unsub {
+                    display: block;
+                    padding: 8px;
+                    margin-top: 14px;
+                    border-radius: 6px;
+                    background-color: #555555;
+                    text-decoration: none !important;
+                    font-weight: bold;
+                }
+                .col-lge {
+                    max-width: 100% !important;
+                }
+            }
+            @media screen and (min-width: 531px) {
+                .col-sml {
+                    max-width: 27% !important;
+                }
+                .col-lge {
+                    max-width: 73% !important;
+                }
+            }
+        </style>
+        <!--[if mso]>
+        <style>
+            table {border-collapse:collapse;border-spacing:0;border:none;margin:0;}
+            div, td {padding:0;}
+            div {margin:0 !important;}
+        </style>
+        <noscript>
+            <xml>
+                <o:OfficeDocumentSettings>
+                    <o:PixelsPerInch>96</o:PixelsPerInch>
+                </o:OfficeDocumentSettings>
+            </xml>
+        </noscript>
+        <![endif]-->
+    {% endblock %}
+
+</head>
+<body style="margin:0;padding:0;word-spacing:normal;background-color:#ffffff;">
+
+<div class="preheader" style="display:none !important;visibility:hidden;mso-hide:all;font-size:1px;color:#ffffff;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">
+    {{ data.pre_header }}
+</div>
+<div style="background-color:#ffffff;">
+    <table border="0" style="width:100%;border: solid 1px transparent; border-spacing:0;">
+        <tr>
+            <td align="center" style="padding:0;">
+                <!--[if mso]>
+                <table align="center" style="width:800px;">
+                    <tr>
+                        <td>
+                <![endif]-->
+
+                <table id="wrapper" width="800" border="0" style="margin: 0 auto; width: 100%; border:solid 1px transparent;">
+                    {% if data.pre_header is defined %}
+                        <tr>
+                            <td style="color:#ffffff">
+                                {{ data.pre_header }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td style="margin: 0 auto; text-align: center; width: 100%; border: solid 1px transparent;">
+                            <img id="header_img" src="{{ data.img_header }}" width="600px" style="margin: 0 auto; width: 600px; border: solid 1px transparent;" alt="Logo de {{ config.web_name }}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 30px 0 0 0">
+                            <table id="content" border="0" style="margin: 0 auto; border:solid 1px transparent;">
+                                <tr>
+                                    <td>
+                                        <table id="content-message" border="0" style="margin: 0 auto;  width: 100%; border:solid 1px transparent;">
+                                            <tr>
+                                                <td style="text-align:justify; text-justify:inter-word;">
+                                                    <!-- Start message content -->
+
+                                                    <table id="content_mailing" border="0" style="border:solid 1px transparent;">
+                                                        <tr>
+                                                            <td class="mail_base_text">
+                                                                {{ lang.BASE_MAIL_DEAR }} <span class="mail_text_bold">{{ row.to_name }}</span>,
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="border: solid 1px transparent;">
+                                                                {% block body %}{% endblock %}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="mail_base_text">
+                                                                {{ lang.BASE_MAIL_WHSYS }}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="mail_base_text">
+                                                                {{ data.team }}
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <!-- End message content -->
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    {#
+                        <tr>
+                            <td style="padding: 0 0 0 0">
+                                <table id="social">
+                                    <tr style="height: 50px">
+                                        <td valign="center" style="width:40%; text-align:center; color:rgb(18, 163, 235); font-size:1em;">
+                                            <a href="{{ data.site_link }}/gestion_mailing_actions.php?WL={MAIL_TO}&WM={MAIL_ID}&WS=62585_464278" target="_blank">
+                                                <img src="/images/social-facebook.png" border="0" alt="Facebook" />
+                                            </a>
+                                        </td>
+                                        <td valign="center" style="width:30%; text-align:center; color: white; font-size:1em;">
+                                            <a href="{{ data.site_link }}/gestion_mailing_actions.php?WL={MAIL_TO}&WM={MAIL_ID}&WS=75481_254780" target="_blank">
+                                                <img src="/images/social-twitter.png" border="0" alt="S&iacute;genos en Twitter" />
+                                            </a>
+                                        </td>
+                                        <td valign="center" style="width:30%; text-align:center; color:rgb(18, 163, 235); font-size:1em;">
+                                            <a href="{{ data.site_link }}/gestion_mailing_actions.php?WL={MAIL_TO}&WM={MAIL_ID}&WS=84028_782386" target="_blank">
+                                                <img src="/images/social-mail.png" border="0" alt="Mail" />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    #}
+                    {% set social_icon_size = 16 %}
+                    {#
+                    <tr>
+                        <td style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse !important;">
+                                <tr>
+                                    <td align="center" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #6D6E70; font-family: 'OCR A Std', Helvetica, Arial, sans-serif; padding: 56px 24px 32px 24px;">
+                                        <p style="font-size: 20px; font-weight: 600; line-height: 26px; margin: 0 0 20px 0">
+                                            {{ lang.BASE_MAIL_FOLLOW_US }}
+                                        </p>
+                                        <table width="60%" border="0" align="center" cellpadding="0" cellspacing="0" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 240px; border-collapse: collapse !important;" role="presentation">
+                                            <tr>
+                                                {% if config.company_facebook %}
+                                                    <td height="50" align="center" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                                        <a href="{{ config.company_facebook }}" target="_blank" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+                                                            <img id="facebook" src="/web/bundles/framework/images/web/{{ session.config['app_skin'] }}/social/facebook.png" class="social" alt="F" height="{{ social_icon_size }}" width="{{ social_icon_size }}" style="-ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; color: #dE3723; display: block; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; text-decoration: none;">
+                                                        </a>
+                                                    </td>
+                                                {% endif %}
+                                                {% if config.company_linkedin %}
+                                                    <td height="50" align="center" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                                        <a href="{{ config.company_linkedin }}" target="_blank" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+                                                            <img id="linkedin" src="/web/bundles/framework/images/web/{{ session.config['app_skin'] }}/social/linkedin.png" class="social" alt="Linkedin" height="{{ social_icon_size }}" width="{{ social_icon_size }}" style="-ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; color: #dE3723; display: block; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; text-decoration: none;">
+                                                        </a>
+                                                    </td>
+                                                {% endif %}
+                                                {% if config.company_youtube %}
+                                                    <td height="50" align="center" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                                        <a href="{{ config.company_youtube }}" target="_blank" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+                                                            <img id="youtube" src="/web/bundles/framework/images/web/{{ session.config['app_skin'] }}/social/youtube.png" class="social" alt="Youtube" height="{{ social_icon_size }}" width="{{ social_icon_size }}" style="-ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; color: #dE3723; display: block; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; text-decoration: none;">
+                                                        </a>
+                                                    </td>
+                                                {% endif %}
+                                                {% if config.company_twitter %}
+                                                    <td height="50" align="center" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                                        <a href="{{ config.company_twitter }}" target="_blank" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+                                                            <img id="twitter" src="/web/bundles/framework/images/web/{{ session.config['app_skin'] }}/social/twitter.png" class="social" alt="Twitter" height="{{ social_icon_size }}" width="{{ social_icon_size }}" style="-ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; color: #dE3723; display: block; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; text-decoration: none;">
+                                                        </a>
+                                                    </td>
+                                                {% endif %}
+                                                {% if config.company_instagram %}
+                                                    <td height="50" align="center" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                                        <a href="{{ config.company_instagram }}" target="_blank" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+                                                            <img id="instagram" src="/web/bundles/framework/images/web/{{ session.config['app_skin'] }}/social/instagram.png" class="social" alt="Instagram" height="{{ social_icon_size }}" width="{{ social_icon_size }}" style="-ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; color: #dE3723; display: block; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; text-decoration: none;">
+                                                        </a>
+                                                    </td>
+                                                {% endif %}
+                                                {% if config.company_pinterest %}
+                                                    <td height="50" align="center" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                                        <a href="{{ config.company_pinterest }}" target="_blank" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+                                                            <img id="pinterest" src="/web/bundles/framework/images/web/{{ session.config['app_skin'] }}/social/pinterest.png" class="social" alt="Pinterest" height="{{ social_icon_size }}" width="{{ social_icon_size }}" style="-ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; color: #dE3723; display: block; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; text-decoration: none;">
+                                                        </a>
+                                                    </td>
+                                                {% endif %}
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    #}
+                    <tr>
+                        <td align="center" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding: 0 22px 0 22px;">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse !important;">
+                                <tr>
+                                    <td align="center" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-bottom: 2px solid #DBDADA; border-top: 2px solid #DBDADA;">
+                                        <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse !important;">
+                                            <tr>
+                                                <td align="center" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #807A79; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 600; mso-line-height-rule: exactly; line-height: 28px; text-transform: uppercase; padding: 16px 0 16px 0;">
+                                                    <span class="mobile-hide"><span>&nbsp;</span><span>&nbsp;</span></span>
+                                                    <a href="{{ data.site_link }}/{{ data.legal_stuff_link }}" target="_blank" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; text-decoration: none; color: #807A79;" class="mobileLink">
+                                                        {{ data.legal_stuff_link | raw }}
+                                                    </a>
+                                                    <span class="mobile-hide"><span>&nbsp;</span><span>&nbsp;</span></span>
+                                                    <a href="{{ data.site_link }}/{{ data.cookies_policy_link }}" target="_blank" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; text-decoration: none; color: #807A79;" class="mobileLink">
+                                                        {{ data.cookies_policy }}
+                                                    </a>
+                                                    <span class="mobile-hide"><span>&nbsp;</span><span>&nbsp;</span></span>
+                                                    <a href="{{ data.site_link }}/{{ data.privacy_policy_link }}" target="_blank" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; text-decoration: none; color: #807A79;" class="mobileLink">
+                                                        {{ data.privacy_policy }}
+                                                    </a>
+                                                    <span class="mobile-hide"><span>&nbsp;</span><span>&nbsp;</span></span>
+                                                    <a href="{{ data.site_link }}/{{ data.termsandconditions_link }}" target="_blank" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; text-decoration: none; color: #807A79;" class="mobileLink">
+                                                        {{ data.termsandconditions | raw }}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; color: #807A79; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 600; mso-line-height-rule: exactly; line-height: 28px; text-transform: uppercase; padding: 16px 0 16px 0;">
+                                                    <a href="{{ data.site_link }}/{{ data.contact_us_link }}" target="_blank" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; text-decoration: none; color: #807A79;">
+                                                        {{ data.contact_us }}
+                                                    </a>
+                                                    {% if data.token != '' %}
+                                                        <span class="mobile-hide"><span>&nbsp;</span><span>&nbsp;</span></span>
+                                                        <a href="{{ data.site_link }}/{{ data.unsubscribe_link }}/{{ row.to_address }}/{{ data.token }}" target="_blank" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; text-decoration: none; color: #807A79;" class="mobileLink">
+                                                            {{ data.unsubscribe }}
+                                                        </a>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 30px 0 30px 0; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse !important;">
+                                <tr>
+                                    <td align="center" style="line-height: 21px; color: #807A79; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 14px; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                        {#
+                                        <p style="font-size: 14px; line-height: 21px; margin: 0 0 0 0;">
+                                            <a href class="ghost-link" style="-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; color: #807A79; text-decoration: none;">
+                                                blablabla
+                                            </a>
+                                        </p>
+                                        <p style="font-size: 14px; line-height: 21px; margin: 0 0 32px 0;">
+                                            Namecheap is a trademark and/or registered trademark of Namecheap, Inc
+                                        </p>
+                                        #}
+                                        <p style="font-size: 14px; line-height: 21px;">
+                                            {{ data.copyright | raw }}
+                                        </p>
+                                        {#
+                                        <img src="" alt="ICANN" border="0" height="40" width="40" style="-ms-interpolation-mode: bicubic; border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; color: #807A79; display: block; font-family: 'Open Sans', Helvetica, Arial, sans-serif; font-size: 14px;">
+                                        <p style="font-size: 12px; line-height: 18px; margin: 24px 0 0 0;">
+                                            blablabla
+                                        </p>
+                                        #}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="margin: 0 0 0 0; text-align:justify; text-justify:inter-word;">
+                            <span style="font-size:1em; color:#339966; margin-right: 10px;">&#127966;</span>
+                            <span style="font-size:1em; font-family: 'OCR A Std', Arial, Helvetica, sans-serif; color:#339966">
+                                {{ data.eco_footer | raw }}
+                            </span>
+                            <br /><br />
+                            <span style="font-size:0.8em; font-family: 'Trebuchet MS',Arial,Helvetica,sans-serif; color: rgb(83,100,130);">
+                                {{ data.t_and_c | raw }}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="margin: 0 0 0 0; text-align:left; text-justify:inter-word;">
+                            <span style="margin-top: 20px; font-size:0.8em; font-family: 'Trebuchet MS',Arial,Helvetica,sans-serif; color: rgb(83,100,130);">
+                                ref: {{ email_ref }}
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if mso]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

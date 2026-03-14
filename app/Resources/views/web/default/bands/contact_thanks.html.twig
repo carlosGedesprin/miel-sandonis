@@ -1,0 +1,51 @@
+{% set path = '/assets/images/web/'~config.website_skin~'/bands/contact_thanks/' %}
+
+<section id="contact_thanks" class="web_section">
+    <div id="contact_thanks_container" class="web_container">
+        <div id="contact_thanks_content" class="web_content">
+
+            <div id="contact_thanks_left">
+                <div class="contact_thanks_inner">
+                    <div id="contact_thanks_title">
+                        {{ lang.WEB_CONTACT_FORM_TITLE | raw }}
+                    </div>
+                    <div id="contact_thanks_text">
+                        <p>
+                            {{ lang.WEB_CONTACT_FORM_ALSO_EMAIL | raw }}
+                        </p>
+                        <p id="contact_thanks_web_info_email">
+                            <a href="mailto:{{ config.web_info_email }}">{{ config.web_info_email }}</a>
+                        </p>
+                        <p>
+                            {{ lang.WEB_CONTACT_FORM_ALSO_CALL | raw }}
+                        </p>
+                    </div>
+                    <div id="contact_thanks_phone">
+                        <div id="contact_thanks_phone_icon">
+                            <img decoding="async" width="65" height="65" src="/assets/images/web/default/phone.svg" alt="{{ lang.WEB_CONTACT_FORM_PHONE_ALT | raw }}" title="{{ lang.WEB_CONTACT_FORM_PHONE_TITLE | raw }}">
+                        </div>
+                        <div id="contact_thanks_phone_phone">
+                            <a href="tel:{{ config.web_info_phone }}">{{ config.web_info_phone }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="contact_thanks_right">
+                <div id="contact_thanks_message">
+                    <div id="contact_thanks_message_title">
+                        <h1>
+                            {{ lang.CONTACT_THANKS_1 | raw }}{#Solicitud de contacto recibida.#}
+                        </h1>
+                    </div>
+                    <div id="contact_thanks_message_text">
+                        {{ lang.CONTACT_THANKS_2 | raw }}{#Nos pondremos en contacto tan pronto como nos sea posible.#}
+                    </div>
+                    <div id="contact_thanks_message_thanks">
+                        {{ lang.CONTACT_THANKS_3 | raw }}{#Gracias por confiar en nosotros.#}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

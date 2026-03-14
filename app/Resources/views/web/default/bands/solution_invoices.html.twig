@@ -1,0 +1,39 @@
+
+<section id="solution_invoices" class="web_section">
+    <div id="solution_invoices_container" class="web_container">
+        <div id="solution_invoices_content" class="web_content">
+
+            <div id="solution_invoices_wrapper" class="web_wrapper">
+                <div id="solution_invoices_title">
+                    Agente captura imagen de factura en whatsapp y la sube a un CRM, Google Drive...
+                </div>
+                <div id="solution_invoices_meat">
+
+                    <div id="solution_invoices_meat_text">
+                        Convierte contenido viral de otros creadores en ideas frescas para tus propios Reels, sin esfuerzo manual.
+                        Esta automatización te permite:
+                        Scrapear contenido viral o en tendencia desde perfiles o páginas relevantes.
+                        Analizar el contenido para detectar patrones, estilos y temas que están funcionando.
+                        Generar automáticamente un guion breve para que puedas grabar Reels o TikToks en minutos, enfocados en lo que el algoritmo ya está premiando.
+                        Ideal para creadores, agencias o freelancers que quieren mantenerse consistentes en redes sin tener que inventar contenido desde cero.
+                    </div>
+                    {% if env.env_env == 'dev' %}
+                        <div id="solution_invoices_meat_button">
+                            <a href="/solution/{{ lang.WEB_SOLUTION_INVOICES_LINK }}" target="_blank">
+                                Agente captura imagen de factura en whatsapp y la sube a un CRM, Google Drive...
+                            </a>
+                        </div>
+                        <div id="solution_invoices_meat_image">
+                            <img id="solution_invoices_meat_img"
+                                 src="{{ path }}trustworthy_ai.png"
+                                 decoding="async"
+                                 alt="Crece en Instagram 10K en 30 días"
+                            />
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

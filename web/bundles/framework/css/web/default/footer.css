@@ -1,0 +1,32 @@
+@import "bands/footer_badges.css";
+@import "bands/footer_contact_form.css";
+@import "bands/footer_columns.css";
+@import "bands/footer_social.css";
+@import "bands/footer_legal.css";
+footer
+{
+    display: flex;
+    flex-direction: column;
+    /*border: solid 1px black;*/
+}
+footer a {
+    text-decoration: none;
+    color: #000000;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+footer ul {
+    list-style: none;
+    padding: 0 0 0 10px;
+}
+@media (min-width: 576px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 900px) {
+}
+@media (min-width: 992px) {
+}
+@media (min-width: 1200px) {
+}

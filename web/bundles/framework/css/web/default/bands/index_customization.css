@@ -1,0 +1,61 @@
+
+#index_customization {
+}
+#index_customization_container {
+}
+#index_customization_content {
+    margin-bottom: 50px;
+    flex-direction: column;
+    /*border: solid 1px blue;*/
+}
+#index_customization_wrapper {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    /*border: solid 1px orange;*/
+}
+#index_customization_panels {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style: none;
+}
+.index_customization_panel {
+    width: 85vw;
+    margin: 0.7rem;
+    padding: 0.5rem;
+    background-color: var(--white);
+    border-top: solid 0.1rem var(--primary-color);
+    border-right: solid 0.1rem var(--primary-color);
+    border-bottom: solid 0.1rem var(--primary-color);
+    border-left: solid 0.5rem var(--highlight-color);
+    border-radius: var(--box-border-radius);
+}
+.index_customization_panel_title {
+    margin: 10px 0;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: bold;
+}
+.index_customization_panel_text {
+    color: var(--secondary-color);
+}
+@media (min-width: 600px) {
+}
+@media (min-width: 900px) {
+    .index_customization_panel {
+        width: 35vw;
+    }
+}
+@media (min-width: 1200px) {
+    .index_customization_panel {
+        width: 20vw;
+    }
+}
+@media (min-width: 1400px) {
+}
+

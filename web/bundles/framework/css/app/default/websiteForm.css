@@ -1,0 +1,228 @@
+.step_title {
+    background-color: #cccccc;
+    border-radius: 10px;
+    border: solid 1px grey;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.icon_image {
+    padding: 10px;
+    /*border: solid 5px grey;*/
+}
+.icon_image.selected {
+    border: solid 5px green;
+}
+.image_src {
+    min-width: 100px;
+}
+.image_src img{
+    width: 100%;
+}
+#icon_text_div {
+    width: 100%;
+    padding: 10px;
+    border: solid 3px grey;
+}
+#icon_text_div.selected {
+    border: solid 5px green;
+}
+#icon_text, #icon_text::placeholder{
+    background-color: blue;
+    color: white;
+    border: solid 5px blue;
+}
+.icon_size {
+    padding: 10px;
+    /*border: solid 5px grey;*/
+}
+.icon_size img {
+    width: 100%;
+    border: solid 1px grey;
+}
+#size_small {
+    width: 80px;
+}
+#size_medium {
+    width: 120px;
+}
+#size_big {
+    width: 180px;
+}
+.icon_size.selected {
+    border: solid 5px green;
+}
+#icon_position {
+    height: 300px;
+    margin: 10px 0 0 0;
+    background-image: url('/bundles/framework/images/web/default/web_background.png');
+    background-repeat: no-repeat;
+    /*background-attachment: fixed;*/
+    background-position: center;
+    background-size: cover;
+    border: solid 10px grey;
+    border-radius: 10px;
+}
+#row_top {
+    height: 33%;
+    display: flex;
+    flex-direction: row;
+}
+#row_centre {
+    height: 33%;
+    display: flex;
+    flex-direction: row;
+}
+#row_bottom {
+    height: 33%;
+    display: flex;
+    flex-direction: row;
+}
+
+#top_left {
+    width: 33%;
+    display: flex;
+    justify-content: flex-start;
+}
+#top_centre {
+    width: 33%;
+    display: flex;
+    justify-content: center;
+}
+#top_right {
+    width: 33%;
+    display: flex;
+    justify-content: flex-end;
+}
+#centre_left {
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+#centre_right {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+#bottom_left {
+    width: 33%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+#bottom_centre {
+    width: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+#bottom_right {
+    width: 33%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.position-cell {
+    padding: 10px;
+}
+.position-cercle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    transform-origin: center;
+    /*transform: translate(-14px,-10px);*/
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    box-shadow: inset 0 0 0 1px #0151ba;
+    border: 0;
+    padding: 0;
+    outline: none;
+}
+.position-cercle img {
+    width: 100%;
+    height: 100%;
+    display: none;
+    max-height: 367px;
+    outline: none;
+}
+.position-cercle.selected img {
+    display: block;
+}
+button:focus {
+    outline: none;
+}
+#domain_link {
+    background-color: black;
+    color: white;
+    border: solid 1px black;
+    font-family: monospace;
+    font-size: 1em;
+    padding: 20px 5px 20px 5px;
+}
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}

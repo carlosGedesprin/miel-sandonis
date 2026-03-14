@@ -1,0 +1,167 @@
+{% extends 'web/default.html.twig' %}
+
+{% set this_page = 'login' %}
+
+{% block metadescription %}{{ lang.WEB_LOGIN }}{% endblock %}
+{% block title %} {{ lang.WEB_LOGIN }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <a href="#" id="topofthepage" aria-label="{{ lang.WEB_TOP_OF_THE_PAGE }}"></a>
+
+    <div id="login_hero" class="row">
+        <div class="col-12 mt-100 mb-100 pt-10">
+
+            <div class="row">
+                <div id="outer-box" class="col-md-4 col-sm-6 mx-auto">
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="row no-gutters">
+                                <div class="col-2 text-left p-2">
+                                    <img id="identification_image"
+                                         src="/assets/images/web/{{ config.website_skin }}/logo.png"
+                                         alt="Logo {{ config.web_name }}"
+                                         data-retina="true" >
+                                </div>
+                                <div id="identification-title" class="col-8 col-sm-10">
+                                    {{ lang.WEB_LOGIN }}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                        {% if errors|length > 0 %}
+                            <div class="col-12" style="margin-bottom: 10px;">
+                                <div class="alert alert-danger">
+                                    {{ lang.ERRORS_FOUND }}:
+                                    <ul>
+                                        {% for error in errors %}
+                                            <li>{{ error | raw }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr>
+                        {% endif %}
+                        <div class="col-12">
+                            <form role="form" action="/{{ lang.WEB_LOGIN_LINK }}" method="post">
+                                <div class="form-group">
+                                    <label for="email">{{ lang.WEB_LOGIN_EMAIL }}</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="login_email"
+                                           name="email"
+                                           value="{{ post.email }}"
+                                           required="required"
+                                           autocomplete="email"
+                                           placeholder="{{ lang.WEB_LOGIN_EMAIL_PLACEHOLDER }}">
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="current-password">{{ lang.WEB_LOGIN_PASS }}</label>
+                                    <input type="password"
+                                           class="form-control"
+                                           id="current-password"
+                                           name="current-password"
+                                           required="required"
+                                           autocomplete="current-password"
+                                           placeholder="{{ lang.WEB_LOGIN_PASS_PLACEHOLDER }}">
+                                </div>
+                                <div class="form-check m-2">
+                                    <input type="checkbox"
+                                           class="form-check-input ml-2"
+                                           value="1"
+                                           id="remember_me"
+                                           name="remember_me">
+                                    <label class="form-check-label ml-4" for="remember_me">
+                                        {{ lang.WEB_LOGIN_REMEMBERME }}
+                                    </label>
+                                </div>
+                                <button type="submit" name="btn_submit" class="btn btn-secondary btn-lg btn-block mt-3">
+                                    <i class="{{ sign_in }}" aria-hidden="true"></i> {{ lang.WEB_LOGIN_SEND }}
+                                </button>
+
+                                <input type="hidden" name="auth_token" value="{{ post.auth_token }}" />
+
+                            </form>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div id="login_forgot_pass_div" class="col-12">
+                                    <a class="btn btn-block" href="/forgot-password"> {{ lang.SECURITY_I_FORGOT_PASS }}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                        {% if false %}
+                            <div class="col-12">
+
+                                <div class="row">
+                                    {# https://lipis.github.io/bootstrap-social/ #}
+                                    <div class="col-6">
+                                        <a class="btn btn-block btn-social btn-twitter"><span class="fa fa-twitter"></span> Twitter</a>
+                                    </div>
+                                    <div class="col-6">
+                                        {#
+                                            https://developers.facebook.com/docs/facebook-login/web
+                                            https://developers.facebook.com/docs/facebook-login/web/login-button?locale=es_ES
+                                        #}
+                                        <a class="btn btn-block btn-social btn-facebook"><span class="fa fa-facebook"></span> Facebook</a>
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <a class="btn btn-block btn-social btn-github"><span class="fa fa-github"></span> Github</a>
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <a class="btn btn-block btn-social btn-linkedin"><span class="fa fa-linkedin"></span> Linkedin</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        {% endif %}
+                        {% if false %}
+                            <div class="col-12">
+                                <hr>
+                            </div>
+                            <div id="login_register_div" class="col-12">
+                                <a class="btn btn-secondary btn-lg btn-block" href="/{{ lang.WEB_REGISTER_LINK }}"> {{ lang.WEB_LOGIN_CREATE_ACCOUNT }}</a>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/bundles/framework/css/web/default/security.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+
+        });
+        (function($) {
+            'use strict';
+
+            $('#username').bind("cut copy paste",function(e) {
+                e.preventDefault();
+            });
+            $('#current-password').bind("cut copy paste",function(e) {
+                e.preventDefault();
+            });
+
+        })(jQuery);
+    </script>
+{% endblock %}

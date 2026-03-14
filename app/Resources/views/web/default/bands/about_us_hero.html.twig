@@ -1,0 +1,43 @@
+{% set path = '/assets/images/web/'~config.website_skin~'/bands/about_us/' %}
+{% set img_1 = path ~ 'about_us_hero.png' %}
+
+<section id="about_us_hero" class="web_section">
+    <div id="about_us_hero_container" class="web_container">
+        <div id="about_us_hero_content" class="web_content">
+
+            <div id="about_us_hero_wrapper" class="web_wrapper">
+                <div id="about_us_hero_left">
+                    <h1>
+                        {{ lang.WEB_ABOUT_US_HERO_1 | raw }} {#Trabajamos contigo para automatizar lo que te frena#}
+                    </h1>
+                    <h2>
+                        {{ lang.WEB_ABOUT_US_HERO_2 | raw }} {#Somos los expertos en IA que se sientan a entender tu negocio#}
+                    </h2>
+                    <p>
+                        {{ lang.WEB_ABOUT_US_HERO_3 | raw }} {#Entendemos la frustración de perder horas en correos, agendas o tareas de gestión. Nuestro equipo no solo implementa la tecnología; la usamos para atacar la ineficiencia, liberar a tu gente y garantizar que cada proceso sea <b>tan rentable como debería ser</b>.#}
+                    </p>
+                    <p>
+                        {{ lang.WEB_ABOUT_US_HERO_4 | raw }} {#<b>Tu problema es nuestro siguiente proyecto.</b>#}
+                    </p>
+                    <div id="about_us_hero_buttons" class="generic_button">
+                        <a
+                                class="about_us_hero_button"
+                                href="/{{ lang.WEB_MENU_CONTACT_LINK }}"
+                                title="{{ lang.WEB_TITLE_CONTACT }}"
+                        >
+                            {{ lang.WEB_ABOUT_US_HERO_5 | raw }} {#Cuéntanos#} >
+                        </a>
+                    </div>
+                </div>
+                <div id="about_us_hero_right">
+                    <img
+                            src="{{ img_1 }}"
+                            decoding="async"
+                            alt=""
+                    >
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

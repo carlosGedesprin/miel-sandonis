@@ -1,0 +1,50 @@
+{% set path = '/assets/images/web/'~config.website_skin~'/bands/template/' %}
+{% set automation = 'template' %}
+
+<section id="template_eight" class="web_section">
+    <div id="template_eight_container" class="web_container">
+        <div id="template_eight_content" class="web_content">
+
+            <div id="template_eight_template_title">
+                template_eight
+            </div>
+            <div id="template_eight_wrapper" class="web_wrapper">
+
+                <div id="template_eight_image">
+                    <img id="template_eight_main_image_img"
+                         src="/assets/images/web/default/bands/template/template_seven.avif"
+                         decoding="async"
+                         alt="">
+                </div>
+                <div id="template_eight_texts">
+                    <div id="template_eight_texts_title">
+                        <h2>
+                            Asistente personal
+                        </h2>
+                    </div>
+                    <div id="template_eight_texts_texts">
+                        <div id="template_eight_texts_subtext">
+                            Tu asistente personal conectado a tu negocio.
+                        </div>
+                        <div id="template_eight_texts_text">
+                            <p>
+                                Haz una petición desde WhatsApp, Slack o Telegram y genera tareas, correos, citas o informes automáticamente.<br>
+                            </p>
+                            <p>
+                                ¿Necesitas que el bot recuerde información específica de tu negocio?<br>
+                                Podemos activar la <strong>memoria RAG</strong> y conecta tu documentación (PDFs, Notion, webs, etc.) para que responda con rapidez y precisión.
+                            </p>
+                        </div>
+                        <div id="template_eight_texts_button" class="generic_button">
+                            {#<a href="/get_solution/{{ automation }}">#}
+                            <a href="/{{ lang.WEB_MENU_CONTACT_LINK }}">
+                                Contratar &gt;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

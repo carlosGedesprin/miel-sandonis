@@ -1,0 +1,410 @@
+{% extends 'app/' ~ config.app_skin ~ '/app.html.twig' %}
+
+{% set entity = 'advertisement' %}
+
+{% block title %} {{ parent() }} &bull; {% if (data.action == 'delete') %}{{ lang.ADVERTISEMENT_DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.ADVERTISEMENT_EDIT }}{%  endif %}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid mb-4">
+
+    <a href="#" id="topofthepage"></a>
+
+    <div class="col-md-8 offset-md-2 col-sm-12 my-4 p-2 rounded-3 font-weight-bold {% if (data.action == 'delete') %}is_delete{%  else %} bg-light{%  endif %}">
+        {% if (data.action == 'delete') %}
+            {{ lang.ADVERTISEMENT_DELETE }}
+        {% elseif (data.action == 'edit') %}
+            {{ lang.ADVERTISEMENT_EDIT }}
+        {% elseif  (data.action == 'add') %}
+            {{ lang.ADVERTISEMENT_ADD }}
+        {%  endif %}
+        : {{ reg.name }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-sm-12 mx-auto">
+
+            <form id="item-form"
+                  method="post"
+                  role="form"
+                  enctype="multipart/form-data"
+            >
+
+                <div class="row">
+                    <div class="col-md-10 col-sm-12 mx-auto">
+
+                        <div id="box-result">
+                            <div class="alert">
+                            </div>
+                        </div>
+
+                        <div class="card">
+
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs" id="tabs-list" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active"
+                                           id="details-tab"
+                                           href="#tab-details"
+                                           role="tab"
+                                           aria-controls="details"
+                                           aria-selected="true">
+                                            {{ lang.ADVERTISEMENT_TAB_DETAILS }}
+                                        </a>
+                                    </li>
+                                    {#
+                                    {% if (data.action != 'add') %}
+                                        {% if user_group == '1' or user_group == '2' %}
+                                            <li class="nav-item">
+                                                <a class="nav-link"
+                                                   id="register-tab"
+                                                   href="#tab-register"
+                                                   role="tab"
+                                                   aria-controls="register"
+                                                   aria-selected="false">
+                                                    {{ lang.ADVERTISEMENT_TAB_REGISTER }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                    #}
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+
+                                {# This shines in all tab-content #}
+                                {#<h4 class="card-title">Title 4</h4>#}
+                                {#<h6 class="card-subtitle mb-2">Title 5</h6>#}
+
+                                <div class="tab-content mt-3">
+
+                                    <div class="tab-pane fade show active p-3" id="tab-details" role="tabpanel" aria-labelledby="details-tab">
+
+                                        {#<h5 class="card-title text-center">{{ lang.LANG_TEXT_TAB_DETAILS }}</h5>#}
+
+                                        <div class="row">
+                                            <div class="col-md-8 offset-md-2">
+
+                                                <div class="form-group">
+                                                <label class="col-12" for="account">{{ lang.ADVERTISEMENT_ACCOUNT }}:</label>
+                                                    <select class="form-control"
+                                                            id="account"
+                                                            name="account"
+                                                            {% if (data.action == 'delete') %}disabled="disabled"{%  endif %}
+                                                            value="{{ reg.account }}"
+                                                            placeholder="{{ lang.ENTER_TEXT }}">
+                                                    {{ data.account_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                <label class="col-12" for="billing_account">{{ lang.ADVERTISEMENT_BILLING_ACCOUNT }}:</label>
+                                                    <select class="form-control"
+                                                            id="billing_account"
+                                                            name="billing_account"
+                                                            {% if (data.action == 'delete') %}disabled="disabled"{%  endif %}
+                                                            value="{{ reg.billing_account }}"
+                                                            placeholder="{{ lang.ENTER_TEXT }}">
+                                                    {{ data.billing_account_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                <label class="col-12" for="supplier">{{ lang.ADVERTISEMENT_SUPPLIER }}:</label>
+                                                    <select class="form-control"
+                                                            id="supplier"
+                                                            name="supplier"
+                                                            {% if (data.action == 'delete') %}disabled="disabled"{%  endif %}
+                                                            value="{{ reg.supplier }}"
+                                                            placeholder="{{ lang.ENTER_TEXT }}">
+                                                    {{ data.supplier_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                <label class="col-12" for="category">{{ lang.ADVERTISEMENT_CATEGORY }}:</label>
+                                                    <select class="form-control"
+                                                            id="category"
+                                                            name="category"
+                                                            {% if (data.action == 'delete') %}disabled="disabled"{%  endif %}
+                                                            value="{{ reg.category }}"
+                                                            placeholder="{{ lang.ENTER_TEXT }}">
+                                                    {{ data.category_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                {% if reg.date_end == NULL or reg.date_end == '' or reg.date_end == '0000-00-00' %}
+                                                    <div class="form-group">
+                                                        <label class="col-12" for="product">{{ lang.ADVERTISEMENT_PLAN }}:</label>
+                                                        <select class="form-control"
+                                                                id="product"
+                                                                name="product"
+                                                                {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                value="{{ reg.product }}"
+                                                                placeholder="{{ lang.PLAN_SELECT }}">
+                                                            {{ data.plan_options | raw }}
+                                                        </select>
+                                                    </div>
+                                                {% else %}
+                                                    <div class="form-group">
+                                                        <label class="col-12" for="product">{{ lang.ADVERTISEMENT_PRODUCT }}:</label>
+                                                        <select class="form-control"
+                                                                id="product"
+                                                                name="product"
+                                                                {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                value="{{ reg.product }}"
+                                                                placeholder="{{ lang.PRODUCT_SELECT }}">
+                                                            {{ data.product_options | raw }}
+                                                        </select>
+                                                        {% if (data.action == 'edit') %}
+                                                            <div style="">{{ lang.ADVERTISEMENT_PRODUCT_CHANGE_TEXT }}</div>
+                                                        {% endif %}
+                                                    </div>
+                                                {% endif %}
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="coupon">{{ lang.ADVERTISEMENT_COUPON }}:</label>
+                                                    <select class="form-control"
+                                                            id="coupon"
+                                                            name="coupon"
+                                                            {% if (data.action == 'delete') %}disabled="disabled"{%  endif %}
+                                                            value="{{ reg.coupon }}"
+                                                            placeholder="{{ lang.ENTER_TEXT }}">
+                                                    {{ data.coupon_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group" id="date_reg_div">
+                                                    <label class="control-label" for="date_reg">{{ lang.ADVERTISEMENT_DATE_REG }}:</label>
+                                                    {% if user_group == '1' or user_group == '2' %}
+                                                        <input id="date_reg"
+                                                               type="text"
+                                                               name="date_reg"
+                                                               class="form-control datepicker"
+                                                               value="{{ reg.date_reg }}"
+                                                                {#required="required"#}
+                                                               placeholder="{{ lang.ENTER_DATE }}"
+                                                        >
+                                                    {% else %}
+                                                        {{ reg.date_reg }}
+                                                        <input type="hidden" name="date_reg" value="{{ reg.date_reg }}">
+                                                    {% endif %}
+                                                </div>
+
+                                                {% if user_group == '1' or user_group == '2' %}
+                                                    <div class="form-group row">
+                                                        <div class="col-1 align-content-end">
+                                                            <label class="switch align-self-start">
+                                                                <input type="checkbox"
+                                                                       class="switch_input"
+                                                                       id="autorenew"
+                                                                       name="autorenew"
+                                                                       {% if (reg.active == '1') %}checked="checked"{%  endif %}
+                                                                       value="{{ reg.autorenew }}"
+                                                                >
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-label col-10 ml-20 my-auto mx-right" for="active">{{ lang.ADVERTISEMENT_AUTORENEW }}</div>
+                                                    </div>
+                                                {%  else %}
+                                                    <input type="hidden" name="autorenew" value="{{ reg.autorenew }}">
+                                                {% endif %}
+
+                                                <div class="form-group">
+                                                    <label class="control-label" for="date_start">{{ lang.ADVERTISEMENT_DATE_START }}:</label>
+                                                    {% if user_group == '1' or user_group == '2' %}
+                                                        <input id="date_start"
+                                                               type="text"
+                                                               name="date_start"
+                                                               class="form-control datepicker"
+                                                               value="{{ reg.date_start }}"
+                                                                {#required="required"#}
+                                                               placeholder="{{ lang.ENTER_DATE }}"
+                                                        >
+                                                    {% else %}
+                                                        {{ reg.date_start }}
+                                                        <input type="hidden" name="date_start" value="{{ reg.date_start }}">
+                                                    {% endif %}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label" for="date_end">{{ lang.ADVERTISEMENT_DATE_END }}:</label>
+                                                    {% if user_group == '1' or user_group == '2' %}
+                                                        <input id="date_end"
+                                                               type="text"
+                                                               name="date_end"
+                                                               class="form-control datepicker"
+                                                               value="{{ reg.date_end }}"
+                                                                {#required="required"#}
+                                                               placeholder="{{ lang.ENTER_DATE }}"
+                                                        >
+                                                    {% else %}
+                                                        {{ reg.date_end }}
+                                                        <input type="hidden" name="date_end" value="{{ reg.date_end }}">
+                                                    {% endif %}
+                                                </div>
+
+                                                {% if user_group == '1' or user_group == '2' %}
+                                                    <div class="form-group row">
+                                                        <div class="col-1 align-content-end">
+                                                            <label class="switch align-self-start">
+                                                                <input type="checkbox"
+                                                                       class="switch_input"
+                                                                       id="active"
+                                                                       name="active"
+                                                                       {% if (reg.active == '1') %}checked="checked"{%  endif %}
+                                                                       value="{{ reg.active }}"
+                                                                >
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-label col-10 ml-20 my-auto mx-right" for="active">{{ lang.ADVERTISEMENT_ACTIVE }}</div>
+                                                    </div>
+                                                {%  else %}
+                                                    <input type="hidden" name="active" value="{{ reg.active }}">
+                                                {% endif %}
+
+                                            </div>{# <div class="col-md-8 offset-md-2"> #}
+                                        </div>{# <div class="row"> #}
+
+                                    </div>{# <div class="tab-pane fade show active p-3" id="tab-details" role="tabpanel" aria-labelledby="details-tab"> #}
+                                    {#
+                                    {% if (data.action != 'add') %}
+                                        {% if user_group == '1' or user_group == '2' %}
+
+                                            <div class="tab-pane fade show p-3" id="tab-register" role="tabpanel" aria-labelledby="register-tab">
+
+                                            {#<h5 class="card-title text-center">{{ lang.LANG_TEXT_TAB_REGISTER }}</h5>
+
+                                            <div class="col-9 mx-auto">
+                                            <div class="row">
+
+                                            <div class="form-group" style="width: 100%;">
+                                                <label class="control-label" for="createdby">{{ lang.APP_CREATED_BY }}:</label>
+                                                {{ reg.createdby }}
+                                            </div>
+
+                                            <div class="form-group" style="width: 100%;">
+                                                <label class="control-label" for="createddate">{{ lang.APP_CREATED_DATE }}:</label>
+                                                {{ reg.createddate }}
+                                            </div>
+
+                                            <div class="form-group" style="width: 100%;">
+                                                <label class="control-label" for="updatedby">{{ lang.APP_UPDATED_BY }}:</label>
+                                                {{ reg.updatedby }}
+                                            </div>
+
+                                            <div class="form-group" style="width: 100%;">
+                                                <label class="control-label" for="updateddate">{{ lang.APP_UPDATED_DATE }}:</label>
+                                                {{ reg.updateddate }}
+                                            </div>
+
+                                            </div>{# <div class="row">
+                                            </div>{# <div class="col-9 mx-auto">
+
+                                            </div>{# <div class="tab-pane fade show p-3" id="tab-register" role="tabpanel" aria-labelledby="register-tab">
+
+                                        {% endif %}
+                                    {% endif %}
+                                    #}
+
+                                </div>{# <div class="tab-content mt-3"> #}
+
+                            </div>{# <div class="card-body"> #}
+                        </div>{# <div class="card"> #}
+
+                    </div>{# <div class="col-8 mx-auto"> #}
+                </div>{# <div class="row"> #}
+
+                <div class="row">
+                    <div class="col-12 my-4 text-center">
+                        <button type="button" name="btn_submit" id="btn_submit" class="btn btn-info" value="1">{% if (data.action == 'delete') %}{{ lang.DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.SAVE }}{%  endif %}</button>
+                        <button type="button" name="btn_cancel" id="btn_cancel" class="btn btn-info" formnovalidate>{{ lang.BACK_TO_LIST }}</button>
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="{{ reg.id }}">
+
+                {# Filters #}
+                {% for filter_name, filter_data in filters %}
+                    {% for filter_data_key, filter_data_data in filter_data %}
+                        <input type="hidden" name="filters[{{ filter_name }}][{{ filter_data_key }}]" id="filter_{{ filter_name }}_{{ filter_data_key }}" value="{{ filter_data_data }}" />
+                    {% endfor %}
+                {% endfor %}
+                {# Pagination #}
+                {% for key, value in pagination %}
+                    <input type="hidden" name="pagination[{{ key }}]" id="{{ key }}" value="{{ value }}" />
+                {% endfor %}
+
+                <input type="hidden" name="auth_token" value="{{ data.auth_token }}" />
+
+            </form>
+
+        </div>{# <div class="col-10 mx-auto"> #}
+    </div>{# <div class="row">#}
+
+</div>{# <div class="container-fluid mb-4">#}
+
+<div class="clear"></div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" type="text/css" />
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/form.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/input_switch.css') }}" type="text/css" />
+{% endblock %}
+{% block javascripts %}
+     {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            {# app/advertisementForm.html.twig #}
+
+        });
+        (function($) {
+            'use strict';
+
+        })(jQuery);
+    </script>
+    <script type="text/javascript">
+        var folder = '{{ session[config['cookies_prefix']~'_folder'] }}';
+        var entity = '{{ entity }}';
+        var action = '{{ data.action }}';
+        var cancel = '{{ cancel }}';
+        var reg_id = '{{ reg.id }}';
+        var l_errors_found = '{{ lang.ERRORS_FOUND }}';
+        var l_form_has_errors = '{{ lang.ERRORS_FORM }}';
+    </script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/forms.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/input_switch.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/scrool-to-top.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
+    <script>
+        $(document).ready(function($){
+            {# app/advertisementForm.html.twig #}
+
+            let today = new Date();
+            let t_date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+(today.getDate());
+            {#
+            var time = today.getHours() + ":" + today.getMinutes();
+            var dateTime = date+' '+time;
+            console.log(t_date);
+            #}
+            $('.datepicker').datepicker({
+                language: 'es',
+                format: 'dd-mm-yyyy',
+                todayBtn: true,
+                todayHighlight: true,
+                startDate: t_date,
+                autoclose: true,
+            });
+        });
+        (function($) {
+            'use strict';
+
+        })(jQuery);
+    </script>
+{% endblock %}

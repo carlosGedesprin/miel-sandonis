@@ -1,0 +1,87 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.SECURITY_UNSUBSCRIBE }}{% endblock %}
+
+{% block body %}
+
+    <div id="unsubscribe_hero" class="row">
+        <div class="col-12 mt-100 mb-100 pt-10">
+
+            <div class="row">
+                <div id="outer-box" class="col-md-4 col-sm-6 mx-auto">
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="row no-gutters">
+                                <div class="col-2 text-left p-2">
+                                    <img id="identification_image"
+                                         src="/assets/images/web/{{ config.website_skin }}/logo.png"
+                                         alt="Logo {{ config.web_name }}"
+                                         data-retina="true" />
+                                </div>
+                                <div id="identification-title" class="col-10">
+                                    {{ lang.SECURITY_UNSUBSCRIBE }}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                        {% if errors|length > 0 %}
+                            <div class="col-12" style="margin-bottom: 10px;">
+                                <div class="alert alert-danger">
+                                    {{ lang.ERRORS_FOUND }}:
+                                    <ul>
+                                        {% for error in errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr>
+                        {% endif %}
+                        <div class="col-12">
+
+                            <form role="form" action="/unsubscribe/{{ data.email }}/{{ data.token }}" method="post">
+
+                                {{ lang.SECURITY_UNSUBSCRIBE_EXP|raw }}
+
+                                <div style="margin: 20px;"></div>
+
+                                <button type="submit" name="btn_submit" class="btn btn-primary btn-lg btn-block mt-3">
+                                    <i class="{{ sign_in }}" aria-hidden="true"></i> {{ lang.SECURITY_UNSUBSCRIBE_BUTTON }}
+                                </button>
+
+                                <input type="hidden" name="auth_token" value="{{ data.auth_token }}" />
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/bundles/framework/css/web/{{ config.website_skin }}/security.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+
+        });
+        (function($) {
+            'use strict';
+
+        })(jQuery);
+    </script>
+{% endblock %}

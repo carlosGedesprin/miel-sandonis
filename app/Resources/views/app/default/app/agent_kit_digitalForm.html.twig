@@ -1,0 +1,329 @@
+{% extends 'app/default/app.html.twig' %}
+
+{% set entity = 'lead' %}
+
+{% block title %} {{ parent() }} &bull; {% if (data.action == 'delete') %}Eliminar Agente{% elseif (data.action == 'edit') or data.action == 'add' %}Editar Agente{%  endif %}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid mb-4">
+
+    <a href="#" id="topofthepage"></a>
+
+    <div class="col-8 offset-2 my-4 p-2 rounded-3 font-weight-bold {% if (data.action == 'delete') %}is_delete{%  else %} bg-light{%  endif %}">
+        {% if (data.action == 'delete') %}
+            Eliminar Agente
+        {% elseif (data.action == 'edit') %}
+            Editar Agente
+        {% elseif  (data.action == 'add') %}
+            Añadir Agente
+        {%  endif %}
+        : {{ reg.name }}
+    </div>
+
+    <div class="row">
+            <div class="col-10 mx-auto">
+
+                <form id="item-form"
+                      method="post"
+                      role="form"
+                      enctype="multipart/form-data"
+                >
+
+                <div class="row">
+                    <div class="col-8 mx-auto">
+
+                        <div id="box-result">
+                            <div class="alert">
+                            </div>
+                        </div>
+
+                            <div class="card">
+
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs" id="tabs-list" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active"
+                                               id="details-tab"
+                                               href="#tab-details"
+                                               role="tab"
+                                               aria-controls="details"
+                                               aria-selected="true">
+                                                Detalles
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link"
+                                               id="emails-tab"
+                                               href="#tab-emails"
+                                               role="tab"
+                                               aria-controls="emails"
+                                               aria-selected="false">
+                                                Emails
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link"
+                                               id="notes-tab"
+                                               href="#tab-notes"
+                                               role="tab"
+                                               aria-controls="notes"
+                                               aria-selected="false">
+                                                Notas
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="tab-content mt-3">
+
+                                        <div class="tab-pane fade show active p-3" id="tab-details" role="tabpanel">
+
+                                            {#<h5 class="card-title text-center">Detalles</h5>#}
+
+                                            <div class="row">
+                                                <div class="col-md-8 offset-md-2">
+
+                                                    <div class="form-group">
+                                                        <label class="col-12" for="name">Empresa del Agente:</label>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               id="name"
+                                                               name="name"
+                                                               minlength="2"
+                                                               maxlength="100"
+                                                               {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                               value="{{ reg.name }}"
+                                                               placeholder="Introducir nombre"
+                                                               aria-labelledby="nameAriaDesc">
+                                                    </div>
+                                                    <span id="nameAriaDesc" class="d-none">Empresa del Agente</span>
+
+                                                    <div class="form-group">
+                                                        <label class="col-12" for="surname">Nombre del Agente:</label>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               id="surname"
+                                                               name="surname"
+                                                               minlength="2"
+                                                               maxlength="100"
+                                                               {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                               value="{{ reg.surname }}"
+                                                               placeholder="Introducir nombre"
+                                                               aria-labelledby="surnameAriaDesc">
+                                                    </div>
+                                                    <span id="surnameAriaDesc" class="d-none">Nombre del Agente</span>
+
+                                                    <div class="form-group">
+                                                        <label class="col-12" for="website_domain">Dominio web:</label>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               id="domain"
+                                                               name="domain"
+                                                               {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                               value="{{ reg.domain }}"
+                                                               placeholder="Introducir Dominio">
+                                                    </div>
+
+                                                    <div class="form-group" style="width: 100%;">
+                                                        <label class="form-label" for="email">Emails:</label>
+                                                        <textarea
+                                                                class="form-control"
+                                                                id="email"
+                                                                name="email"
+                                                                {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                style="height: 50px;"
+                                                                placeholder="Emails">{{ reg.email }}</textarea>
+                                                    </div>
+
+                                                    <div class="form-group" style="width: 100%;">
+                                                        <label class="form-label" for="phone">Teléfonos:</label>
+                                                        <textarea
+                                                                class="form-control"
+                                                                id="phone"
+                                                                name="phone"
+                                                                {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                style="height: 50px;"
+                                                                placeholder="Telefonos">{{ reg.phone }}</textarea>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-12" for="send">Mandar correo (mientras este desactivado no se mandara nada):</label>
+                                                        <select class="form-control"
+                                                                id="send"
+                                                                name="send"
+                                                                {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                value="{{ reg.send }}"
+                                                                placeholder="Seleccione un campo"
+                                                                aria-labelledby="sendAriaDesc">
+                                                            {{ data.send_options|raw }}
+                                                        </select>
+                                                    </div>
+                                                    <span id="sendAriaDesc" class="d-none">Decidir si mandar correo</span>
+
+                                                    <div class="form-group">
+                                                        <label class="col-12" for="customer">Cliente:</label>
+                                                        <select class="form-control"
+                                                                id="customer"
+                                                                name="customer"
+                                                                {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                value="{{ reg.customer }}"
+                                                                placeholder="Seleccionar"
+                                                                aria-labelledby="blockedAriaDesc">
+                                                            {{ data.customer_options | raw }}
+                                                        </select>
+                                                    </div>
+                                                    <span id="customerAriaDesc" class="d-none">Cliente</span>
+
+                                                    <div class="form-group">
+                                                        <label class="col-12" for="blocked">Bloqueado:</label>
+                                                        <select class="form-control"
+                                                                id="blocked"
+                                                                name="blocked"
+                                                                {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                value="{{ reg.blocked }}"
+                                                                placeholder="Seleccionar"
+                                                                aria-labelledby="blockedAriaDesc">
+                                                            {{ data.blocked_options|raw }}
+                                                        </select>
+                                                    </div>
+                                                    <span id="blockedAriaDesc" class="d-none">Bloqueado</span>
+
+                                                </div>{# <div class="col-md-8 offset-md-2"> #}
+                                            </div>{# <div class="row"> #}
+
+                                        </div>{# <div class="tab-pane fade show active p-3" id="details" role="tabpanel"> #}
+
+                                        <div class="tab-pane fade show p-3" id="tab-emails" role="tabpanel" aria-labelledby="emails-tab">
+
+                                            {#<h5 class="card-title text-center">Emails</h5>#}
+
+                                            <div class="col-9 mx-auto">
+                                                <div class="row">
+
+                                                    <div class="form-group col-12">
+                                                        <label class="control-label" for="email_1">Email 1 (Presentación): </label>
+                                                        {{ reg.mail_1 }}
+                                                    </div>
+
+                                                    <div class="form-group col-12">
+                                                        <label class="control-label" for="email_2">Email 2:</label>
+                                                        {{ reg.mail_2 }}
+                                                    </div>
+
+                                                    <div class="form-group col-12">
+                                                        <label class="control-label" for="email_3">Email 3:</label>
+                                                        {{ reg.mail_3 }}
+                                                    </div>
+
+                                                    <div class="form-group col-12">
+                                                        <label class="control-label" for="email_4">Email 4: </label>
+                                                        {{ reg.mail_4 }}
+                                                    </div>
+
+                                                    <div class="form-group col-12">
+                                                        <label class="control-label" for="email_5">Email 5:</label>
+                                                        {{ reg.mail_5 }}
+                                                    </div>
+
+                                                    <div class="form-group col-12">
+                                                        <label class="control-label" for="email_6">Email 6:</label>
+                                                        {{ reg.mail_6 }}
+                                                    </div>
+
+                                                </div>{# <div class="col-9 mx-auto">#}
+                                            </div>{# <div class="row"> #}
+
+                                        </div>{# <div class="tab-pane fade show p-3" id="tab-notes" role="tabpanel" aria-labelledby="notes-tab"> #}
+
+                                        <div class="tab-pane fade show p-3" id="tab-notes" role="tabpanel" aria-labelledby="notes-tab">
+
+                                            {#<h5 class="card-title text-center">Notas</h5>#}
+
+                                            <div class="col-9 mx-auto">
+                                                <div class="row">
+
+                                                    <div class="form-group" style="width: 100%;">
+                                                        <label class="form-label" for="notes">Notas:</label>
+                                                        <textarea
+                                                                class="form-control"
+                                                                id="notes"
+                                                                name="notes"
+                                                                {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                    style="height: 300px;"
+                                                                placeholder="Notas">{{ reg.notes }}</textarea>
+                                                    </div>
+
+                                                </div>{# <div class="col-9 mx-auto">#}
+                                            </div>{# <div class="row"> #}
+
+                                        </div>{# <div class="tab-pane fade show p-3" id="tab-notes" role="tabpanel" aria-labelledby="notes-tab"> #}
+
+                                    </div>{# <div class="tab-content mt-3"> #}
+
+                                </div>{# <div class="card-body"> #}
+                            </div>{# <div class="card"> #}
+
+                    </div>{# <div class="col-md-8 mx-auto"> #}
+                </div>{# <div class="row"> #}
+
+                <div class="row">
+                    <div class="col-12 my-4 text-center">
+                        <button type="button" name="btn_submit" id="btn_submit" class="btn btn-info" value="1">{% if (data.action == 'delete') %}Eliminar{% elseif (data.action == 'edit') or data.action == 'add' %}Guardar{%  endif %}</button>
+                        <button type="button" name="btn_cancel" id="btn_cancel" class="btn btn-info" formnovalidate>Volver a la lista</button>
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="{{ reg.id }}">
+
+                {# Filters #}
+                {% for filter_name, filter_data in filters %}
+                    {% for filter_data_key, filter_data_data in filter_data %}
+                        <input type="hidden" name="filters[{{ filter_name }}][{{ filter_data_key }}]" id="filter_{{ filter_name }}_{{ filter_data_key }}" value="{{ filter_data_data }}"/>
+                    {% endfor %}
+                {% endfor %}
+                {# Pagination #}
+                {% for key, value in pagination %}
+                    <input type="hidden" name="pagination[{{ key }}]" id="{{ key }}" value="{{ value }}"/>
+                {% endfor %}
+
+                <input type="hidden" name="auth_token" value="{{ data.auth_token }}" />
+
+            </form>
+
+        </div>{# <div class="col-md-8 offset-md-2"> #}
+    </div>{# <div class="row">#}
+
+</div>{# <div class="container-fluid mb-4"> #}
+
+<div class="clear"></div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/form.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/tabs.css') }}" type="text/css" />
+{% endblock %}
+{% block javascripts %}
+     {{ parent() }}
+     <script>
+        $(document).ready(function(){
+            {# app/agentForm.html.twig #}
+        });
+        (function($) {
+            'use strict';
+
+        })(jQuery);
+    </script>
+    <script type="text/javascript">
+        var folder = '{{ session['ACCSSME_folder'] }}';
+        var entity = '{{ entity }}';
+        var action = '{{ data.action }}';
+        var cancel = '{{ cancel }}';
+        var reg_id = '{{ reg.id }}';
+        var l_errors_found = 'Errores encontrados';
+        var l_form_has_errors = 'Tiene errores';
+    </script>
+    <script type="text/javascript" src="/bundles/framework/js/app/default/forms.js"></script>
+{% endblock %}

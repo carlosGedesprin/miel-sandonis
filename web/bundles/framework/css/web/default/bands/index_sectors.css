@@ -1,0 +1,41 @@
+
+#index_sectors {
+}
+#index_sectors_container {
+}
+#index_sectors_content {
+    flex-direction: column;
+    /*border: solid 1px red;*/
+}
+#index_sectors_title {
+    /*border: solid 1px red;*/
+}
+#index_sectors_cloud {
+    width: 70%;
+}
+#index_sectors_ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    list-style: none;
+}
+.index_sectors_list_li {
+    margin: 0.7rem;
+}
+.index_sectors_list_li a {
+    padding: 0.5rem;
+    border: solid 0.1rem var(--primary-color);
+    border-radius: 6px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+@media only screen and (min-width: 576px) {
+}
+@media only screen and (min-width: 800px) {
+}
+@media only screen and (min-width: 1240px) {
+}

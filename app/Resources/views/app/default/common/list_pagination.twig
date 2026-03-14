@@ -1,0 +1,24 @@
+        <div class="row">
+            <div class="col-12">
+                <div class="pagination pull-right">
+                    <ul>
+                        {% for p_page in page_list %}
+                            {% if p_page.s_is_prev %}
+                                <li class="previous"><a href="#" class="pagination-button" data-button="{{ p_page.page_url }}" rel="prev" role="button" title="{{ lang.PREVIOUS }}">{{ lang.PREVIOUS }}</a></li>
+                            {% elseif p_page.s_is_current %}
+                                <li class="active"><span>{{ p_page.page_number }}</span></li>
+                            {% elseif p_page.s_is_ellipsis %}
+                                <li class="ellipsis" role="separator"><span>...</span></li>
+                            {% elseif p_page.s_is_next %}
+                                <li class="next"><a href="#" class="pagination-button" data-button="{{ p_page.page_url }}" rel="next" role="button" title="{{ lang.NEXT }}">{{ lang.NEXT }}</a></li>
+                            {% else %}
+                                <li><a href="#" class="pagination-button" data-button="{{ p_page.page_url }}" role="button" title="{{ lang.JUMP_PAGE }} {{p_page.page_number}}">{{p_page.page_number}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="pagination pull-right">
+                    <span>Page {{ pagination.num_page }} of {{ total_pages }}</span>
+                </div>
+            </div>
+        </div>

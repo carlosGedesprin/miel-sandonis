@@ -1,0 +1,237 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'payment_stripe' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.PAY_A_QUOTE_TITLE }}{% endblock %}
+
+{% block body %}
+    <div id="payment_hero" class="container-fluid">
+        <div id="payment_hero_content">
+            <div id="payment_hero_colum_left">
+                <div id="payment_hero_colum_left_image">
+                    <img src="/assets/images/web/{{ config.website_skin }}/bands/payment_stripe/movil.png" alt="">
+                </div>
+                <div id="payment_hero_colum_left_text">
+                    <p>{{ lang.PAY_A_QUOTE_SUBTITLE }}</p>
+                </div>
+            </div>
+            <div id="payment_hero_colum_right">
+                <div id="payment_hero_title">
+                    <h2>{{ lang.PAY_A_QUOTE_CARD_PAYMENT }}</h2>
+                </div>
+                <form id="payment_form" class="payment_hero_form" method="POST">
+                </form>
+                <div id="payment_hero_payment_products">
+                    {% for product in data.products %}
+                        <div id="payment_hero_payment_product_{{ product.id }}" class="payment_hero_payment_product {% if product.id == data.product_preferred %}payment_hero_payment_product_active{% endif %}">
+                            <div id="payment_hero_radio_button" class="payment_hero_position">
+                                <div class="payment_hero_payment">
+                                    <input type="radio"
+                                           id="payment_{{ product.id }}"
+                                           name="payment"
+                                           value="{{ product.id }}"
+                                           {% if product.id == data.product_preferred %}checked="checked"{% endif %}
+                                           form="payment_form"
+                                           class="payment_hero_payment_input" />
+                                    <label class="payment_hero_payment_label" for="payment_{{ product.id }}">{{ product.name }}</label>
+                                </div>
+                            </div>
+                            <div id="payment_hero_price" class="payment_hero_position">
+                                <div class="payment_hero_price">
+                                    <div id="payment_hero_price_{{ product.id }}" class="payment_hero_price_number">
+                                        {% if product.needs_visits == '1' %}
+                                            {{ ( ( ( total_price )|round(2,'common') / 100 ) * ( 1 + ( config.vat|round(2,'common') / 10000 ) ) )|number_format( 2, ',', '.' ) }} {{ config.web_currency | currency_symbol }}
+                                        {% else %}    
+                                            {{ ( ( ( product.price )|round(2,'common') / 100 ) * ( 1 + ( config.vat|round(2,'common') / 10000 ) ) )|number_format( 2, ',', '.' ) }} {{ config.web_currency | currency_symbol }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="payment_hero_price_vat">
+                                        {{ lang.PAY_A_QUOTE_CARD_VAT_INCLUDED }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% if false %}
+                                <div id="payment_hero_offer" class="payment_hero_position">
+                                    <div class="payment_hero_offer">
+                                        {% if product.period_subscription == 'Y' %}
+                                            Ahorras un pico
+                                        {% else %}
+                                            &nbsp;
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="stripe-form-container stripe-container">
+                    <span class="paymentErrors alert-danger"></span>
+                    <div class="card-container">
+                        <label for="card-element">
+                            {{ lang.PAY_A_QUOTE_CARD_DETAILS }}
+                        </label>
+                        <div id="card-element"></div>
+                    </div>
+                    <div class="coupon-container">
+                        <label for="coupon">{{ lang.PAY_A_QUOTE_DISCOUNT_TITLE }}</label>
+                        <input  type="text"
+                                id="coupon"
+                                name="coupon"
+                                minlength="5"
+                                maxlength="10"
+                                class="form-control"
+                                form="payment_form"
+                                placeholder="{{ lang.PAY_A_QUOTE_DISCOUNT_TITLE_PLACEHOLDER }}">
+                    </div>
+                </div>
+                <div id="payment_hero_conditions">
+                    <div id="payment_hero_conditions_input">
+                        <input  type="checkbox"
+                                id="terms"
+                                name="terms"
+                                required="required"
+                                value="1">
+                        <label id="terms_label" for="terms">
+                            {{ lang.PAY_A_QUOTE_CARD_TERMS }}
+                        </label>
+                    </div>
+                </div>
+                <div id="payment_hero_button">
+                    <input type="submit" value="{{ lang.PAY_A_QUOTE_CARD_CONTINUE }}" form="payment_form">
+                </div>
+            </div>
+        <div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/css/web/{{ config.website_skin }}/payment.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script id="view" type="text/javascript">
+        var view = 'payment_stripe';
+    </script>
+    <script>
+        $(document).ready(function(){
+            {# app/zz_payment_stripe.html.twig #}
+
+        });
+        (function($) {
+            'use strict';
+
+            $('input[type=radio]').click(function(e) {
+                let products = $(this).parents(".payment_hero_payment_product").parent();
+                let children = products.children();
+                children.toggleClass( "payment_hero_payment_product_active" );
+            });
+
+            $('input[type=submit]').click(function(e) {
+                let coupon_text = $('#coupon').val();
+                let coupon_upper_text = coupon_text.toUpperCase();
+                $('#coupon').val(coupon_upper_text);
+            });
+
+            $('#coupon')
+                .on('keyup', function() {
+                    this.value = this.value.toUpperCase();
+                    calc_price();
+                })
+                .on('change', function() {
+                    calc_price();
+                })
+            ;
+
+            function calc_price() {
+                let coupon_code = $('#coupon').val();
+                let products = JSON.parse('{{ data.products|json_encode|raw }}');
+
+                let products_id = [];
+
+                for ( let i=0; i<products.length; i++ )
+                {
+                    products_id[i] = products[i]['id'];
+                }
+
+                let data = 
+                {
+                    coupon_code: coupon_code,
+                    products_id: products_id,
+                    website_key: "{{ data.website_key }}"
+                }
+
+                $.ajax({
+                    type:"POST",
+                    url:"{{ env.protocol }}://{{ env.domain }}/payments/get_product_discounted",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data:JSON.stringify(data),
+                    traditional: true,
+                })
+                .done(function(result) {
+                    //console.log( Object.keys(result['data']['discounted_price']).length );
+                    
+                    if ( Object.keys(result['data']['discounted_price']).length > 0 ) 
+                    {
+                        let new_prices = result['data']['discounted_price'];
+
+                        Object.keys(new_prices).forEach(key => {
+                            //console.log( key );
+                            //console.log( new_prices[key] );
+                            let new_price = ( ( Number( new_prices[key] ) / 100 ) * ( 1 + ( Number( {{ config.vat }} ) / 10000 ) ) ).toFixed(2);
+                            //console.log(new_price);
+                            let new_price_string = new_price.toString();
+
+                            let new_price_units = new_price_string.substr( 0, (new_price_string.length)-3 );
+                            let new_price_decimals = new_price_string.substr( (new_price_string.length)-3 );
+
+                            new_price_units = new_price_units.replace( ',', '.' );
+                            new_price_decimals = new_price_decimals.replace( '.', ',' );
+
+                            new_price_string = new_price_units + new_price_decimals;
+                            $('#payment_hero_price_'+key).text( new_price_string + ' {{ config.web_currency | currency_symbol }}' );
+                        });
+                    }
+                    else
+                    {
+                        //console.log( products );
+
+                        Object.keys(products).forEach(key => {
+                            let new_price = ( ( Number( products[key]['price'] ) / 100 ) * ( 1 + ( Number( {{ config.vat }} ) / 10000 ) ) ).toFixed(2);
+                            if ( products[key]['needs_visits'] == '1' ) 
+                            {
+                                new_price = ( ( Number( {{ total_price }} ) / 100 ) * ( 1 + ( Number( {{ config.vat }} ) / 10000 ) ) ).toFixed(2);
+                            }
+
+                            //console.log(new_price);
+                            
+                            let new_price_string = new_price.toString();
+
+                            let new_price_units = new_price_string.substr( 0, (new_price_string.length)-3 );
+                            let new_price_decimals = new_price_string.substr( (new_price_string.length)-3 );
+
+                            new_price_units = new_price_units.replace( ',', '.' );
+                            new_price_decimals = new_price_decimals.replace( '.', ',' );
+
+                            new_price_string = new_price_units + new_price_decimals;
+
+                            $('#payment_hero_price_' + products[key]['id']).text( new_price_string + ' {{ config.web_currency | currency_symbol }}' );
+                        });
+                    }
+                })
+                .fail(function(result) {
+                    console.log( result );
+                });
+            }
+
+        })(jQuery);
+    </script>
+    <script type="text/javascript">
+        var stripe_p = '{{ env.stripe_p }}';
+    </script>
+    <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript" src="/assets/js/web/{{ config.website_skin }}/stripe.js"></script>
+{% endblock %}

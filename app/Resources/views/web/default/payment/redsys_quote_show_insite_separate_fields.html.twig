@@ -1,0 +1,223 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'redsys_quote_show_insite_separate_fields' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.PAY_A_QUOTE_TITLE }}{% endblock %}
+
+{% block body %}
+
+    <div id="payment_hero" class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div id="payment_title">
+                            {{ lang.PAY_A_QUOTE_TITLE }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div class="payment_section_title">
+                            {{ lang.PAY_A_QUOTE_ACCOUNT_TITLE }}
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                {{ data.account.name }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div class="payment_section_title">
+                            {{ lang.PAY_A_QUOTE_QUOTE_TITLE }}
+                        </div>
+                        {% if data.quote_line %}
+                            {% for quote_line in data.quote_line %}
+                                <div class="row">
+                                    <div class="col-12">
+                                        {{ quote_line.description }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div class="payment_section_title">
+                            {{ lang.QUOTE_TOTALS }}
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                {{ data.quote.total_to_pay }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if data.errorMsg != '' %}
+                    <div class="row">
+                        <div class="col-10 offset-1">
+                            <div>
+                                {{ lang[data.errorMsg] }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div class="payment_section_title">
+                            {{ lang.PAY_A_QUOTE_CARD_DETAILS }}&nbsp;4548810000000003
+                        </div>
+                        <div class="row no-gluters" style="border: solid 1px transparent;">
+                            <div class="col-11">
+
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="cardinfo cardinfo-card-number">
+                                            <label class="cardinfo-label" for="card-number">{{ lang.PAY_A_QUOTE_CARD_PAN }}</label>
+                                            <div class='input-wrapper' id="card-number"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="expiry-date">
+                                            <div class="cardinfo cardinfo-exp-date">
+                                                <label class="cardinfo-label" for="expiration-date">{{ lang.PAY_A_QUOTE_CARD_MONTH }}</label>
+                                                <div class='input-wrapper' id="expiration-month"></div>
+                                            </div>
+                                            <div class="cardinfo cardinfo-exp-date2">
+                                                <label class="cardinfo-label" for="expiration-date2">{{ lang.PAY_A_QUOTE_CARD_YEAR }}</label>
+                                                <div class='input-wrapper' id="expiration-year"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="cardinfo cardinfo-cvv">
+                                            <label class="cardinfo-label" for="cvv">{{ lang.PAY_A_QUOTE_CARD_CVV }}</label>
+                                            <div class='input-wrapper' id="cvv"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="payment_section_title">
+                                    {{ lang.PAY_A_QUOTE_PAY_THIS_QUOTE }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class='btn btn-info' id="boton"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div>
+                            Resultado: {{ data.result }}
+                        </div>
+                    </div>
+                </div>
+                <form id="formDatos" name="formDatos" method="post">
+                    <input type="text" id="order" name="order" value="">
+                    <input type="text" id="token" name="token">
+                    <input type="text" id="errorCode" name="errorCode">
+                    <input type="text" id="is_submit" name="is_submit" value="1">
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/css/web/{{ config.website_skin }}/payment.css" rel="stylesheet">
+    <link href="/assets/css/web/{{ config.website_skin }}/payment_redsys.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script id="view" type="text/javascript">
+        var view = 'redsys_quote_show_insite_separate_fields';
+    </script>
+    <script>
+        $(document).ready(function(){
+
+        });
+        (function($) {
+            // Avoid conflicts with other libraries
+            'use strict';
+            {#
+            $( "#btn_submit" ).click(function() {
+                window.location.replace("/pay_gateway/charge_pay/{{ charge.id }}");
+            });
+            $( ".payment-gateways li img" ).click(function() {
+                //alert( $(this).attr("data-control") );
+                window.location.replace("/pay_gateway/charge_pay/{{ charge.id }}");
+                /*
+                var $gateway = $(this).attr('data-control');
+                window.location.replace("/charge_pay/" + $gateway + "/{{ reg.id }}");
+                */
+            });
+            #}
+        })(jQuery); // Avoid conflicts with other libraries
+    </script>
+    {% if false %}
+        {# Production #}
+        <script src="https://sis.redsys.es/sis/NC/redsysV2.js"></script>
+    {% else %}
+        {# Development #}
+        <script src="https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV2.js"></script>
+    {% endif %}
+    <script>
+        function pedido()
+        {
+            const d = new Date();
+            // console.log((d.getSeconds()).toString(), (d.getMinutes()).toString(), (d.getHours()).toString(), (d.getDay()).toString(), (d.getMonth()).toString(), (d.getFullYear()).toString().substring(2, 2));
+            const string_a = (d.getSeconds()).toString() + (d.getMinutes()).toString() + (d.getHours()).toString() + (d.getDay()).toString() + (d.getMonth()).toString()+ (d.getFullYear()).toString();
+            // console.log('String', string_a);
+            const pedidoOrder = string_a.toString().substring(0, 12);
+            document.getElementById('order').value = pedidoOrder;
+            return pedidoOrder;
+        }
+        //document.getElementById("timeOrder").innerHTML = pedido();
+
+        let styleCardNumber = 'width: 150px; height: 30px; border: solid 1px red;';
+        let styleExpMonth = 'width: 100px; height: 30px; border: solid 1px red;';
+        let styleExpYear = 'width: 100px; height: 30px; border: solid 1px red;';
+        let styleCVV = 'width: 100px; height: 30px; border: solid 1px red;';
+        let stylePayButton = 'width: 100px; height: 20px; border: solid 1px red;';
+        {# https://pagosonline.redsys.es/conexion-insite.html #}
+        getCardInput('card-number', styleCardNumber);
+        getExpirationMonthInput('expiration-month', styleExpMonth);
+        getExpirationYearInput('expiration-year', styleExpYear);
+        getCVVInput('cvv', styleCVV);
+        getPayButton('boton', stylePayButton, '{{ lang.PAY_A_QUOTE_PAY_THIS_QUOTE }}', '356112847', '001', pedido());
+
+        function sendResult(){
+            return true;
+        }
+        <!-- Listener de recepción de ID de operación -->
+        window.addEventListener("message", function receiveMessage(event) {
+            storeIdOper(event,"token", "errorCode", sendResult);
+            let token = document.getElementById('token').value;
+            if ( token != '') {
+                document.getElementById('formDatos').submit();
+            }
+        });
+
+    </script>
+{% endblock %}

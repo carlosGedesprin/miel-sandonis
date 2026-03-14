@@ -1,0 +1,187 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'register_domain' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.PAY_A_QUOTE_TITLE }}{% endblock %}
+
+{% block body %}
+
+    <div id="payment_hero" class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div id="payment_title">
+                            {{ lang.PAY_A_QUOTE_TITLE }} with Stripe
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div class="payment_section_title">
+                            {{ lang.PAY_A_QUOTE_ACCOUNT_TITLE }}
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                {{ data.account.name }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div class="payment_section_title">
+                            {{ lang.PAY_A_QUOTE_QUOTE_TITLE }}
+                        </div>
+                        {% if data.quote_line %}
+                            {% for quote_line in data.quote_line %}
+                                <div class="row">
+                                    <div class="col-12">
+                                        {{ quote_line.description }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div class="payment_section_title">
+                            {{ lang.QUOTE_TOTALS }}
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                {{ data.quote.total_to_pay }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if data.errorMsg != '' %}
+                    <div class="row">
+                        <div class="col-10 offset-1">
+                            <div>
+                                {{ lang[data.errorMsg] }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div class="payment_section_title">
+                            {{ lang.PAY_A_QUOTE_CARD_DETAILS }}&nbsp;4548810000000003
+                        </div>
+                        <div class="row no-gluters" style="border: solid 1px transparent;">
+                            <div class="col-11">
+
+                                <div id="card-form"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="payment_section_title">
+                            {{ lang.PAY_A_QUOTE_PAY_THIS_QUOTE }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <span class="paymentErrors alert-danger"></span>
+                                    <form id="paymentForm" method="POST">
+                                        <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input type="text" name="custName" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" name="custEmail" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Card Number</label>
+                                            <input type="text" name="cardNumber" size="20" autocomplete="off" id="cardNumber" class="form-control" />
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <div class="form-group">
+                                                    <label>CVC</label>
+                                                    <input type="text" name="cardCVC" size="4" autocomplete="off" id="cardCVC" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-10">
+                                                <div class="form-group">
+                                                    <label>Expiration (MM/YYYY)</label>
+                                                    <div class="col-xs-5">
+                                                        <input type="text" name="cardExpMonth" placeholder="MM" size="2" id="cardExpMonth" class="form-control" />
+                                                    </div>
+                                                    <div class="col-xs-5">
+                                                        <input type="text" name="cardExpYear" placeholder="YY" size="4" id="cardExpYear" class="form-control" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <input type="submit" name="btn_submit" id="makePayment" class="btn btn-success" value="Make Payment">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/css/web/{{ config.website_skin }}/payment.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script id="view" type="text/javascript">
+        var view = 'quote_show_stripe';
+    </script>
+    <script>
+        $(document).ready(function(){
+
+        });
+        (function($) {
+            // Avoid conflicts with other libraries
+            'use strict';
+            {#
+            $( "#btn_submit" ).click(function() {
+                window.location.replace("/pay_gateway/charge_pay/{{ charge.id }}");
+            });
+            $( ".payment-gateways li img" ).click(function() {
+                //alert( $(this).attr("data-control") );
+                window.location.replace("/pay_gateway/charge_pay/{{ charge.id }}");
+                /*
+                var $gateway = $(this).attr('data-control');
+                window.location.replace("/charge_pay/" + $gateway + "/{{ reg.id }}");
+                */
+            });
+            #}
+        })(jQuery); // Avoid conflicts with other libraries
+    </script><script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript" src="payment.js"></script>
+    <script type="text/javascript" src="/assets/js/web/{{ config.website_skin }}/stripe.js"></script>
+{% endblock %}

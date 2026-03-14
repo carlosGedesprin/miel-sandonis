@@ -1,0 +1,76 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'blog_category' %}
+{% set this_route = '/blog/category/' ~ category.slug %}
+{% set this_page_title = lang.BLOG_TITLE_CATEGORY | replace({'%title%': category.title }) %}
+{% set this_page_metadescription = category.metadescription %}
+
+{% block seo_meta %}
+	<meta property="og:locale" content="{{ session[config['cookies_prefix']~'_locale'] }}" />
+	<meta property="og:type" content="article" />{# website #}
+	<meta property="og:title" content="{{ this_page_title }} - {{ config.web_name }}" />
+	<meta property="og:description" content="{{ category.metadescription }}" />
+	<meta property="og:url" content="{{ site_url ~ this_route }}" />
+	<meta property="og:site_name" content="{{ config.web_name }}" />
+	<meta property="og:updated_time" content="2024-10-30T12:00:00+00:00" />
+	<meta property="og:image" content="{{ site_url }}/documents/blog/{{ category.picture }}" />
+	<meta property="og:image:secure_url" content="{{ site_url }}/documents/blog/{{ category.picture }}" />
+	{#<meta property="og:image:width" content="1280" />#}
+	{#<meta property="og:image:height" content="504" />#}
+	<meta property="og:image:alt" content="{{ article.title }}" />
+	<meta property="og:image:type" content="image/jpeg" />
+	<meta property="article:publisher" content="{{ config.company_facebook }}">
+	<meta property="article:author" content="{{ config.company_facebook }}">
+	<meta property="article:published_time" content="2024-04-01T12:00:00+00:00" />
+	<meta property="article:modified_time" content="{{ "now" | date('d-m-Y') }}T12:00:00+00:00" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="{{ this_page_title }} - {{ config.web_name }}" />
+	<meta name="twitter:description" content="{{ category.metadescription }}" />
+	<meta name="twitter:image" content="{{ site_url }}/documents/blog//documents/blog/{{ category.picture }}" />
+	<link rel="shortlink" href="{{ site_url ~ this_route }}">
+{% endblock %}
+
+{% block metadescription %}{{ this_page_metadescription }}{% endblock %}
+{% block metarobots %}index, follow{% endblock %}
+
+{% block rel_alternate_links %}
+	{{ data.canonical | replace({'%this_route%': this_route }) | raw }}
+	{{ data.alternate_langs | replace({'%this_route%': this_route }) | raw }}
+{% endblock %}
+
+{% block title %} {{ lang.BLOG_TITLE_CATEGORY | replace({'%title%': category.title }) }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <div id="category_main">
+
+		<a href="#" id="topofthepage" aria-label="{{ lang.WEB_TOP_OF_THE_PAGE }}"></a>
+		{% include 'web/' ~ config.website_skin ~ '/blog/bands/blog_hero.html.twig' %}
+		{% include 'web/' ~ config.website_skin ~ '/blog/bands/blog_articles_list.html.twig' %}
+		{% include 'web/' ~ config.website_skin ~ '/blog/bands/blog_categories_list.html.twig' %}
+		{#
+		{% include 'web/' ~ config.website_skin ~ '/bands/external_logos.html.twig' %}
+		{% include 'web/' ~ config.website_skin ~ '/header_links.html.twig' %}
+		#}
+
+	</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+	{#<link href="/assets/css/web/{{ config.website_skin }}/plugins/owl/owl.carousel.min.css" rel="stylesheet">#}
+	{#<link href="/assets/css/web/{{ config.website_skin }}/plugins/owl/owl.theme.default.min.css" rel="stylesheet">#}
+	<link href="/assets/css/web/{{ config.website_skin }}/blog/bands/blog_hero.css" rel="stylesheet">
+	<link href="/assets/css/web/{{ config.website_skin }}/blog/bands/blog_articles_list.css" rel="stylesheet">
+	<link href="/assets/css/web/{{ config.website_skin }}/blog/bands/blog_categories_list.css" rel="stylesheet">
+	{#
+	<link href="/assets/css/web/{{ config.website_skin }}/bands/external_logos.css" rel="stylesheet">
+	<link href="/assets/css/web/{{ config.website_skin }}/header_links.css" rel="stylesheet">
+	#}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+	<script type="text/javascript" src="/assets/js/web/{{ config.website_skin }}/scrool-to-top.js"></script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% set path_blog_images = '/documents/blog/' %}
+
+<section id="blog_categories_list" class="web_section">
+    <div id="blog_categories_list_container" class="web_container">
+        <div id="blog_categories_list_content" class="web_content">
+
+            <div id="blog_categories_list_title">
+                <h2>
+                    {{ lang.WEB_BLOG_CATEGORIES_LIST_TITLE }}
+                </h2>
+            </div>
+
+            <div id="blog_categories_content_list">
+                {% if categories %}
+                    {% for category in categories %}
+                        <div class="blog_categories_category_panel">
+                            <a id="" href="/blog/{{ category.slug }}" title="">
+                                <div class="blog_categories_category_panel_content">
+                                    <div class="blog_categories_category_img">
+                                        <img loading="lazy"
+                                             class=""
+                                             src="{{ path_blog_images }}{{ category.picture }}"
+                                             alt="{{ category.picture_alt_text }}"
+                                        >
+                                    </div>
+                                    <div class="blog_category_texts_content">
+                                        <h3>
+                                            {{ category.title }}
+                                        </h3>
+                                        <p class="blog_category_texts_content_p">
+                                            {{ category.metadescription }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</section>

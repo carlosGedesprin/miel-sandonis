@@ -1,0 +1,89 @@
+{% set path = '/assets/images/web/'~config.website_skin~'/bands/blog/' %}
+{% set img_1 = path ~ 'blog_hero.png' %}
+
+<section id="blog_hero" class="web_section">
+    <div id="blog_hero_container" class="web_container">
+        <div id="blog_hero_content" class="web_content">
+
+            <div id="blog_hero_breadcrump">
+                {% if this_page != 'blog' %}
+                    <div id="blog_hero_breadcrump_home" class="blog_hero_breadcrump_separation">
+                        <a href="/{{ lang.WEB_MENU_BLOG_LINK }}" title="{{ lang.WEB_MENU_BLOG }}">
+                            <svg class="blog_breadcump_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="#000" stroke="" d="M280.4 148.3L96 300.1V464a16 16 0 0 0 16 16l112.1-.3a16 16 0 0 0 15.9-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.6a16 16 0 0 0 16 16.1L464 480a16 16 0 0 0 16-16V300L295.7 148.3a12.2 12.2 0 0 0 -15.3 0zM571.6 251.5L488 182.6V44.1a12 12 0 0 0 -12-12h-56a12 12 0 0 0 -12 12v72.6L318.5 43a48 48 0 0 0 -61 0L4.3 251.5a12 12 0 0 0 -1.6 16.9l25.5 31A12 12 0 0 0 45.2 301l235.2-193.7a12.2 12.2 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0 -1.7-16.9z"/></svg>
+                        </a>
+                    </div>
+                    <div id="" class="blog_hero_breadcrump_arrow blog_hero_breadcrump_separation">
+                        <svg class="blog_breadcump_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#000" stroke="" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"/></svg>
+                    </div>
+                    {#
+                    <div id="blog_hero_breadcrump_home" class="blog_hero_breadcrump_separation">
+                        <a href="/{{ lang.WEB_MENU_BLOG_LINK }}">
+                            {{ lang.WEB_MENU_OUR_STORIES }}
+                        </a>
+                    </div>
+                    <div id="" class="blog_hero_breadcrump_arrow blog_hero_breadcrump_separation">
+                        <svg class="blog_breadcump_icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#000" stroke="" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"/></svg>
+                    </div>
+                    #}
+                    <div id="blog_hero_breadcrump_title" class="blog_hero_breadcrump_separation">
+                        {% if this_page == 'blog_categories' %}
+                        {% elseif this_page == 'blog_category' %}
+                                {{ category.title | raw }}
+                        {% elseif this_page == 'blog_articles' %}
+                                {{ lang.WEB_TITLE_HOME }}
+                        {% elseif this_page == 'blog_article' %}
+                                {{ article_lang.title | raw }}
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div id="blog_hero_hero">
+                {% if this_page == 'blog' %}
+                    <section id="blog_hero_hero" class="web_section">
+                        <div id="blog_hero_hero_container" class="web_container">
+                            <div id="blog_hero_hero_content" class="web_content">
+
+                                <div id="blog_hero_hero_wrapper" class="web_wrapper">
+                                    <div id="blog_hero_hero_left">
+                                        <h1>
+                                            {{ lang.WEB_BLOG_HERO_HERO_1 | raw }} {#El Blog de la Automatización Estratégica#}
+                                        </h1>
+                                        <h2>
+                                            {{ lang.WEB_BLOG_HERO_HERO_2 | raw }} {#Las guías que necesitas para liberar tu tiempo y garantizar el crecimiento#}
+                                        </h2>
+                                        <p>
+                                            {{ lang.WEB_BLOG_HERO_HERO_3 | raw }} {#Exploramos las últimas tendencias, casos de uso prácticos y estrategias avanzadas para implementar la Inteligencia Artificial en tus procesos.#}
+                                        </p>
+                                        <p>
+                                            {{ lang.WEB_BLOG_HERO_HERO_4 | raw }} {#<b>De la eficiencia operativa al ROI, encuentra la información que necesitas para tomar decisiones.</b>#}
+                                        </p>
+                                        {#
+                                        <div id="blog_hero_hero_buttons" class="generic_button">
+                                            <a
+                                                    class="blog_hero_hero_button"
+                                                    href="/{{ lang.WEB_MENU_CONTACT_LINK }}"
+                                                    title="{{ lang.WEB_TITLE_CONTACT }}"
+                                            >
+                                                {{ lang.WEB_BLOG_HERO_HERO_5 | raw }}Ver los artículos más recientes >
+                                            </a>
+                                        </div>
+                                        #}
+                                    </div>
+                                    <div id="blog_hero_hero_right">
+                                        <img
+                                                src="{{ img_1 }}"
+                                                decoding="async"
+                                                alt=""
+                                        >
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,19 @@
+{% set path = '/bundles/framework/images/web/'~config.website_skin~'/footer/' %}
+{% set fondo = path ~ 'fondo-footer.png' %}
+
+<footer>
+
+    {% if this_page in ['contactus_thanks', 'contact_fair'] %}
+    {% else %}
+        {% include 'web/default/bands/footer_contact_form.html.twig' %}
+    {% endif %}
+    {% include 'web/default/bands/footer_badges.html.twig' %}
+
+    {% include 'web/default/bands/footer_columns.html.twig' %}
+{#
+
+    {% include 'web/default/bands/footer_social.html.twig' %}
+#}
+    {% include 'web/default/bands/footer_legal.html.twig' %}
+
+</footer>

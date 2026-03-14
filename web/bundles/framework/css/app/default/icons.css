@@ -1,0 +1,23 @@
+
+.icon {
+    height: 1.5em;
+    width: 1.7em;
+    display: inline-block;
+    font-size: inherit;
+    overflow: visible;
+    vertical-align: -0.125em;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.ico-eraser-solid { background-image: url('/assets/images/app/default/icons/eraser-solid.svg'); }
+.ico-cc-stripe { background-image: url('/assets/images/app/default/icons/cc-stripe.svg'); }
+.ico-cc-visa { background-image: url('/assets/images/app/default/icons/cc-visa.svg'); }
+.ico-cc-bank { background-image: url('/assets/images/app/default/icons/piggy-bank-solid.svg'); }
+.ico-money-check-alt { background-image: url('/assets/images/app/default/icons/money-check-alt-solid.svg'); }
+.ico-file-pdf { background-image: url('/assets/images/app/default/icons/file-pdf-solid.svg'); }
+.ico-project-diagram { background-image: url('/assets/images/app/default/icons/project-diagram-solid.svg'); }
+.ico-file-excel { background-image: url('/assets/images/app/default/icons/file-excel-regular.svg'); height: 0.9em; width: 1em; }
+.ico-ira-tips { background-image: url('/assets/images/app/default/icons/tenge-solid.svg'); height: 0.9em; width: 1em; }
+.ico-link { background-image: url('/assets/images/app/default/icons/link-solid.svg'); height: 0.9em; width: 1em; }
+.ico-link-2 { background-image: url('/assets/images/app/default/icons/compass-solid.svg'); height: 0.9em; width: 1em; }

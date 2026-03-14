@@ -1,0 +1,30 @@
+
+.tab-card {
+    /*border: solid 1px red;*/
+}
+.tab-content {
+    /*border-right: 1px solid #ddd;*/
+    /*border-left: 1px solid #ddd;*/
+    /*border-bottom: 1px solid #ddd;*/
+    /*border: solid 1px red;*/
+}
+.tab-card-header {
+    background-color: #ffffff;
+    /*border: solid 1px red;*/
+}
+.tab-card-header .nav-item {
+    border-radius: 4px 4px 0 0 ;
+    /*border: solid 1px red;*/
+}
+.tab-card-header .nav-link .active {
+    border-bottom: 1px solid #fff;
+    /*border: solid 1px red;*/
+}
+.nav-tabs .nav-link {
+    background-color: rgba(34, 134, 255, 0.16);
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    /*border: solid 1px red;*/
+}

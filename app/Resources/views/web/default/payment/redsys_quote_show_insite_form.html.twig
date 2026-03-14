@@ -1,0 +1,211 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'redsys_quote_show_insite_form' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.PAY_A_QUOTE_TITLE }}{% endblock %}
+
+{% block body %}
+
+    <div id="payment_hero" class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div id="payment_title">
+                            {{ lang.PAY_A_QUOTE_TITLE }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div class="payment_section_title">
+                            {{ lang.PAY_A_QUOTE_ACCOUNT_TITLE }}
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                {{ data.account.name }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div class="payment_section_title">
+                            {{ lang.PAY_A_QUOTE_QUOTE_TITLE }}
+                        </div>
+                        {% if data.quote_line %}
+                            {% for quote_line in data.quote_line %}
+                                <div class="row">
+                                    <div class="col-12">
+                                        {{ quote_line.description }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div class="payment_section_title">
+                            {{ lang.QUOTE_TOTALS }}
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                {{ data.quote.total_to_pay }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if data.errorMsg != '' %}
+                    <div class="row">
+                        <div class="col-10 offset-1">
+                            <div>
+                                {{ lang[data.errorMsg] }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-10 offset-1">
+                        <div class="payment_section_title">
+                            {{ lang.PAY_A_QUOTE_CARD_DETAILS }}&nbsp;4548810000000003
+                        </div>
+                        <div class="row no-gluters" style="border: solid 1px transparent;">
+                            <div class="col-11">
+
+                                <div id="card-form"></div>
+
+                            </div>
+                        </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="payment_section_title">
+                            {{ lang.PAY_A_QUOTE_PAY_THIS_QUOTE }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class='btn btn-info' id="boton"></div>
+                        {#
+                        <div class="row">
+                            <div class="col-12 my-4 align-center">
+                                {#<button type="submit" name="btn_submit" id="btn_submit" class="btn btn-info">{{ lang.PAY_A_QUOTE_PAY_THIS_QUOTE }}</button>
+                            </div>
+                        </div>
+                        #}
+                    </div>
+                </div>
+
+                Formulario Datos: <br />
+                <form id="datos" name="datos">
+                    <input type="text" name="quote_key" value="{{ data.quote_key }}">
+                    <input type="text" id="pedido" name="pedido" value="">
+                    <input type="text" id="check_submit" name="check_submit" value="1">
+                    <input type="text" id="token">
+                    <input type="text" id="errorCode">
+                </form>
+                    <a href="javascript:alert(document.datos.token.value + '--' + document.datos.errorCode.value)"> Alert Datos</a>
+                    <!--a href="javascript:document.datos_envio.token_envio.value = document.datos.token.value;"> Pasar a Datos Envio</a-->
+                    <a href="javascript:document.getElementById('pedido_envio').value = document.getElementById('pedido').value;"> Pasar a Datos Envio</a>
+                    <a href="javascript:document.datos.submit()"> Submit de Datos</a>
+                <br />
+                Formulario Datos Envio: <br />
+                <form id="datos_envio" name="datos_envio" method="post">
+                    <input type="text" id="quote_key" name="quote_key" value="{{ data.quote_key }}">
+                    <input type="text" id="pedido_envio" name="pedido" value="">
+                    <input type="text" id="check_submit" name="check_submit" value="1">
+                    <input type="text" id="token_envio" name="token_envio" value="">
+                    <input type="text" id="errorCode_envio" name="errorCode_envio" value="">
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/css/web/{{ config.website_skin }}/payment.css" rel="stylesheet">
+    <link href="/assets/css/web/{{ config.website_skin }}/payment_redsys.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script id="view" type="text/javascript">
+        var view = 'redsys_quote_show_insite_form';
+    </script>
+    <script>
+        $(document).ready(function(){
+
+        });
+        (function($) {
+            // Avoid conflicts with other libraries
+            'use strict';
+            {#
+            $( "#btn_submit" ).click(function() {
+                window.location.replace("/pay_gateway/charge_pay/{{ charge.id }}");
+            });
+            $( ".payment-gateways li img" ).click(function() {
+                //alert( $(this).attr("data-control") );
+                window.location.replace("/pay_gateway/charge_pay/{{ charge.id }}");
+                /*
+                var $gateway = $(this).attr('data-control');
+                window.location.replace("/charge_pay/" + $gateway + "/{{ reg.id }}");
+                */
+            });
+            #}
+        })(jQuery); // Avoid conflicts with other libraries
+    </script>
+    {% if false %}
+        {# Production #}
+        <script src="https://sis.redsys.es/sis/NC/redsysV2.js"></script>
+    {% else %}
+        {# Development #}
+        <script src="https://sis-t.redsys.es:25443/sis/NC/sandbox/redsysV2.js"></script>
+    {% endif %}
+    <script>
+
+        function sendResult(){
+            //alert('token', document.datos.token.value);
+            //alert('errorCode', document.getElementById('errorCode').value);
+            //$('#item-form').submit();
+            //alert($('#token').val());
+            // $('#token_envio').val( $('#token').val() );
+            // $('#errorCode_envio').val( $('#errorCode').val());
+            // $('#datos_envio').submit();
+            //document.datos_envio.token_envio.value = document.datos.token.value;
+            return true;
+        }
+        <!-- Listener de recepción de ID de operación -->
+        window.addEventListener("message", function receiveMessage(event) {
+            storeIdOper(event,"token", "errorCode", sendResult);
+        });
+
+        function pedido()
+        {
+            const d = new Date();
+            const pedidoOrder = d.getTime();
+            //document.getElementById('pedido').value = pedidoOrder.toString();
+            return pedidoOrder.toString();
+        }
+
+        let estiloBoton = 'border: solid 1px red;';
+        let estiloBody = 'border: solid 1px black;';
+        let estiloCaja = 'border: solid 1px green;';
+        let estiloInputs = 'border: solid 1px blue;';
+        // Petición de carga de iframe
+        getInSiteForm('card-form', estiloBoton, estiloBody, estiloCaja, estiloInputs, 'Pagar ahora', '356112847', '001', pedido());
+
+
+    </script>
+{% endblock %}

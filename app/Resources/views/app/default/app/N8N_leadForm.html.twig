@@ -1,0 +1,456 @@
+{% extends 'app/' ~ config.app_skin ~ '/app.html.twig' %}
+
+{% set entity = 'n8n_lead' %}
+
+{% block title %} {{ parent() }} &bull; {% if (data.action == 'delete') %}{{ lang.N8N_LEAD_DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.N8N_LEAD_EDIT }}{%  endif %}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid mb-4">
+
+    <a href="#" id="topofthepage"></a>
+
+    <div class="col-md-8 offset-md-2 col-sm-12 my-4 p-2 rounded-3 font-weight-bold {% if (data.action == 'delete') %}is_delete{%  else %} bg-light{%  endif %}">
+        {% if (data.action == 'delete') %}
+            {{ lang.N8N_LEAD_DELETE }}
+        {% elseif (data.action == 'edit') %}
+            {{ lang.N8N_LEAD_EDIT }}
+        {% elseif  (data.action == 'add') %}
+            {{ lang.N8N_LEAD_ADD }}
+        {%  endif %}
+        : {{ reg.name }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-sm-12 mx-auto">
+
+            <form id="item-form"
+                  method="post"
+                  role="form"
+                  enctype="multipart/form-data"
+            >
+
+                <div class="row">
+                    <div class="col-md-10 col-sm-12 mx-auto">
+
+                        <div id="box-result">
+                            <div class="alert">
+                            </div>
+                        </div>
+
+                        <div class="card">
+
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs" id="tabs-list" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active"
+                                           id="details-tab"
+                                           href="#tab-details"
+                                           role="tab"
+                                           aria-controls="details"
+                                           aria-selected="true">
+                                            {{ lang.N8N_LEAD_TAB_DETAILS }}
+                                        </a>
+                                    </li>
+                                    {#
+                                    {% if (data.action != 'add') %}
+                                        {% if user_group == '1' or user_group == '2' %}
+                                            <li class="nav-item">
+                                                <a class="nav-link"
+                                                   id="register-tab"
+                                                   href="#tab-register"
+                                                   role="tab"
+                                                   aria-controls="register"
+                                                   aria-selected="false">
+                                                    {{ lang.BOT_TAB_REGISTER }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                    #}
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+
+                                {# This shines in all tab-content #}
+                                {% if data.action != 'add' and not reg.active %}
+                                    <div class="row">
+                                        <div class="col-9 mx-auto card-title-notactive">
+                                            {{ lang.N8N_LEAD_NOT_ACTIVE }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                <div class="tab-content mt-3">
+
+                                    <div class="tab-pane fade show active p-3 {% if data.action != 'add' and not reg.active %}reg_not_active{% else %}reg_active{% endif %}" id="tab-details" role="tabpanel">
+
+                                        {#<h5 class="card-title text-center">{{ lang.N8N_LEAD_TAB_DETAILS }}</h5>#}
+
+                                        <div class="row">
+                                            <div class="col-md-8 offset-md-2">
+
+                                                {% if (data.action != 'add') %}
+                                                    <div class="form-group" style="width: 100%;">
+                                                        <label class="control-label" for="date_reg">{{ lang.N8N_LEAD_DATE_REG }}:</label>
+                                                        {{ reg.date_reg }}
+                                                    </div>
+
+                                                    <div class="form-group" style="width: 100%;">
+                                                        <label class="control-label" for="lead_key">{{ lang.N8N_LEAD_KEY}}:</label>
+                                                        {{ reg.lead_key }}
+                                                    </div>
+                                                {% endif %}
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="name">{{ lang.N8N_LEAD_NAME }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="name"
+                                                           name="name"
+                                                           minlength="2"
+                                                           maxlength="200"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.name }}"
+                                                           placeholder="{{ lang.ENTER_NAME }}"
+                                                           aria-labelledby="nameAriaDesc">
+                                                    <div id="nameHelp" class="form-text font-color-grey">{{ lang.N8N_LEAD_NAME_HELP }}</div>
+                                                </div>
+                                                <span id="nameAriaDesc" class="d-none">{{ lang.N8N_LEAD_NAME }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="company">{{ lang.N8N_LEAD_COMPANY }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="company"
+                                                           name="company"
+                                                           minlength="2"
+                                                           maxlength="200"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.company }}"
+                                                           placeholder="{{ lang.ENTER_NAME }}"
+                                                           aria-labelledby="companyAriaDesc">
+                                                </div>
+                                                <span id="companyAriaDesc" class="d-none">{{ lang.N8N_LEAD_COMPANY }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="position">{{ lang.N8N_LEAD_POSITION }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="position"
+                                                           name="position"
+                                                           minlength="2"
+                                                           maxlength="200"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.position }}"
+                                                           placeholder="{{ lang.ENTER_TEXT }}"
+                                                           aria-labelledby="positionAriaDesc">
+                                                    <div id="positionHelp" class="form-text font-color-grey">{{ lang.N8N_LEAD_POSITION_HELP }}</div>
+                                                </div>
+                                                <span id="usernameAriaDesc" class="d-none">{{ lang.LEAD_USERNAME }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="locale">{{ lang.LEAD_LOCALE }}:</label>
+                                                    <select class="form-control"
+                                                            id="locale"
+                                                            name="locale"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.locale }}"
+                                                            placeholder="{{ lang.LANG_SELECT }}">
+                                                        {{ data.locale_options | raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="linkedin">{{ lang.N8N_LEAD_LINKEDIN }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="linkedin"
+                                                           name="linkedin"
+                                                           minlength="6"
+                                                           maxlength="200"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.linkedin }}"
+                                                           placeholder="{{ lang.ENTER_TEXT }}">
+                                                    {#<div id="linkedinHelp" class="col-11 form-text font-color-grey">{{ lang.N8N_LEAD_LINKEDIN_HELP | raw }}</div>#}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="instagram">{{ lang.N8N_LEAD_INSTAGRAM }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="instagram"
+                                                           name="instagram"
+                                                           minlength="6"
+                                                           maxlength="200"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.instagram }}"
+                                                           placeholder="{{ lang.ENTER_TEXT }}">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="twitter">{{ lang.N8N_LEAD_TWITTER }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="twitter"
+                                                           name="twitter"
+                                                           minlength="6"
+                                                           maxlength="200"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.twitter }}"
+                                                           placeholder="{{ lang.ENTER_TEXT }}">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="email">{{ lang.N8N_LEAD_EMAIL }}:</label>
+                                                    <input type="email"
+                                                           class="form-control"
+                                                           id="email"
+                                                           name="email"
+                                                           minlength="6"
+                                                           maxlength="100"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.email }}"
+                                                            {#autocomplete="email"#}
+                                                           placeholder="{{ lang.ENTER_EMAIL }}">
+                                                    <div id="EmailHelp" class="col-11 form-text font-color-grey">{{ lang.N8N_LEAD_EMAIL_HELP | raw }}</div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="domain_name">{{ lang.N8N_LEAD_DOMAIN_NAME }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="domain_name"
+                                                           name="domain_name"
+                                                           minlength="4"
+                                                           maxlength="50"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.domain_name }}"
+                                                           placeholder="{{ lang.ENTER_TEXT }}"
+                                                           aria-labelledby="domainNameAriaDesc">
+                                                </div>
+                                                <span id="domainNameAriaDesc" class="d-none">{{ lang.N8N_LEAD_DOMAIN_NAME }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="phone">{{ lang.N8N_LEAD_PHONE }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="phone"
+                                                           name="phone"
+                                                           maxlength="32"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.phone }}"
+                                                           placeholder="{{ lang.ENTER_PHONE }}">
+                                                    <div id="phoneHelp" class="col-11 form-text font-color-grey">{{ lang.N8N_LEAD_PHONE_HELP | raw }}</div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="phone_mobile">{{ lang.N8N_LEAD_PHONE_MOBILE }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="phone_mobile"
+                                                           name="phone_mobile"
+                                                           maxlength="15"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.phone_mobile }}"
+                                                           placeholder="{{ lang.ENTER_PHONE }}">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="market">{{ lang.N8N_LEAD_MARKET }}:</label>
+                                                    <select class="form-control"
+                                                            id="market"
+                                                            name="market"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.market }}"
+                                                            placeholder="{{ lang.N8N_LEAD_MARKET }}">
+                                                        {{ data.market_options | raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="origin">{{ lang.N8N_LEAD_ORIGIN }}:</label>
+                                                    <select class="form-control"
+                                                            id="origin"
+                                                            name="origin"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.origin }}"
+                                                            placeholder="{{ lang.N8N_LEAD_MARKET }}">
+                                                        {{ data.origin_options | raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="origin">{{ lang.N8N_LEAD_CONSCIENCE }}:</label>
+                                                    <select class="form-control"
+                                                            id="conscience"
+                                                            name="conscience"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.conscience }}"
+                                                            placeholder="{{ lang.LEAD_CONSCIENCE }}">
+                                                        {{ data.conscience_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="conscience">{{ lang.N8N_LEAD_CONSCIENCE }}:</label>
+                                                    <select class="form-control"
+                                                            id="conscience"
+                                                            name="conscience"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.conscience }}"
+                                                            placeholder="{{ lang.SELECT }}">
+                                                        {{ data.conscience_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="bulk_info">{{ lang.N8N_LEAD_BULK_INFO }}:</label>
+                                                    <div class="input-group mb-3">
+                                                        <textarea class="form-control"
+                                                                  id="bulk_info"
+                                                                  name="bulk_info"
+                                                                  {#minlength="1"#}
+                                                                  {#maxlength="50"#}
+                                                                  {#disabled="disabled"#}
+                                                                  value="{{ reg.bulk_info }}"
+                                                                  placeholder="{{ lang.N8N_LEAD_BULK_INFO }}">
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col-3 align-content-end">
+                                                        <label class="switch align-self-start">
+                                                            <input type="checkbox"
+                                                                   class="switch_input"
+                                                                   id="active"
+                                                                   name="active"
+                                                                   {% if (reg.active == '1') %}checked="checked"{%  endif %}
+                                                                   value="{{ reg.active }}"
+                                                            >
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-label col-5 my-auto mx-right" for="active">{{ lang.ACTIVE }}</div>
+                                                </div>
+
+                                                {#-----------------------------------------#}
+
+                                                <div class="col-12 mt-30 mb-30 font-size-12 font-weight-bold font-color-site account_section_label">
+                                                    {{ lang.LEAD_BILLING_LABEL }}
+                                                </div>
+
+                                                <div class="col-12 mt-30 mb-30 font-size-12 font-weight-bold font-color-site account_section_label">
+                                                    {{ lang.LEAD_LOCATION_LABEL }}
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col-3 align-content-end">
+                                                        <label class="switch align-self-start">
+                                                            <input type="checkbox"
+                                                                   class="switch_input"
+                                                                   id="send_emails"
+                                                                   name="send_emails"
+                                                                   {% if (reg.send_emails == '1') %}checked="checked"{%  endif %}
+                                                                   value="{{ reg.send_emails }}"
+                                                            >
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-label col-5 my-auto mx-right" for="send_emails">{{ lang.LEAD_SEND_EMAILS }}</div>
+                                                </div>
+
+                                            </div>{# <div class="col-md-8 offset-md-2"> #}
+                                        </div>{# <div class="row"> #}
+
+                                    </div>{# <div class="tab-pane fade show active p-3" id="details" role="tabpanel"> #}
+{#
+                                    <div class="tab-pane fade show p-3 {% if data.action != 'add' and not reg.active %}reg_not_active{% else %}reg_active{% endif %}" id="tab-register" role="tabpanel">
+
+                                        {#<h5 class="card-title text-center">{{ lang.LEAD_TAB_REGISTER }}</h5>%}
+
+                                        <div class="row">
+                                            <div class="col-8 offset-2">
+
+                                                <div class="col-12 mt-30 mb-30 font-size-12 font-weight-bold font-color-site account_section_label">
+                                                    {{ lang.ACCOUNT_LOCATION_LABEL }}
+                                                </div>
+                                                <div class="col-12 mt-30 mb-30 font-size-12 font-weight-bold font-color-site account_section_label">
+                                                    {{ lang.ACCOUNT_RENEW_PAYMENT }}
+
+                                            </div>{# <div class="col-md-8 offset-md-2"> %}
+                                        </div>{# <div class="row"> %}
+
+                                    </div>{# <div class="tab-pane fade show p-3" id="register" role="tabpanel"> #}
+
+                                </div>{# <div class="tab-content mt-3"> #}
+
+                            </div>{# <div class="card-body"> #}
+                        </div>{# <div class="card"> #}
+
+                    </div>{# <div class="col-md-8 mx-auto"> #}
+                </div>{# <div class="row"> #}
+
+                <div class="row">
+                    <div class="col-12 my-4 text-center">
+                        <button type="button" name="btn_submit" id="btn_submit" class="btn btn-info">{% if (data.action == 'delete') %}{{ lang.DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.SAVE }}{%  endif %}</button>
+                        <button type="button" name="btn_cancel" id="btn_cancel" class="btn btn-info" formnovalidate>{{ lang.BACK_TO_LIST }}</button>
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="{{ reg.id }}">
+
+                {# Filters #}
+                {% for filter_name, filter_data in filters %}
+                    {% for filter_data_key, filter_data_data in filter_data %}
+                        <input type="hidden" name="filters[{{ filter_name }}][{{ filter_data_key }}]" id="filter_{{ filter_name }}_{{ filter_data_key }}" value="{{ filter_data_data }}" />
+                    {% endfor %}
+                {% endfor %}
+                {# Pagination #}
+                {% for key, value in pagination %}
+                    <input type="hidden" name="pagination[{{ key }}]" id="{{ key }}" value="{{ value }}" />
+                {% endfor %}
+
+                <input type="hidden" name="auth_token" value="{{ data.auth_token }}" />
+
+            </form>
+
+        </div>{# <div class="col-md-8 offset-md-2"> #}
+    </div>{# <div class="row">#}
+
+</div>{# <div class="container-fluid mb-4"> #}
+
+<div class="clear"></div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/form.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/input_switch.css') }}" type="text/css" />
+{% endblock %}
+{% block javascripts %}
+     {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            {# app/N8N_leadForm.html.twig #}
+        });
+        (function($) {
+            'use strict';
+
+        })(jQuery);
+    </script>
+    <script type="text/javascript">
+        var folder = '{{ session[config['cookies_prefix']~'_folder'] }}';
+        var entity = '{{ entity }}';
+        var action = '{{ data.action }}';
+        var cancel = '{{ cancel }}';
+        var reg_id = '{{ reg.id }}';
+        var l_errors_found = '{{ lang.ERRORS_FOUND }}';
+        var l_form_has_errors = '{{ lang.ERRORS_FORM }}';
+    </script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/forms.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/input_switch.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/scrool-to-top.js') }}"></script>
+{% endblock %}

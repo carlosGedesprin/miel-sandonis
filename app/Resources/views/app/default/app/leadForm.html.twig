@@ -1,0 +1,491 @@
+{% extends 'app/' ~ config.app_skin ~ '/app.html.twig' %}
+
+{% set entity = 'lead' %}
+
+{% set image_name = 'brand_image' %}
+{% set image_id = 'brand_image' %}
+{% set image_value = reg.brand_image %}
+
+{% block title %} {{ parent() }} &bull; {% if (data.action == 'delete') %}{{ lang.LEAD_DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.LEAD_EDIT }}{%  endif %}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid mb-4">
+
+    <a href="#" id="topofthepage"></a>
+
+    <div class="col-md-8 offset-md-2 col-sm-12 my-4 p-2 rounded-3 font-weight-bold {% if (data.action == 'delete') %}is_delete{%  else %} bg-light{%  endif %}">
+        {% if (data.action == 'delete') %}
+            {{ lang.LEAD_DELETE }}
+        {% elseif (data.action == 'edit') %}
+            {{ lang.LEAD_EDIT }}
+        {% elseif  (data.action == 'add') %}
+            {{ lang.LEAD_ADD }}
+        {%  endif %}
+        : {{ reg.name }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-sm-12 mx-auto">
+
+            <form id="item-form"
+                  method="post"
+                  role="form"
+                  enctype="multipart/form-data"
+            >
+
+                <div class="row">
+                    <div class="col-md-10 col-sm-12 mx-auto">
+
+                        <div id="box-result">
+                            <div class="alert">
+                            </div>
+                        </div>
+
+                        <div class="card">
+
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs" id="tabs-list" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active"
+                                           id="details-tab"
+                                           href="#tab-details"
+                                           role="tab"
+                                           aria-controls="details"
+                                           aria-selected="true">
+                                            {{ lang.LEAD_TAB_DETAILS }}
+                                        </a>
+                                    </li>
+                                    {#
+                                    {% if (data.action != 'add') %}
+                                        {% if user_group == '1' or user_group == '2' %}
+                                            <li class="nav-item">
+                                                <a class="nav-link"
+                                                   id="register-tab"
+                                                   href="#tab-register"
+                                                   role="tab"
+                                                   aria-controls="register"
+                                                   aria-selected="false">
+                                                    {{ lang.BOT_TAB_REGISTER }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                    #}
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+
+                                {# This shines in all tab-content #}
+                                {% if data.action != 'add' and not reg.active %}
+                                    <div class="row">
+                                        <div class="col-9 mx-auto card-title-notactive">
+                                            {{ lang.LEAD_NOT_ACTIVE }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                <div class="tab-content mt-3">
+
+                                    <div class="tab-pane fade show active p-3 {% if data.action != 'add' and not reg.active %}reg_not_active{% else %}reg_active{% endif %}" id="tab-details" role="tabpanel">
+
+                                        {#<h5 class="card-title text-center">{{ lang.LEAD_TAB_DETAILS }}</h5>#}
+
+                                        <div class="row">
+                                            <div class="col-md-8 offset-md-2">
+
+                                                {% if (data.action != 'add') %}
+                                                    <div class="form-group" style="width: 100%;">
+                                                        <label class="control-label" for="date_reg">{{ lang.LEAD_DATE_REG }}:</label>
+                                                        {{ reg.date_reg }}
+                                                    </div>
+
+                                                    <div class="form-group" style="width: 100%;">
+                                                        <label class="control-label" for="lead_key">{{ lang.LEAD_KEY}}:</label>
+                                                        {{ reg.lead_key }}
+                                                    </div>
+                                                {% endif %}
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="account">{{ lang.LEAD_ACCOUNT }}:</label>
+                                                    <select class="form-control"
+                                                            id="account"
+                                                            name="account"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.account }}"
+                                                            placeholder="{{ lang.ACCOUNT_SELECT }}">
+                                                        {{ data.account_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="user">{{ lang.LEAD_USER }}:</label>
+                                                    <select class="form-control"
+                                                            id="user"
+                                                            name="user"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.user }}"
+                                                            placeholder="{{ lang.USER_SELECT }}">
+                                                        {{ data.user_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="group">{{ lang.GROUP }}:</label>
+                                                    <select class="form-control"
+                                                            id="group"
+                                                            name="group"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.group }}"
+                                                            placeholder="{{ lang.GROUP_SELECT }}">
+                                                        {{ data.group_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="username">{{ lang.LEAD_USERNAME }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="username"
+                                                           name="username"
+                                                           minlength="2"
+                                                           maxlength="100"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.username }}"
+                                                           placeholder="{{ lang.ENTER_NAME }}"
+                                                           aria-labelledby="usernameAriaDesc">
+                                                    <div id="usernameHelp" class="form-text font-color-grey">{{ lang.LEAD_USERNAME_HELP }}</div>
+                                                </div>
+                                                <span id="usernameAriaDesc" class="d-none">{{ lang.LEAD_USERNAME }}</span>
+
+                                                {% if (data.action != 'add') %}
+                                                    <div class="form-group">
+                                                        <label class="col-12" for="current-password">{{ lang.LEAD_PASSWORD }}:</label>
+                                                        <input type="password"
+                                                               class="form-control"
+                                                               {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                               id="current_password"
+                                                               name="data[current-password]"
+                                                               minlength="3"
+                                                               maxlength="64"
+                                                               autocomplete="current-password"
+                                                               value="{{ reg.password }}"
+                                                               placeholder="{{ lang.ENTER_PASSWORD }}">
+                                                    </div>
+                                                {% endif %}
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="email">{{ lang.LEAD_EMAIL }}:</label>
+                                                    <input type="email"
+                                                           class="form-control"
+                                                           id="email"
+                                                           name="email"
+                                                           minlength="6"
+                                                           maxlength="100"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.email }}"
+                                                            {#autocomplete="email"#}
+                                                           placeholder="{{ lang.ENTER_EMAIL }}">
+                                                    <div id="EmailHelp" class="col-11 form-text font-color-grey">{{ lang.LEAD_EMAIL_HELP | raw }}</div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="name">{{ lang.LEAD_NAME }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="name"
+                                                           name="name"
+                                                           minlength="2"
+                                                           maxlength="100"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.name }}"
+                                                           placeholder="{{ lang.ENTER_NAME }}"
+                                                           aria-labelledby="nameAriaDesc">
+                                                    <div id="nameHelp" class="form-text font-color-grey">{{ lang.LEAD_NAME_HELP }}</div>
+                                                </div>
+                                                <span id="nameAriaDesc" class="d-none">{{ lang.LEAD_NAME }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="locale">{{ lang.LEAD_LOCALE }}:</label>
+                                                    <select class="form-control"
+                                                            id="locale"
+                                                            name="locale"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.locale }}"
+                                                            placeholder="{{ lang.LANG_SELECT }}">
+                                                        {{ data.locale_options | raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-12 mt-30 mb-30 font-size-12 font-weight-bold font-color-site account_section_label">
+                                                    {{ lang.LEAD_BILLING_LABEL }}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="company">{{ lang.LEAD_COMPANY }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="company"
+                                                           name="company"
+                                                           minlength="2"
+                                                           maxlength="100"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.company }}"
+                                                           placeholder="{{ lang.ENTER_NAME }}"
+                                                           aria-labelledby="companyAriaDesc">
+                                                </div>
+                                                <span id="companyAriaDesc" class="d-none">{{ lang.LEAD_COMPANY }}</span>
+
+                                                <div class="col-12 mt-30 mb-30 font-size-12 font-weight-bold font-color-site account_section_label">
+                                                    {{ lang.LEAD_LOCATION_LABEL }}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="address">{{ lang.LEAD_ADDRESS }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="address"
+                                                           name="address"
+                                                           minlength="4"
+                                                           maxlength="255"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.address }}"
+                                                           placeholder="{{ lang.ENTER_ADDRESS }}"
+                                                           aria-labelledby="addressAriaDesc">
+                                                </div>
+                                                <span id="addressAriaDesc" class="d-none">{{ lang.LEAD_ADDRESS }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="post_code">{{ lang.LEAD_POSTCODE }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="post_code"
+                                                           name="post_code"
+                                                           minlength="4"
+                                                           maxlength="10"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.post_code }}"
+                                                           placeholder="{{ lang.ENTER_POST_CODE }}"
+                                                           aria-labelledby="postcodeAriaDesc">
+                                                </div>
+                                                <span id="postcodeAriaDesc" class="d-none">{{ lang.LEAD_POSTCODE }}</span>
+
+                                                {# ********************** Locations start ******************************************#}
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="country">{{ lang.COUNTRY }}:</label>
+                                                    <select class="form-control"
+                                                            id="country"
+                                                            name="country"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.country }}"
+                                                            placeholder="{{ lang.COUNTRY_SELECT }}">
+                                                        {{ data.country_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="region">{{ lang.REGION }}:</label>
+                                                    <select class="form-control"
+                                                            id="region"
+                                                            name="region"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.region }}"
+                                                            placeholder="{{ lang.SELECT_REGION }}">
+                                                        {{ data.region_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="city">{{ lang.CITY }}:</label>
+                                                    <select class="form-control"
+                                                            id="city"
+                                                            name="city"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.city }}"
+                                                            placeholder="{{ lang.SELECT_CITY }}">
+                                                        {{ data.city_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group" id="alt_city_div">
+                                                    <label class="col-12" for="alt_city">{{ lang.CITY_ALT_CITY }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="alt_city"
+                                                           name="alt_city"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.alt_city }}"
+                                                           placeholder="{{ lang.ENTER_CITY }}">
+                                                </div>
+                                                {# ********************** Locations end ******************************************#}
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="phone">{{ lang.LEAD_PHONE }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="phone"
+                                                           name="phone"
+                                                           maxlength="15"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.phone }}"
+                                                           placeholder="{{ lang.ENTER_PHONE }}">
+                                                    <div id="phoneHelp" class="col-11 form-text font-color-grey">{{ lang.LEAD_PHONE_HELP | raw }}</div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col-3 align-content-end">
+                                                        <label class="switch align-self-start">
+                                                            <input type="checkbox"
+                                                                   class="switch_input"
+                                                                   id="send_emails"
+                                                                   name="send_emails"
+                                                                   {% if (reg.send_emails == '1') %}checked="checked"{%  endif %}
+                                                                   value="{{ reg.send_emails }}"
+                                                            >
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-label col-5 my-auto mx-right" for="send_emails">{{ lang.LEAD_SEND_EMAILS }}</div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col-3 align-content-end">
+                                                        <label class="switch align-self-start">
+                                                            <input type="checkbox"
+                                                                   class="switch_input"
+                                                                   id="active"
+                                                                   name="active"
+                                                                   {% if (reg.active == '1') %}checked="checked"{%  endif %}
+                                                                   value="{{ reg.active }}"
+                                                            >
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-label col-5 my-auto mx-right" for="active">{{ lang.ACTIVE }}</div>
+                                                </div>
+
+                                            </div>{# <div class="col-md-8 offset-md-2"> #}
+                                        </div>{# <div class="row"> #}
+
+                                    </div>{# <div class="tab-pane fade show active p-3" id="details" role="tabpanel"> #}
+{#
+                                    <div class="tab-pane fade show p-3 {% if data.action != 'add' and not reg.active %}reg_not_active{% else %}reg_active{% endif %}" id="tab-register" role="tabpanel">
+
+                                        {#<h5 class="card-title text-center">{{ lang.LEAD_TAB_REGISTER }}</h5>%}
+
+                                        <div class="row">
+                                            <div class="col-8 offset-2">
+
+                                                <div class="col-12 mt-30 mb-30 font-size-12 font-weight-bold font-color-site account_section_label">
+                                                    {{ lang.ACCOUNT_LOCATION_LABEL }}
+                                                </div>
+                                                <div class="col-12 mt-30 mb-30 font-size-12 font-weight-bold font-color-site account_section_label">
+                                                    {{ lang.ACCOUNT_RENEW_PAYMENT }}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="preferred_payment_type">{{ lang.ACCOUNT_PAYMENT_METHOD_TYPE_PREFERRED }}:</label>
+                                                    <select class="form-control"
+                                                            id="preferred_payment_type"
+                                                            name="preferred_payment_type"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.preferred_payment_type }}"
+                                                            placeholder="{{ lang.SELECT }}">
+                                                        {{ data.preferred_payment_type_options | raw }}
+                                                    </select>
+                                                </div>
+
+                                            </div>{# <div class="col-md-8 offset-md-2"> %}
+                                        </div>{# <div class="row"> %}
+
+                                    </div>{# <div class="tab-pane fade show p-3" id="register" role="tabpanel"> #}
+
+                                </div>{# <div class="tab-content mt-3"> #}
+
+                            </div>{# <div class="card-body"> #}
+
+                        </div>{# <div class="card"> #}
+
+                    </div>{# <div class="col-md-8 mx-auto"> #}
+                </div>{# <div class="row"> #}
+
+                <div class="row">
+                    <div class="col-12 my-4 text-center">
+                        <button type="button" name="btn_submit" id="btn_submit" class="btn btn-info">{% if (data.action == 'delete') %}{{ lang.DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.SAVE }}{%  endif %}</button>
+                        <button type="button" name="btn_cancel" id="btn_cancel" class="btn btn-info" formnovalidate>{{ lang.BACK_TO_LIST }}</button>
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="{{ reg.id }}">
+
+                {# Filters #}
+                {% for filter_name, filter_data in filters %}
+                    {% for filter_data_key, filter_data_data in filter_data %}
+                        <input type="hidden" name="filters[{{ filter_name }}][{{ filter_data_key }}]" id="filter_{{ filter_name }}_{{ filter_data_key }}" value="{{ filter_data_data }}" />
+                    {% endfor %}
+                {% endfor %}
+                {# Pagination #}
+                {% for key, value in pagination %}
+                    <input type="hidden" name="pagination[{{ key }}]" id="{{ key }}" value="{{ value }}" />
+                {% endfor %}
+
+                <input type="hidden" name="auth_token" value="{{ data.auth_token }}" />
+
+            </form>
+
+        </div>{# <div class="col-md-8 offset-md-2"> #}
+    </div>{# <div class="row">#}
+
+</div>{# <div class="container-fluid mb-4"> #}
+
+<div class="clear"></div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/form.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/input_switch.css') }}" type="text/css" />
+{% endblock %}
+{% block javascripts %}
+     {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            {# app/leadForm.html.twig #}
+        });
+        (function($) {
+            'use strict';
+
+        })(jQuery);
+    </script>
+{# ********************** Locations start ******************************************#}
+    <script type="text/javascript">
+        var url_regions_call = '{{ config.locations_api }}/get_regions';
+        var url_cities_call = '{{ config.locations_api }}/get_cities';
+        var api_key = '{{ config.locations_api_key }}';
+        var user_locale = '{{ session[config['cookies_prefix']~'_locale'] }}';
+        var l_working = '{{ lang.WORKING }}';
+        var l_general_error = '{{ lang.GENERAL_ERROR }}';
+        var l_select_country = '{{ lang.COUNTRY_SELECT }}';
+        var l_select_region = '{{ lang.REGION_SELECT }}';
+        var l_select_city = '{{ lang.CITY_SELECT }}';
+        var l_no_regions = '{{ lang.REGION_NOT_FOUND }}';
+        var l_no_cities = '{{ lang.REGION_CITIES_NOT_FOUND }}';
+        var l_not_in_list = '{{ lang.CITY_NOT_IN_THE_LIST }}';
+    </script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/location.jquery.js') }}"></script>
+{# ********************** Locations end ******************************************#}
+    <script type="text/javascript">
+        var folder = '{{ session[config['cookies_prefix']~'_folder'] }}';
+        var entity = '{{ entity }}';
+        var action = '{{ data.action }}';
+        var cancel = '{{ cancel }}';
+        var reg_id = '{{ reg.id }}';
+        var l_errors_found = '{{ lang.ERRORS_FOUND }}';
+        var l_form_has_errors = '{{ lang.ERRORS_FORM }}';
+    </script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/forms.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/input_switch.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/scrool-to-top.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,27 @@
+
+#index_ano_base {
+    border: solid 1px black;
+}
+#index_ano_base_container {
+    min-height: 200px;
+    /*border: solid 1px blue;*/
+}
+#index_ano_base_content {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /*border: solid 1px red;*/
+}
+
+@media (min-width: 576px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 831px) {
+}
+@media (min-width: 992px) {
+}
+@media (min-width: 1200px) {
+}
+

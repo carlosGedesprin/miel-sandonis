@@ -1,0 +1,21 @@
+<?php
+
+/*
+*    Doctrine commands
+*/
+
+//https://www.doctrine-project.org/projects/doctrine-orm/en/2.9/reference/association-mapping.html
+
+// Validate Mapping
+.\bin\doctrine orm:validate
+
+// Update Database with Mapping
+// Windows
+.\bin\doctrine orm:schema-tool:update --dump-sql --force
+// Linux
+./bin/doctrine orm:schema-tool:update --dump-sql --force
+
+// import database into ORM entities
+// ATENTION transform enum filed type into: varchar(15) COMMENT ''
+.\bin\doctrine orm:convert-mapping annotation .\src\Entity\ost\ --from-database
+

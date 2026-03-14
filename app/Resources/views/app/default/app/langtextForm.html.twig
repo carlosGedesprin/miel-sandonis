@@ -1,0 +1,322 @@
+{% extends 'app/' ~ config.app_skin ~ '/app.html.twig' %}
+
+{% set entity = 'langtext' %}
+
+{% block title %} {{ parent() }} &bull; {% if (data.action == 'delete') %}{{ lang.LANG_TEXT_DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.LANG_TEXT_EDIT }}{%  endif %}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid mb-4">
+
+    <a href="#" id="topofthepage"></a>
+
+    <div class="col-md-8 offset-md-2 col-sm-12 my-4 p-2 rounded-3 font-weight-bold {% if (data.action == 'delete') %}is_delete{%  else %} bg-light{%  endif %}">
+        {% if (data.action == 'delete') %}
+            {{ lang.LANG_TEXT_DELETE }}
+        {% elseif (data.action == 'edit') %}
+            {{ lang.LANG_TEXT_EDIT }}
+        {% elseif  (data.action == 'add') %}
+            {{ lang.LANG_TEXT_ADD }}
+        {%  endif %}
+        : {{ reg.lang_key }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-sm-12 mx-auto">
+
+            <form id="item-form"
+                  method="post"
+                  role="form"
+                  enctype="multipart/form-data"
+            >
+
+                <div class="row">
+                    <div class="col-md-10 col-sm-12 mx-auto">
+
+                        <div id="box-result">
+                            <div class="alert">
+                            </div>
+                        </div>
+
+                        <div class="card">
+
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs" id="tabs-list" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active"
+                                           id="details-tab"
+                                           href="#tab-details"
+                                           role="tab"
+                                           aria-controls="langtext"
+                                           aria-selected="true">
+                                            {{ lang.LANG_TEXT_TAB_DETAILS }}
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                           id="textstranslate-tab"
+                                           href="#tab-textstranslate"
+                                           role="tab"
+                                           aria-controls="langtexts"
+                                           aria-selected="false">
+                                            {{ lang.LANG_TEXT_TAB_TEXTS_TRANSLATE }}
+                                        </a>
+                                    </li>
+                                    {#
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                           id="texts-tab"
+                                           href="#tab-texts"
+                                           role="tab"
+                                           aria-controls="texts"
+                                           aria-selected="false">
+                                            {{ lang.LANG_TEXT_TAB_TEXTS }}
+                                        </a>
+                                    </li>
+                                    #}
+                                    {#
+                                    {% if (data.action != 'add') %}
+                                        {% if user_group == '1' or user_group == '2' %}
+                                            <li class="nav-item">
+                                                <a class="nav-link"
+                                                   id="register-tab"
+                                                   href="#tab-register"
+                                                   role="tab"
+                                                   aria-controls="langtext"
+                                                   aria-selected="false">
+                                                    {{ lang.LANG_TEXT_TAB_REGISTER }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                    #}
+                                </ul>
+
+                            </div>
+
+                            <div class="card-body">
+
+                                {# This shines in all tab-content #}
+                                {#<h4 class="card-title">Title 4</h4>#}
+                                {#<h6 class="card-subtitle mb-2">Title 5</h6>#}
+
+                                <div class="tab-content mt-3">
+
+                                    <div class="tab-pane fade show active p-3" id="tab-details" role="tabpanel" aria-labelledby="details-tab">
+
+                                        {#<h5 class="card-title text-center">{{ lang.LANG_TEXT_TAB_DETAILS }}</h5>#}
+
+                                        <div class="row">
+                                            <div class="col-md-8 offset-md-2">
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="context">{{ lang.LANG_TEXT_CONTEXT }}</label>
+                                                    <select class="form-control"
+                                                            id="context"
+                                                            name="context"
+                                                            {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                            value="{{ reg.context }}"
+                                                            placeholder="{{ lang.SELECT }}"
+                                                            aria-labelledby="contextAriaDesc">
+                                                        {{ data.context_options | raw }}
+                                                    </select>
+                                                </div>
+                                                <span id="contextAriaDesc" class="d-none">{{ lang.LANG_TEXT_CONTEXT }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="lang_key">{{ lang.LANG_TEXT_KEY }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="lang_key"
+                                                           name="lang_key"
+                                                           minlength="4"
+                                                           maxlength="150"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                           value="{{ reg.lang_key }}"
+                                                           placeholder="{{ lang.ENTER_NAME }}"
+                                                           aria-labelledby="lang_keyAriaDesc">
+                                                </div>
+                                                <span id="lang_keyAriaDesc" class="d-none">{{ lang.LANG_TEXT_KEY_DESC }}</span>
+
+                                            </div>{# <div class="col-md-8 offset-md-2"> #}
+                                        </div>{# <div class="row"> #}
+
+                                    </div>{# <div class="tab-pane fade show active p-3" id="tab-details" role="tabpanel" aria-labelledby="details-tab"> #}
+
+                                    <div class="tab-pane fade show p-3" id="tab-textstranslate" role="tabpanel" aria-labelledby="textstranslate-tab">
+
+                                        {#<h5 class="card-title text-center">{{ lang.LANG_TEXT_TAB_TEXTS_TRANSLATE }}</h5>#}
+
+                                        <div class="row">
+                                            <div class="col-md-8 offset-md-2">
+
+                                                {% if data.names %}
+                                                    {% for name in data.names %}
+
+                                                            <div class="form-group">
+                                                                <label class="col-12" for="text[{{ name.lang_code_2a }}]">{{ name.lang_name }}:</label>
+                                                                <input type="text"
+                                                                       class="form-control"
+                                                                       id="texts_{{ name.lang_code_2a }}"
+                                                                       name="texts[{{ name.lang_code_2a }}]"
+                                                                       {#minlength="1"#}
+                                                                       {#maxlength="10000"#}
+                                                                       {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                       value="{{ name.text }}"
+                                                                       placeholder="{{ lang.ENTER_TEXT }}"
+                                                                       aria-labelledby="text[{{ name.lang_code_2a }}]AriaDesc">
+                                                            </div>
+                                                            {#<span class="text-muted">Max. 500 Char.</span>#}
+                                                            <span id="text[{{ name.lang_code_2a }}]AriaDesc" class="d-none">{{ name.lang_name }}</span>
+
+                                                    {% endfor %}
+                                                {% endif %}
+
+                                            </div>{# <div class="col-md-8 offset-md-2"> #}
+                                        </div>{# <div class="row"> #}
+
+                                    </div>{# <div class="tab-pane fade show p-3" id="texts" role="tabpanel" aria-labelledby="texts-tab"> #}
+{#
+                                    <div class="tab-pane fade show p-3" id="tab-texts" role="tabpanel" aria-labelledby="texts-tab">
+
+                                        {#<h5 class="card-title text-center">{{ lang.LANG_TEXT_TAB_TEXTS }}</h5>-}
+
+                                        <div class="row">
+                                            <div class="col-md-8 offset-md-2">
+
+                                                {% if lang_texts %}
+                                                    {% for lang_text in lang_texts %}
+                                                        {% if ( lang_text.required != '1' and  lang_text.required != '2' ) %}
+
+                                                            <div class="form-group">
+                                                                <label class="col-12" for="text[{{ lang_text.lang_code_2a }}]">{{ lang_text.lang_name }}:</label>
+                                                                <input type="text"
+                                                                       class="form-control"
+                                                                       id="texts_{{ lang_text.lang_code_2a }}"
+                                                                       name="texts[{{ lang_text.lang_code_2a }}]"
+                                                                       minlength="1"
+                                                                       maxlength="500"
+                                                                       {% if (data.action == 'delete') %}readonly="readonly"{%  endif %}
+                                                                       value="{{ lang_text.text }}"
+                                                                       placeholder="{{ lang.ENTER_TEXT }}"
+                                                                       aria-labelledby="text[{{ lang_text.lang_code_2a }}]AriaDesc">
+                                                            </div>
+                                                            <span id="text[{{ lang_text.lang_code_2a }}]AriaDesc" class="d-none">{{ lang_text.lang_name }}</span>
+
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+
+                                            </div>{# <div class="col-md-8 offset-md-2"> -}
+                                        </div>{# <div class="row"> -}
+
+                                    </div>{# <div class="tab-pane fade show p-3" id="tab-texts" role="tabpanel" aria-labelledby="texts-tab"> -}
+#}
+                                    {#
+                                        {% if (data.action != 'add') %}
+                                            {% if user_group == '1' or user_group == '2' %}
+
+                                                <div class="tab-pane fade show p-3" id="tab-register" role="tabpanel" aria-labelledby="register-tab">
+
+                                                    {#<h5 class="card-title text-center">{{ lang.ENTITY_TAB_REGISTER }}</h5>
+
+                                                    <div class="row">
+                                                        <div class="col-md-8 offset-md-2">
+
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="createdby">{{ lang.APP_CREATED_BY }}:</label>
+                                                                {{ reg.createdby }}
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="createddate">{{ lang.APP_CREATED_DATE }}:</label>
+                                                                {{ reg.createddate }}
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="updatedby">{{ lang.APP_UPDATED_BY }}:</label>
+                                                                {{ reg.updatedby }}
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="updateddate">{{ lang.APP_UPDATED_DATE }}:</label>
+                                                                {{ reg.updateddate }}
+                                                            </div>
+
+                                                        </div>{# <div class="col-md-8 offset-md-2">
+                                                    </div>{# <div class="row">
+
+                                                </div>{# <div class="tab-pane fade show p-3" id="tab-register" role="tabpanel" aria-labelledby="register-tab">
+                                            {% endif %}
+                                        {% endif %}
+                                        #}
+
+                                </div>{# <div class="tab-content mt-3"> #}
+
+                            </div>{# <div class="card-body"> #}
+                        </div>{# <div class="card"> #}
+
+                    </div>{# <div class="col-8 mx-auto"> #}
+                </div>{# <div class="row"> #}
+
+                <div class="row">
+                    <div class="col-12 my-4 text-center">
+                        <button type="button" name="btn_submit" id="btn_submit" class="btn btn-info" value="1">{% if (data.action == 'delete') %}{{ lang.DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.SAVE }}{%  endif %}</button>
+                        <button type="button" name="btn_cancel" id="btn_cancel" class="btn btn-info" formnovalidate>{{ lang.BACK_TO_LIST }}</button>
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="{{ reg.id }}">
+
+                {# Filters #}
+                {% for filter_name, filter_data in filters %}
+                    {% for filter_data_key, filter_data_data in filter_data %}
+                        <input type="hidden" name="filters[{{ filter_name }}][{{ filter_data_key }}]" id="filter_{{ filter_name }}_{{ filter_data_key }}" value="{{ filter_data_data }}" />
+                    {% endfor %}
+                {% endfor %}
+                {# Pagination #}
+                {% for key, value in pagination %}
+                    <input type="hidden" name="pagination[{{ key }}]" id="{{ key }}" value="{{ value }}" />
+                {% endfor %}
+
+                <input type="hidden" name="auth_token" value="{{ data.auth_token }}" />
+
+            </form>
+
+        </div>{# <div class="col-10 mx-auto"> #}
+    </div>{# <div class="row">#}
+
+</div>{# <div class="container-fluid mb-4">#}
+
+<div class="clear"></div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/form.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/tabs.css') }}" type="text/css" />
+{% endblock %}
+{% block javascripts %}
+     {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            {# app/langtextForm.html.twig #}
+
+        });
+        (function($) {
+            'use strict';
+
+        })(jQuery);
+    </script>
+    <script type="text/javascript">
+        var folder = '{{ session[config['cookies_prefix']~'_folder'] }}';
+        var entity = '{{ entity }}';
+        var action = '{{ data.action }}';
+        var cancel = '{{ cancel }}';
+        var reg_id = '{{ reg.id }}';
+        var l_errors_found = '{{ lang.ERRORS_FOUND }}';
+        var l_form_has_errors = '{{ lang.ERRORS_FORM }}';
+    </script>
+    <script type="text/javascript" src="/assets/js/app/{{ config.app_skin }}/forms.js"></script>
+    <script type="text/javascript" src="/assets/js/app/{{ config.app_skin }}/scrool-to-top.js"></script>
+{% endblock %}

@@ -1,0 +1,21 @@
+
+#solution_personal_assistant {
+}
+#solution_personal_assistant_container {
+}
+#solution_personal_assistant_content {
+    flex-direction: row;
+    /*border: solid 1px red;*/
+}
+
+@media (min-width: 576px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 831px) {
+}
+@media (min-width: 992px) {
+}
+@media (min-width: 1200px) {
+}
+

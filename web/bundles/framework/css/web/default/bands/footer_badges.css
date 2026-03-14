@@ -1,0 +1,48 @@
+#footer_badges {
+}
+#footer_badges_container {
+}
+#footer_badges_content {
+    padding: 20px 0;
+    /*border: solid 1px blue;*/
+}
+#footer_badges_wrapper {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*border: solid 1px red;*/
+}
+#footer_badges_badges {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    /*align-items: space-arround;    */
+    /*border: solid 1px red;*/
+}
+#footer_badges_title {
+    width: 100%;
+    padding: 0 0 10px 0;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+    border-bottom: solid 3px var(--highlight-color);
+}
+.footer_badges_badge {
+    width: 150px;
+    padding: 0 20px;
+}
+.footer_badges_badge img {
+    width: 100%;
+    height: auto;
+}
+@media (min-width: 600px) {
+    #footer_badges_badges {
+        flex-direction: row;
+    }
+}
+@media (min-width: 1200px) {
+}
+@media (min-width: 1400px) {
+}
+@media (min-width: 1600px) {
+}

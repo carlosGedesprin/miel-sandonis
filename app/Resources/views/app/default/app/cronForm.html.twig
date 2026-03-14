@@ -1,0 +1,290 @@
+{% extends 'app/' ~ config.app_skin ~ '/app.html.twig' %}
+
+{% set entity = 'cron' %}
+
+{% block title %} {{ parent() }} &bull; {% if (data.action == 'delete') %}{{ lang.CRON_DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.CRON_EDIT }}{%  endif %}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid mb-4">
+
+    <a href="#" id="topofthepage"></a>
+
+    <div class="col-md-8 offset-md-2 col-sm-12 my-4 p-2 rounded-3 font-weight-bold {% if (data.action == 'delete') %}is_delete{%  else %} bg-light{%  endif %}">
+        {% if (data.action == 'delete') %}
+            {{ lang.CRON_DELETE }}
+        {% elseif (data.action == 'edit') %}
+            {{ lang.CRON_EDIT }}
+        {% elseif  (data.action == 'add') %}
+            {{ lang.CRON_ADD }}
+        {%  endif %}
+        : {{ reg.process }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-sm-12 mx-auto">
+
+            <form id="item-form"
+                  method="post"
+                  enctype="multipart/form-data"
+            >
+
+                <div class="row">
+                    <div class="col-md-10 col-sm-12 mx-auto">
+
+                        <div id="box-result">
+                            <div class="alert">
+                            </div>
+                        </div>
+
+                        <div class="card">
+
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs" id="tabs-list" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active"
+                                           id="details-tab"
+                                           href="#tab-details"
+                                           role="tab"
+                                           aria-controls="details"
+                                           aria-selected="true">
+                                            {{ lang.CRON_TAB_DETAILS }}
+                                        </a>
+                                    </li>
+                                    {#
+                                    {% if (data.action != 'add') %}
+                                        {% if user_group == '1' or user_group == '2' %}
+                                            <li class="nav-item">
+                                                <a class="nav-link"
+                                                   id="register-tab"
+                                                   href="#tab-register"
+                                                   role="tab"
+                                                   aria-controls="register"
+                                                   aria-selected="false">
+                                                    {{ lang.CRON_TAB_REGISTER }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                    #}
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+
+                                {# This shines in all tab-content #}
+                                {% if data.action != 'add' and not reg.run%}
+                                    <div class="row">
+                                        <div class="col-9 mx-auto card-title-notactive">
+                                            {{ lang.CRON_NOT_ACTIVE }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                <div class="tab-content mt-3">
+
+                                    <div class="tab-pane fade show active p-3 {% if reg.run %}reg_active{% else %}reg_not_active{% endif %}" id="tab-details" role="tabpanel">
+
+                                        {#<h5 class="card-title text-center">{{ lang.CRON_TAB_DETAILS }}</h5>#}
+
+                                        <div class="row">
+                                            <div class="col-md-8 offset-md-2">
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="process">{{ lang.CRON_PROCESS }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="process"
+                                                           name="process"
+                                                           minlength="2"
+                                                           maxlength="50"
+                                                           {% if user_group == '1' or user_group == '2' %}{% else %}readonly="readonly"{% endif %}
+                                                           value="{{ reg.process }}"
+                                                           placeholder="{{ lang.ENTER_NAME }}"
+                                                    >
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="run">{{ lang.CRON_PROCESS_RUN }}:</label>
+                                                    <select class="col-2 form-control"
+                                                            id="run"
+                                                            name="run"
+                                                            {% if user_group == '1' or user_group == '2' or data.action == 'delete' %}{% else %}readonly="readonly"{% endif %}
+                                                            value="{{ reg.run }}"
+                                                            placeholder="{{ lang.SELECT }}"
+                                                    >
+                                                        {{ data.run_options|raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="periodicity">{{ lang.CRON_PROCESS_PERIODICITY }}:</label>
+                                                    <select class="form-control"
+                                                            id="periodicity"
+                                                            name="periodicity"
+                                                            {% if user_group == '1' or user_group == '2' or data.action == 'delete' %}{% else %}readonly="readonly"{% endif %}
+                                                            value="{{ reg.periodicity }}"
+                                                            placeholder="{{ lang.SELECT }}"
+                                                    >
+                                                        {{ data.periodicity_options|raw }}
+                                                    </select>
+                                                    <div id="notificationsEmailHelp" class="col-11 form-text font-color-grey">{{ lang.CRON_PROCESS_PRIODICITY_CHANGE }}</div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="size">{{ lang.CRON_PROCESS_SIZE }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="size"
+                                                           name="size"
+                                                           minlength="1"
+                                                           maxlength="3"
+                                                           {% if user_group == '1' or user_group == '2' or data.action == 'delete' %}{% else %}readonly="readonly"{% endif %}
+                                                           value="{{ reg.size }}"
+                                                           placeholder="{{ lang.ENTER_NUMBER }}"
+                                                    >
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="delaytime">{{ lang.CRON_PROCESS_DELAYTIME }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="delaytime"
+                                                           name="delaytime"
+                                                           minlength="2"
+                                                           maxlength="10"
+                                                           {% if user_group == '1' or user_group == '2' or data.action == 'delete' %}{% else %}readonly="readonly"{% endif %}
+                                                           value="{{ reg.delaytime }}"
+                                                           placeholder="{{ lang.ENTER_NUMBER }}"
+                                                    >
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="ordinal">{{ lang.CRON_PROCESS_ORDINAL }}:</label>
+                                                    <select class="form-control"
+                                                            id="ordinal"
+                                                            name="ordinal"
+                                                            value="{{ reg.ordinal }}"
+                                                           {% if user_group == '1' or user_group == '2' or data.action == 'delete' %}{% else %}readonly="readonly"{% endif %}
+                                                            placeholder="{{ lang.SELECT }}">
+                                                        {{ data.ordinal_options | raw }}
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="last_run">{{ lang.CRON_PROCESS_LAST_RUN }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="last_run"
+                                                           name="last_run"
+                                                           minlength="2"
+                                                           maxlength="19"
+                                                           {#required="required"#}
+                                                           {#minlength="4"#}
+                                                           {#maxlength="100"#}
+                                                           readonly="readonly"
+                                                           value="{{ reg.last_run }}"
+                                                    >
+                                                </div>
+
+                                            </div>{# <div class="col-md-8 offset-md-2"> #}
+                                        </div>{# <div class="row"> #}
+
+                                    </div>{# <div class="tab-pane fade show active p-3" id="tab-details" role="tabpanel"> #}
+                                    {#
+                                    {% if (data.action != 'add') %}
+                                        {% if user_group == '1' or user_group == '2' %}
+
+                                            <div class="tab-pane fade show p-3 {% if reg.run %}reg_active{% else %}reg_not_active{% endif %}" id="tab-register" role="tabpanel">
+
+                                            {#<h5 class="card-title text-center">{{ lang.LANG_TEXT_TAB_REGISTER }}</h5>
+
+                                            <div class="col-9 mx-auto">
+                                            <div class="row">
+
+                                            <div class="form-group" style="width: 100%;">
+                                                <label class="control-label" for="createdby">{{ lang.APP_CREATED_BY }}:</label>
+                                                {{ reg.createdby }}
+                                            </div>
+
+                                            <div class="form-group" style="width: 100%;">
+                                                <label class="control-label" for="createddate">{{ lang.APP_CREATED_DATE }}:</label>
+                                                {{ reg.createddate }}
+                                            </div>
+
+                                            <div class="form-group" style="width: 100%;">
+                                                <label class="control-label" for="updatedby">{{ lang.APP_UPDATED_BY }}:</label>
+                                                {{ reg.updatedby }}
+                                            </div>
+
+                                            <div class="form-group" style="width: 100%;">
+                                                <label class="control-label" for="updateddate">{{ lang.APP_UPDATED_DATE }}:</label>
+                                                {{ reg.updateddate }}
+                                            </div>
+
+                                            </div>{# <div class="row">
+                                            </div>{# <div class="col-9 mx-auto">
+
+                                            </div>{# <div class="tab-pane fade show p-3" id="tab-register" role="tabpanel">
+
+                                        {% endif %}
+                                    {% endif %}
+                                    #}
+                                </div>{# <div class="tab-content mt-3"> #}
+
+                            </div>{# <div class="card-body"> #}
+                        </div>{# <div class="card"> #}
+
+                    </div>{# <div class="col-8 mx-auto"> #}
+                </div>{# <div class="row"> #}
+
+                <div class="row">
+                    <div class="col-12 my-4 text-center">
+                        <button type="button" name="btn_submit" id="btn_submit" class="btn btn-info">{% if (data.action == 'delete') %}{{ lang.DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.SAVE }}{%  endif %}</button>
+                        <button type="button" name="btn_cancel" id="btn_cancel" class="btn btn-info" formnovalidate>{{ lang.BACK_TO_LIST }}</button>
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="{{ reg.id }}">
+
+                {# Filters #}
+                {% for filter_name, filter_data in filters %}
+                    {% for filter_data_key, filter_data_data in filter_data %}
+                        <input type="hidden" name="filters[{{ filter_name }}][{{ filter_data_key }}]" id="filter_{{ filter_name }}_{{ filter_data_key }}" value="{{ filter_data_data }}" />
+                    {% endfor %}
+                {% endfor %}
+                {# Pagination #}
+                {% for key, value in pagination %}
+                    <input type="hidden" name="pagination[{{ key }}]" id="{{ key }}" value="{{ value }}" />
+                {% endfor %}
+
+                <input type="hidden" name="auth_token" value="{{ data.auth_token }}" />
+
+            </form>
+
+        </div>{# <div class="col-md-8 offset-md-2"> #}
+    </div>{# <div class="row">#}
+
+</div>{# <div class="container-fluid mb-4">#}
+
+<div class="clear"></div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/form.css') }}" type="text/css" />
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var folder = '{{ session[config['cookies_prefix']~'_folder'] }}';
+        var entity = '{{ entity }}';
+        var action = '{{ data.action }}';
+        var cancel = '{{ cancel }}';
+        var reg_id = '{{ reg.id }}';
+        var l_errors_found = '{{ lang.ERRORS_FOUND }}';
+        var l_form_has_errors = '{{ lang.ERRORS_FORM }}';
+    </script>
+    <script type="text/javascript" src="/assets/js/app/{{ config.app_skin }}/forms.js"></script>
+    <script type="text/javascript" src="/assets/js/app/{{ config.app_skin }}/scrool-to-top.js"></script>
+{% endblock %}

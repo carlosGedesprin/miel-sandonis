@@ -1,0 +1,23 @@
+
+<section class="footer-social">
+    <ul class="footer-social-list">
+        {% if config.company_facebook %}
+            <li><a class="" href="{{ config.company_facebook }}" target="_blank"><i class="{{ facebook }}"></i></a></li>
+        {% endif %}
+        {% if config.company_linkedin %}
+            <li><a class="" href="{{ config.company_linkedin }}" target="_blank"><i class="{{ linkedin }}"></i></a></li>
+        {% endif %}
+        {% if config.company_youtube %}
+            <li><a class="" href="{{ config.company_youtube }}" target="_blank"><i class="{{ youtube }}"></i></a></li>
+        {% endif %}
+        {% if config.company_twitter %}
+            <li><a class="" href="{{ config.company_twitter }}" target="_blank"><i class="{{ twitter }}"></i></a></li>
+        {% endif %}
+        {% if config.company_instagram %}
+            <li><a class="" href="{{ config.company_instagram }}" target="_blank"><i class="{{ instagram }}"></i></a></li>
+        {% endif %}
+        {% if config.company_pinterest %}
+            <li><a class="" href="{{ config.company_pinterest }}" target="_blank"><i class="{{ pinterest }}"></i></a></li>
+        {% endif %}
+    </ul>
+</section>

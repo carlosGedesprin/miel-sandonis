@@ -1,0 +1,34 @@
+{% set path = '/assets/images/web/'~config.website_skin~'/bands/sector/' %}
+{% set img_1 = path ~ 'sectors_hero.png' %}
+
+<section id="sector_hero" class="web_section">
+    <div id="sector_hero_container" class="web_container">
+        <div id="sector_hero_content" class="web_content">
+
+            <div id="sector_hero_wrapper" class="web_wrapper">
+                <div id="sector_hero_left">
+                    <h1>
+                        Las empresas de {{ data.sector }} mejoran con la Automatización de procesos empresariales con IA
+                    </h1>
+                    <h2>
+                        Soluciones diseñadas para resolver ineficiencias comunes
+                    </h2>
+                    <p>
+                        Entendemos los desafíos únicos de tu sector
+                    </p>
+                    <p>
+                        Nuestro expertise se centra en aplicar soluciones paquetizadas personalizadas a tu realidad
+                    </p>
+                </div>
+                <div id="sector_hero_right">
+                    <img
+                            src="{{ img_1 }}"
+                            decoding="async"
+                            alt=""
+                    >
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

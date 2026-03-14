@@ -1,0 +1,381 @@
+
+<section id="contact_fair_form">
+    <div id="contact_fair_content">
+        <div id="contact_fair_div">
+            <div id="contact_fair_left">
+                <div class="contact_fair_inner">
+                    <div id="contact_fair_title">
+                        {{ lang.WEB_CONTACT_FORM_TITLE }}
+                    </div>
+                    <div id="contact_fair_text">
+                        <p>
+                            {{ lang.WEB_CONTACT_FORM_EXPLAIN }}
+                        </p>
+                    </div>
+                    <div id="contact_fair_email">
+                        <p>
+                            {{ lang.WEB_CONTACT_FORM_ALSO_EMAIL }}
+                        </p>
+                        <div id="contact_fair_email_icon">
+                            {#<img decoding="async" width="65" height="65" src="/assets/images/web/default/phone.svg" alt="{{ lang.WEB_CONTACT_FORM_PHONE_ALT }}" title="{{ lang.WEB_CONTACT_FORM_PHONE_TITLE }}">#}
+                            <i class="icon-envelope" aria-hidden="true" title="{{ lang.WEB_EMAIL_US }}"></i>
+                        </div>
+                        <p id="contact_fair_web_info_email">
+                            <a href="mailto:{{ config.web_info_email }}">{{ config.web_info_email }}</a>
+                        </p>
+                    </div>
+                    <div id="contact_fair_phone">
+                        <div id="contact_fair_phone_text">
+                            <p>
+                                {{ lang.WEB_CONTACT_FORM_ALSO_CALL }}
+                            </p>
+                        </div>
+                        <div id="contact_fair_phone_icon">
+                            {#<img decoding="async" width="65" height="65" src="/assets/images/web/default/phone.svg" alt="{{ lang.WEB_CONTACT_FORM_PHONE_ALT }}" title="{{ lang.WEB_CONTACT_FORM_PHONE_TITLE }}">#}
+                            <i class="icon-phone" aria-hidden="true" title="{{ lang.WEB_CALL_US }}"></i>
+                        </div>
+                        <div id="contact_fair_phone_phone">
+                            <a href="tel:{{ config.web_info_phone }}">{{ config.web_info_phone }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="contact_fair_right">
+                <div class="contact_fair_inner">
+                    <div id="footer_contact_form_errors">
+                        <div>{{ data.errors }}</div>
+                    </div>
+                    <form id="contact_fair_form_form"
+                          action="/contacto-feria"
+                          method="POST"
+                          aria-label="{{ lang.WEB_CONTACT_FORM_ARIA_LABEL_FORM_ }}"
+                          novalidate="novalidate"
+                    >
+                        <input type="hidden" name="group" value="4">
+
+                        <div id="footer-contact-form-name" class="footer-contact-form-item">
+                            <div class="footer-contact-form-label">
+                                <label for="name" id="label-name">{{ lang.WEB_CONTACT_FORM_LABEL_NAME }}</label>
+                            </div>
+                            <div class="footer-contact-form-input">
+                                <input id="name"
+                                       name="name"
+                                       type="text"
+                                       class="contact_form_input"
+                                       autocomplete="name"
+                                       required="required"
+                                       aria-required="true"
+                                       aria-invalid="false"
+                                       {#placeholder="{{ lang.WEB_CONTACT_FORM_ARIA_PLACEHOLDER_NAME }}"#}
+                                       value="{{ data.name }}"
+                                >
+                                <div id="input_errors_name" class="input_errors">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="footer-contact-form-email" class="footer-contact-form-item">
+                            <div class="footer-contact-form-label">
+                                <label for="email" id="label-email">{{ lang.WEB_CONTACT_FORM_LABEL_EMAIL }}</label>
+                            </div>
+                            <div class="footer-contact-form-input">
+                                <input id="email"
+                                       name="email"
+                                       type="email"
+                                       class="contact_form_input"
+                                       autocomplete="email"
+                                       required="required"
+                                       aria-required="true"
+                                       aria-invalid="false"
+                                        {#placeholder="{{ lang.WEB_CONTACT_FORM_PLACEHOLDER_EMAIL }}"#}
+                                        value="{{ data.email }}"
+                                 >
+                                 <div id="input_errors_email" class="input_errors">
+                                 </div>
+                             </div>
+                         </div>
+                         <div id="footer-contact-form-phone" class="footer-contact-form-item">
+                             <div class="footer-contact-form-label">
+                                 <label for="phone" id="label-phone">{{ lang.WEB_CONTACT_FORM_LABEL_PHONE }}</label>
+                             </div>
+                             <div class="footer-contact-form-input">
+                                 <input id="phone"
+                                        name="phone"
+                                        type="tel"
+                                        class="contact_form_input"
+                                        autocomplete="phone"
+                                        required="required"
+                                        aria-required="true"
+                                        aria-invalid="false"
+                                         {#placeholder="{{ lang.WEB_CONTACT_FORM_PLACEHOLDER_PHONE }}"#}
+                                        value="{{ data.phone }}"
+                                 >
+                                 <div id="input_errors_phone" class="input_errors">
+                                 </div>
+                             </div>
+                         </div>
+                         <div id="footer-contact-form-phone-mobile" class="footer-contact-form-item">
+                             <div class="footer-contact-form-label">
+                                 <label for="phone_mobile" id="phone-mobile-label">{{ lang.WEB_CONTACT_FORM_LABEL_PHONE_MOBILE }}</label>
+                             </div>
+                             <div class="footer-contact-form-input">
+                                 <input id="phone-mobile"
+                                        name="phone_mobile"
+                                        type="tel"
+                                        class="contact_form_input"
+                                        autocomplete="phone"
+                                        {#required="required"#}
+                                       {#aria-required="true"#}
+                                       aria-invalid="false"
+                                         {#placeholder="{{ lang.WEB_CONTACT_FORM_PLACEHOLDER_PHONE }}"#}
+                                       value="{{ data.phone_mobile }}"
+                                >
+                                <div id="input_errors_phone_mobile" class="input_errors">
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="locale" value="es">
+
+                        <div id="footer-contact-form-company" class="footer-contact-form-item">
+                            <div class="footer-contact-form-label">
+                                <label for="company" id="company-label">{{ lang.WEB_CONTACT_FORM_LABEL_COMPANY }}</label>
+                            </div>
+                            <div class="footer-contact-form-input">
+                                <input id="company"
+                                       name="company"
+                                       type="text"
+                                       class="contact_form_input"
+                                        {#autocomplete="phone"#}
+                                        {#required="required"#}
+                                        {#aria-required="true"#}
+                                       aria-invalid="false"
+                                        {#placeholder="{{ lang.WEB_CONTACT_FORM_PLACEHOLDER_COMPANY }}"#}
+                                       value="{{ data.company }}"
+                                >
+                                <div id="input_errors_company" class="input_errors">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="footer-contact-form-position" class="footer-contact-form-item">
+                            <div class="footer-contact-form-label">
+                                <label for="position" id="position-label">{{ lang.WEB_CONTACT_FORM_LABEL_POSITION }}</label>
+                            </div>
+                            <div class="footer-contact-form-input">
+                                <input id="position"
+                                       name="position"
+                                       type="text"
+                                       class="contact_form_input"
+                                        {#autocomplete="phone"#}
+                                        {#required="required"#}
+                                        {#aria-required="true"#}
+                                       aria-invalid="false"
+                                        {#placeholder="{{ lang.WEB_CONTACT_FORM_PLACEHOLDER_POSITION }}"#}
+                                       value="{{ data.position }}"
+                                >
+                                <div id="input_errors_position" class="input_errors">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="footer-contact-form-linkedin" class="footer-contact-form-item">
+                            <div class="footer-contact-form-label">
+                                <label for="linkedin" id="linkedin-label">{{ lang.WEB_CONTACT_FORM_LABEL_LINKEDIN }}</label>
+                            </div>
+                            <div class="footer-contact-form-input">
+                                <input id="linkedin"
+                                       name="linkedin"
+                                       type="text"
+                                       class="contact_form_input"
+                                        {#autocomplete="phone"#}
+                                        {#required="required"#}
+                                        {#aria-required="true"#}
+                                       aria-invalid="false"
+                                        {#placeholder="{{ lang.WEB_CONTACT_FORM_PLACEHOLDER_LINKEDIN }}"#}
+                                       value="{{ data.linkedin }}"
+                                >
+                                <div id="input_errors_linkedin" class="input_errors">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="footer-contact-form-instagram" class="footer-contact-form-item">
+                            <div class="footer-contact-form-label">
+                                <label for="instagram" id="instagram-label">{{ lang.WEB_CONTACT_FORM_LABEL_INSTAGRAM }}</label>
+                            </div>
+                            <div class="footer-contact-form-input">
+                                <input id="instagram"
+                                       name="instagram"
+                                       type="text"
+                                       class="contact_form_input"
+                                        {#autocomplete="phone"#}
+                                        {#required="required"#}
+                                        {#aria-required="true"#}
+                                       aria-invalid="false"
+                                        {#placeholder="{{ lang.WEB_CONTACT_FORM_PLACEHOLDER_INSTAGRAM }}"#}
+                                       value="{{ data.instagram }}"
+                                >
+                                <div id="input_errors_instagram" class="input_errors">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="footer-contact-form-twitter" class="footer-contact-form-item">
+                            <div class="footer-contact-form-label">
+                                <label for="twitter" id="twitter-label">{{ lang.WEB_CONTACT_FORM_LABEL_TWITTER }}</label>
+                            </div>
+                            <div class="footer-contact-form-input">
+                                <input id="twitter"
+                                       name="twitter"
+                                       type="text"
+                                       class="contact_form_input"
+                                        {#autocomplete="phone"#}
+                                        {#required="required"#}
+                                        {#aria-required="true"#}
+                                       aria-invalid="false"
+                                        {#placeholder="{{ lang.WEB_CONTACT_FORM_PLACEHOLDER_TWITTER }}"#}
+                                       value="{{ data.twitter }}"
+                                >
+                                <div id="input_errors_twitter" class="input_errors">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="footer-contact-form-market" class="footer-contact-form-item">
+                            <div class="footer-contact-form-label">
+                                <label for="market" id="market-label">{{ lang.WEB_CONTACT_FORM_LABEL_MARKET }}</label>
+                            </div>
+                            <select class="form-control"
+                                    id="market"
+                                    name="market"
+                                    autocomplete="off"
+                                    value="{{ data.market }}"
+                                    placeholder="{{ lang.SELECT }}"
+                                    aria-invalid="false"
+                            >
+                                {{ data.lead_market_options | raw }}
+                            </select>
+                            <div id="input_errors_market" class="input_errors">
+                            </div>
+                        </div>
+
+                        <div id="footer-contact-form-market-other" class="footer-contact-form-item">
+                            <div class="footer-contact-form-label">
+                                <label for="market_other" id="market-other-label">{{ lang.WEB_CONTACT_FORM_LABEL_MARKET_OTHER }}</label>
+                            </div>
+                            <div class="footer-contact-form-input">
+                                <input id="market-other"
+                                       name="market_other"
+                                       type="text"
+                                       class="contact_form_input"
+                                        {#autocomplete="phone"#}
+                                        {#required="required"#}
+                                        {#aria-required="true"#}
+                                       aria-invalid="false"
+                                        {#placeholder="{{ lang.WEB_CONTACT_FORM_PLACEHOLDER_MARKET_OTHER }}"#}
+                                       value="{{ data.market_other }}"
+                                >
+                                <div id="input_errors_market_other" class="input_errors">
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="origin" value="7">
+
+                        <div id="footer-contact-form-notes" class="footer-contact-form-item">
+                            <div class="footer-contact-form-label">
+                                <label for="notes">{{ lang.WEB_CONTACT_FORM_LABEL_NOTES }}</label>
+                            </div>
+                            <div class="footer-contact-form-input">
+                                        <textarea id="notes"
+                                                  name="notes"
+                                                  cols="40"
+                                                  rows="3"
+                                                  class="contact_form_input"
+                                                  aria-required="true"
+                                                  aria-invalid="false"
+                                                  {#placeholder="{{ lang.WEB_CONTACT_FORM_PLACEHOLDER_NOTES }}"#}
+                                        >{{ data.notes }}</textarea>
+                                <div id="input_errors_notes" class="input_errors">
+                                </div>
+                            </div>
+                        </div>
+                        {#------------------------------------------------------------------#}
+
+                        {#
+                            'address'      => NULL,
+                            'post_code'    => NULL,
+                            'country'      => NULL,
+                            'region'       => NULL,
+                            'city'         => NULL,
+                            'alt_city'     => NULL,
+                            'send_emails'  => NULL,
+                            'notes'        => NULL,
+                            'active'       => '1',
+                        #}
+
+                        <input type="hidden" name="send_emails" value="1">
+                        <input type="hidden" name="active" value="1">
+
+                        <div class="cf-turnstile" data-sitekey="{{ env.turnstile_site_key }}"></div>
+
+                        <div id="footer-contact-form-newsletter" class="footer-contact-form-item">
+                            <div class="footer-contact-form-label">
+                                <label>
+                                    <span>
+                                        <input id="newsletter_accept"
+                                               name="newsletter_accept"
+                                               type="checkbox"
+                                               value="1"
+                                               checked="checked"
+                                               aria-required="false"
+                                               aria-invalid="false"
+                                        >
+                                    </span>
+                                    <span id="footer-contact-form-terms-text">
+                                        {{ lang.WEB_NEWSLETTER_SUBSCRIBE | raw }}
+                                    </span>
+                                </label>
+                                <div id="input_errors_newsletter" class="input_errors">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="footer-contact-form-terms" class="footer-contact-form-item">
+                            <div class="footer-contact-form-label">
+                                <label>
+                                    <span>
+                                        <input id="terms"
+                                               name="terms"
+                                               type="checkbox"
+                                               value="1"
+                                               checked="checked"
+                                               required="required"
+                                               aria-required="true"
+                                               aria-invalid="false"
+                                        >
+                                    </span>
+                                    <span id="footer-contact-form-terms-text">
+                                        {{ lang.WEB_CONTACT_FORM_TERMS_MESSAGE | replace({'%WEB_FOOTER_LEGALSTUFF_LINK%': lang.WEB_FOOTER_LEGALSTUFF_LINK, '%WEB_TITLE_LEGALSTUFF%': lang.WEB_TITLE_LEGALSTUFF, '%WEB_FOOTER_PRIVACY_POLICY_LINK%': lang.WEB_FOOTER_PRIVACY_POLICY_LINK, '%WEB_TITLE_PRIVACY_POLICY%': lang.WEB_TITLE_PRIVACY_POLICY}) | raw }}
+                                    </span>
+                                </label>
+                                <div id="input_errors_terms" class="input_errors">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="footer-contact-form-submit">
+                            <input id="footer_contact_form_btn_submit"
+                                   name="btn_submit"
+                                   type="button"
+                                   class="contact_form_input"
+                                   value="{{ lang.WEB_CONTACT_FORM_SUBMIT_INPUT }}"
+                            >
+                            <div id="footer_contact_form_submit_sending">
+                                {{ lang.WEB_CONTACT_FORM_SENDING }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

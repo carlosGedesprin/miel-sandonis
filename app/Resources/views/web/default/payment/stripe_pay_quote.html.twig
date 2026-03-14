@@ -1,0 +1,162 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'stripe_pay_quote' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.PAYMENT_SECTION }}{% endblock %}
+
+{% set currency = config.web_currency|currency_symbol %}
+
+{% block body %}
+
+    <a href="#" id="topofthepage" aria-label="{{ lang.WEB_TOP_OF_THE_PAGE }}"></a>
+
+    <div id="payment_hero" class="container-fluid">
+        <div id="payment_hero_content">
+            <div id="payment_hero_colum_left">
+                <div id="payment_hero_colum_left_text">
+                    <p>{{ lang.PAYMENT_SECTION }}</p>
+                </div>
+                <div id="payment_hero_colum_left_image">
+                    <img src="/assets/images/web/{{ config.website_skin }}/bands/payment_stripe/movil.png" alt="">
+                </div>
+            </div>
+            <div id="payment_hero_colum_right">
+                <div id="payment_hero_title">
+                    <h2>{{ lang.PAY_A_QUOTE_TITLE }}</h2>
+                </div>
+
+                {% if errors|length > 0 %}
+                    <div class="row">
+                        <div class="col-10 offset-1">
+                            <div class="alert alert-danger">
+                                {{ lang.ERRORS_FOUND }}:
+                                <ul>
+                                    {% for error_item in errors %}
+                                        <li>{{ error_item }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+{# ********************************************************************************** #}
+                <div id="payment_stripe_pay_quote_quote_line">
+                    {{ quote_line.description }}
+                </div>
+                <div id="payment_stripe_pay_quote">
+                    <div id="payment_stripe_pay_quote_total_to_pay_content">
+                        <div id="payment_stripe_pay_quote_total_to_pay_text">
+                            {{ lang.PAYMENT_TOTAL_TO_PAY }}
+                        </div>
+                        <div id="payment_stripe_pay_quote_total_to_pay_amount">
+                            {{ ( ( ( quote.total_to_pay )|round(2,'common') / 100 ) )|number_format( 2, ',', '.' ) }} {{ currency }}
+                        </div>
+                    </div>
+                </div>
+                <div class="payment_stripe_pay_quote_method">
+                    <div id="payment_stripe_pay_quote_payment_method_left">
+                        {% if payment_method.preferred == '1' %}
+                            {{ lang.PAYMENT_STRIPE_PREFERRED_CARD | raw }}
+                        {% else %}
+                            <div id="payment_stripe_pay_quote_terms_conditions">
+                                <div id="payment_stripe_pay_quote_terms_input">
+                                    <input  type="checkbox"
+                                            id="payment_stripe_pay_quote_make_preferred"
+                                            name="make_preferred"
+                                            value="1"
+                                    />
+                                    <label id="payment_stripe_pay_a_quote_make_preferred_label" for="payment_stripe_pay_quote_make_preferred">
+                                        {{ lang.PAYMENT_STRIPE_MAKE_PREFERRED_CARD | raw }}
+                                    </label>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div id="payment_stripe_pay_quote_payment_method_right">
+                        <div id="payment_stripe_pay_quote_payment_method_title">
+                            {{ lang.PAYMENT_CARD_DETAILS }}
+                        </div>
+                        <div id="payment_stripe_pay_quote_method_details">
+                            *** *** *** {{ payment_method.last_4 }}
+                        </div>
+                    </div>
+                    <div id="payment_stripe_pay_quote_payment_change_card">
+                        <a href="/payments/choose_quote_payment_method/{{ quote.quote_key }}">
+                            {{ lang.PAYMENT_STRIPE_CHANGE_CARD | raw }}
+                         </a>
+                    </div>
+                </div>
+                <form id="payment_stripe_pay_quote_terms_form" class="payment_hero_form" method="POST">
+                    <div id="payment_stripe_pay_quote_terms_conditions">
+                        <div id="payment_stripe_pay_quote_terms_input">
+                            <input  type="checkbox"
+                                    id="payment_stripe_pay_quote_terms"
+                                    name="terms"
+                                    required="required"
+                                    value="1"
+                            />
+                            <label id="payment_stripe_pay_a_quote_terms_label" for="payment_stripe_pay_quote_terms">
+                                {{ data.payment_terms_agreement | raw }}
+                            </label>
+                        </div>
+                    </div>
+                    <div id="payment_stripe_pay_quote_button">
+                        <input type="submit"
+                               class="loading"
+                               id="submit"
+                               name="submit"
+                               value="{{ lang.PAY_A_QUOTE_PAY_THIS_QUOTE }}"
+                               formnovalidate="formnovalidate"
+                        />
+                        <input type="hidden"
+                               name="quote_key"
+                               value="{{ data.quote_key }}"
+                        />
+                    </div>
+                </form>
+{# ********************************************************************************** #}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/css/web/{{ config.website_skin }}/payment.css" rel="stylesheet">
+    <link href="/assets/css/web/{{ config.website_skin }}/payment_stripe_pay_quote.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            {# app/stripe_pay_quuote.html.twig #}
+
+        });
+        (function($) {
+            'use strict';
+
+            $('.loading').on('click', function () {
+                scrool_to_top_of_page();
+                $("#submit").hide();
+                $(document.body).prepend('<div id="loading"><div id="loading_div"><div id="loading_div_texts"><p>{{ lang.LOADING_WORKING }}</p><p>{{ lang.LOADING_NOT_RELOAD }}</p><p>{{ lang.LOADING_TAKES_MINUTES }}</p></div><img id="loading_img" src="/assets/images/app/default/loading_icon.webp"></div></div>');
+                $("#loading").css('height', $('body').outerHeight(true));
+                {#console.log('outerHeight', $('body').outerHeight(true), 'w.height', $(window).height(), 'd.height', $(document).height() );#}
+            });
+
+        })(jQuery);
+    </script>
+    <script type="text/javascript">
+        var folder = '{{ session[config['cookies_prefix']~'_folder'] }}';
+        var entity = '{{ entity }}';
+        var action = '{{ data.action }}';
+        var cancel = '{{ cancel }}';
+        var reg_id = '{{ reg.id }}';
+        var l_errors_found = '{{ lang.ERRORS_FOUND }}';
+        var l_form_has_errors = '{{ lang.ERRORS_FORM }}';
+        var view = 'stripe_pay_quote';
+    </script>
+    <script type="text/javascript" src="/assets/js/app/{{ config.app_skin }}/forms.js"></script>
+    <script type="text/javascript" src="/assets/js/app/{{ config.app_skin }}/scrool-to-top.js"></script>
+{% endblock %}

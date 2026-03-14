@@ -1,0 +1,55 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'info_payment_auth' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.PAYMENT_AUTH_TITLE }}{% endblock %}
+
+{% block body %}
+    <div id="auth_payment">
+        <div class="container">
+            <div class="row">
+                <div id="auth_payment-main-container" class="col-12">
+                    <div id="auth_payment-top-container">
+                        <h2>
+                            <div class="auth_payment-top-container-text">
+                                {{ lang.PAYMENT_AUTH_HEADER }}
+                            </div>
+                        </h2>
+                    </div>
+                    <div id="auth_payment-bottom-container">
+                        <div id="auth_payment-bottom-container-top-text">
+                            <a href="{{ auth_pay_link }}">{{ lang.PAYMENT_AUTH_LINK_TEXT }}</a>
+                        </div>
+                        {#
+                        <div id="auth_payment-bottom-container-bottom-text">
+                            {{ lang.PAYMENT_AUTH_INFO | format( product.name ) | raw }}
+                        </div>
+                        #}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/css/web/{{ config.website_skin }}/payment.css" rel="stylesheet">
+    <link href="/assets/css/web/{{ config.website_skin }}/payment_info.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script id="view" type="text/javascript">
+        var view = 'info_payment_auth';
+    </script>
+    <script>
+        $(document).ready(function(){
+
+        });
+        (function($) {
+            // Avoid conflicts with other libraries
+            'use strict';
+            
+        })(jQuery); // Avoid conflicts with other libraries
+    </script>
+{% endblock %}

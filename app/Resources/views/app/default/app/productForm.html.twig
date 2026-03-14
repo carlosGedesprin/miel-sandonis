@@ -1,0 +1,407 @@
+{% extends 'app/' ~ config.app_skin ~ '/app.html.twig' %}
+
+{% set entity = 'product' %}
+
+{% block title %} {{ parent() }} &bull; {% if (data.action == 'delete') %}{{ lang.PRODUCT_DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.PRODUCT_EDIT }}{%  endif %}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid mb-4">
+
+    <a href="#" id="topofthepage"></a>
+
+    <div class="col-md-8 offset-md-2 col-sm-12 my-4 p-2 rounded-3 font-weight-bold {% if (data.action == 'delete') %}is_delete{%  else %} bg-light{%  endif %}">
+        {% if (data.action == 'delete') %}
+            {{ lang.PRODUCT_DELETE }}
+        {% elseif (data.action == 'edit') %}
+            {{ lang.PRODUCT_EDIT }}
+        {% elseif  (data.action == 'add') %}
+            {{ lang.PRODUCT_ADD }}
+        {%  endif %}
+        : {{ reg.name }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 col-sm-12 mx-auto">
+
+            <form id="item-form"
+                  method="post"
+                  role="form"
+                  enctype="multipart/form-data"
+            >
+
+                <div class="row">
+                    <div class="col-md-10 col-sm-12 mx-auto">
+
+                        <div id="box-result">
+                            <div class="alert">
+                            </div>
+                        </div>
+
+                        <div class="card">
+
+                            <div class="card-header">
+                                <ul class="nav nav-tabs card-header-tabs" id="tabs-list" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active"
+                                           id="details-tab"
+                                           href="#tab-details"
+                                           role="tab"
+                                           aria-controls="details"
+                                           aria-selected="true">
+                                            {{ lang.PRODUCT_TAB_DETAILS }}
+                                        </a>
+                                    </li>
+                                    {#
+                                    {% if (data.action != 'add') %}
+                                        {% if user_group == '1' or user_group == '2' %}
+                                            <li class="nav-item">
+                                                <a class="nav-link"
+                                                   id="register-tab"
+                                                   href="#tab-register"
+                                                   role="tab"
+                                                   aria-controls="register"
+                                                   aria-selected="false">
+                                                    {{ lang.PRODUCT_TAB_REGISTER }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                    #}
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+
+                                {# This shines in all tab-content #}
+                                {% if data.action != 'add' and not reg.active %}
+                                    <div class="row">
+                                        <div class="col-9 mx-auto card-title-notactive">
+                                            {{ lang.PRODUCT_NOT_ACTIVE }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                <div class="tab-content mt-3">
+
+                                    <div class="tab-pane fade show active p-3 {% if data.action != 'add' and not reg.active %}reg_not_active{% else %}reg_active{% endif %}" id="tab-details" role="tabpanel">
+
+                                        {#<h5 class="card-title text-center">{{ lang.LANG_TEXT_TAB_DETAILS }}</h5>#}
+
+                                        <div class="row">
+                                            <div class="col-md-8 offset-md-2">
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="name">{{ lang.PRODUCT_NAME }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="name"
+                                                           name="name"
+                                                           minlength="2"
+                                                           maxlength="100"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{% endif %}
+                                                           value="{{ reg.name }}"
+                                                           placeholder="{{ lang.ENTER_NAME }}"
+                                                           aria-labelledby="nameAriaDesc">
+                                                </div>
+                                                <span id="nameAriaDesc" class="d-none">{{ lang.PRODUCT_NAME_DESC }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="product_type">{{ lang.PRODUCT_TYPE }}:</label>
+                                                    <select class="form-control"
+                                                            id="product_type"
+                                                            name="product_type"
+                                                            {% if (data.action == 'delete') %}disabled="disabled"{%  endif %}
+                                                            value="{{ reg.product_type }}"
+                                                            placeholder="{{ lang.SELECT }}"
+                                                            aria-describedby="producttypeAriaDesc">
+                                                        {{ data.product_type_options | raw }}
+                                                    </select>
+                                                </div>
+                                                <span id="producttypeAriaDesc" class="d-none">{{ lang.PRODUCT_TYPE_DESC }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="period_demo">{{ lang.PRODUCT_PERIOD_DEMO }}:</label>
+                                                    <select class="form-control"
+                                                            id="period_demo"
+                                                            name="period_demo"
+                                                            {% if (data.action == 'delete') %}disabled="disabled"{%  endif %}
+                                                            value="{{ reg.period_demo }}"
+                                                            placeholder="{{ lang.SELECT }}"
+                                                            aria-describedby="periodDemoAriaDesc">
+                                                        {{ data.period_demo_options | raw }}
+                                                    </select>
+                                                </div>
+                                                <span id="periodDemoAriaDesc" class="d-none">{{ lang.PRODUCT_PERIOD_DEMO_DESC }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="num_period_demo">{{ lang.PRODUCT_PERIOD_DEMO_NUM }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="num_period_demo"
+                                                           name="num_period_demo"
+                                                           minlength="1"
+                                                           maxlength="2"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{% endif %}
+                                                           value="{{ reg.num_period_demo }}"
+                                                           placeholder="{{ lang.ENTER_NUMBER }}"
+                                                           aria-describedby="numPeriodDemoAriaDesc">
+                                                </div>
+                                                <span id="numPeriodDemoAriaDesc" class="d-none">{{ lang.PRODUCT_PERIOD_DEMO_NUM_DESC }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="period">{{ lang.PRODUCT_PERIOD }}:</label>
+                                                    <select class="form-control"
+                                                            id="period"
+                                                            name="period"
+                                                            {% if (data.action == 'delete') %}disabled="disabled"{%  endif %}
+                                                            value="{{ reg.period }}"
+                                                            placeholder="{{ lang.SELECT }}"
+                                                            aria-describedby="periodAriaDesc">
+                                                        {{ data.period_options | raw }}
+                                                    </select>
+                                                </div>
+                                                <span id="periodAriaDesc" class="d-none">{{ lang.PRODUCT_PERIOD_DESC }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="num_period">{{ lang.PRODUCT_PERIOD_NUM }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="num_period"
+                                                           name="num_period"
+                                                           minlength="1"
+                                                           maxlength="2"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{% endif %}
+                                                           value="{{ reg.num_period }}"
+                                                           placeholder="{{ lang.ENTER_NUMBER }}"
+                                                           aria-describedby="numPeriodAriaDesc">
+                                                </div>
+                                                <span id="numPeriodAriaDesc" class="d-none">{{ lang.PRODUCT_PERIOD_NUM_DESC }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="period_grace">{{ lang.PRODUCT_PERIOD_GRACE }}:</label>
+                                                    <select class="form-control"
+                                                            id="period_grace"
+                                                            name="period_grace"
+                                                            {% if (data.action == 'delete') %}disabled="disabled"{%  endif %}
+                                                            value="{{ reg.period_grace }}"
+                                                            placeholder="{{ lang.SELECT }}"
+                                                            aria-describedby="periodGraceAriaDesc">
+                                                        {{ data.period_grace_options|raw }}
+                                                    </select>
+                                                </div>
+                                                <span id="periodGraceAriaDesc" class="d-none">{{ lang.PRODUCT_PERIOD_GRACE_DESC }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="num_period_grace">{{ lang.PRODUCT_PERIOD_GRACE_NUM }}:</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="num_period_grace"
+                                                           name="num_period_grace"
+                                                           minlength="0"
+                                                           maxlength="3"
+                                                           {% if (data.action == 'delete') %}readonly="readonly"{% endif %}
+                                                           value="{{ reg.num_period_grace }}"
+                                                           placeholder="{{ lang.ENTER_NUMBER }}"
+                                                           aria-describedby="numPeriodGraceAriaDesc">
+                                                </div>
+                                                <span id="numPeriodGraceAriaDesc" class="d-none">{{ lang.PRODUCT_PERIOD_GRACE_NUM_DESC }}</span>
+
+                                                <div class="form-group">
+                                                    <label class="col-12" for="price">{{ lang.PRODUCT_PRICE }}:</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">&euro;</span>
+                                                        </div>
+                                                        <input type="text"
+                                                               class="form-control money"
+                                                               id="price"
+                                                               name="price"
+                                                               minlength="4"
+                                                               maxlength="10"
+                                                               {% if (data.action == 'delete') %}readonly="readonly"{% endif %}
+                                                               value="{{ reg.price }}"
+                                                               placeholder="{{ lang.ENTER_NUMBER }}"
+                                                               aria-describedby="priceAriaDesc">
+                                                    </div>
+                                                </div>
+                                                <span id="priceAriaDesc" class="d-none">{{ lang.PRODUCT_PRICE_DESC }}</span>
+
+                                                <div class="form-group row">
+                                                    <div class="col-1 align-content-end">
+                                                        <label class="switch align-self-start">
+                                                            <input type="checkbox"
+                                                                   class="switch_input"
+                                                                   id="generate_commission"
+                                                                   name="generate_commission"
+                                                                   {% if (reg.generate_commission == '1') %}checked="checked"{%  endif %}
+                                                                   value="{{ reg.generate_commission }}"
+                                                            >
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-label col-5 ml-20 my-auto mx-right" for="generate_commission">{{ lang.PRODUCT_GENERATE_COMMISSION }}</div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col-1 align-content-end">
+                                                        <label class="switch align-self-start">
+                                                            <input type="checkbox"
+                                                                   class="switch_input"
+                                                                   id="show_in_cp"
+                                                                   name="show_in_cp"
+                                                                   {% if (reg.show_in_cp == '1') %}checked="checked"{%  endif %}
+                                                                   value="{{ reg.show_in_cp }}"
+                                                            >
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-label col-5 ml-20 my-auto mx-right" for="show_in_cp">{{ lang.PRODUCT_SHOW_IN_CP }}</div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col-1 align-content-end">
+                                                        <label class="switch align-self-start">
+                                                            <input type="checkbox"
+                                                                   class="switch_input"
+                                                                   id="active"
+                                                                   name="active"
+                                                                   {% if (reg.active == '1') %}checked="checked"{%  endif %}
+                                                                   value="{{ reg.active }}"
+                                                            >
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-label col-5 ml-20 my-auto mx-right" for="active">{{ lang.PRODUCT_ACTIVE }}</div>
+                                                </div>
+
+                                            </div>{# <div class="col-md-8 offset-md-2"> #}
+                                        </div>{# <div class="row"> #}
+
+                                    </div>{# <div class="tab-pane fade show active p-3" id="tab-details" role="tabpanel"> #}
+                                    {#
+                                    {% if (data.action != 'add') %}
+                                        {% if user_group == '1' or user_group == '2' %}
+
+                                            <div class="tab-pane fade show p-3 {% if data.action != 'add' and not reg.active %}reg_not_active{% else %}reg_active{% endif %}" id="tab-register" role="tabpanel">
+
+                                                {#<h5 class="card-title text-center">{{ lang.LANG_TEXT_TAB_REGISTER }}</h5>
+
+                                                <div class="col-9 mx-auto">
+                                                    <div class="row">
+
+                                                        <div class="form-group" style="width: 100%;">
+                                                            <label class="control-label" for="createdby">{{ lang.APP_CREATED_BY }}:</label>
+                                                            {{ reg.createdby }}
+                                                        </div>
+
+                                                        <div class="form-group" style="width: 100%;">
+                                                            <label class="control-label" for="createddate">{{ lang.APP_CREATED_DATE }}:</label>
+                                                            {{ reg.createddate }}
+                                                        </div>
+
+                                                        <div class="form-group" style="width: 100%;">
+                                                            <label class="control-label" for="updatedby">{{ lang.APP_UPDATED_BY }}:</label>
+                                                            {{ reg.updatedby }}
+                                                        </div>
+
+                                                        <div class="form-group" style="width: 100%;">
+                                                            <label class="control-label" for="updateddate">{{ lang.APP_UPDATED_DATE }}:</label>
+                                                            {{ reg.updateddate }}
+                                                        </div>
+
+                                                    </div>{# <div class="row">
+                                                </div>{# <div class="col-9 mx-auto">
+
+                                            </div>{# <div class="tab-pane fade show p-3" id="tab-register" role="tabpanel">
+
+                                        {% endif %}
+                                    {% endif %}
+                                    #}
+
+                                </div>{# <div class="tab-content mt-3"> #}
+
+                            </div>{# <div class="card-body"> #}
+                        </div>{# <div class="card"> #}
+
+                    </div>{# <div class="col-8 mx-auto"> #}
+                </div>{# <div class="row"> #}
+
+                <div class="row">
+                    <div class="col-12 my-4 text-center">
+                        <button type="button" name="btn_submit" id="btn_submit" class="btn btn-info" value="1">{% if (data.action == 'delete') %}{{ lang.DELETE }}{% elseif (data.action == 'edit') or data.action == 'add' %}{{ lang.SAVE }}{%  endif %}</button>
+                        <button type="button" name="btn_cancel" id="btn_cancel" class="btn btn-info" formnovalidate>{{ lang.BACK_TO_LIST }}</button>
+                    </div>
+                </div>
+                <input type="hidden" name="id" value="{{ reg.id }}">
+
+                {# Filters #}
+                {% for filter_name, filter_data in filters %}
+                    {% for filter_data_key, filter_data_data in filter_data %}
+                        <input type="hidden" name="filters[{{ filter_name }}][{{ filter_data_key }}]" id="filter_{{ filter_name }}_{{ filter_data_key }}" value="{{ filter_data_data }}" />
+                    {% endfor %}
+                {% endfor %}
+                {# Pagination #}
+                {% for key, value in pagination %}
+                    <input type="hidden" name="pagination[{{ key }}]" id="{{ key }}" value="{{ value }}" />
+                {% endfor %}
+
+                <input type="hidden" name="auth_token" value="{{ data.auth_token }}" />
+
+            </form>
+
+        </div>{# <div class="col-10 mx-auto"> #}
+    </div>{# <div class="row">#}
+
+</div>{# <div class="container-fluid mb-4">#}
+
+<div class="clear"></div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/form.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/input_switch.css') }}" type="text/css" />
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            {# app/productForm.html.twig #}
+
+            {#$("#price").inputmask("9{1,6}.9{0,2}");#}
+            $('.money').mask('000.000.000.000.000,00', {reverse: true});
+            {#$('.price').mask('#.##0,00', {reverse: true});#}
+
+        });
+        (function($) {
+            'use strict';
+
+            $('#btn_submit').click(function(e) {
+
+                $('#price').css('display', 'none');
+                var price = $('#price').cleanVal();
+                $('#price').val(price);
+
+            });
+
+        })(jQuery);
+    </script>
+    <script type="text/javascript">
+        var folder = '{{ session[config['cookies_prefix']~'_folder'] }}';
+        var entity = '{{ entity }}';
+        var action = '{{ data.action }}';
+        var cancel = '{{ cancel }}';
+        var reg_id = '{{ reg.id }}';
+        var l_errors_found = '{{ lang.ERRORS_FOUND }}';
+        var l_form_has_errors = '{{ lang.ERRORS_FORM }}';
+    </script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/forms.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/input_switch.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/scrool-to-top.js') }}"></script>
+    {#<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.3/inputmask.js" integrity="sha256-KfPAEvNmIdUN1W2mPOizuI6FGrTSntHuLLhjpawQy40=" crossorigin="anonymous"></script>#}
+    {#<script type="text/javascript" src="../../../vendor/robinherbots/jquery.inputmask/dist/jquery.inputmask.js"></script>#}
+    {# https://igorescobar.github.io/jQuery-Mask-Plugin/docs.html #}
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/jquery.mask.js') }}"></script>
+{% endblock %}

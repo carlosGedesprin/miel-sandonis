@@ -1,0 +1,113 @@
+#phone-contact
+{
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    z-index: 13;
+}
+
+#phone-contact .error
+{
+    background-color: rgba(255, 61, 61, 0.5);
+}
+
+#phone-contact #phone-contact-form-container
+{
+    width: 300px;
+    display: none;
+}
+
+#phone-contact #phone-contact-form-container #phone-contact-errors
+{
+    margin: 0;
+    color: red;
+}
+
+#phone-contact #phone-contact-form-container #phone-contact-errors > li
+{
+    margin-bottom: 10px;
+}
+
+#phone-contact #phone-contact-form-container.active
+{
+    width: 300px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border: 5px solid var( --primary-color );
+    border-radius: 15px 15px 0 0;
+    z-index: 12;
+}
+
+#phone-contact #phone-contact-form-container.active form
+{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+#phone-contact #phone-contact-form-container.active > form > input,textarea
+{
+    margin: 5px 0;
+}
+
+#phone-contact #phone-contact-form-container.active > form > textarea
+{
+    resize: vertical;
+}
+
+#phone-contact #phone-contact-form-container.active > form > #btn_submit
+{
+    padding: 5px 20px;
+    background-color: var( --primary-color );
+    /*border: 1px solid #000000;*/
+    border-radius: 10px;
+}
+
+#phone-contact #phone-contact-form-container.active > form > #btn_submit:hover
+{
+    background-color: #000000;
+    color: #ffffff;
+}
+
+#phone-contact #phone-contact-form-container.active > form > #btn_submit:focus
+{
+    background-color: #000000;
+    color: #ffffff;
+}
+
+#phone-contact #phone-contact-form-container.active + #phone-contact-unwraper
+{
+    border-radius: 0 0 15px 15px;
+    background-color: var(--primary-color);
+}
+
+#phone-contact #phone-contact-unwraper
+{
+    width: 300px;
+    height: 50px;
+    color: #ffffff;
+    background-color: #707070;
+    border: 1px solid #707070;
+    border-radius: 15px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#phone-contact #phone-contact-unwraper:hover
+{
+    background-color: var(--primary-color);
+}
+
+#phone-contact #phone-contact-unwraper:focus
+{
+    background-color: var(--primary-color);
+}

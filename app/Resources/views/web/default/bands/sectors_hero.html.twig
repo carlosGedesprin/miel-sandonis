@@ -1,0 +1,37 @@
+{% set path = '/assets/images/web/'~config.website_skin~'/bands/sectors/' %}
+{% set img_1 = path ~ 'sectors_hero.png' %}
+
+<section id="sectors_hero" class="web_section">
+    <div id="sectors_hero_container" class="web_container">
+        <div id="sectors_hero_content" class="web_content">
+
+            <div id="sectors_hero_wrapper" class="web_wrapper">
+                <div id="sectors_hero_left">
+                    <h1>
+                        {{ lang.WEB_SECTORS_HERO_1 | raw  }} {#Automatización con IA adaptada a la realidad de tu sector#}
+                    </h1>
+                    <h2>
+                        {{ lang.WEB_SECTORS_HERO_2 | raw  }} {#Soluciones diseñadas para resolver ineficiencias comunes#}
+                    </h2>
+                    <p>
+                        {{ lang.WEB_SECTORS_HERO_3 | raw  }} {#La ineficiencia no tiene sector, pero las soluciones sí. Entendemos los desafíos únicos de Logística, Salud, Finanzas, Servicios, Comercios, Tecnología, etc.#}
+                    </p>
+                    <p>
+                        {{ lang.WEB_SECTORS_HERO_4 | raw  }} {#Nuestro expertise se centra en aplicar la IA para liberar tu tiempo y aumentar la rentabilidad de forma específica.#}
+                    </p>
+                    <p>
+                        {{ lang.WEB_SECTORS_HERO_5 | raw  }} {#<b>Elige tu industria y descubre nuestra hoja de ruta para tí.</b>#}
+                    </p>
+                </div>
+                <div id="sectors_hero_right">
+                    <img
+                            src="{{ img_1 }}"
+                            decoding="async"
+                            alt=""
+                    >
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

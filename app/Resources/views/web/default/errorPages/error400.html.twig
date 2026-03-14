@@ -1,0 +1,27 @@
+{% extends 'web/default.html.twig' %}
+
+{% block title %} {{ parent() }} &bull; Página en construcción{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-12 mt-100">
+
+            <div class="row">
+                <div class="col-6 mx-auto">
+                    <h1>{{ lang.ERR_PAGE_UNDER_CONSTRCTION }}</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 mx-auto">
+                    <div class="alert alert-danger">
+                        {{ lang.ERR_PAGE_UNDER_CONSTRCTION }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

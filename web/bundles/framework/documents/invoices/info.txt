@@ -1,0 +1,2 @@
+Esta carpeta se se utiliza para poder generar los pdfs de las facturas en alguna salida, nunca se va a rellenar con nada.
+NO ELIMINAR ESTA CARPETA

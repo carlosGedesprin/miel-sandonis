@@ -1,0 +1,31 @@
+
+#solutions_how_can_help {
+    /*border: solid 1px black;*/
+}
+#solutions_how_can_help_container {
+}
+#solutions_how_can_help_content {
+    /*border: solid 1px black;*/
+}
+#solutions_how_can_help_texts {
+    width: 100%;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    /*border: solid 1px black;*/
+}
+@media (min-width: 576px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 831px) {
+}
+@media (min-width: 992px) {
+}
+@media (min-width: 1200px) {
+    #solutions_how_can_help_texts {
+        margin-left: 0;
+        width: 80%;
+    }
+}
+

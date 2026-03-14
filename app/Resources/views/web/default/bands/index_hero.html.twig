@@ -1,0 +1,36 @@
+{% set path = '/assets/images/web/'~config.website_skin~'/bands/template/' %}
+{% set img_1 = path ~ 'index_hero_1.png' %}
+
+<section id="index_hero" class="web_section">
+    <div id="index_hero_container" class="web_container">
+        <div id="index_hero_content" class="web_content">
+
+            <div id="index_hero_text_content">
+                <div id="index_hero_text">
+                    <h1>
+                        {{ lang.WEB_INDEX_HERO_1 | raw }} {#Crece más rápido y con más beneficios#}
+                    </h1>
+                    <p>
+                        {{ lang.WEB_INDEX_HERO_2 | raw }} {#Ahorra tiempo, reduce costes y dedícate a lo que importa#}
+                    </p>
+                    <p>
+                        {{ lang.WEB_INDEX_HERO_3 | raw }} {#Libera a tu negocio de esas tareas repetitivas de bajo valor y alto coste#}
+                    </p>
+                    <p style="font-weight: 700;">
+                        {{ lang.WEB_INDEX_HERO_4 | raw }} {#Automatiza. Escala. Crece#}
+                    </p>
+                    <div id="index_hero_button" class="generic_button">
+                        <a href="{{ lang.WEB_MENU_CONTACT_LINK }}">
+                            {{ lang.WEB_INDEX_HERO_5 | raw }} {#Empezamos#} >
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="index_hero_img">
+                <img src="{{ img_1 }}" alt="">
+            </div>
+
+        </div>
+    </div>
+</section>

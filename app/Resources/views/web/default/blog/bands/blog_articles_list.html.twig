@@ -1,0 +1,96 @@
+{% set path_blog_images = '/documents/blog/' %}
+
+<section id="blog_articles_list" class="web_section">
+    <div id="blog_articles_list_container" class="web_container">
+        <div id="blog_articles_list_content" class="web_content">
+
+            <div id="blog_articles_list_title">
+                    <h2>
+                        {% if category %}
+                            {{ lang.WEB_BLOG_ARTICLES_LIST_CATEGORY | replace({'%category%': category.id | getBlogCategoryTitle }) }}
+                        {% else %}
+                            {{ lang.WEB_BLOG_ARTICLES_LIST_1 }} {#La siguiente evolución de tu negocio#}
+                        {% endif %}
+                    </h2>
+                <p>
+                    {{ lang.WEB_BLOG_ARTICLES_LIST_2 }} {#Explora nuestros artículos y casos de éxito para impulsar la eficiencia y productividad de tu industria.#}
+                </p>
+            </div>
+
+            <div id="blog_articles_content_list">
+                {% if articles %}
+                    {% for article in articles %}
+                        {#
+                            {{ article.visits }}
+                        <div class="blog_articles_article_panel">
+                        #}
+
+                            <div class="card">
+                                <div class="card-image-container">
+                                    <img loading="lazy"
+                                         class=""
+                                         src="{{ path_blog_images }}{{ article.picture_thumb }}"
+                                         alt="{{ article.picture_alt_text }}"
+                                    >
+                                </div>
+                                <div class="card-content">
+                                    <div class="blog_article_extra_data_content">
+                                        <p class="blog_article_author">
+                                            {{ article.author }}
+                                        </p>
+                                        <p class="blog_article_date">
+                                            {% if article.date != '' %}{{ article.date | date("d-m-Y") }}{% endif %}
+                                        </p>
+                                    </div>
+                                    <h2>{{ article.title }}</h2>
+                                    <p class="blog_article_metadescription">{{ article.metadescription }}</p>
+                                    <a href="/blog/{{ article.slug }}" class="read-more">{{ lang.BLOG_ARTICLES_LIST_MORE }} &rarr;</a>
+                                </div>
+                            </div>
+                            {#
+                            <a id="" href="/blog/{{ article.slug }}" title="">
+                                <div class="blog_articles_article_panel_content">
+                                    <div class="blog_articles_article_img">
+                                        <img loading="lazy"
+                                             class=""
+                                             src="{{ path_blog_images }}{{ article.picture_thumb }}"
+                                             alt="{{ article.picture_alt_text }}"
+                                        >
+                                    </div>
+                                    <div id="blog_article_texts_content" class="blog_article_texts_content">
+                                        {#
+                                        {% if not category %}
+                                            <p class="blog_article_category_title">
+                                                {{ article.category | getBlogCategoryTitle  }}
+                                            </p>
+                                        {% endif %}
+                                        @}
+                                        <div id="blog_article_title_{{ article.id }}" class="blog_article_title">
+                                            {{ article.title }}
+                                        </div>
+                                        <p class="blog_article_texts_content_p">
+                                            {{ article.metadescription }}
+                                        </p>
+                                        <div class="blog_article_extra_data_content">
+                                            <p class="blog_article_author">
+                                                {{ article.author }}
+                                            </p>
+                                            <p class="blog_article_date">
+                                                {% if article.date != '' %}{{ article.date | date("d-m-Y") }}{% endif %}
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                            #}
+                    {% endfor %}
+                {% else %}
+                    No hay artículos
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</section>

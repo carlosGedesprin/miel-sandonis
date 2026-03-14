@@ -1,0 +1,198 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set tabindex = 1 %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.REGISTER_REGISTER }}{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="row">
+                    <div class="col-12 mx-auto text-center p-2 rounded-3" style="font-size: 2rem;">
+                        {{ lang.REGISTER_REGISTER }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 mx-auto text-center p-2 rounded-3" style="font-size: 1.2rem;">
+                        {{ lang.REGISTER_REGISTER_SUB }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% if errors|length > 0 %}
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="row">
+                        <div class="col-6 mx-auto">
+                            <div class="alert alert-danger">
+                                {{ lang.ERRORS_FOUND }}:
+                                <ul>
+                                    {% for error in errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="row">
+                    <div class="col-md-4 mt-md-5 col-sm-10 mt-sm-2 mx-auto">
+
+                        <form class="form-horizontal" role="form" action="/{{ lang.WEB_MENU_REGISTER_LINK }}" method="post">
+
+                            <div class="form-group">
+                                <label for="name">{{ lang.REGISTER_NAME }}:</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="name"
+                                       name="name"
+                                       tabindex="{{ tabindex }}"
+                                       required="required"
+                                       value="{{ reg.name }}"
+                                       placeholder="{{ lang.REGISTER_ENTER_NAME }}">
+                            </div>
+                            {% set tabindex = tabindex + 1 %}
+
+                            <div class="form-group">
+                                <label for="email">{{ lang.REGISTER_EMAIL }}:</label>
+                                <input type="email"
+                                       class="form-control"
+                                       id="email"
+                                       name="email"
+                                       tabindex="{{ tabindex }}"
+                                       required="required"
+                                       value="{{ reg.email }}"
+                                       placeholder="{{ lang.REGISTER_ENTER_EMAIL }}">
+                            </div>
+                            {% set tabindex = tabindex + 1 %}
+
+                            <div class="form-group">
+                                <label for="new-password">{{ lang.REGISTER_PASSWORD }}:</label>
+                                <input type="password"
+                                       class="form-control"
+                                       id="new-password"
+                                       name="new-password"
+                                       tabindex="{{ tabindex }}"
+                                       required="required"
+                                       placeholder="{{ lang.REGISTER_ENTER_PASSWORD }}">
+                            </div>
+                            {% set tabindex = tabindex + 1 %}
+
+                            <div class="row mt-4">
+                                <div id="gdpr" class="col-12">
+
+                                    <div class="row no-gutters">
+                                        <div class="col-1 my-auto">
+
+                                            <div class="form-check">
+                                                    <label class="checkbox">
+                                                        <input  type="checkbox"
+                                                                id="gdprAccepted"
+                                                                name="gdprAccepted"
+                                                                tabindex="{{ tabindex }}"
+                                                                {#required="required"#}
+                                                                value="1"/>
+                                                        <span class="primary"></span>
+                                                </label>
+                                            </div>
+                                            {% set tabindex = tabindex + 1 %}
+
+                                        </div>
+                                        <div class="col-11 pl-4">
+                                            {{ data.gdpr_text|raw }}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div id="gdpr" class="col-12">
+
+                                    <div class="row no-gutters">
+                                        <div class="col-1 my-auto">
+
+                                            <div class="form-check">
+                                                    <label class="checkbox">
+                                                        <input  type="checkbox"
+                                                                id="mkAccepted"
+                                                                name="mkAccepted"
+                                                                tabindex="{{ tabindex }}"
+                                                                {#required="required"#}
+                                                                value="1"/>
+                                                        <span class="primary"></span>
+                                                </label>
+                                            </div>
+                                            {% set tabindex = tabindex + 1 %}
+
+                                        </div>
+                                        <div class="col-11 pl-4">
+                                            {{ data.mk_text|raw }}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 mt-4 mx-auto">
+                                    <button type="submit" id="btn_submit" name="btn_submit" tabindex="{{ tabindex }}" class="btn btn-info">
+                                        <i class="{{ sign_in }}" aria-hidden="true"></i> {{ lang.REGISTER_SEND }}
+                                    </button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="auth_token" value="{{ post.auth_token }}" />
+
+                        </form>
+
+
+                    </div>{# <div class="col-md-4 offset-md-3"> #}
+                </div>{# <div class="row"> #}
+
+            </div>{# <div class="col-12"> #}
+        </div>{# <div class="row"> #}
+
+    </div>{# <div class="container-fluid"> #}
+
+    <div class="clear my-4 py-4"></div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/bundles/framework/css/web/{{ config.website_skin }}/security.css" rel="stylesheet">
+    <link href="/bundles/framework/css/web/{{ config.website_skin }}/form.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $("#name").focus();
+
+        });
+        (function($) {
+            // Avoid conflicts with other libraries
+            'use strict';
+
+            $("#btn_submit").on("blur", function() {
+                $("#name").focus();
+            });
+
+        })(jQuery); // Avoid conflicts with other libraries
+    </script>
+{% endblock %}

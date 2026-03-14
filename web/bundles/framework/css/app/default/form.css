@@ -1,0 +1,103 @@
+label {
+    color: var(--our-label-text-color);
+}
+img
+{
+    max-height: 350px;
+    max-width: 350px !important;
+}
+input[type=text], input[type=password], input[type=email], input[type=date] {
+    border: 1px solid var(--our-input-border-color);
+    background-color: var(--our-input-backgroud-color);
+    color: var(--our-input-text-color);
+}
+select {
+    padding: 16px 20px;
+    border: 1px solid var(--our-input-border-color) !important;
+    background-color: var(--our-input-backgroud-color) !important;
+    color: var(--our-input-text-color);
+ }
+textarea {
+    border: 1px solid var(--our-input-border-color);
+    background-color: var(--our-input-backgroud-color) !important;
+    color: var(--our-input-text-color);
+}
+.is_delete{
+    color: var(--our-white-color);
+    background-color: var(--our-red-color);
+    border: solid 2px var(--our-red-color) !important;
+}
+.reg_active {
+    background: rgba(0, 104, 159, 0.1);
+}
+.reg_not_active {
+    background: rgba(221, 71, 61, 0.1);
+}
+.tab-content>.tab-pane {
+    border-radius: 5px;
+}
+.card-title-notactive {
+    background: var(--our-red-color);
+    color: var(--our-white-color);
+    text-align: center;
+    line-height: 2.3em;
+    font-size: 1.2em;
+    font-weight: bold;
+    border: solid 2px var(--our-red-color);
+    border-radius: 5px;
+}
+#certification_link
+{
+    background-color: var(--our-black-color);
+    color: var(--our-white-color);
+    border: solid 1px var(--our-black-color);
+    font-family: monospace;
+    font-size: 1em;
+    padding: 20px 5px 20px 5px;
+}
+#loading
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(128, 128, 128, 0.5);
+    z-index: 500;
+}
+#loading_div
+{
+    position: fixed;
+    top: 100px;
+}
+#loading_div_texts
+{
+    padding: 20px;
+    color: var(--our-black-color);
+    background-color: var(--our-white-color);
+    border: solid 2px var(--our-black-color);
+    border-radius: 5px;
+}
+#loading_div p
+{
+    font-size: 1em;
+    font-weight: bold;
+}
+#loading_img
+{
+    max-height: 350px;
+    max-width: 350px;
+}
+.text_in_bold
+{
+    font-weight: bold;
+}
+.non-existent
+{
+    display: none !important;
+}
+.is_wrong {
+    border: solid 1px red !important;
+}

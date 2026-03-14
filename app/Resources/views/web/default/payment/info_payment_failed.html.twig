@@ -1,0 +1,66 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'info_payment_failed' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.PAYMENT_FAILED_TITLE }}{% endblock %}
+
+{% block body %}
+    <div id="info_payment">
+        <div class="container">
+            <div class="row">
+                <div id="info_payment_main_container" class="col-12">
+                    <div id="info_payment_top_container">
+                        <div class="info_payment_top_container_text">
+                            <h1>
+                               {{ lang.PAYMENT_FAILED_HEADER }}
+                            </h1>
+                        </div>
+                        <div id="info_payment_top_container_icon_container">
+                            {#<i class="fa fa-check" aria-hidden="true"></i>#}
+                            <i class="far fa-times-circle" style="color: #ed071e;"></i>
+                        </div>
+                    </div>
+                    <div id="info_payment_bottom_container">
+                        <div id="info_payment_bottom_container_top_text">
+                            {{ lang.PAYMENT_FAILED_INFORM }}
+                        </div>
+                        {% if retry is not defined %}
+                            <div id="info_payment_bottom_container_bottom_text">
+                                {{ lang.PAYMENT_FAILED_RETRY }}
+                            </div>
+                            <div id="info_payment_bottom_container_bottom_button_container">
+                                <div id="info_payment_bottom_container_bottom_button_button">
+                                    <a href="{{ data.next_action }}">
+                                        {{ lang.PAY_A_QUOTE_PAY_THIS_QUOTE }}
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/css/web/{{ config.website_skin }}/payment.css" rel="stylesheet">
+    <link href="/assets/css/web/{{ config.website_skin }}/payment_info.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script id="view" type="text/javascript">
+        var view = 'info_payment_failed';
+    </script>
+    <script>
+        $(document).ready(function(){
+
+        });
+        (function($) {
+            // Avoid conflicts with other libraries
+            'use strict';
+            
+        })(jQuery); // Avoid conflicts with other libraries
+    </script>
+{% endblock %}

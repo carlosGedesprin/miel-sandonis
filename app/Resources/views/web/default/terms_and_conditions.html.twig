@@ -1,0 +1,71 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'termsandconditions' %}{# -> WEB_BREADCRUMPS_ + this_page #}
+{% set this_route = '/' ~ lang.WEB_FOOTER_TERMSANDCONDITIONS_LINK %}
+{% set this_page_title = lang.WEB_TITLE_TERMSANDCONDITIONS %}
+{% set this_page_metadescription = lang.WEB_METADESCRIPTION_TERMSANDCONDITIONS %}
+
+{% block seo_meta %}
+	<meta property="og:locale" content="{{ session[config['cookies_prefix']~'_locale'] }}" />
+	<meta property="og:type" content="website" />{# article #}
+	<meta property="og:title" content="{{ this_page_title }} - {{ config.web_name }}" />
+	<meta property="og:description" content="{{ this_page_metadescription }}" />
+	<meta property="og:url" content="{{ site_url ~ this_route }}" />
+	<meta property="og:site_name" content="{{ config.web_name }}" />
+	<meta property="og:updated_time" content="2024-09-19T12:00:00+00:00" />
+	<meta property="og:image" content="{{ site_url ~ this_route }}/assets/images/web/{{ config.website_skin }}/bands/legality_hero/fondo_legality_hero_1.jpg" />
+	<meta property="og:image:secure_url" content="{{ site_url ~ this_route }}/assets/images/web/{{ config.website_skin }}/bands/legality_hero/fondo_legality_hero_1.jpg" />
+	{#<meta property="og:image:width" content="1280" />#}
+	{#<meta property="og:image:height" content="504" />#}
+	<meta property="og:image:alt" content="{{ this_page_title }}" />
+	<meta property="og:image:type" content="image/jpeg" />
+	<meta property="article:publisher" content="{{ config.company_facebook }}">
+	<meta property="article:author" content="{{ config.company_facebook }}">
+	<meta property="article:published_time" content="2024-04-11T12:00:00+00:00" />
+	<meta property="article:modified_time" content="2024-09-19T12:00:00+00:00" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="{{ this_page_title }} - {{ config.web_name }}" />
+	<meta name="twitter:description" content="{{ this_page_metadescription }}" />
+	<meta name="twitter:image" content="{{ site_url ~ this_route }}/assets/images/web/{{ config.website_skin }}/bands/legality_hero/fondo_legality_hero_1.jpg" />
+	<link rel="shortlink" href="{{ site_url ~ this_route }}">
+{% endblock %}
+
+{% block metadescription %}{{ this_page_metadescription }}{% endblock %}
+{% block metarobots %}noindex, follow{% endblock %}
+
+{% block rel_alternate_links %}
+    {{ data.canonical | replace({'%this_route%': this_route }) | raw }}
+    {{ data.alternate_langs | replace({'%this_route%': this_route }) | raw }}
+{% endblock %}
+
+{% block title %}{{ this_page_title }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <section class="my-5 py-5">
+        <div class="container">
+            <h1 class="font-weight-light">{{ lang.WEB_FOOTER_TERMSANDCONDITIONS }}</h1>
+            <p>{{ lang.WEB_TERMSANDCONDITIONS_TXT | raw }}</p>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/assets/css/web/{{ config.website_skin }}/legal.css" type="text/css" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function(){
+
+        });
+        (function($) {
+            'use strict';
+
+        })(jQuery);
+    </script>
+{% endblock %}

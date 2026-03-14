@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+    <button class="navbar-toggler navbar-toggler-right"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbar"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/">
+        <img id="identification_image"
+             src="/assets/images/web/default/logo_nuevo.png"
+             width="40px"
+             alt="Logo {{ config.web_name }}"
+             data-retina="true"
+        >
+    </a>
+    <div id="navbar" class="collapse navbar-collapse justify-content-between">
+        <!-- left side -->
+        <ul class="navbar-nav" style="padding-left: 50px;">
+            <li class="nav-item" ><a class="nav-link" href="/control_panel/dashboard">{{ lang.APP_DASHBOARD }}</a></li>
+            {#
+            <li class="nav-item" ><a class="nav-link" href="/control_panel/my_script">{{ lang.CONTROL_PANEL_MY_SCRIPT }}</a></li>
+            <li class="nav-item" ><a class="nav-link" href="/control_panel/websites">{{ lang.CONTROL_PANEL_MY_SITES }}</a></li>
+            <li class="nav-item" ><a class="nav-link" href="/control_panel/website/edit/0">{{ lang.CONTROL_PANEL_ADD_SITE }}</a></li>
+            #}
+        </ul>
+        <!-- right side -->
+        <ul class="navbar-nav" style="padding-right: 50px;">
+            <li class="nav-item"><a class="nav-link" >{{ lang.CONTROL_PANEL_ACCOUNT_ID }} {{ dashboard_data.account_key }}</a></li>
+            <li class="nav-item"><a class="nav-link" >{{ dashboard_data.email }}</a></li>
+            <li class="nav-item"><a class="nav-link"  href="/{{ lang.APP_LOGOUT_LINK }}">{{ lang.APP_LOGOUT }}</a></li>
+            <!-- <li class="nav-item avatar dropdown">
+                <a class="nav-link dropdown-toggle" id="Menu-55" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="/images/avatar.jpg" class="rounded-circle z-depth-0 h-40" width="50px" alt="avatar image">
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary">
+                    <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                    <hr/>
+                    <a class="dropdown-item" href="/{{ lang.SECURITY_LOGOUT_LINK }}">Log out</a>
+                </div>
+            </li> -->
+        </ul>
+    </div>
+</nav>

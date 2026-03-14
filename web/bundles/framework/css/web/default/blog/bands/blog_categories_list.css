@@ -1,0 +1,102 @@
+#blog_categories_list {
+}
+#blog_categories_list_container {
+}
+#blog_categories_list_content {
+	flex-direction: column;
+}
+#blog_categories_list_title {
+	font-size: 1.2em;
+	text-align: center;
+}
+#blog_categories_content_list {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	/*border: solid 2px red;*/
+}
+.blog_categories_category_panel {
+	margin: 20px 0 20px 10px;
+	display: flex;
+	flex-direction: column;
+	border-radius: 4px;
+	/*border: solid 2px blue;*/
+}
+.blog_categories_category_panel a {
+	text-decoration: none;
+}
+.blog_categories_category_panel a:hover {
+	border-radius: 12px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	transition: all .3s;
+}
+.blog_categories_category_img {
+	display: flex;
+	justify-content: center;
+	/*border: solid 1px red;*/
+}
+.blog_categories_category_img img {
+	height: 100%;
+	width: 100%;
+	border-radius: 12px;
+	/*border-radius: 4px 4px 0 0;*/
+	/*border: solid 1px red;*/
+}
+.blog_categories_category_img img:hover {
+	border-radius: 12px 12px 0 0;
+}
+.blog_category_texts_content {
+	padding: 10px 10px;
+	/*border: solid 1px black;*/
+}
+.blog_category_texts_content h3 {
+	color:  var(--primary-color);
+	font-size: 1em;
+	/*border: solid 1px red;*/
+}
+.blog_category_title {
+	margin-bottom: 20px;
+	color:  var(--primary-color);
+	font-size: 0.8em;
+	/*border: solid 1px red;*/
+}
+.blog_category_texts_content_p {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	font-size: 0.8em;
+	color:  var(--our-grey-color);
+}
+@media all and (min-width: 600px) {
+	.blog_categories_category_panel {
+		width: 45%;
+		margin: 10px 10px 10px 10px;
+	}
+}
+@media all and (min-width: 900px) {
+	.blog_categories_category_panel {
+		width: 46%;
+	}
+}
+@media all and (min-width: 1200px) {
+	.blog_categories_category_panel {
+		width: 25%;
+		margin: 20px 20px 20px 20px;
+	}
+	.blog_category_texts_content_p {
+		width: 95%;
+	}
+}
+@media all and (min-width: 1400px) {
+	.blog_category_texts_content_p {
+		width: 100%;
+	}
+}
+@media all and (min-width: 1600px) {
+	.blog_categories_category_panel {
+		width: 22%;
+		margin: 18px 18px 40px 18px;
+	}
+}

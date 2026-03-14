@@ -1,0 +1,41 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'contactus_thanks' %}
+
+{% block metadescription %}{{ lang.WEB_METADESCRIPTION_CONTACT_THANKS }}{% endblock %}
+{% block metarobots %}noindex, follow{% endblock %}
+{% block title %} {{ lang.WEB_TITLE_CONTACT_THANKS }} - {{ parent() }}{% endblock %}
+
+{% block rel_alternate_links %}
+	{{ data.canonical | replace({'%this_route%': this_route }) | raw }}
+	{{ data.alternate_langs | replace({'%this_route%': this_route }) | raw }}
+{% endblock %}
+
+{% block body %}
+
+    <div id="contactus_main">
+
+		{% include 'web/' ~ config.website_skin ~ '/bands/contact_thanks_hero.html.twig' %}
+		{% include 'web/' ~ config.website_skin ~ '/bands/contact_thanks.html.twig' %}
+
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/css/web/{{ config.website_skin }}/bands/contact_thanks_hero.css" rel="stylesheet">
+    <link href="/assets/css/web/{{ config.website_skin }}/bands/contact_thanks.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+	<script>
+		$(document).ready(function(){
+		});
+		(function($) {
+			'use strict';
+
+		})(jQuery);
+	</script>
+{% endblock %}

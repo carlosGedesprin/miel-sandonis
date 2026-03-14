@@ -1,0 +1,19 @@
+{% extends 'app/' ~ config.app_skin ~ '/emails/emailBase.html.twig' %}
+{# app/Resources/views/emails/user_mail_changed.html.twig #}
+{% set email_ref = 'user_mail_changed' %}
+
+{% block body %}
+<table class="container" width="600" border="0">
+    <tr>
+        <td style="padding-top:20px;">
+            <table width="100%">
+                <tr>
+                    <td style="padding-top:10px; text-align:justify; text-justify:inter-word;">
+                        {{ lang.MAIL_CHANGE_EMAIL | raw }}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+{% endblock %}

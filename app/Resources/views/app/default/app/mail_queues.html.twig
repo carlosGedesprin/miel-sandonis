@@ -1,0 +1,202 @@
+{% extends 'app/' ~ config.app_skin ~ '/app.html.twig' %}
+
+{% set entity = 'mail_queue' %}
+{% set folder = 'app' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.MAIL_QUEUE }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- pagination css -->
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/pagination.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset_version('/assets/css/app/'~config.app_skin~'/lists.css') }}" type="text/css" />
+    <style>
+        .pagination li.next a{
+            background: url("/assets/images/app/{{ config.app_skin }}/icon_pagination_next.png");
+        }
+        .pagination li.previous a{
+            background: url("/assets/images/app/{{ config.app_skin }}/icon_pagination_prev.png");
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-10 offset-1 my-4 p-2 rounded-3 bg-light font-weight-bold">
+                {{ lang.MAIL_QUEUE }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+
+                <div class="row" id="messages">
+                    {% if session.alert %}
+                            <div class="col-12">
+                                <div class="alert alert-{{ session.alert.type }}">
+                                    {{ session.alert.message|raw }}
+                                </div>
+                            </div>
+                        {{ deleteMessages() }}
+                    {% endif %}
+                </div>
+
+                <div class="row no-gutters justify-content-between">
+                    <div class="col-sm-12 col-md-2">
+                        <button type="button" class="btn btn-info item-add" data-item="/{{ folder }}/{{ entity }}/edit/0">{{ lang.MAIL_QUEUE_ADD }}</button>
+                    </div>
+                    <div class="col-auto p-0">
+                        {% include 'app/' ~ config.app_skin ~ '/common/list_filters.twig' %}
+                    </div>
+                </div>
+                {% include 'app/' ~ config.app_skin ~ '/common/list_pagination.twig' %}
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <table class="table table-hover table-condensed">
+                            <thead>
+                            <tr>
+                                <th>
+                                    {% set column_field = 'id' %}
+                                    {% set column_name = '#' %}
+                                    <span class="titleItem" data-order-by="{{ column_field }}" title="{{ column_name }}">{{ column_name }}</span>
+                                    {% if pagination.order == column_field and pagination.order_dir == "ASC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_up }}"></i></button>
+                                    {% elseif pagination.order == column_field and pagination.order_dir == "DESC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_down }}"></i></button>
+                                    {% endif %}
+                                </th>
+                                <th>
+                                    {% set column_field = 'to_name' %}
+                                    {% set column_name = lang.MAIL_QUEUE_TO_NAME %}
+                                    <span class="titleItem" data-order-by="{{ column_field }}" title="{{ column_name }}">{{ column_name }}</span>
+                                    {% if pagination.order == column_field and pagination.order_dir == "ASC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_up }}"></i></button>
+                                    {% elseif pagination.order == column_field and pagination.order_dir == "DESC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_down }}"></i></button>
+                                    {% endif %}
+                                </th>
+                                <th>
+                                    {% set column_field = 'to_address' %}
+                                    {% set column_name = lang.MAIL_QUEUE_TO_ADDRESS %}
+                                    <span class="titleItem" data-order-by="{{ column_field }}" title="{{ column_name }}">{{ column_name }}</span>
+                                    {% if pagination.order == column_field and pagination.order_dir == "ASC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_up }}"></i></button>
+                                    {% elseif pagination.order == column_field and pagination.order_dir == "DESC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_down }}"></i></button>
+                                    {% endif %}
+                                </th>
+                                <th>
+                                    {% set column_field = 'template' %}
+                                    {% set column_name = lang.MAIL_QUEUE_TEMPLATE %}
+                                    <span class="titleItem" data-order-by="{{ column_field }}" title="{{ column_name }}">{{ column_name }}</span>
+                                    {% if pagination.order == column_field and pagination.order_dir == "ASC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_up }}"></i></button>
+                                    {% elseif pagination.order == column_field and pagination.order_dir == "DESC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_down }}"></i></button>
+                                    {% endif %}
+                                </th>
+                                <th>
+                                    {% set column_field = 'send' %}
+                                    {% set column_name = lang.MAIL_QUEUE_SEND %}
+                                    <span class="titleItem" data-order-by="{{ column_field }}" title="{{ column_name }}">{{ column_name }}</span>
+                                    {% if pagination.order == column_field and pagination.order_dir == "ASC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_up }}"></i></button>
+                                    {% elseif pagination.order == column_field and pagination.order_dir == "DESC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_down }}"></i></button>
+                                    {% endif %}
+                                </th>
+                                <th>
+                                    {% set column_field = 'sent' %}
+                                    {% set column_name = lang.MAIL_QUEUE_SENT %}
+                                    <span class="titleItem" data-order-by="{{ column_field }}" title="{{ column_name }}">{{ column_name }}</span>
+                                    {% if pagination.order == column_field and pagination.order_dir == "ASC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_up }}"></i></button>
+                                    {% elseif pagination.order == column_field and pagination.order_dir == "DESC" %}
+                                        <button class="order_dir"><i class="{{ thumbs_down }}"></i></button>
+                                    {% endif %}
+                                </th>
+                                <th><span class="titleItem itemOptions" title="{{ lang.OPTIONS }}">{{ lang.OPTIONS }}</span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if res %}
+                                {% for item in res %}
+                                    <tr class="item-edit-row">
+                                        <td class="item-edit" data-item="/{{ folder }}/{{ entity }}/edit/{{ item.id }}">{{ item.id }}</td>
+                                        <td class="item-edit" data-item="/{{ folder }}/{{ entity }}/edit/{{ item.id }}">{{ item.to_name }}</td>
+                                        <td class="item-edit" data-item="/{{ folder }}/{{ entity }}/edit/{{ item.id }}">{{ item.to_address }}</td>
+                                        <td class="item-edit" data-item="/{{ folder }}/{{ entity }}/edit/{{ item.id }}">{{ item.template }}</td>
+                                        <td class="item-edit" data-item="/{{ folder }}/{{ entity }}/edit/{{ item.id }}">{% if item.send != '' %}{{ item.send | full_db_to_date }}{% endif %}</td>
+                                        <td class="item-edit" data-item="/{{ folder }}/{{ entity }}/edit/{{ item.id }}">{% if item.sent != '' %}{{ item.sent | full_db_to_date }}{% endif %}</td>
+                                        {% if item.sent == '' %}
+                                            <td>
+                                                <span data-item="/{{ folder }}/{{ entity }}/delete/{{ item.id }}" class="item-delete" aria-hidden="true" style="text-decoration: none" title="{{ lang.DELETE }}">
+                                                    <i class="{{ icon_delete }}" aria-hidden="true" title="{{ lang.DELETE }}"></i>
+                                                </span>
+                                            </td>
+                                        {% endif %}
+                                        {% if item.sent != '' %}
+                                            <td class="item-resend" data-item="/ajax/{{ entity }}/resend/{{ session[config['cookies_prefix']~'_CurUser'] }}/{{ item.id }}">
+                                                <span class="{{ icon_refresh }}" aria-hidden="true" style="text-decoration: none" title="{{ lang.MAIL_QUEUE_RESEND }}"></span>
+                                            </td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                    <tr><td colspan="5">{{ lang.MAIL_QUEUE_NOT_FOUND }}</td></tr>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+
+            </div>{#<div class="col-md-10 offset-md-1">#}
+        </div>{#<div class="row">#}
+
+    </div>{#<div class="container-fluid">#}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/pagination.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/messaging.js') }}"></script>
+    <script type="text/javascript" src="{{ asset_version('/assets/js/app/'~config.app_skin~'/lists.js') }}"></script>
+    <script>
+    $(document).ready(function(){
+
+    });
+    $(function() {
+    'use strict';
+
+        $('.item-resend').click(function() {
+            // console.log('Click');
+            var url_call = $( this ).attr("data-item");
+            // console.log(url_call);
+
+            var request = $.ajax({
+                url: url_call,
+                dataType: 'json'
+            });
+            request.done( function(result) {
+                    // console.log(result);
+                    $("#messages").html('<div class="col-12"><div class="alert alert-success">{{ lang.MAIL_QUEUE_RESENT }}</div></div>');
+                    $("#messages").fadeIn(300).delay(5000);
+                    setTimeout( function () {
+                        $("#listform").submit();
+                    }, 2000);
+
+            });
+            request.fail(function() {
+                    // console.log("error");
+            });
+        });
+
+    });
+    </script>
+
+{% endblock %}

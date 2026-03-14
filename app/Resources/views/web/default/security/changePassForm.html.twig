@@ -1,0 +1,121 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.SECURITY_CHANGE_PASSWORD }}{% endblock %}
+
+{% block body %}
+
+    <div id="change_pass_hero" class="row">
+        <div class="col-12 mt-100 mb-100 pt-10">
+
+            <div class="row">
+                <div id="outer-box" class="col-md-4 col-sm-6 mx-auto">
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="row no-gutters">
+                                <div class="col-2 text-left p-2">
+                                    <img id="identification_image"
+                                         src="/assets/images/web/{{ config.website_skin }}/logo.png"
+                                         alt="Logo {{ config.web_name }}"
+                                         data-retina="true" />
+                                </div>
+                                <div id="identification-title" class="col-8">
+                                    {{ lang.SECURITY_CHANGE_PASSWORD }}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                        {% if errors|length > 0 %}
+                            <div class="col-12" style="margin-bottom: 10px;">
+                                <div class="alert alert-danger">
+                                    {{ lang.ERRORS_FOUND }}:
+                                    <ul>
+                                        {% for error in errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr>
+                        {% endif %}
+                        <div class="col-12">
+
+                            <form role="form" action="/change-password" method="post">
+
+                                <div class="form-group">
+                                    <label for="current-password">{{ lang.SECURITY_CHANGE_PASS_PASSWORD }}</label>
+                                    <input type="password"
+                                           class="form-control"
+                                           id="new-password"
+                                           name="new-password"
+                                           required="required"
+                                           autocomplete="new-password"
+                                           placeholder="{{ lang.SECURITY_CHANGE_PASSWORD_ENTER }}">
+                                </div>
+
+                                <div style="margin: 20px;"></div>
+
+                                <div class="form-group">
+                                    <label for="current-password">{{ lang.SECURITY_CHANGE_PASSWORD_CONFIRM }}</label>
+                                    <input type="password"
+                                           class="form-control"
+                                           id="new-password-confirm"
+                                           name="new-password-confirm"
+                                           required="required"
+                                           autocomplete="new-password"
+                                           placeholder="{{ lang.SECURITY_CHANGE_PASSWORD_CONFIRM_ENTER }}">
+                                </div>
+
+                                <div style="margin: 20px;"></div>
+
+                                <button type="submit" name="btn_submit" class="btn btn-primary btn-lg btn-block">
+                                    <i class="{{ sign_in }}" aria-hidden="true"></i> {{ lang.SECURITY_CHANGE_MY_PASSWORD }}
+                                </button>
+
+                                <input type="hidden" name="email" value="{{ data.email }}" />
+                                <input type="hidden" name="token" value="{{ data.token }}" />
+                                <input type="hidden" name="auth_token" value="{{ data.auth_token }}" />
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/bundles/framework/css/web/{{ config.website_skin }}/security.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+
+            $('#new-password').focus();
+
+        });
+        (function($) {
+            'use strict';
+
+            $('#new-password').bind("cut copy paste",function(e) {
+                e.preventDefault();
+            });
+
+            $('#new-password-confirm').bind("cut copy paste",function(e) {
+                e.preventDefault();
+            });
+
+        })(jQuery);
+    </script>
+{% endblock %}

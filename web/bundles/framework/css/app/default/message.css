@@ -1,0 +1,10 @@
+#message_container_fluid {
+    min-height: 400px;
+    /*border: solid 1px red;*/
+}
+#message_redirect {
+    padding-right: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}

@@ -1,0 +1,59 @@
+<?php
+
+namespace src\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Workflow
+ *
+ * @ORM\Table(name="workflow")
+ * @ORM\Entity(repositoryClass="src\Repository\WorkflowRepository")
+ */
+class Workflow
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="key", type="string", length=32, unique=true, nullable=true)
+     */
+    private $key;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=100, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="json", type="text", nullable=true)
+     */
+    private $json;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="credentials", type="string", length=100, nullable=true)
+     */
+    private $credentials;
+
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="active", type="string", length=1, options={"default": 0})
+     */
+    private $active;
+}

@@ -1,0 +1,88 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'info_payment_bank_transfer' %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.PAYMENT_METHOD_BANK_LONG }}{% endblock %}
+
+{% block body %}
+    <div id="info_payment">
+        <div class="container">
+            <div class="row">
+                <div id="info_payment_main_container" class="col-12">
+                    {% if data.result == 'OK' %}
+                        <div id="info_payment_top_container">
+                            <div id="info_payment_top_container_text">
+                                <h1>
+                                    {{ lang.PAYMENT_METHOD_BANK }}
+                                </h1>
+                            </div>
+                            <div id="info_payment_top_container_icon_container">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div id="info_payment_bottom_container">
+                            <div id="info_payment_bottom_container_top_text">
+                                {{ data.text | raw }}
+                            </div>
+                            {% if data.next_action %}
+                                <div id="info_payment_button_next_action">
+                                    <div id="info_payment_button_next_action_div">
+                                        <a href="{{ data.next_action }}" class="info_payment_button_next_action_button">
+                                            {{ lang.PAYMENT_NEXT_ACTION | raw }}
+                                        </a>
+                                    </div>
+                                </div>
+                            {%  endif %}
+                        </div>
+                    {% else %}
+                        <div id="info_payment_top_container">
+                            <div id="info_payment_top_container_text">
+                                <h1>
+                                    {{ lang.PAYMENT_METHOD_BANK }}
+                                </h1>
+                            </div>
+                            <div id="info_payment_top_container_icon_container">
+                                <i class="far fa-times-circle" style="color: #ed071e;"></i>
+                            </div>
+                        </div>
+                        <div id="info_payment_bottom_container">
+                            <div id="info_payment_bottom_container_top_text">
+                                {{ lang.PAYMENT_SUCCESS_INFORM }}
+                            </div>
+                            {% if data.next_action %}
+                                <div id="info_payment_button_next_action">
+                                    <div id="info_payment_button_next_action_div">
+                                        <a href="{{ data.next_action }}" class="info_payment_button_next_action_button">
+                                            {{ lang.PAYMENT_NEXT_ACTION | raw }}
+                                        </a>
+                                    </div>
+                                </div>
+                            {%  endif %}
+                        </div>
+                    {%  endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/assets/css/web/{{ config.website_skin }}/payment.css" rel="stylesheet">
+    <link href="/assets/css/web/{{ config.website_skin }}/payment_info.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script id="view" type="text/javascript">
+        var view = 'info_payment_bank_transfer';
+    </script>
+    <script>
+        $(document).ready(function(){
+
+        });
+        (function($) {
+            'use strict';
+            
+        })(jQuery);
+    </script>
+{% endblock %}

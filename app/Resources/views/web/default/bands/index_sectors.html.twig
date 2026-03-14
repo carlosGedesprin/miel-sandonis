@@ -1,0 +1,25 @@
+
+<section id="index_sectors" class="web_section">
+    <div id="index_sectors_container" class="web_container">
+        <div id="index_sectors_content" class="web_content">
+
+            <div id="index_sectors_title">
+                <h2>
+                    {{ lang.WEB_INDEX_SECTORS_1 | raw }} {#Descubre las automatizaciones recomendadas para tu negocio#}
+                </h2>
+            </div>
+            <div id="index_sectors_cloud">
+                <ul id="index_sectors_ul">
+                    {% for sector in data.sectors %}
+                        <li class="index_sectors_list_li">
+                            <a href="{{ sector.slug }}" title="{{ sector.decription }}" rel="nofollow">
+                                {{ sector.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>

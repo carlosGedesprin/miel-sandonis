@@ -1,0 +1,16 @@
+{% extends 'app/' ~ config.app_skin ~ '/emails/emailBase.html.twig' %}
+{# app/Resources/views/emails/custom_message.html.twig #}
+
+{% block body %}
+    <tr>
+        <td style="margin-top: 10px; text-align: left;">
+            <table border="0" cellspacing="0" cellpadding="0" width="600">
+                <tr>
+                    <td style='padding:18.75pt 7.5pt 18.75pt 7.5pt'>
+                        <p>{{ reg.message | raw }}</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+{% endblock %}

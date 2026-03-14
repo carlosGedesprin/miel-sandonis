@@ -1,0 +1,42 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'cookies_policy' %}
+
+{% block metadescription %}{{ lang.WEB_METADESCRIPTION_COOKIES_POLICY }}{% endblock %}
+{% block metarobots %}noindex, follow{% endblock %}
+{% block title %} {{ lang.WEB_TITLE_COOKIES_POLICY }} - {{ parent() }}{% endblock %}
+
+{% block rel_alternate_links %}
+    {{ data.canonical | replace({'%this_route%': this_route }) | raw }}
+    {{ data.alternate_langs | replace({'%this_route%': this_route }) | raw }}
+{% endblock %}
+
+{% block body %}
+
+    <section class="my-5 py-5">
+        <div class="container">
+            <h2 class="font-weight-light">{{ lang.WEB_FOOTER_COOKIES_POLICY }}</h2>
+            <p>{{ lang.WEB_COOKIES_POLICY_TXT | raw }}</p>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/bundles/framework/css/web/{{ config.website_skin }}/legal.css" type="text/css" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function(){
+
+        });
+        (function($) {
+            'use strict';
+
+        })(jQuery);
+    </script>
+{% endblock %}

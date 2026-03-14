@@ -1,0 +1,33 @@
+{% extends 'web/default.html.twig' %}
+
+{% set this_page = 'sectors' %}
+
+{% block metadescription %}{{ lang.WEB_METADESCRIPTION_SECTORS }}{% endblock %}
+{% block metarobots %}index, follow{% endblock %}
+{% block title %} {{ lang.WEB_TITLE_SECTORS }} - {{ parent() }}{% endblock %}
+
+{% block rel_alternate_links %}
+    {{ data.canonical | replace({'%this_route%': this_route }) | raw }}
+    {{ data.alternate_langs | replace({'%this_route%': this_route }) | raw }}
+{% endblock %}
+
+{% block body %}
+
+    <main id="sectors_main">
+
+		{% include 'web/default/bands/sectors_hero.html.twig' %}
+		{% include 'web/default/bands/sectors_list.html.twig' %}
+
+	</main>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/bundles/framework/css/web/{{ config.website_skin }}/bands/sectors_hero.css" rel="stylesheet">
+    <link href="/bundles/framework/css/web/{{ config.website_skin }}/bands/sectors_list.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'app/' ~ config.app_skin ~ '/emails/emailBase.html.twig' %}
+{# app/Resources/views/emails/web_contact.html.twig #}
+{% set email_ref = 'web_contact' %}
+
+{% block body %}
+    <tr>
+        <td style="margin-top: 10px; text-align: left;">
+            <table border="0" cellspacing="0" cellpadding="0" width="800">
+                <tr>
+                    <td class="mail_text">
+                        {{ lang.MAIL_CONTACT_MAIL_TITLE }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top:20px" class="mail_text">
+                        {{ lang.MAIL_CONTACT_MAIL_FROM }}  {{ data.contact_name }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-top:20px" class="mail_text">
+                        {{ lang.MAIL_CONTACT_MAIL_EMAIL }}  {{ data.contact_email }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="mail_text">
+                        {{ lang.MAIL_CONTACT_MAIL_MESSAGE }}
+                        <p class="mail_text_box">
+                            {{ data.contact_message | raw }}
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+{% endblock %}

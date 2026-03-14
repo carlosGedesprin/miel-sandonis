@@ -1,0 +1,21 @@
+Instalar: https://stripe.com/docs/stripe-cli
+
+Renovar API Key
+-------------------------------
+en popo ejecutar stripe login
+indicará de abrir una url, hacerlo y listo
+
+Cambiar claves
+--------------------------------------------
+Cambiarla en el Dashboard y luego loguearse en el prompt con el comando "stripe login" y dar acceso.
+
+Ejecutar CLI
+--------------------------------------------
+en CMD ir a popo y 
+produccion
+stripe listen --forward-to https://accedeme.com/payments/stripe_things
+test
+stripe listen --forward-to https://accedeme.com/payments/stripe_things_test --skip-verify
+
+Linux
+./stripe listen --forward-to https://accedeme.com/payments/stripe_things_test --skip-verify

@@ -1,0 +1,418 @@
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
+
+{% set this_page = 'choose_quote_products' %}
+{% set currency = config.web_currency|currency_symbol %}
+
+{% block title %} {{ parent() }} &bull; {{ lang.PAYMENT_CHOOSE_PRODUCT_PERIODICITY }}{% endblock %}
+
+{% block body %}
+
+    <a href="#" id="topofthepage" aria-label="{{ lang.WEB_TOP_OF_THE_PAGE }}"></a>
+
+    <div id="payment_hero" class="container-fluid">
+        <div id="payment_hero_content">
+            <div id="payment_hero_colum_left">
+                <div id="payment_hero_colum_left_image">
+                    <img src="/assets/images/web/{{ config.website_skin }}/bands/payment_stripe/movil.png" alt="">
+                </div>
+            </div>
+            <div id="payment_hero_colum_right">
+
+                <div id="box-result">
+                    <div class="alert">
+                    </div>
+                </div>
+
+                <div id="payment_hero_title">
+                    <h2>
+                        {% if quote_lines | length > 1 %}
+                            {{ lang.PAYMENT_CHOOSE_PRODUCT_PERIODICITY_SUBTITLE }}
+                        {% else %}
+                            {{ lang.PAYMENT_CHOOSE_PRODUCT_CONFIRM_SUBTITLE }}
+                        {% endif %}
+                    </h2>
+                </div>
+
+                <form   id="item-form"
+                        class="payment_hero_form"
+                        method="POST">
+
+                    <div id="payment_choose_products_products">
+                        {# <div id="websites-carousel" class="owl-carousel owl-theme owl-loaded">
+                            <div class="owl-stage-outer">
+                                <div id="websites-carousel-items" class="owl-stage"> #}
+                                    {% for quote_line in quote_lines %}
+                                        {# <div class="owl-item"> #}
+                                            <div class="payment_choose_products_quote_line_desc">
+                                                {{ quote_line.description }}
+                                            </div>
+                                        {#
+                                        <pre>{{ dump(quote_line) }}</pre>
+                                        {% if quote_line.item is not empty  %}
+                                            <div class="website-name">
+                                                {{ quote_line.item | getWebsiteName }} - {{ quote_line.item | getWebsiteDomainName }}
+                                            </div>
+                                        {% endif %}
+                                        #}
+                                        <div id="item-{{ quote_line.id }}-container" class="payment_choose_products_plan_products">
+                                            {% for product in quote_line.products %}
+                                                <div id="payment_hero_payment_product_{{ product.id }}" class="payment_hero_payment_product {% if product.id == quote_line.product_preferred %}payment_hero_payment_product_active{% endif %}">
+                                                    <div id="payment_hero_radio_button" class="payment_hero_position">
+                                                        <div class="payment_hero_payment">
+                                                            <input type="radio"
+                                                                id="payment_{{ product.id }}"
+                                                                name="product[{{quote_line.id}}]"
+                                                                value="{{ product.id }}"
+                                                                {% if quote_line['products'][0].product_preferred == '1' %}checked="checked"{% endif %}
+                                                                class="payment_payment_product_input">
+                                                            <label class="payment_payment_product_label" for="payment_{{ product.id }}">{{ product.name }}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div id="payment_hero_price" class="payment_hero_position">
+                                                        <div class="payment_hero_price">
+                                                            <div id="payment_hero_price_{{ product.id }}" class="payment_hero_price_number">
+                                                                {% if product.needs_visits == '1' %}
+                                                                    {{ ( ( ( total_price_ppv )|round(2,'common') / 100 ) * ( 1 + ( data.vat_percent|round(2,'common') / 10000 ) ) )|number_format( 2, ',', '.' ) }} {{ currency }}
+                                                                {% else %}
+                                                                    {{ ( ( ( product.price )|round(2,'common') / 100 ) * ( 1 + ( data.vat_percent|round(2,'common') / 10000 ) ) )|number_format( 2, ',', '.' ) }} {{ currency }}
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="payment_hero_price_vat">
+                                                                {{ lang.PAY_A_QUOTE_CARD_VAT_INCLUDED }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {#Product id ({{ product.id }}) Product preferred ({{ quote_line['products'][0].product_preferred }}) Quote line <pre>{{ dump(quote_line) }}</pre>#}
+                                            {% endfor %}
+                                        </div>
+                                       {# </div> #}
+                                    {% endfor %}
+                                {# </div>
+                            </div>
+                        </div> #}
+                    </div>
+                    {#Total price ({{ total_price_plans }}) Payment preferred last 4 ({{ data.account_payment_method_preferred.last_4 }})({{ dump(data.account_payment_method_preferred) }})#}
+                    {#<pre>{{ dump(data) }}</pre>#}
+                    {% if total_price_plans != '0' %}
+                        {% if false and env.env_env == 'dev' %}
+                            data.account_payment_method_preferred ({{ data.account_payment_method_preferred.id }})
+                            {#data.account_payment_method_preferred ({{ data.account_payment_method_preferred | join(', ') }})#}
+                            <br />
+                            data.funds_balance ({{ data.funds_balance }})
+                            <br />
+                            data.account_allow_staff_use_card ({{ data.account_allow_staff_use_card }})
+                            <br />
+                            data.payable ({{ data.payable }})
+                        {% endif %}
+
+                        <div id="payment_payment_methods_title">
+                            {{ lang.PAYMENT_METHOD_CHOOSE }}
+                        </div>
+                        {% if data.payable == 0 %}
+                            {% if false and env.env_env == 'dev' %}<br /> Nothing{% endif %}
+                            <div id="payment_payment_can_not_pay_container">
+                                <div id="payment_payment_can_not_pay_text_1" class="payment_payment_can_not_pay_text">
+                                    {{ lang.ACCOUNT_USER_NOT_ALLOWED_TO_PAY_1 }}
+                                </div>
+                                <div id="payment_payment_can_not_pay_text_2" class="payment_payment_can_not_pay_text">
+                                    {{ lang.ACCOUNT_USER_NOT_ALLOWED_TO_PAY_2 }}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div id="payment_payment_methods_container">
+                                <div id="payment_payment_method_card_options">
+                                    {% if data.account_allow_staff_use_card %}
+                                        {% if false and env.env_env == 'dev' %}<br /> User allowed to use cards{% endif %}
+                                        {% if ( data.account_payment_method_preferred != '' ) %}
+                                            {% if false and env.env_env == 'dev' %}<br /> Has preferred card{% endif %}
+                                            <div id="payment_payment_method_card_preferred"
+                                                 class="payment_payment_method">
+                                                <div class="payment_payment_method_radio_button"
+                                                 class="payment_payment_method">
+                                                    <input type="radio"
+                                                        id="payment_payment_method_input_card_preferred"
+                                                        class="payment_payment_method_radio_button_input"
+                                                        name="use_payment_method"
+                                                        value="preferred_card"
+                                                        {% if data.use_payment_method == 'preferred_card' %}checked="checked"{% endif %}
+                                                        />
+                                                </div>
+                                                <div class="payment_payment_method_radio_label">
+                                                    <label for="payment_payment_method_input_card_preferred">
+                                                            {{ lang.PAYMENT_METHOD_CARD }}
+                                                        {% if data.account_payment_method_preferred != '' %}
+                                                            <br />{{ lang.PAYMENT_METHOD_USE_PREFERRED }}
+                                                            <br />{{ lang.PAYMENT_CHOOSE_PAYMENT_METHOD_LAST_4 }}: *** *** *** {{ data.account_payment_method_preferred.last_4 }}
+                                                        {% endif %}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                            <div id="payment_payment_method_card_new"
+                                                 class="payment_payment_method">
+                                                <div class="payment_payment_method_radio_button">
+                                                    <input type="radio"
+                                                        id="payment_payment_method_input_card_new"
+                                                        class="payment_payment_method_radio_button_input"
+                                                        name="use_payment_method"
+                                                        value="new_card"
+                                                        {% if ( data.use_payment_method == 'new_card' ) %}checked="checked"{% endif %}
+                                                        />
+                                                </div>
+                                                <div class="payment_payment_method_radio_label">
+                                                    <label for="payment_payment_method_input_card_new">
+                                                        {% if data.account_payment_method_preferred != '' %}{{ lang.PAYMENT_CHOOSE_PAYMENT_METHOD_PAY_NEW }}{% else %}{{ lang.PAYMENT_CHOOSE_PAYMENT_METHOD_PAY_CARD }}{% endif %}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                    {% else %}
+                                        {% if false and env.env_env == 'dev' %}<br /> User NOT allowed to use cards{% endif %}
+                                    {% endif %}
+                                </div>
+                                {% if data.funds_balance != 0 %}
+                                    {% if false and env.env_env == 'dev' %}<br /> Account has funds{% endif %}
+                                    <div id="payment_payment_method_fund_options">
+                                        <div id="payment_payment_method_funds"
+                                             class="payment_payment_method">
+                                            <div class="payment_payment_method_radio_button">
+                                                <input type="radio"
+                                                    id="payment_payment_method_input_funds"
+                                                    class="payment_payment_method_radio_button_input"
+                                                    name="use_payment_method"
+                                                    value="funds"
+                                                    {% if data.use_payment_method == 'funds' %}checked="checked"{% endif %}
+                                                    />
+                                            </div>
+                                            <div class="payment_payment_method_radio_label">
+                                                <label for="payment_payment_method_input_funds">
+                                                    <div>
+                                                        {{ lang.PAYMENT_CHOOSE_PAYMENT_METHOD_PAY_FUNDS }}
+                                                    </div>
+                                                    <div>
+                                                        {{ lang.PAYMENT_CHOOSE_PAYMENT_METHOD_PAY_FUNDS_BALANCE }}: {{ ( ( ( data.funds_balance )|round(2,'common') / 100 ) )|number_format( 2, ',', '.' ) }} {{ currency }}
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    {% if false and env.env_env == 'dev' %}<br /> Account has NO funds{% endif %}
+                                {% endif %}
+                                {% if false and env.env_env == 'dev' %}data.account_payment_method_preferred ({{ data.account_payment_method_preferred.id }}){% endif %}
+                                <div id="payment_payment_method_bank_transfer"
+                                     class="payment_payment_method">
+                                    <div class="payment_payment_method_radio_button">
+                                        <input type="radio"
+                                            id="payment_payment_method_input_bank_transfer"
+                                            class="payment_payment_method_radio_button_input"
+                                            name="use_payment_method"
+                                            value="bank_transfer"
+                                            {% if ( data.use_payment_method == 'bank_transfer' ) %}checked="checked"{% endif %}
+                                            />
+                                    </div>
+                                    <div class="payment_payment_method_radio_label">
+                                        <label for="payment_payment_method_input_bank_transfer">
+                                            {{ lang.PAYMENT_CHOOSE_PAYMENT_METHOD_PAY_BANK_TRANSFER }}
+                                        </label>
+                                        <div id="payment_payment_method_bank_transfer_desc">
+                                            {{ lang.PAYMENT_CHOOSE_PAYMENT_METHOD_PAY_BANK_TRANSFER_DESC }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="stripe-form-container stripe-container">
+                                <span class="paymentErrors alert-danger"></span>
+                                <div class="coupon-container">
+                                    <label for="coupon">{{ lang.PAYMENT_CHOOSE_WIDGET_CUPON_TITLE }}</label>
+                                    <div id="coupon_use_it">{{ lang.PAYMENT_CHOOSE_WIDGET_CUPON_USE_IT }}</div>
+                                    <div id="coupon_input">
+                                        <input  type="text"
+                                                id="coupon"
+                                                name="coupon"
+                                                minlength="5"
+                                                maxlength="10"
+                                                class="form-control"
+                                                placeholder="{{ lang.PAYMENT_CHOOSE_WIDGET_CUPON_PLACEHOLDER }}"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="payment_hero_button">
+                                <input type="submit"
+                                        class="loading"
+                                        id="btn_submit_button"
+                                        name="btn_submit"
+                                        value="{{ lang.PAYMENT_CHOOSE_WIDGET_CONTINUE }}"
+                                />
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                </form>
+            </div>
+        <div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/assets/css/web/{{ config.website_skin }}/payment.css">
+    <link rel="stylesheet" href="/assets/css/web/{{ config.website_skin }}/choose_quote_products.css">
+    {#<link rel="stylesheet" href="/assets/css/app/{{ config.app_skin }}/form.css" type="text/css" />#}
+    {#<link rel="stylesheet" href="/assets/css/app/{{ config.app_skin }}/input_switch.css">#}
+    {# <link href="/assets/css/web/{{ config.website_skin }}/plugins/owl/owl.carousel.min.css" rel="stylesheet">
+    <link href="/assets/css/web/{{ config.website_skin }}/plugins/owl/owl.theme.default.min.css" rel="stylesheet"> #}
+    
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="/assets/js/app/{{ config.app_skin }}/scrool-to-top.js"></script>
+    <script id="view" type="text/javascript">
+        var view = 'choose_quote_products';
+    </script>
+    {# <script src="/assets/js/web/{{ config.website_skin }}/plugins/owl/owl.carousel.js"></script>
+    <script src="/assets/js/web/{{ config.website_skin }}/plugins/owl/owl.navigation.js"></script> #}
+    <script>
+        $(document).ready(function(){
+            {# app/choose_quote_products.html.twig #}
+
+            // var owl = $('.owl-carousel').owlCarousel({
+            //     items: 1,
+            //     loop:false,
+            //     margin:100,
+            //     nav:true,
+            //     dots: true
+            // });
+
+        });
+        (function($) {
+            'use strict';
+
+            $('input[type=radio]').click(function(e) {
+                let products = $(this).parents(".payment_hero_payment_product").parent();
+                let children = products.children();
+                children.toggleClass( "payment_hero_payment_product_active" );
+            });
+
+            $('input[type=submit]').click(function(e) {
+                let coupon_text = $('#coupon').val();
+                let coupon_upper_text = coupon_text.toUpperCase();
+                $('#coupon').val(coupon_upper_text);
+            });
+
+            $('#coupon')
+                .on('keyup', function() {
+                    this.value = this.value.toUpperCase();
+                    calc_price();
+                })
+                .on('change', function() {
+                    calc_price();
+                })
+            ;
+
+            $('.loading').on('click', function () {
+                scrool_to_top_of_page();
+                $("#btn_submit_button").hide();
+                $(document.body).prepend('<div id="loading"><div id="loading_div"><div id="loading_div_texts"><p>{{ lang.LOADING_WORKING }}</p><p>{{ lang.LOADING_NOT_RELOAD }}</p><p>{{ lang.LOADING_TAKES_MINUTES }}</p></div><img id="loading_img" src="/assets/images/app/default/loading_icon.webp"></div></div>');
+                $("#loading").css('height', $('body').outerHeight(true));
+                {#console.log('outerHeight', $('body').outerHeight(true), 'w.height', $(window).height(), 'd.height', $(document).height() );#}
+            });
+
+            function calc_price() {
+
+                let coupon_code = $('#coupon').val();
+                let quote_lines = JSON.parse('{{ quote_lines | json_encode | raw }}');
+                
+                let products = [];
+
+                quote_lines.forEach(line => {
+                    products.push( line['products'] );
+                });
+
+                let products_id = [];
+
+                for (let i = 0; i < products.length; i++) {
+                    products[i].forEach(product => {
+                        products_id.push(product['id']);
+                    });
+                }
+
+                let data =
+                {
+                    coupon_code: coupon_code,
+                    products_id: products_id
+                };
+
+                $.ajax({
+                    type:"POST",
+                    url:"{{ env.protocol }}://{{ env.domain }}/payments/get_product_discounted",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data:JSON.stringify(data),
+                    traditional: true,
+                })
+                .done(function(result) {
+                    //console.log( Object.keys(result['data']['discounted_price']).length );
+
+                    if ( Object.keys(result['data']['discounted_price']).length > 0 )
+                    {
+                        let new_prices = result['data']['discounted_price'];
+
+                        Object.keys(new_prices).forEach(key => {
+                            //console.log( key );
+                            //console.log( new_prices[key] );
+                            let new_price = ( ( Number( new_prices[key] ) / 100 ) * ( 1 + ( Number( {{ data.vat_percent }} ) / 10000 ) ) ).toFixed(2);
+                            //console.log(new_price);
+                            let new_price_string = new_price.toString();
+
+                            let new_price_units = new_price_string.substr( 0, (new_price_string.length)-3 );
+                            let new_price_decimals = new_price_string.substr( (new_price_string.length)-3 );
+
+                            new_price_units = new_price_units.replace( ',', '.' );
+                            new_price_decimals = new_price_decimals.replace( '.', ',' );
+
+                            new_price_string = new_price_units + new_price_decimals;
+                            $('#payment_hero_price_'+key).text( new_price_string + ' ' + '{{ currency }}' );
+                        });
+                    }
+                    else
+                    {
+                        //console.log( products );
+
+                        for (let i = 0; i < products.length; i++) 
+                        {
+                            Object.keys(products[i]).forEach(key => {
+                                let new_price = ( ( Number( products[i][key]['price'] ) / 100 ) * ( 1 + ( Number( {{ data.vat_percent }} ) / 10000 ) ) ).toFixed(2);
+                                if ( products[i][key]['needs_visits'] == '1' )
+                                {
+                                    new_price = ( ( Number( {{ total_price_ppv }} ) / 100 ) * ( 1 + ( Number( {{ data.vat_percent }} ) / 10000 ) ) ).toFixed(2);
+                                }
+                                //console.log(new_price);
+
+                                let new_price_string = new_price.toString();
+
+                                let new_price_units = new_price_string.substr( 0, (new_price_string.length)-3 );
+                                let new_price_decimals = new_price_string.substr( (new_price_string.length)-3 );
+
+                                new_price_units = new_price_units.replace( ',', '.' );
+                                new_price_decimals = new_price_decimals.replace( '.', ',' );
+
+                                new_price_string = new_price_units + new_price_decimals;
+
+                                $('#payment_hero_price_' + products[i][key]['id']).text( new_price_string + ' ' + '{{ currency }}' );
+                            });
+                        }
+                    }
+                })
+                .fail(function(result) {
+                    console.log( result );
+                });
+            }
+        })(jQuery);
+    </script>
+{% endblock %}

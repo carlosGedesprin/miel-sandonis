@@ -1,0 +1,81 @@
+
+
+<form method="post" name="listform" id="listform">
+
+    <div class="form-row text-right">
+
+        {% set has_filters = false %}
+
+        {% for filter_name, filter_data in filters %}
+
+            {% if filter_data.type == 'select' %}
+                <div class="form-group pull-right ml-2">
+                    <div class="input-group">
+                        <select class="form-control filter_select"
+                                id="filter_{{ filter_name }}_value"
+                                name="filters[{{ filter_name }}][value]"
+                                width="200px"
+                                style="width:200px"
+                                data-chainchilds="{{ filter_data.chain_childs }}"
+                                value="{{ filter_data.value }}">
+                            {{ filter_data.options|raw }}
+                        </select>
+                    </div>
+                </div>
+                {% set has_filters = true %}
+            {% endif %}
+
+            {% if filter_data.type == 'text' %}
+                <div class="form-group pull-right ml-2">
+                    <div class="input-group has-clear">
+                        {#label class="control-label" for="{{ filter_name }}" style="padding-top: 5px">{{ filter_data.caption }}:</label> #}
+                        <input type="text"
+                               class="form-control filter_text"
+                               name="filters[{{ filter_name }}][value]"
+                               id="{{ filter_name }}"
+                               value="{{ filter_data.value }}"
+                               width="200px"
+                               style="margin-left:15px;width:200px"
+                               placeholder="{{ filter_data.placeholder }}"
+                               aria-label="{{ filter_data.caption }}"
+                        >
+                        <span class="form-control-clear glyphicon glyphicon-remove form-control-feedback hidden"></span>
+                    </div>
+                </div>
+                {% set has_filters = true %}
+            {% endif %}
+
+            {% if filter_data.type == 'hidden' %}
+                <input type="hidden"
+                       name="filters[{{ filter_name }}][value]"
+                       id="{{ filter_name }}"
+                       value="{{ filter_data.value }}">
+            {% endif %}
+
+            {% for filter_data_key, filter_data_data in filter_data %}
+                {% if filter_data_key != 'value' and filter_data_key != 'options'%}
+                    <input type="hidden" name="filters[{{ filter_name }}][{{ filter_data_key }}]" id="filter_{{ filter_name }}_{{ filter_data_key }}" value="{{ filter_data_data }}" />
+                {% endif %}
+            {% endfor %}
+
+        {% endfor %}
+
+        {# Pagination #}
+        {% for key, value in pagination %}
+            <input type="hidden" name="pagination[{{ key }}]" id="{{ key }}" value="{{ value }}" />
+        {% endfor %}
+
+        {% if has_filters %}
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary" id="submitbutton">{{ lang.SEARCH }}</button>
+            </div>
+        {% endif %}
+
+        <div class="col-auto">
+            <button type="button" class="btn btn-primary" id="reload_button">
+                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><style>svg{fill:#fcfcfc}</style><path d="M440.65 12.57l4 82.77A247.16 247.16 0 0 0 255.83 8C134.73 8 33.91 94.92 12.29 209.82A12 12 0 0 0 24.09 224h49.05a12 12 0 0 0 11.67-9.26 175.91 175.91 0 0 1 317-56.94l-101.46-4.86a12 12 0 0 0-12.57 12v47.41a12 12 0 0 0 12 12H500a12 12 0 0 0 12-12V12a12 12 0 0 0-12-12h-47.37a12 12 0 0 0-11.98 12.57zM255.83 432a175.61 175.61 0 0 1-146-77.8l101.8 4.87a12 12 0 0 0 12.57-12v-47.4a12 12 0 0 0-12-12H12a12 12 0 0 0-12 12V500a12 12 0 0 0 12 12h47.35a12 12 0 0 0 12-12.6l-4.15-82.57A247.17 247.17 0 0 0 255.83 504c121.11 0 221.93-86.92 243.55-201.82a12 12 0 0 0-11.8-14.18h-49.05a12 12 0 0 0-11.67 9.26A175.86 175.86 0 0 1 255.83 432z"/></svg>
+            </button>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,331 @@
+#header_contact {
+    width: 100vw;
+    height: var(--header_contact_height_mobile);
+    top: var(--header_contact_top);
+    position: fixed;
+    z-index: 99999;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--white);
+    /*border: solid 1px black;*/
+}
+#header_contact_band {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: var(--black);
+    color: var(--white);
+    /*border: solid 1px red;*/
+}
+.header_contact_band_item {
+    padding: 0 5px;
+    text-align: right;
+    /*border: solid 1px green;*/
+}
+.header-contact-icon {
+    color: var(--white);
+}
+.header_contact_link {
+    color: var(--white);
+    text-decoration: none;
+}
+.header_contact_link:hover {
+    color: var(--white);
+}
+#header_contact_langs {
+    width: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-right: 5px;
+    background-color: var(--black);
+    color: var(--white);
+    /*border: solid 1px white;*/
+}
+.header_contact_lang {
+    margin-left: 5px;
+    padding-left: 3px;
+    text-decoration: none;
+    /*border: solid 1px white;*/
+}
+.header_contact_lang img {
+    width: 35px;
+    height: auto;
+}
+#header_menu {
+    height: var(--header_menu_height);
+    width: calc( 100vw - var(--scroll_width) );
+    position: fixed;
+    top: var(--header_menu_top_mobile);
+    background-color: var(--white);
+    z-index: 99999;
+    /*border: solid 1px black;*/
+}
+#header_menu_content {
+    /*width: calc( 100vw - var(--scroll_width));*/
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: transparent;
+    /*border: solid 1px blue;*/
+}
+#header_menu_site_logo {
+    width: 70%;
+    background-color: var(--white);
+    /*border: solid 1px red;*/
+}
+#header_menu_site_logo_link {
+    /*height: calc(var(--header_menu_height) * 0.7);*/
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: var(--white);
+    /*border: solid 1px red;*/
+}
+#header_menu_site_logo_img {
+    width: 100%;
+}
+#header_menu_menu {
+    width: 85%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /*border: solid 1px red;*/
+}
+#nav_left_items {
+    margin: 0 auto;
+    padding-top: 10px;
+    padding-left: 25px;
+    /*border: solid 1px blue;*/
+}
+/* -------- Example start --------------------*/
+.topnav {
+    background-color: var(--white);
+    /*border: solid 1px red;*/
+}
+.topnav li {
+    float: left;
+    display: block;
+    color: var(--black);
+    text-align: center;
+    padding: 14px 5px;
+    text-decoration: none;
+    font-size: 1em;
+    /*border: solid 1px green;*/
+}
+/* Change the color of links on hover */
+.topnav li:hover {
+    background-color: var(--our-light-grey-color);
+    color: black;
+}
+/* Add an active class to highlight the current page */
+.topnav li.active {
+    background-color: transparent;
+    color: var(--white);
+    font-weight: 700;
+}
+/* Hide the link that should open and close the topnav on small screens */
+.topnav .icon {
+    display: none;
+}
+.menu_item {
+    padding: 0 10px;
+    text-align: center;
+}
+.menu_item:hover {
+    background-color: var(--white);
+    color: var(--black);
+}
+.menu_item::after
+{
+    content: '';
+    display: block;
+    width: 0;
+    height: 3px;
+    background: var(--black);
+    transition: 0.2s;
+}
+.menu_item:hover::after
+{
+    width:100%;
+}
+.menu_link {
+    padding: 8px 16px;
+    font-size: 1.1em;
+    color: var(--black) !important;
+    display: block;
+    text-decoration: none;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+}
+.menu_link:hover {
+    /*background-color: var(--white) !important;*/
+    color: var(--black) !important;
+}
+#menu_toggle {
+    /*border: solid 1px red;*/
+}
+#user_logged_buttons {
+    min-width: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /*border: solid 1px red;*/
+}
+#site_log_in {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /*border: solid 1px blue;*/
+}
+#site_log_in_svg {
+    width: 35px;
+    height: 50px;
+}
+#site_log_in_svg path {
+    fill: var(--primary-color);
+}
+#site_control_panel_svg {
+    width: 35px;
+    height: 50px;
+}
+#site_log_out_svg {
+    padding-left: 15px;
+    width: 35px;
+    height: 50px;
+}
+.user_items_svg:hover {
+    transform: scale( 1.2 );
+}
+#icon_bars {
+    height: 48px;
+    width: 48px;
+    font-size: 2em;
+    color: var(--primary-color);
+    /*border: solid 1px green;*/
+}
+/* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home").
+Show the link that contains should open and close the topnav (.icon) */
+@media screen and ( max-width: 1115px ) {
+    #header_menu {
+        background-color: transparent;
+    }
+    #header_menu_menu {
+        flex-direction: column;
+    }
+    #header_menu_menu.responsive {
+        margin-top: 5px;
+        border-radius: 16px;
+        border: solid 1px var(--primary-color);
+    }
+    /*.topnav a:not(:first-child) {*/
+    .topnav li {
+        display: none;
+    }
+    .topnav a.icon {
+        /*float: right;*/
+        /*display: block;*/
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        color: var(--primary-color);
+        /*border: solid 1px black;*/
+    }
+    /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon.
+    This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+    .topnav.responsive {
+        width: 320px !important;
+        position: relative;
+        /*border: solid 1px green;*/
+    }
+    .topnav.responsive a.icon {
+        position: absolute;
+        right: 0;
+        top: 10px;
+    }
+    .topnav.responsive .nav_left_items li:first-child {
+        margin-top: 50px;
+    }
+    .topnav.responsive .nav_right_items li:first-child {
+        margin: 15px 15px 0 0;
+        border-top: solid 1px var(--primary-color);
+    }
+    .topnav.responsive li {
+        margin-top: 15px;
+        padding: 1px 5px;
+        float: none;
+        display: block;
+        /*border: solid 1px grey;*/
+    }
+    .topnav.responsive .nav_left_items li {
+        text-align: right;
+    }
+    .topnav.responsive .nav_right_items li {
+        text-align: left;
+    }
+    .topnav.responsive li.user_items:hover {
+        background-color: transparent;
+        color: black;
+    }
+    .menu_item {
+        padding-right: 35px;
+        text-align: right;
+        /*border: solid 1px green;*/
+    }
+    .menu_item:hover {
+        background-color: var(--red);/* --secondary-background */
+        color: var(--black);
+        /*font-weight: bold;*/
+    }
+    .menu_item::after {
+        display: none;
+    }
+    .menu_link {
+        padding: 0 1rem;
+        color: var(--black) !important;
+    }
+    .menu_link:hover {
+        background-color: var(--primary-background) !important;/* --secondary-background */
+        color: var(--black) !important;
+    }
+    #nav_right_items {
+        margin-top: 0;
+        /*margin-right: 35px;*/
+        /*padding-left: 25px;*/
+        /*border: solid 1px blue;*/
+    }
+}
+/* -------- Example end --------------------*/
+@media (min-width: 500px) {
+    #header_contact {
+        height: var(--header_contact_height_desktop);
+        width: calc( 100vw - var(--scroll_width) );
+    }
+    #header_contact_band {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    #header_menu {
+        top: var(--header_menu_top_desktop);
+    }
+}
+@media (min-width: 900px) {
+    #header_menu_site_logo {
+        width: 35%;
+    }
+}
+@media (min-width: 1200px) {
+    #header_menu_site_logo {
+        width: 25%;
+    }
+}
+@media (min-width: 1400px) {
+    @media (min-width: 1200px) {
+        #header_menu_site_logo {
+            width: 15%;
+        }
+    }
+}

@@ -1,0 +1,81 @@
+{% set path = '/assets/images/web/'~config.website_skin~'/bands/template/' %}
+{% set fondo_img = path ~ 'template_five.png' %}
+{% set fondo_color = path ~ 'template_five.png' %}
+{% set fondo = 'color' %}
+
+<style>
+    #template_five_container
+    {
+    {% if fondo == 'image' %}
+        background-image: url({{ fondo_img }});
+        background-size: cover;
+        background-position: center center;
+    {% else %}
+        background-color: var(--highlight-color);
+    {% endif %}
+    }
+</style>
+
+<section id="template_five" class="web_section">
+    <div id="template_five_container" class="web_container">
+        <div id="template_five_content" class="web_content">
+
+            <div id="template_five_template_title">
+                template_five
+            </div>
+            <div id="template_five_wrapper" class="web_wrapper">
+
+                <div id="template_five_title">
+                    <h2>
+                        Tecnología que impulsa la eficiencia
+                    </h2>
+                </div>
+
+                <div id="template_five_panels">
+                    <div id="template_five_panel_1" class="template_five_panel">
+                        <div id="template_five_panel_1_number" class="template_five_panel_number">
+                            20%
+                        </div>
+                        <h3 id="template_five_panel_1_text_1" class="template_five_panel_text">
+                            Ahorro en costes
+                        </h3>
+                        <div id="template_five_panel_1_text_2" class="template_five_panel_text">
+                            Promedio conseguido en nuestros proyectos de automatización integral
+                        </div>
+                    </div>
+                    <div id="template_five_panel_2" class="template_five_panel">
+                        <div id="template_five_panel_2_number" class="template_five_panel_number">
+                            40%
+                        </div>
+                        <h3 id="template_five_panel_1_text_2" class="template_five_panel_text">
+                            Ahorro errores involuntarios
+                        </h3>
+                        <div id="template_five_panel_1_text_1_2" class="template_five_panel_text">
+                            Promedio conseguido en nuestros proyectos de automatización de procesos manuales
+                        </div>
+                    </div>
+                    <div id="template_five_panel_3" class="template_five_panel">
+                        <div id="template_five_panel_3_number" class="template_five_panel_number">
+                            40%
+                        </div>
+                        <h3 id="template_five_panel_1_text_3" class="template_five_panel_text">
+                            Ahorro errores involuntarios
+                        </h3>
+                        <div id="template_five_panel_1_text_1_3" class="template_five_panel_text">
+                            Promedio conseguido en nuestros proyectos de automatización de procesos manuales
+                        </div>
+                    </div>
+                </div>
+                <div id="template_five_footer_text">
+                    <div id="template_five_footer_text_1" class="template_five_footer_text">
+                        Cada servicio se personaliza según las necesidades específicas de tu empresa.
+                    </div>
+                    <div id="template_five_footer_text_2" class="template_five_footer_text">
+                        Garantizamos soluciones que realmente impulsan tu negocio.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
