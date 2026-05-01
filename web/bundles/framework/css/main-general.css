@@ -15,72 +15,120 @@ html, body {
     height: 100%;
 }
 body {
+    background-color: var(--color-bg);
     display: flex;
     flex-direction: column;
     height: 100vh;
     margin: 0;
-    font-family: 'Arial', 'sans-serif';
+    /*font-family: 'Arial', 'sans-serif';*/
+    font-family: var(--font-ui);
     font-size: 1.2rem;
 }
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 .hidden { display: none; }
 .clear { clear:both; }
 .highlight {
     color: var(--highlight-color);
 }
 h1 {
-    margin: 0 0 30px 0;
-    text-align: left;
-    font-size: 2.5rem;
-    font-weight: bold;
-    letter-spacing: 1.5px;
-    /*font-weight: 500;*/
-    line-height: 1.2;
-    color: var(--primary-color);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 1.2rem;
 }
-h1 span {
-    color: var(--red);
-}
-h1 br {
-    margin-bottom: 40px;
+.page_hero_subtext {
+    font-size: 1.2rem;
 }
 h2 {
-    margin-bottom: 30px;
-    line-height: 1.5;
-    color: var(--primary-color);
     font-size: 2rem;
-    font-weight: 500;
-    /*border: solid 1px green;*/
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 1.2rem;
+    line-height: 1.25;
 }
 h3 {
-    margin: 20px 0;
-    color: var(--primary-color);
-    font-size: 1.37em;
-    font-weight: 400;
-    /*border: solid 1px green;*/
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 0.75rem;
 }
-h4 {
-    /*border: solid 1px green;*/
+p {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    text-align: left;
+    line-height: 1.6;
 }
-.generic_button {
-    margin: 60px 0 0 0;
-    display: flex;
-    justify-content: flex-start;
-    text-align: center;
+.btn {
+     display: inline-block;
+     font-size: 0.95rem;
+     font-weight: 600;
+     padding: 0.75rem 1.6rem;
+     border-radius: 6px;
+     cursor: pointer;
+     transition: all var(--transition);
+     border: 1.5px solid transparent;
+ }
+
+.btn--primary {
+    background-color: var(--color-green);
+    color: var(--color-white);
+    border-color: var(--color-green);
 }
-.generic_button a {
-    padding: 7px 32px;
-    background-color: var(--white);
-    color: var(--highlight-color);
-    border: solid 1px var(--highlight-color);
-    font-size: 1.6rem;
-    text-decoration: none;
-    border-radius: var(--button-border-radius)
+
+.btn--primary:hover {
+    background-color: var(--color-green-dark);
+    color: var(--color-white);
+    border-color: var(--color-green-dark);
+}
+
+.btn--secondary {
+    background-color: transparent;
+    color: var(--color-dark);
+    border-color: var(--color-dark);
+}
+
+.btn--secondary:hover {
+    background-color: var(--color-dark);
+    color: var(--color-white);
+}
+
+.btn--outline {
+    background-color: transparent;
+    color: var(--color-text);
+    border-color: var(--color-card-border);
+}
+
+.btn--outline:hover {
+    background-color: var(--color-green);
+    color: var(--color-white);
+    border-color: var(--color-green);
+}
+
+.btn--white {
+    background-color: transparent;
+    color: var(--color-white);
+    border-color: var(--color-white);
+}
+
+.btn--white:hover {
+    background-color: var(--color-white);
+    color: var(--color-green-dark);
+}
+li. {
+    list-style-type: none;
 }
 @media (min-width: 880px) {
     h1 {
-        margin: 30px 0 10px 0;
-        font-size: 3rem;
-        letter-spacing: 1px;
+        /*font-size: clamp(2rem, 5vw, 3rem);*/
+        /*font-weight: 700;*/
+        /*color: var(--color-dark);*/
+        /*margin-bottom: 1.2rem;*/
     }
     h2 {
         margin: 30px 0 10px 0;

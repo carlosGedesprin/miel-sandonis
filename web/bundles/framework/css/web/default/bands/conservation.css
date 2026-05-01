@@ -1,0 +1,201 @@
+
+.page-hero {
+    padding: 10rem 2rem 5rem;
+    /*background: linear-gradient(160deg, #f0e8d5 0%, #e8dfc8 50%, #ddd5bc 100%);*/
+    background: linear-gradient(
+            180deg,          /* ← vertical, no diagonal */
+            #e8dfc8 0%,
+            #f0e8d5 40%,
+            #f5f0e8 100%     /* ← tu color de fondo real */
+    );
+    text-align: center;
+}
+
+.page-hero__content {
+    max-width: 702px;
+    margin: 0 auto;
+    animation: fadeUp 0.8s ease both;
+    /*border: solid 1px red;*/
+}
+
+.page-hero__content h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    /*border: solid 1px red;*/
+}
+.practicas {
+    padding: 6rem 0;
+    background-color: var(--color-bg);
+}
+
+.practicas__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+
+.practica-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    background: var(--color-white);
+    border: 2px solid var(--color-card-border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.practica-card:hover {
+    border-color: var(--color-green);
+    box-shadow: 0 0 0 1px var(--color-green);
+    /*transform: translateY(-2px);*/
+}
+
+.practica-card__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background-color: var(--color-bg-alt);
+    color: var(--color-green);
+}
+.esenciales {
+    padding: 6rem 0;
+    background-color: var(--color-bg);
+}
+
+.esenciales__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.esenciales__image img {
+    border-radius: var(--radius);
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+    box-shadow: var(--shadow);
+}
+.numbered-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    list-style: none;
+}
+
+.numbered-list li {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.numbered-list__num {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--color-bg-alt);
+    border: 2px solid var(--color-card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-ui);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-top: 2px;
+}
+
+.numbered-list h3 {
+    display: block;
+    color: var(--color-dark);
+    margin-bottom: 0.2rem;
+    /*border: solid 1px blue;*/
+}
+.amenazas {
+    padding: 6rem 0;
+    background-color: var(--color-bg-alt);
+}
+
+.amenazas__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
+
+.amenaza-card {
+    background: var(--color-white);
+    border: 2px solid var(--color-card-border);
+    border-left: var(--color-card-left);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    transition: box-shadow var(--transition), transform var(--transition);
+}
+.contribucion {
+    padding: 6rem 0;
+    background-color: var(--color-bg-alt);
+}
+
+.contribucion__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.contribucion-card {
+    background: var(--color-white);
+    border: 2px solid var(--color-card-border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    transition: box-shadow var(--transition), transform var(--transition);
+}
+.ayudar {
+    padding: 6rem 0;
+    background-color: var(--color-bg);
+}
+
+.ayudar__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.ayudar-card {
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: box-shadow var(--transition), transform var(--transition);
+}
+.ayudar-card__icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+@media (max-width: 900px) {
+    .practicas__grid,
+    .amenazas__grid,
+    .contribucion__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .esenciales__grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .ayudar__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+}

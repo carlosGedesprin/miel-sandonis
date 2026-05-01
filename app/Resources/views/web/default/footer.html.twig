@@ -1,19 +1,58 @@
 {% set path = '/bundles/framework/images/web/'~config.website_skin~'/footer/' %}
-{% set fondo = path ~ 'fondo-footer.png' %}
 
-<footer>
+<footer class="footer">
+    <div class="container footer__grid">
+        <div class="footer__col">
+            <h3>Apicultura Portillo</h3>
+            <p>Dedicados a la apicultura sostenible en los pinares de Portillo, protegiendo las abejas y el medio ambiente para las futuras generaciones.</p>
+        </div>
+        <div class="footer__col">
+            <h3>Enlaces Rápidos</h3>
+            <ul>
+                <li>
+                    <a href="/nosotros" rel="nofollow">Nosotros</a>
+                </li>
+                <li>
+                    <a href="/conservacion" rel="nofollow">Conservación</a>
+                </li>
+                <li>
+                    <a href="/nuestra-miel" rel="nofollow">Nuestra miel</a>
+                </li>
+                {#<li>
+                <a href="/blog" rel="nofollow">Blog Educativo</a>
+                </li>#}
+                <li>
+                    <a href="/contacto" rel="nofollow">Contacto</a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer__col">
+            <h3>Contacto</h3>
+            <ul class="footer__contact">
+                <li>📍Portillo (Valladolid)</li>
+                <li>✉️ mielsandonis@gmail.com</li>
+                <li>📞660 790 595 o 646 054 969</li>
+            </ul>
+        </div>
+    </div>
 
-    {% if this_page in ['contactus_thanks', 'contact_fair'] %}
-    {% else %}
-        {% include 'web/default/bands/footer_contact_form.html.twig' %}
-    {% endif %}
-    {% include 'web/default/bands/footer_badges.html.twig' %}
-
-    {% include 'web/default/bands/footer_columns.html.twig' %}
-{#
-
-    {% include 'web/default/bands/footer_social.html.twig' %}
-#}
-    {% include 'web/default/bands/footer_legal.html.twig' %}
+    <section class="footer_legal">
+        <div class="footer_legal_list">
+            <a id="legal_stuff" class="footer_legal_item" href="/{{ lang.WEB_FOOTER_LEGALSTUFF_LINK }}">{{ lang.WEB_FOOTER_LEGALSTUFF | raw }}</a>
+            <a id="privacy_policy" class="footer_legal_item" href="/{{ lang.WEB_FOOTER_PRIVACY_POLICY_LINK }}">{{ lang.WEB_FOOTER_PRIVACY_POLICY | raw }}</a>
+            <a id="cookies_policy" class="footer_legal_item" href="/{{ lang.WEB_FOOTER_COOKIES_POLICY_LINK }}">{{ lang.WEB_FOOTER_COOKIES_POLICY | raw }}</a>
+            {#
+            <a id="terms_conditions" class="footer_legal_item" href="/{{ lang.WEB_FOOTER_TERMSANDCONDITIONS_LINK }}">{{ lang.WEB_FOOTER_TERMSANDCONDITIONS | raw }}</a>
+            <a id="payment_terms" class="footer_legal_item" href="/{{ lang.WEB_FOOTER_PAYMENTTERMS_LINK }}">{{ lang.WEB_FOOTER_PAYMENTTERMS | raw }}</a>
+            <a id="accessibility_statement" class="footer_legal_item" href="/{{ lang.WEB_FOOTER_ACCESSIBILITY_STATEMENET_LINK }}">{{ lang.WEB_FOOTER_ACCESSIBILITY_STATEMENET | raw }}</a>
+            <a id="sitemap" class="footer_legal_item" href="/sitemap.xml">{{ lang.APP_SITEMAPS | raw }}</a>
+            #}
+        </div>
+    </section>
+    {#
+    <section class="footer_copyright">
+        {{ config.web_copy_right }} - {{ lang.WEB_FOOTER_COPYRIGHT | raw }}
+    </section>
+    #}
 
 </footer>

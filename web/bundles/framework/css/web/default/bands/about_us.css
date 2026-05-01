@@ -1,0 +1,192 @@
+/* ========================================
+   PAGE HERO
+   ======================================== */
+.page-hero {
+    padding: 10rem 2rem 5rem;
+    /*background: linear-gradient(160deg, #f0e8d5 0%, #e8dfc8 50%, #ddd5bc 100%);*/
+    background: linear-gradient(
+            180deg,          /* ← vertical, no diagonal */
+            #f0e8d5 0%,
+            #e8dfc8 40%,
+            #f5f0e8 100%     /* ← tu color de fondo real */
+    );
+    text-align: center;
+    /*border: solid 1px red;*/
+}
+
+.page-hero__content {
+    max-width: 680px;
+    margin: 0 auto;
+    animation: fadeUp 0.8s ease both;
+}
+
+.page-hero__content h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+}
+.page_hero_subtext {
+    font-size: 1.2rem;
+}
+/* ========================================
+   RAÍCES EN LA TRADICIÓN
+   ======================================== */
+.raices {
+    padding: 6rem 0;
+    background-color: #f5f0e8;
+}
+
+.raices__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.raices__image img {
+    border-radius: var(--radius);
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+    box-shadow: var(--shadow);
+}
+
+/* ========================================
+   NUESTROS VALORES
+   ======================================== */
+.valores {
+    padding: 6rem 0;
+    background-color: var(--color-bg);
+}
+
+.valores__cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.valor-card {
+    border: 2px solid var(--color-card-border);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.valor-card:hover {
+    border-color: var(--color-green);
+    box-shadow: 0 0 0 1px var(--color-green);
+    /*transform: translateY(-3px);*/
+}
+
+.valor-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: var(--color-bg-alt);
+    color: var(--color-green);
+    margin-bottom: 1.2rem;
+}
+
+/* ========================================
+   NUESTROs VALORES
+   ======================================== */
+.equipo {
+    padding: 6rem 0;
+    background-color: var(--color-bg-alt);
+}
+
+.equipo__cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+.equipo-card {
+    border: 2px solid var(--color-card-border);
+    border-radius: var(--radius);
+    padding: 2rem 2rem;
+    transition: box-shadow var(--transition), transform var(--transition);
+}
+.equipo-card__avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background-color: var(--color-bg-alt);
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    /*border: solid 1px red;*/
+}
+.equipo-card__role {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+}
+/* ========================================
+   LOS PINARES DE PORTILLO
+   ======================================== */
+.pinares {
+    padding: 6rem 0;
+    background-color: var(--color-bg);
+}
+
+.pinares__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+.emoji-list {
+    margin-top: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.emoji-list li {
+    font-size: 1rem;
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.emoji-list li span {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.pinares__image img {
+    border-radius: var(--radius);
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+    box-shadow: var(--shadow);
+}
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 900px) {
+    .raices__grid,
+    .pinares__grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .valores__cards {
+        grid-template-columns: 1fr;
+    }
+
+    .equipo__cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {}

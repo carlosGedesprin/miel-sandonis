@@ -236,7 +236,8 @@ $dispatcher = \FastRoute\simpleDispatcher($routesDefinitionsCallback);
 */
 $dispatcher = \FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r)
 {
-    $r->addRoute(['GET', 'POST'], '/show_message', 'defaultController:showmessageAction');
+    // Security
+    $r->addRoute('GET', '/webstatus/{status}', 'web/securityViewController:webstatusAction');
 
     // SiteMap
     $r->addRoute('GET', '/sitemap_website.xml', 'sitemapController:sitemapAction');
@@ -244,24 +245,16 @@ $dispatcher = \FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r)
     // Web
     $r->addRoute(['GET', 'POST'], '/', 'web/webController:indexAction');
     $r->addRoute(['GET', 'POST'], '/home', 'web/webController:indexAction');
+    $r->addRoute(['GET', 'POST'], '/inicio', 'web/webController:indexAction');
 
-    $r->addRoute(['GET', 'POST'], '/templates', 'web/webController:templatesAction');
+    $r->addRoute(['GET', 'POST'], '/conservation', 'web/webController:conservationAction');
+    $r->addRoute(['GET', 'POST'], '/conservacion', 'web/webController:conservationAction');
 
-    $r->addRoute(['GET', 'POST'], '/solutions', 'web/webController:solutionsAction');
-    $r->addRoute(['GET', 'POST'], '/soluciones', 'web/webController:solutionsAction');
-
-    $r->addRoute(['GET', 'POST'], '/solution_invoices', 'web/webController:solutionInvoicesAction');
-    $r->addRoute(['GET', 'POST'], '/solution_expense_notes', 'web/webController:solutionExpenseNotesAction');
-    $r->addRoute(['GET', 'POST'], '/solution_personal_assistant', 'web/webController:solutionPersonalAssistantAction');
-
-
-    $r->addRoute(['GET', 'POST'], '/sectores', 'web/webController:sectorsAction');
-    $r->addRoute(['GET', 'POST'], '/sectors', 'web/webController:sectorsAction');
-
-    $r->addRoute(['GET', 'POST'], '/sector/{sector_slug}', 'web/webController:sectorAction');
+    $r->addRoute(['GET', 'POST'], '/our-honney', 'web/webController:ourHonneyAction');
+    $r->addRoute(['GET', 'POST'], '/nuestra-miel', 'web/webController:ourHonneyAction');
 
     $r->addRoute(['GET', 'POST'], '/about-us', 'web/webController:aboutUsAction');
-    $r->addRoute(['GET', 'POST'], '/conocenos', 'web/webController:aboutUsAction');
+    $r->addRoute(['GET', 'POST'], '/nosotros', 'web/webController:aboutUsAction');
 
     $r->addRoute(['GET', 'POST'], '/contacto', 'web/contactController:contactAction');
     $r->addRoute(['GET', 'POST'], '/contact', 'web/contactController:contactAction');
@@ -270,25 +263,6 @@ $dispatcher = \FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r)
     $r->addRoute(['GET', 'POST'], '/contacto-gracias', 'web/contactController:contactThanksAction');
 
     $r->addRoute(['GET', 'POST'], '/baja-mails/{email}/{token}', 'web/securityViewController:unsubscribeAction');
-
-    $r->addRoute(['GET', 'POST'], '/contacto-feria', 'web/contactFairController:contactAction');
-
-    $r->addGroup('/solution', function (FastRoute\RouteCollector $r) {
-        $r->addRoute(['GET', 'POST'], '/instagram-grow', 'web/solutionController:solutionInstagramGrowAction');
-        $r->addRoute(['GET', 'POST'], '/crecer-en-instagram', 'web/solutionController:solutionInstagramGrowAction');
-        $r->addRoute(['GET', 'POST'], '/invoicing', 'web/solutionController:solutionInvoicingAction');
-        $r->addRoute(['GET', 'POST'], '/facturacion', 'web/solutionController:solutionInvoicingAction');
-        $r->addRoute(['GET', 'POST'], '/personal-assistant', 'web/solutionController:solutionPersonalAssistantAction');
-        $r->addRoute(['GET', 'POST'], '/asistente-personal', 'web/solutionController:solutionPersonalAssistantAction');
-        $r->addRoute(['GET', 'POST'], '/bookings-agent', 'web/solutionController:solutionBookingsAgentAction');
-        $r->addRoute(['GET', 'POST'], '/agente-de-reservas', 'web/solutionController:solutionBookingsAgentAction');
-        $r->addRoute(['GET', 'POST'], '/agent-no-show', 'web/solutionController:solutionAgentNoShowAction');
-        $r->addRoute(['GET', 'POST'], '/agente-confirmacion-cita', 'web/solutionController:solutionAgentNoShowAction');
-        $r->addRoute(['GET', 'POST'], '/linkedin-instagram-scrapping', 'web/solutionController:solutionLinkedinInstagramScrappingAction');
-        $r->addRoute(['GET', 'POST'], '/buscador-contactos-linkedin-instagram', 'web/solutionController:solutionLinkedinInstagramScrappingAction');
-        $r->addRoute(['GET', 'POST'], '/web-scraping', 'web/solutionController:solutionWebScrapingAction');
-        $r->addRoute(['GET', 'POST'], '/obten-informacion-cualquier-sitio-web', 'web/solutionController:solutionWebScrapingAction');
-    });
 
     // Blog
     $r->addGroup('/blog', function (FastRoute\RouteCollector $r) {
@@ -307,75 +281,6 @@ $dispatcher = \FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r)
         $r->addRoute(['GET', 'POST'], '/article/{slug}/', 'web/blogViewController:articleAction');
         $r->addRoute(['GET', 'POST'], '/{slug}', 'web/blogViewController:blogSlugAction');
         $r->addRoute(['GET', 'POST'], '/{slug}/', 'web/blogViewController:blogSlugAction');
-
-    });
-
-    //Payments
-    $r->addGroup('/payments', function (FastRoute\RouteCollector $r) {
-
-        include 'routes_payments.php';
-
-    });
-
-    $r->addGroup('/api', function (FastRoute\RouteCollector $r) {
-
-        $r->addRoute(['GET', 'POST'], '/get_product', 'api/automationController:getProductAction');
-
-        include 'routes_api_n8n.php';
-
-    });
-
-    $r->addGroup('/ajax', function (FastRoute\RouteCollector $r) {
-        // Locations
-        $r->addRoute(['GET', 'POST'], '/get_regions/{country:\d+}', 'ajaxController:getregionsAction');
-        $r->addRoute(['GET', 'POST'], '/get_cities/{country:\d+}/{region:\d+}', 'ajaxController:getcitiesAction');
-        // User
-        $r->addRoute(['GET', 'POST'], '/get_user/{id:\d+}', 'ajaxController:getUserAction');
-        $r->addRoute(['GET', 'POST'], '/get_user_profile/{id:\d+}', 'ajaxController:getUserProfileAction');
-
-        $r->addRoute('POST', '/user_password', 'ajaxController:user_passwordAction');
-        $r->addRoute('POST', '/user_email', 'ajaxController:user_emailAction');
-
-        $r->addRoute(['GET', 'POST'], '/mail_queue/resend/{user:\d+}/{id:\d+}', 'ajaxController:resend_emailAction');
-    });
-
-    // Cron
-    $r->addGroup('/cron', function (FastRoute\RouteCollector $r) {
-        $r->addRoute(['GET', 'POST'], '/{img}', 'cronController:webcronAction');    // Called in any webpage footer
-        $r->addRoute(['GET', 'POST'], '/time/{time}', 'cronController:scheduledCronAction');   // To use with OS cron daemon time = minute / hour / day
-    });
-
-    // Security
-    $r->addRoute('GET', '/webstatus/{status}', 'web/securityViewController:webstatusAction');
-    $r->addRoute(['GET', 'POST'], '/login', 'web/securityViewController:loginAction');
-    $r->addRoute('GET', '/logout', 'web/securityViewController:logoutAction');
-
-    $r->addRoute('GET', '/session-expired', 'web/securityViewController:expiredAction');
-    $r->addRoute('GET', '/activate-user/{token}', 'web/securityViewController:activateUserAction');
-    $r->addRoute(['GET', 'POST'], '/forgot-password', 'web/securityViewController:forgotPasswordAction');
-    $r->addRoute(['GET', 'POST'], '/forgot_password', 'web/securityViewController:forgotPasswordAction');
-    $r->addRoute(['GET', 'POST'], '/change-password/{email}/{token}', 'web/securityViewController:changePasswordAction');
-    $r->addRoute(['GET', 'POST'], '/change-password', 'web/securityViewController:changePasswordAction');
-
-    // App
-    $r->addGroup('/app', function (FastRoute\RouteCollector $r) {
-
-        include 'routes_app.php';
-
-    });
-
-    //Control Panel
-    $r->addGroup('/control_panel', function (FastRoute\RouteCollector $r) {
-
-        include 'routes_control_panel.php';
-
-    });
-
-    // Test
-    $r->addGroup('/test', function (FastRoute\RouteCollector $r) {
-
-        include 'routes_test.php';
-
     });
 
     // Legal

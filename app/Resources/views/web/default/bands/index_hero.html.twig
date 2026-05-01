@@ -1,36 +1,114 @@
-{% set path = '/assets/images/web/'~config.website_skin~'/bands/template/' %}
-{% set img_1 = path ~ 'index_hero_1.png' %}
+{% set path = '/assets/images/web/'~config.website_skin~'/bands/index_hero/' %}
 
-<section id="index_hero" class="web_section">
-    <div id="index_hero_container" class="web_container">
-        <div id="index_hero_content" class="web_content">
+<section class="hero">
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+        <h1 class="hero__title">Apicultura Sostenible en los <br><span class="hero__title--accent">Pinares de Portillo</span></h1>
+        <p class="hero__subtitle">Protegiendo las abejas y el medio ambiente a través de prácticas apícolas responsables y respetuosas con la naturaleza.</p>
+        <div class="hero__buttons">
+            <a href="/nosotros" class="btn btn--primary">Conoce Nuestra Historia</a>
+            {# <a href="#" class="btn btn--secondary">Blog Educativo</a>#}
+        </div>
+    </div>
+</section>
 
-            <div id="index_hero_text_content">
-                <div id="index_hero_text">
-                    <h1>
-                        {{ lang.WEB_INDEX_HERO_1 | raw }} {#Crece más rápido y con más beneficios#}
-                    </h1>
-                    <p>
-                        {{ lang.WEB_INDEX_HERO_2 | raw }} {#Ahorra tiempo, reduce costes y dedícate a lo que importa#}
-                    </p>
-                    <p>
-                        {{ lang.WEB_INDEX_HERO_3 | raw }} {#Libera a tu negocio de esas tareas repetitivas de bajo valor y alto coste#}
-                    </p>
-                    <p style="font-weight: 700;">
-                        {{ lang.WEB_INDEX_HERO_4 | raw }} {#Automatiza. Escala. Crece#}
-                    </p>
-                    <div id="index_hero_button" class="generic_button">
-                        <a href="{{ lang.WEB_MENU_CONTACT_LINK }}">
-                            {{ lang.WEB_INDEX_HERO_5 | raw }} {#Empezamos#} >
-                        </a>
-                    </div>
+<!-- NUESTRO COMPROMISO -->
+<section class="compromiso">
+    <div class="container">
+        <h2 class="section__title">Nuestro compromiso</h2>
+        <p class="section__subtitle">La apicultura sostenible es más que una práctica, es nuestra forma de vida y nuestro compromiso con las generaciones futuras.</p>
+        <div class="cards">
+            <div class="card">
+                <div class="card__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                    </svg>
                 </div>
+                <h3>Apicultura Sostenible</h3>
+                <p>Practicamos métodos respetuosos con el medio ambiente que protegen a las abejas y su hábitat natural.</p>
             </div>
-
-            <div id="index_hero_img">
-                <img src="{{ img_1 }}" alt="">
+            <div class="card card--highlighted">
+                <div class="card__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                </div>
+                <h3>Amor por las Abejas</h3>
+                <p>Cada colmena recibe cuidados especializados para garantizar el bienestar de nuestras abejas.</p>
             </div>
+            <div class="card">
+                <div class="card__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"aria-hidden="true" focusable="false">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                    </svg>
+                </div>
+                <h3>Educación Ambiental</h3>
+                <p>Compartimos conocimientos sobre la importancia de las abejas en nuestro ecosistema.</p>
+            </div>
+            <div class="card">
+                <div class="card__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"aria-hidden="true" focusable="false">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                </div>
+                <h3>Conservación</h3>
+                <p>Trabajamos activamente en la protección de los pinares y la biodiversidad local.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
+<!-- APICULTURA CON RESPETO AMBIENTAL -->
+<section class="respeto">
+    <div class="container respeto__grid">
+        <div class="respeto__image">
+            <img src="{{ path }}index_hero_2.jpg" alt="Apicultor sosteniendo un marco con abejas" />
+        </div>
+        <div class="respeto__text">
+            <h2>Apicultura con respeto ambiental</h2>
+            <p>En los pinares de Portillo, practicamos una apicultura que respeta el equilibrio natural del ecosistema. Nuestras colmenas se integran armoniosamente en el bosque, permitiendo que las abejas trabajen en su entorno natural.</p>
+            <p>Cada decisión que tomamos está guiada por el principio de sostenibilidad: desde la ubicación de las colmenas hasta los métodos de extracción de miel, todo está diseñado para minimizar nuestro impacto y maximizar el bienestar de las abejas.</p>
+            <a href="/conservacion" class="btn btn--primary">Nuestras prácticas sostenibles</a>
+        </div>
+    </div>
+</section>
+
+<!-- IMPORTANCIA DE PROTEGER LAS ABEJAS -->
+<section class="proteger">
+    <div class="container proteger__grid">
+        <div class="proteger__text">
+            <h2>La importancia de proteger las abejas</h2>
+            <p>Las abejas son polinizadores esenciales para nuestro ecosistema. Más del 75% de los cultivos alimentarios del mundo dependen de la polinización, y las abejas son responsables de gran parte de este trabajo vital.</p>
+            <p>Sin embargo, las poblaciones de abejas están en declive debido al cambio climático, el uso de pesticidas y la pérdida de hábitat. Por eso, nuestra misión va más allá de la producción de miel: trabajamos activamente en la conservación y educación ambiental.</p>
+            <ul class="check-list">
+                <li>Polinización de cultivos y plantas silvestres</li>
+                <li>Mantenimiento de la biodiversidad</li>
+                <li>Indicadores de la salud del ecosistema</li>
+            </ul>
+            <a href="#" class="btn btn--outline">Aprende más en nuestro Facebook</a>
+        </div>
+        <div class="proteger__image">
+            <img src="{{ path }}index_hero_3.jpg" alt="Abeja sobre las flores del membrillo" />
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+    <div class="container cta__inner">
+        <h2>¿Quieres saber más?</h2>
+        <p>Contáctanos para conocer más sobre nuestras prácticas sostenibles, visitar nuestras colmenas o adquirir nuestros productos.</p>
+        <a href="/contacto" class="btn btn--white">Contactar</a>
+    </div>
+</section>
+
+<!-- SELLOS / CERTIFICACIONES -->
+<section class="sellos">
+    <div class="container sellos__inner">
+        <p class="sellos__texto">Producto reconocido por</p>
+        <div class="sellos__logos">
+            <img src="{{ path }}alimentos_artesanos_cyl_small.png" alt="Alimentos Artesanales CyL" />
+            <img src="{{ path }}alimentos_artesanos_valladolid_small.png" alt="Alimentos de Valladolid" />
         </div>
     </div>
 </section>

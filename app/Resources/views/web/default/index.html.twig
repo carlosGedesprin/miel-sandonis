@@ -3,8 +3,8 @@
 {% set this_page = 'home' %}
 {% set this_route_all = '/' ~ lang.WEB_MENU_HOME_LINK %}
 {% set this_route = '' %}
-{% set this_page_title = lang.WEB_TITLE_HOME %}
-{% set this_page_metadescription = lang.WEB_METADESCRIPTION_HOME %}
+{% set this_page_title = 'Miel Sandonis | Apicultura Sostenible en los Pinares de Portillo' %}
+{% set this_page_metadescription = 'Miel artesanal de los Pinares de Portillo y Villaverde de Medina. Apicultura sostenible en Valladolid, Castilla y León. Producción respetuosa con las abejas y el medio ambiente.' %}
 
 {% block seo_meta %}
 	<meta property="og:locale" content="{{ session[config['cookies_prefix']~'_locale'] }}" />
@@ -40,367 +40,6 @@
 {% endblock %}
 
 {% block ld_json %}
-    <script type="application/ld+json">
-		{
-			"@context": "https://schema.org",
-			"@type": "WebPage",
-			"name": "{{ lang.WEB_TITLE_HOME }}",
-			"url": "{{ env.protocol }}://{{ env.domain }}",
-			"description": "{{ this_page_metadescription }}",
-			"inLanguage": "{{ env.lang }}",
-			"datePublished": "2024-01-01",
-			"dateModified": "2025-12-10",
-			"isPartOf": {
-				"@type": "WebSite",
-				"name": "{{ config.web_name }}",
-				"url": "{{ env.protocol }}://{{ env.domain }}",
-				"publisher": {
-					"@type": "Organization",
-					"name": "{{ config.web_name }}",
-					"url": "{{ env.protocol }}://{{ env.domain }}",
-					"logo": {
-						"@type": "ImageObject",
-						"url": "{{ env.protocol }}://{{ env.domain }}/assets/images/web/default/logo_with_text_hor.png",
-						"caption": "{{ lang.WEB_MENU_LOGO_ALT_TEXT }}"
-					},
-					"sameAs": [
-								  {% if config.company_facebook != '' %}"{{ config.company_facebook }}",{% endif %}
-								  {% if config.company_twitter != '' %}"{{ config.company_twitter }}",{% endif %}
-								  {% if config.company_instagram != '' %}"{{ config.company_instagram }}",{% endif %}
-								  {% if config.company_linkedin != '' %}"{{ config.company_linkedin }}",{% endif %}
-								  {% if config.company_youtube != '' %}"{{ config.company_youtube }}",{% endif %}
-								  {% if config.company_pinterest != '' %}"{{ config.company_pinterest }}"{% endif %}
-					]
-				},
-				"potentialAction": [
-					{
-						"@type": "ContactAction",
-						"name": "{{ lang.WEB_METADESCRIPTION_CONTACT }}",
-						"target": "{{ env.protocol }}://{{ env.domain }}/{{ lang.WEB_MENU_CONTACT_LINK }}"
-					},
-					{
-						"@type": "ViewAction",
-						"name": "{{ lang.WEB_FREE_AUDIT_REQUEST }}",
-						"target": "{{ env.protocol }}://{{ env.domain }}/{{ lang.WEB_MENU_CONTACT_LINK }}"
-					}
-				]
-			},
-			"primaryImageOfPage": {
-				"@type": "ImageObject",
-				"url": "{{ env.protocol }}://{{ env.domain }}/assets/images/web/default/logo_with_text_hor.png",
-				"caption": "{{ lang.WEB_MENU_LOGO_ALT_TEXT }}",
-				"width": "400",
-				"height": "200"
-			},
-			"breadcrumb": {
-				"@type": "BreadcrumbList",
-				"itemListElement": [
-					{
-						"@type": "ListItem",
-						"position": 1,
-						"name": "{{ lang.WEB_MENU_HOME }}",
-						"item": "{{ env.protocol }}://{{ env.domain }}"
-					}
-				]
-			},
-{#
-			"about": [
-				{
-					"@type": "Thing",
-					"name": "Accesibilidad Web",
-					"sameAs": "https://www.w3.org/WAI/"
-				},
-				{
-					"@type": "Thing",
-					"name": "WCAG 2.1",
-					"sameAs": "https://www.w3.org/WAI/WCAG21/quickref/"
-				},
-				{
-					"@type": "Thing",
-					"name": "UNE-EN 301549",
-					"sameAs": "https://www.une.org/"
-				}
-			],
-#}
-			"keywords": [
-				"process automation",
-				"automatizacion de procesos",
-				"Chatbots"
-			],
-			"audience": [
-				{
-					"@type": "Audience",
-					"audienceType": "Businesses",
-					"geographicArea": {
-						"@type": "Place",
-						"name": "Worldwide"
-					}
-				},
-				{
-					"@type": "Audience",
-					"audienceType": "Public Administrations",
-					"geographicArea": {
-						"@type": "Place",
-						"name": "Global"
-					}
-				},
-				{
-					"@type": "Audience",
-					"audienceType": "Digital Agencies",
-					"geographicArea": {
-						"@type": "Place",
-						"name": "International"
-					}
-				}
-			],
-			"mainEntity": {
-				"@type": "Organization",
-				"name": "{{ config.web_name }}",
-				"url": "{{ env.protocol }}://{{ env.domain }}",
-				"logo": {
-					"@type": "ImageObject",
-					"url": "{{ env.protocol }}://{{ env.domain }}/assets/images/web/default/logo_with_text_hor.png",
-					"caption": "{{ lang.WEB_MENU_LOGO_ALT_TEXT }}",
-					"width": "400",
-					"height": "200"
-				},
-				"description": "{{ lang.WEB_LDJSON_COMPANY_DESCRIPTION }}",
-				"foundingDate": "2021",
-				"slogan": "{{ lang.WEB_LDJSON_COMPANY_KNOWSABOUT }}",
-				"contactPoint": {
-					"@type": "ContactPoint",
-					"contactType": "customer service",
-					"telephone": "{{ config.web_info_phone }}",
-					"email": "info@{{ env.domain }}",
-					"availableLanguage": ["es", "en"]
-				},
-				"address": {
-					"@type": "PostalAddress",
-					"streetAddress": "{{ config.company_address_1 }}",
-					"addressLocality": "{{ config.company_address_4 }}",
-                	"addressRegion": "{{ config.company_address_5 }}",
-					"postalCode": "{{ config.company_postcode }}",
-					"addressCountry": "{{ env.country }}"
-				},
-				"sameAs": [
-						  {% if config.company_facebook != '' %}"{{ config.company_facebook }}",{% endif %}
-						  {% if config.company_twitter != '' %}"{{ config.company_twitter }}",{% endif %}
-						  {% if config.company_instagram != '' %}"{{ config.company_instagram }}",{% endif %}
-						  {% if config.company_linkedin != '' %}"{{ config.company_linkedin }}",{% endif %}
-						  {% if config.company_youtube != '' %}"{{ config.company_youtube }}",{% endif %}
-						  {% if config.company_pinterest != '' %}"{{ config.company_pinterest }}"{% endif %}
-				],
-				"makesOffer": [
-					{
-						"@type": "Offer",
-						"itemOffered": {
-							"@type": "Service",
-							"name": "{{ lang.WEB_LDJSON_COMPANY_OFFER_1_NAME }}",
-							"description": "{{ lang.WEB_LDJSON_COMPANY_OFFER_1_DESC }}",
-							"url": "{{ env.protocol }}://{{ env.domain }}/contacto",
-							"image": {
-								"@type": "ImageObject",
-								"url": "{{ env.protocol }}://{{ env.domain }}/assets/images/web/default/logo_with_text_hor.png",
-								"caption": "{{ lang.WEB_LDJSON_COMPANY_OFFER_1_ALT }} - {{ config.web_name }}"
-							},
-							"serviceType": "{{ lang.WEB_LDJSON_COMPANY_OFFER_1_SERVICE_TYPE }}",
-							"areaServed": {
-								"@type": "Place",
-								"name": "Worldwide"
-							},
-							"category": "{{ lang.WEB_LDJSON_COMPANY_OFFER_1_SERVICE_CATEGORY }}",
-							"provider": {
-								"@type": "Organization",
-								"name": "{{ config.web_name }}",
-								"url": "{{ env.protocol }}://{{ env.domain }}",
-								"logo": {
-									"@type": "ImageObject",
-									"url": "{{ env.protocol }}://{{ env.domain }}/assets/images/web/default/logo_with_text_hor.png",
-									"caption": "{{ lang.WEB_MENU_LOGO_ALT_TEXT }}"
-								}
-							}{#,
-							"additionalProperty": [
-								{
-									"@type": "PropertyValue",
-									"name": "Estándares evaluados",
-									"value": "WCAG 2.1 AA, UNE-EN 301549"
-								},
-								{
-									"@type": "PropertyValue",
-									"name": "Entrega",
-									"value": "Informe detallado con recomendaciones"
-								}
-							],
-							#}
-						},
-						"availability": "https://schema.org/InStock",
-						"validFrom": "2024-01-01"
-					}
-				]{#,
-				"hasOfferCatalog": {
-					"@type": "OfferCatalog",
-					"name": "Servicios de Automatizaciónde procesos",
-					"itemListElement": [
-						{
-							"@type": "OfferCatalog",
-							"name": "Auditorías de Accesibilidad",
-							"description": "Evaluaciones completas de cumplimiento normativo"
-						},
-						{
-							"@type": "OfferCatalog",
-							"name": "Herramientas de Accesibilidad",
-							"description": "Widget y plugins para mejorar la accesibilidad web"
-						},
-						{
-							"@type": "OfferCatalog",
-							"name": "Formación y Consultoría",
-							"description": "Capacitación especializada en inclusión digital"
-						}
-					]
-				}
-				#}
-			},
-			"potentialAction": [
-				{
-					"@type": "ViewAction",
-					"name": "Solicitar consultoría",
-					"target": "{{ env.protocol }}://{{ env.domain }}/{{ lang.WEB_MENU_CONTACT_LINK }}"
-				},
-				{
-					"@type": "ContactAction",
-					"target": "{{ env.protocol }}://{{ env.domain }}/{{ lang.WEB_MENU_CONTACT_LINK }}"
-				}
-			]
-		}
-	</script>
-	<script type="application/ld+json">
-		{
-			"@context": "https://schema.org",
-			"@type": "FAQPage",
-			"mainEntity": [
-				{
-					"@type": "Question",
-					"name": "{{ lang.WEB_INDEX_FAQ_TEXT_2 }}",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "{{ lang.WEB_INDEX_FAQ_TEXT_3 }}"
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "{{ lang.WEB_INDEX_FAQ_TEXT_10 }}",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "{{ lang.WEB_INDEX_FAQ_2_LDJSON }}"
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "{{ lang.WEB_INDEX_FAQ_TEXT_17 }}",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "{{ lang.WEB_INDEX_FAQ_3_LDJSON }}"
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "{{ lang.WEB_INDEX_FAQ_TEXT_19 }}",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "{{ lang.WEB_INDEX_FAQ_4_LDJSON }}"
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "{{ lang.WEB_INDEX_FAQ_TEXT_21 }}",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "{{ lang.WEB_INDEX_FAQ_5_LDJSON }}"
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "{{ lang.WEB_INDEX_FAQ_TEXT_23 }}",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "{{ lang.WEB_INDEX_FAQ_6_LDJSON }}"
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "{{ lang.WEB_INDEX_FAQ_TEXT_25 }}",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "{{ lang.WEB_INDEX_FAQ_TEXT_26 }}"
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "{{ lang.WEB_INDEX_FAQ_TEXT_27 }}",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "{{ lang.WEB_INDEX_FAQ_8_LDJSON }}"
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "{{ lang.WEB_INDEX_FAQ_TEXT_29 }}",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "{{ lang.WEB_INDEX_FAQ_9_LDJSON }}"
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "{{ lang.WEB_INDEX_FAQ_TEXT_31 }}",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "{{ lang.WEB_INDEX_FAQ_10_LDJSON }}"
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "{{ lang.WEB_INDEX_FAQ_TEXT_35 }}",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "{{ lang.WEB_INDEX_FAQ_11_LDJSON }}"
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "{{ lang.WEB_INDEX_FAQ_TEXT_37 }}",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "{{ lang.WEB_INDEX_FAQ_12_LDJSON }}"
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "{{ lang.WEB_INDEX_FAQ_TEXT_39 }}",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "{{ lang.WEB_INDEX_FAQ_13_LDJSON }}"
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "{{ lang.WEB_INDEX_FAQ_TEXT_41 }}",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "{{ lang.WEB_INDEX_FAQ_14_LDJSON }}"
-					}
-				},
-				{
-					"@type": "Question",
-					"name": "{{ lang.WEB_INDEX_FAQ_TEXT_46 }}",
-					"acceptedAnswer": {
-						"@type": "Answer",
-						"text": "{{ lang.WEB_INDEX_FAQ_15_LDJSON }}"
-					}
-				}
-			]
-		}
-	</script>
 {% endblock %}
 
 {% block title %}{{ this_page_title }} - {{ parent() }}{% endblock %}
@@ -409,16 +48,18 @@
 
     <div id="index_main">
 
+		{% include 'web/' ~ config.website_skin ~ '/header.html.twig' %}
 		{% include 'web/' ~ config.website_skin ~ '/bands/index_hero.html.twig' %}
-        <a href="#" id="topofthepage" aria-label="{{ lang.WEB_TOP_OF_THE_PAGE }}"></a>
+
+        {#
 		{% include 'web/' ~ config.website_skin ~ '/bands/index_benefits.html.twig' %}
+        <a href="#" id="topofthepage" aria-label="{{ lang.WEB_TOP_OF_THE_PAGE }}"></a>
 		{% include 'web/' ~ config.website_skin ~ '/bands/index_percentajes.html.twig' %}
 		{% include 'web/' ~ config.website_skin ~ '/bands/index_what_can_be.html.twig' %}
 		{% include 'web/' ~ config.website_skin ~ '/bands/index_free_audit.html.twig' %}
 		{% include 'web/' ~ config.website_skin ~ '/bands/index_how.html.twig' %}
 		{% include 'web/' ~ config.website_skin ~ '/bands/index_customization.html.twig' %}
 		{% include 'web/' ~ config.website_skin ~ '/bands/index_faq.html.twig' %}
-        {#
 		{% include 'web/' ~ config.website_skin ~ '/bands/index_testimonials.html.twig' %}
 		{% include 'web/' ~ config.website_skin ~ '/bands/index_how_can_help.html.twig' %}
 		{% include 'web/' ~ config.website_skin ~ '/bands/index_sectors.html.twig' %}
@@ -431,7 +72,8 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="/assets/css/web/{{ config.website_skin }}/bands/index_hero.css" rel="stylesheet">
-    <link href="/assets/css/web/{{ config.website_skin }}/bands/index_benefits.css" rel="stylesheet">
+    <link href="/assets/css/web/{{ config.website_skin }}/header.css" rel="stylesheet">
+    {#
     <link href="/assets/css/web/{{ config.website_skin }}/bands/index_percentajes.css" rel="stylesheet">
     <link href="/assets/css/web/{{ config.website_skin }}/bands/index_what_can_be.css" rel="stylesheet">
     <link href="/assets/css/web/{{ config.website_skin }}/bands/index_free_audit.css" rel="stylesheet">
@@ -440,9 +82,8 @@
     <link href="/assets/css/web/{{ config.website_skin }}/bands/index_testimonials.css" rel="stylesheet">
     <link href="/assets/css/web/{{ config.website_skin }}/bands/index_how_can_help.css" rel="stylesheet">
     <link href="/assets/css/web/{{ config.website_skin }}/bands/index_sectors.css" rel="stylesheet">
-    {#
-    #}
     <link href="/assets/css/web/{{ config.website_skin }}/bands/index_faq.css" rel="stylesheet">
+    #}
 {% endblock %}
 
 {% block javascripts %}

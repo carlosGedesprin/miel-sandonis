@@ -1,13 +1,13 @@
 {% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
 
 {% set this_page = 'about_us' %}
-{% set this_route = '/' ~ lang.WEB_MENU_ABOUT_US_LINK %}
-{% set this_page_title = lang.WEB_TITLE_ABOUT_US %}
-{% set this_page_metadescription = lang.WEB_METADESCRIPTION_ABOUT_US %}
+{% set this_route = '/nosotros' %}
+{% set this_page_title = 'Nuestra Historia | Miel Sandonis – Apicultura Artesanal en Valladolid' %}
+{% set this_page_metadescription = 'Miel Sandonis nació hace más de 20 años de la mano de un matrimonio apasionado por las abejas y el entorno natural de los Pinares de Portillo. Una historia de dedicación, respeto y apicultura sostenible en Valladolid.' %}
 
 {% block seo_meta %}
 	<meta property="og:locale" content="{{ session[config['cookies_prefix']~'_locale'] }}" />
-	<meta property="og:type" content="website" />{# article #}
+	<meta property="og:type" content="website" />
 	<meta property="og:title" content="{{ this_page_title }} - {{ config.web_name }}" />
 	<meta property="og:description" content="{{ this_page_metadescription }}" />
 	<meta property="og:url" content="{{ site_url ~ this_route }}" />
@@ -47,17 +47,7 @@
 
     <div id="about_us_main">
 
-        {% include 'web/' ~ config.website_skin ~ '/bands/about_us_hero.html.twig' %}
-        <a href="#" id="topofthepage" aria-label="{{ lang.WEB_TOP_OF_THE_PAGE }}"></a>
-		{#
-        {% include 'web/' ~ config.website_skin ~ '/bands/about_us_leitmotiv.html.twig' %}
-        {% include 'web/' ~ config.website_skin ~ '/bands/about_us_what_we_do.html.twig' %}
-        {% include 'web/' ~ config.website_skin ~ '/bands/about_us_why_we_do_it.html.twig' %}
-        {% include 'web/' ~ config.website_skin ~ '/bands/about_us_mision_vision_values.html.twig' %}
-		{% include 'web/' ~ config.website_skin ~ '/bands/about_us_why_we_are_different.html.twig' %}
-		{% include 'web/' ~ config.website_skin ~ '/bands/about_us_who_is_helped.html.twig' %}
-		{% include 'web/' ~ config.website_skin ~ '/bands/about_us_how_it_started.html.twig' %}
-		#}
+        {% include 'web/' ~ config.website_skin ~ '/bands/about_us.html.twig' %}
 
     </div>
 
@@ -65,16 +55,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="/assets/css/web/{{ config.website_skin }}/bands/about_us_hero.css" rel="stylesheet">
-	{#
-    <link href="/assets/css/web/{{ config.website_skin }}/bands/about_us_what_we_do.css" rel="stylesheet">
-    <link href="/assets/css/web/{{ config.website_skin }}/bands/about_us_why_we_do_it.css" rel="stylesheet">
-    <link href="/assets/css/web/{{ config.website_skin }}/bands/about_us_why_we_are_different.css" rel="stylesheet">
-    <link href="/assets/css/web/{{ config.website_skin }}/bands/about_us_mision_vision_values.css" rel="stylesheet">
-    <link href="/assets/css/web/{{ config.website_skin }}/bands/about_us_who_is_helped.css" rel="stylesheet">
-    <link href="/assets/css/web/{{ config.website_skin }}/bands/about_us_how_it_started.css" rel="stylesheet">
-    <link href="/assets/css/web/{{ config.website_skin }}/bands/about_us_leitmotiv.css" rel="stylesheet">
-	#}
+    <link href="/assets/css/web/{{ config.website_skin }}/bands/about_us.css" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}
@@ -89,5 +70,4 @@
 
         })(jQuery);
     </script>
-	<script type="text/javascript" src="/assets/js/web/{{ config.website_skin }}/scrool-to-top.js"></script>
 {% endblock %}

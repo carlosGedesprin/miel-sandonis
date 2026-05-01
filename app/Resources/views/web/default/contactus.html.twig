@@ -1,13 +1,13 @@
 {% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
 
 {% set this_page = 'contactus' %}
-{% set this_route = '/' ~ lang.WEB_MENU_CONTACT_LINK %}
-{% set this_page_title = lang.WEB_TITLE_CONTACT %}
-{% set this_page_metadescription = lang.WEB_METADESCRIPTION_CONTACT %}
+{% set this_route = '/contactus' %}
+{% set this_page_title = 'Contacto | Miel Sandonis – Visitas y compra de miel' %}
+{% set this_page_metadescription = 'Contáctanos para pedir nuestra miel artesanal o para organizar una visita a nuestras colmenas en los Pinares de Portillo, Valladolid.' %}
 
 {% block seo_meta %}
 	<meta property="og:locale" content="{{ session[config['cookies_prefix']~'_locale'] }}" />
-	<meta property="og:type" content="website" />{# article #}
+	<meta property="og:type" content="website" />
 	<meta property="og:title" content="{{ this_page_title }} - {{ config.web_name }}" />
 	<meta property="og:description" content="{{ this_page_metadescription }}" />
 	<meta property="og:url" content="{{ site_url ~ this_route }}" />
@@ -48,15 +48,7 @@
     <div id="contactus_main">
 
 		<a href="#" id="error_messages" target="_self" aria-hidden="true" class="hidden">&nbsp;</a>
-		<a href="#" id="topofthepage" aria-label="{{ lang.WEB_TOP_OF_THE_PAGE }}"></a>
-		{% include 'web/' ~ config.website_skin ~ '/bands/contactus_hero.html.twig' %}
-		{#
-		{% include 'web/' ~ config.website_skin ~ '/bands/contact_form.html.twig' %}
-		{% include 'web/' ~ config.website_skin ~ '/bands/contact_partners.html.twig' %}
-		{% include 'web/' ~ config.website_skin ~ '/bands/contact_team.html.twig' %}
-		{% include 'web/' ~ config.website_skin ~ '/bands/contact_info.html.twig' %}
-		{% include 'web/' ~ config.website_skin ~ '/bands/old_contact_info.html.twig' %}
-		#}
+		{% include 'web/' ~ config.website_skin ~ '/bands/contactus.html.twig' %}
 
     </div>
 
@@ -64,14 +56,7 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="/assets/css/web/{{ config.website_skin }}/bands/contactus_hero.css" rel="stylesheet">
-    {#
-    <link href="/assets/css/web/{{ config.website_skin }}/bands/contact_form.css" rel="stylesheet">
-    <link href="/assets/css/web/{{ config.website_skin }}/bands/contact_partners.css" rel="stylesheet">
-    <link href="/assets/css/web/{{ config.website_skin }}/bands/contact_team.css" rel="stylesheet">
-    <link href="/assets/css/web/{{ config.website_skin }}/bands/contact_info.css" rel="stylesheet">
-    <link href="/assets/css/web/{{ config.website_skin }}/bands/old_contact_info.css" rel="stylesheet">
-    #}
+    <link href="/assets/css/web/{{ config.website_skin }}/bands/contactus.css" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}
@@ -79,7 +64,7 @@
 	<script>
 		$(document).ready(function(){
 
-			$('#footer_contact_form_form :input:enabled:visible:first').focus();
+			// $('#footer_contact_form_form :input:enabled:visible:first').focus();
 
 		});
 		(function($) {
@@ -102,5 +87,4 @@
 			})(jQuery);
 		</script>
 	{% endif %}
-	<script type="text/javascript" src="/assets/js/web/{{ config.website_skin }}/scrool-to-top.js"></script>
 {% endblock %}

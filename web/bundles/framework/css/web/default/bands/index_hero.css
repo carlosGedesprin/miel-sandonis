@@ -1,108 +1,323 @@
-#index_hero {
-}
-#index_hero_container {
-    background-color: var(--tertiary-background);
+
+.hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('https://mielsandonis.com/assets/images/web/default/bands/index_hero/index_hero_1_1.jpg') ;
+    background-size: cover;
+    background-position: center;
     /*border: solid 1px red;*/
 }
-#index_hero_content {
-    margin-left: 10px;
+.hero__overlay {
+    position: absolute;
+    inset: 0;
+    /* Mezclamos el color crema con un degradado que va hacia el color sólido del bloque 1 */
+    background: linear-gradient(
+            to bottom,
+            rgba(245, 240, 232, 0.2) 10%,   /* Tu color actual arriba */
+            rgba(245, 240, 232, 0.4) 40%,   /* Empieza a oscurecerse */
+            rgba(245, 240, 232, 0.8) 100%     /* Totalmente sólido al final */
+    );
+}
+.hero__content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 70%;
+    padding: 2rem;
+    animation: fadeUp 0.9s ease both;
+    /*border: solid 1px red;*/
+}
+.hero__title {
+    font-family: var(--font-ui);
+    /*font-size: clamp(4rem, 5vw, 3.4rem);*/
+    font-size: clamp(2.4rem, 7vw, 3.4rem);
+    font-weight: 700;
+    text-align: center;
+    color: var(--color-dark);
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+    /*border: solid 1px red;*/
+}
+.hero__title--accent {
+    color: var(--color-green-light);
+}
+.hero__subtitle {
+    font-family: var(--font-ui);
+    /*font-size: 1.5rem;*/
+    font-size: clamp(1.1rem, 4vw, 1.5rem);
+    color: var(--color-dark);
+    max-width: 540px;
+    margin: 0 auto 2rem;
+}
+/* ========================================
+   COMPROMISO
+   ======================================== */
+.compromiso {
+    padding: 6rem 0;
+    background-color: var(--color-bg);
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    /*border: solid 1px red;*/
+}
+
+.card {
+    background: transparent;
+    border: 2px solid var(--color-card-border);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.card:hover {
+    border-color: var(--color-green);
+    box-shadow: 0 0 0 1px var(--color-green);
+    /*box-shadow: var(--shadow);*/
+    /*transform: translateY(-3px);*/
+}
+
+.card--highlighted {
+    /*border-color: var(--color-green);*/
+    /*box-shadow: 0 0 0 1px var(--color-green);*/
+}
+
+.card__icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    color: var(--color-green);
+}
+
+/* ========================================
+   RESPETO AMBIENTAL
+   ======================================== */
+.respeto {
+    padding: 6rem 0;
+    background-color: var(--color-bg);
+}
+
+.respeto__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.respeto__image img {
+    border-radius: var(--radius);
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+    box-shadow: var(--shadow);
+}
+.respeto__text .btn {
+    margin-top: 0.75rem;
+}
+
+/* ========================================
+   PROTEGER LAS ABEJAS
+   ======================================== */
+.proteger {
+    padding: 6rem 0;
+    background-color: var(--color-bg-alt);
+    border-top: 1px solid var(--color-card-border);
+    border-bottom: 4px solid var(--color-green-dark);
+}
+
+.proteger__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+.check-list {
+    list-style-type: none;
+    margin: 1.2rem 0 1.5rem;
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
+}
+
+.check-list li {
+    font-size: 1.2rem;
+    color: var(--color-text);
+    padding-left: 1.5rem;
     position: relative;
-    z-index: 10;
-    overflow: hidden;
-    /*border: solid 1px green;*/
 }
-#index_hero_text_content {
-    width: 95%;
+
+.check-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-green-light);
+    font-weight: 700;
+}
+
+.proteger__image img {
+    border-radius: var(--radius);
+    width: 100%;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+    box-shadow: var(--shadow);
+}
+
+/* ========================================
+   CTA
+   ======================================== */
+.cta {
+    background-color: var(--color-green-dark);
+    padding: 5rem 0;
+}
+
+.cta__inner {
+    text-align: center;
+}
+
+.cta__inner h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 1rem;
+}
+
+.cta__inner p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 520px;
+    margin: 0 auto 2rem;
+}
+/* ========================================
+   SELLOS / CERTIFICACIONES
+   ======================================== */
+.sellos {
+    padding: 3.5rem 0;
+    background-color: var(--color-bg);
+    border-top: 1px solid var(--color-card-border);
+}
+
+.sellos__inner {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.sellos__texto {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.sellos__logos {
+    display: flex;
+    align-items: center;
     justify-content: center;
-    /*border: solid 1px red;*/
+    gap: 3rem;
+    flex-wrap: wrap;
 }
-#index_hero_text {
-    width: 95%;
-    /*border: solid 1px green;*/
-}
-#index_hero_text h1 {
-    color: var(--highlight-color);
-    letter-spacing: 2px;
-}
-#index_hero_button {
-    margin-bottom: 30px;
 
-}
-#index_hero_content::before,
-#index_hero_content::after {
-    transform: none; /* Elimina la inclinación en móviles */
-    /*width: 100%;*/
-    /*height: 30%;*/
-    /*opacity: 0.3;*/
-}
-#index_hero_img {
-    width: 50%;
-    /*border: solid 1px red;*/
-}
-#index_hero_img img {
+.sellos__logos img {
     width: auto;
-    height: 300px;
-}
-#index_hero_content::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 100%; /* Ajusta el ancho de la forma */
-    height: 70%; /* Ajusta la altura de la forma */
-    background: var(--secondary-background);
-    transform: skewY(-15deg); /* Inclinación de la forma */
-    transform-origin: bottom right;
-    z-index: -20;
-    opacity: 0.5;
-}
-#index_hero_content::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 80%;
-    height: 40%;
-    background-color: var(--tertiary-background);
-    transform: skewY(-10deg);
-    transform-origin: bottom right;
-    z-index: -10;
-    opacity: 0.7;
-}
-@media (min-width: 600px) {
-}
-@media (min-width: 900px) {
-    #index_hero_container {
-        background-color: var(--white);
-    }
-    #index_hero_content {
-        margin-left: 0;
-        flex-direction: row;
-        z-index: 10;
-    }
-    #index_hero_text_content {
-        width: 50%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-    #index_hero_text {
-        width: 60%;
-    }
-    #index_hero_button {
-        margin-bottom: 0;
-    }
-    #index_hero_img img {
-        width: auto;
-        height: 600px;
-    }
-}
-@media (min-width: 1200px) {
-}
-@media (min-width: 1400px) {
+    height: 145px;
+    /*border: solid 1px red;*/
 }
 
+/* ========================================
+   ANIMACIONES
+   ======================================== */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 900px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .respeto__grid,
+    .proteger__grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .proteger__image {
+        order: -1;
+    }
+
+    .footer__grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero__content {
+        max-width: 100%;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .footer__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section__title {
+        font-size: 1.7rem;
+    }
+    .sellos__logos {
+        gap: 2rem;
+    }
+
+    .sellos__logos img {
+        height: 85px;
+    }
+}
+
+
+@media (max-width: 320px) {
+    .hero__title {
+        /*font-size: 2.5rem;*/
+    }
+}
+
+@media (max-width: 480px) {
+    .hero__content {
+        max-width: 90%;
+        padding: 1.5rem;
+    }
+
+    .hero__title {
+        font-size: 2.2rem;
+        line-height: 1.15;
+    }
+
+    .hero__subtitle {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-btn {
+        display: flex;
+    }
+}

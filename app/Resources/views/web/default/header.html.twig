@@ -1,212 +1,30 @@
+{% set path = '/assets/images/web/'~config.website_skin~'/bands/index_hero/' %}
 
-<header id="header">
-    {% if env.developer == 'carlos' %}
-        {% include 'web/' ~ config.website_skin ~ '/header_helpers.html.twig' %}
-    {% endif %}
+<header class="header">
 
-    <section id="header_contact">
-        <div id="header_contact_band">
-            <div id="header_contact_band_phone" class="header_contact_band_item">
-                <i aria-hidden="true" class="{{ phone }} header-contact-icon" title="Llámanos y te resolvemos tus dudas"></i>
-                &nbsp;/&nbsp;
-                <a id="wa-link" href="https://api.whatsapp.com/send?phone=601556175" title="Contacta con nosotros por WhatsApp" target="_blank" class="header_contact_link">
-                    <i aria-hidden="true" title="Contacta con nosotros por WhatsApp" class="{{ whatsapp }} header-contact-icon"></i>&nbsp;{% if session[config['cookies_prefix']~'_locale'] == 'es' %}{{ config.web_info_phone }}{% else %}+44 749 60 57 196{% endif %}
-                </a>
-            </div>
-            <div id="header_contact_band_email" class="header_contact_band_item">
-                <i aria-hidden="true" class="{{ mail }} header-contact-icon"></i>&nbsp;
-                <a id="ph-link" href="mailto:info@altiraautomations.com" title="Envíanos un mensaje por email" target="_blank" class="header_contact_link">
-                    {{ config.web_info_email }}
-                </a>
-            </div>
-        </div>
-        <div id="header_contact_langs">
-            {{ data.langs | replace({'%this_route%': this_route }) | raw }}
-        </div>
-    </section>
-    <section id="header_menu">
-        <div id="header_menu_content">
+    <div id="header_menu_site_logo">
+        <a id="header_menu_site_logo_link" class="navbar-brand" href="/" title="Miel Sandonis">
+            <img id="header_menu_site_logo_img"
+                 src="{{ path }}logo.png"
+                 alt="Logo Miel Sandonis" />
+        </a>
+    </div>
 
-            <div id="header_menu_site_logo">
-                <a id="header_menu_site_logo_link" class="navbar-brand" href="/" title="{{ config.web_name_long }}">
-                    <img id="header_menu_site_logo_img"
-                         src="/assets/images/web/{{ config.website_skin }}/logo_with_text_hor.png"
-                         alt="{{ lang.WEB_MENU_LOGO_ALT_TEXT | raw }}" />
-                </a>
-            </div>
-            <div id="header_menu_menu" class="topnav">
-                <ul id="nav_left_items" class="nav_left_items">
-                    {% if env.env_env == 'dev' %}
-                        <li class="menu_item {% if this_page == 'templates' %}active{% endif %}">
-                            <a class="menu_link"
-                               href="/templates"
-                               title="Templates">
-                                Plantillas
-                            </a>
-                        </li>
-                    {% endif %}
-                    <li class="menu_item {% if this_page == 'solutions' %}active{% endif %}">
-                        <a class="menu_link"
-                           href="/{{ lang.WEB_MENU_SOLUTIONS_LINK }}"
-                           title="{{ lang.WEB_MENU_SOLUTIONS_TITLE }}">
-                            {{ lang.WEB_MENU_SOLUTIONS | raw }}
-                        </a>
-                    </li>
-                    <li class="menu_item {% if this_page == 'about_us' %}active{% endif %}">
-                        <a class="menu_link"
-                           href="/{{ lang.WEB_MENU_ABOUT_US_LINK }}"
-                           title="{{ lang.WEB_MENU_ABOUT_US_TITLE }}">
-                            {{ lang.WEB_MENU_ABOUT_US | raw }}
-                        </a>
-                    </li>
-                    <li class="menu_item {% if this_page == 'blog' %}active{% endif %}">
-                        <a class="menu_link"
-                                {% if env.country == 'ES' %}
-                                    href="/{{ lang.WEB_MENU_BLOG_LINK }}"
-                                {% else %}
-                                    href="/{{ lang.WEB_MENU_BLOG_LINK }}"
-                                {% endif %}
-                           title="{{ lang.WEB_MENU_BLOG_TITLE }}">
-                            {{ lang.WEB_MENU_BLOG }}
-                        </a>
-                    </li>
-                    <li class="menu_item {% if this_page == 'contactus' %}active{% endif %}">
-                        <a class="menu_link"
-                           href="/{{ lang.WEB_MENU_CONTACT_LINK }}"
-                           title="{{ lang.WEB_TITLE_CONTACT }}">
-                            {{ lang.WEB_MENU_CONTACT | raw }}
-                        </a>
-                    </li>
-                </ul>
-                <ul id="nav_right_items" class="nav_right_items">
-                    <li class="user_items">
-                        <div id="user_logged_buttons">
+    <button class="menu-btn" id="menu-btn"
+            aria-label="Abrir menú de navegación"
+            aria-expanded="false"
+            aria-controls="nav">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </button>
 
-                            {% if session[config['cookies_prefix']~'_UserGroup'] != '' %}
-                                <div id="site_control_panel" class="header_action_buttons nav-item">
-                                    <a href="/{{ groupFolder(session[config['cookies_prefix']~'_UserGroup']) }}/dashboard"
-                                       class="header_action_buttons_link"
-                                       title="{{ lang.WEB_DASHBOARD_TITLE }}">
-                                        {#
-                                        <div class="header_action_buttons_text">
-                                            {{ lang.WEB_DASHBOARD }}
-                                        </div>
-                                        #}
-                                        <svg id="site_control_panel_svg"
-                                             class="user_items_svg"
-                                             version="1.0" xmlns="http://www.w3.org/2000/svg"
-                                             width="512.000000pt"
-                                             height="512.000000pt"
-                                             viewBox="0 0 512.000000 512.000000"
-                                             preserveAspectRatio="xMidYMid meet">
-                                            <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                                               fill="#000000" stroke="none">
-                                                <path d="M186 4464 c-34 -11 -64 -31 -102 -68 -91 -92 -84 69 -84 -1836 0
--1903 -7 -1744 83 -1834 95 -95 -157 -87 2497 -84 l2335 3 50 27 c59 31 94 67
-126 128 l24 45 3 1695 c3 1931 10 1763 -84 1857 -91 91 150 83 -2478 82 -2033
-0 -2327 -2 -2370 -15z m4736 -182 l33 -32 0 -1690 0 -1690 -33 -32 -32 -33
--2330 0 -2330 0 -32 33 -33 32 0 1689 0 1689 25 27 c14 15 34 31 45 35 11 5
-1063 8 2337 7 l2318 -2 32 -33z"/>
-                                                <path d="M1193 4065 c-198 -36 -364 -123 -509 -269 -170 -169 -265 -378 -281
--613 -6 -88 -5 -92 20 -117 l26 -26 911 0 911 0 26 26 c25 25 26 28 20 117
--12 160 -51 286 -136 432 -62 107 -208 254 -320 323 -196 120 -445 168 -668
-127z m309 -159 c332 -64 579 -309 643 -638 l13 -68 -301 0 -301 0 102 104 c86
-87 102 108 102 135 0 43 -38 81 -81 81 -29 0 -52 -20 -194 -160 l-161 -160
--381 0 -381 0 13 68 c24 122 57 201 127 305 174 257 497 391 800 333z"/>
-                                                <path d="M2505 4055 l-25 -24 0 -1471 0 -1471 25 -24 24 -25 1071 0 1071 0 24
-25 25 24 0 1471 0 1471 -25 24 -24 25 -1071 0 -1071 0 -24 -25z m2055 -1495
-l0 -1360 -960 0 -960 0 0 1360 0 1360 960 0 960 0 0 -1360z"/>
-                                                <path d="M2985 3655 l-25 -24 0 -666 c0 -597 -2 -665 -16 -665 -27 0 -119
--101 -132 -146 -28 -95 -8 -168 65 -241 28 -29 59 -53 67 -53 14 0 16 -24 16
--185 0 -184 0 -186 25 -210 32 -33 78 -33 110 0 25 24 25 26 25 210 0 161 2
-185 16 185 8 0 39 24 67 52 73 74 93 147 65 242 -13 45 -105 146 -132 146 -14
-0 -16 68 -16 665 l0 666 -25 24 c-15 16 -36 25 -55 25 -19 0 -40 -9 -55 -25z
-m110 -1520 c50 -49 15 -135 -55 -135 -41 0 -80 39 -80 80 0 41 39 80 80 80 19
-0 40 -9 55 -25z"/>
-                                                <path d="M3545 3655 l-25 -24 0 -426 c0 -379 -2 -425 -16 -425 -27 0 -119
--101 -132 -146 -28 -95 -8 -168 65 -241 28 -29 59 -53 67 -53 14 0 16 -46 16
--425 l0 -426 25 -24 c32 -33 78 -33 110 0 l25 24 0 426 c0 379 2 425 16 425
-27 0 119 101 132 146 28 95 8 168 -65 242 -28 28 -59 52 -67 52 -14 0 -16 46
--16 425 l0 426 -25 24 c-15 16 -36 25 -55 25 -19 0 -40 -9 -55 -25z m110
--1040 c50 -49 15 -135 -55 -135 -41 0 -80 39 -80 80 0 19 9 40 25 55 15 16 36
-25 55 25 19 0 40 -9 55 -25z"/>
-                                                <path d="M4105 3655 c-25 -24 -25 -26 -25 -210 0 -161 -2 -185 -16 -185 -27 0
--119 -101 -132 -146 -28 -95 -8 -168 65 -241 28 -29 59 -53 67 -53 14 0 16
--68 16 -665 l0 -666 25 -24 c32 -33 78 -33 110 0 l25 24 0 666 c0 597 2 665
-16 665 27 0 119 101 132 146 28 95 8 168 -65 242 -28 28 -59 52 -67 52 -14 0
--16 24 -16 185 0 184 0 186 -25 210 -15 16 -36 25 -55 25 -19 0 -40 -9 -55
--25z m110 -560 c16 -15 25 -36 25 -55 0 -19 -9 -40 -25 -55 -15 -16 -36 -25
--55 -25 -19 0 -40 9 -55 25 -16 15 -25 36 -25 55 0 19 9 40 25 55 15 16 36 25
-55 25 19 0 40 -9 55 -25z"/>
-                                                <path d="M425 2855 c-25 -24 -25 -26 -25 -215 0 -189 0 -191 25 -215 l24 -25
-911 0 911 0 24 25 c25 24 25 26 25 215 0 189 0 191 -25 215 l-24 25 -911 0
--911 0 -24 -25z m1735 -215 l0 -80 -800 0 -800 0 0 80 0 80 800 0 800 0 0 -80z"/>
-                                                <path d="M425 2135 c-16 -15 -25 -36 -25 -55 0 -19 9 -40 25 -55 l24 -25 911
-0 911 0 24 25 c33 32 33 78 0 110 l-24 25 -911 0 -911 0 -24 -25z"/>
-                                                <path d="M425 1815 c-16 -15 -25 -36 -25 -55 0 -19 9 -40 25 -55 l24 -25 911
-0 911 0 24 25 c33 32 33 78 0 110 l-24 25 -911 0 -911 0 -24 -25z"/>
-                                                <path d="M425 1495 c-16 -15 -25 -36 -25 -55 0 -19 9 -40 25 -55 l24 -25 911
-0 911 0 24 25 c33 32 33 78 0 110 l-24 25 -911 0 -911 0 -24 -25z"/>
-                                                <path d="M905 1175 c-16 -15 -25 -36 -25 -55 0 -19 9 -40 25 -55 l24 -25 431
-0 431 0 24 25 c16 15 25 36 25 55 0 19 -9 40 -25 55 l-24 25 -431 0 -431 0
--24 -25z"/>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </div>
-                                <div id="site_logout" class="header_action_buttons nav-item">
-                                    <a href="/{{ lang.APP_LOGOUT_LINK }}"
-                                       class="log-icon header_action_buttons_link"
-                                       title="{{ lang.WEB_MENU_LOGOUT_TITLE }}">
-                                        {#
-                                        <div class="header_action_buttons_text">
-                                            {{ lang.WEB_MENU_LOGOUT }}
-                                        </div>
-                                        #}
-                                        <svg id="site_log_out_svg"
-                                             class="user_items_svg"
-                                             xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 448 512">
-                                            <path fill="#ff0000" stroke="none" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"/>
-                                        </svg>
-                                    </a>
-                                </div>
-                            {% else %}
-                                <a id="site_log_in"
-                                   href="/{{ lang.WEB_LOGIN_LINK }}"
-                                   class="log-icon header_action_buttons_link"
-                                   title="{{ lang.WEB_LOGIN_TITLE }}">
-                                    {#
-                                    <div class="header_action_buttons_text">
-                                        {{ lang.WEB_MENU_LOGIN }}
-                                    </div>
-                                    <svg id="site_log_in_svg"
-                                         class="user_items_svg"
-                                         xmlns="http://www.w3.org/2000/svg"
-                                         viewBox="0 0 448 512">
-                                        <path fill="#ffffff" stroke="none" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"/>
-                                    </svg>
-                                    #}
-                                    <svg id="site_log_in_svg"
-                                         class="user_items_svg"
-                                         xmlns="http://www.w3.org/2000/svg"
-                                         viewBox="0 0 448 512">
-                                        <path fill="#000" stroke="none" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"/>
-                                    </svg>
-                                </a>
-                            {% endif %}
-                        </div>
-
-                    </li>
-                </ul>
-
-                <a id="menu_toggle" href="#" class="icon" onclick="toggleMenu()" title="{{ lang.WEB_MENU_TOGGLE_NAVIGATION }}">
-                    <i id="icon_bars" class="fa fa-bars"></i>
-                </a>
-            </div>
-
-        </div>
-    </section>
-
+    <nav class="nav" id="nav" title="Menú Miel Sandonis">
+        <a href="/nosotros">Nosotros</a>
+        <a href="/conservacion">Conservación</a>
+         <a href="/nuestra-miel">Nuestra miel</a>
+        {#<a href="/blog">Blog</a>#}
+        <a href="/contacto">Contacto</a>
+    </nav>
 
 </header>

@@ -320,7 +320,7 @@
         --header_contact_height_mobile: 55px;
         --header_contact_height_desktop: 35px;
         --header_contact_top: {% if env.developer == 'carlos' %}calc( var(--header_helpers_height) + 5px ){% else %}var(--header_helpers_height){% endif %};
-        --header_menu_height: 115px;
+        --header_menu_height: 100px;
         --header_menu_top_mobile: calc(var(--header_helpers_height) + var(--header_contact_height_mobile));
         --header_menu_top_desktop: calc(var(--header_helpers_height) + var(--header_contact_height_desktop));
         --header_height_mobile: calc(var(--header_helpers_height) + var(--header_contact_height_mobile) + var(--header_menu_height));
@@ -352,7 +352,7 @@
 
 {% include 'web/' ~ config.website_skin ~ '/footer.html.twig' %}
 
-{% if env.developer == 'carlos' %}
+{% if false and env.developer == 'carlos' %}
     <img src="/cron/cron_image.img?sid={{ cookies['PHPSESSID'] }}" width="1" height="1" alt="cron" />
 {% endif %}
 
@@ -388,6 +388,17 @@
 
     <script src="/assets/js/web/{{ config.website_skin }}/header_menu.js"></script>
     <script src="/assets/js/web/{{ config.website_skin }}/footer.js"></script>
+
+    <script>
+        const btn = document.getElementById("menu-btn");
+        const nav = document.getElementById("nav");
+
+        btn.addEventListener("click", () => {
+            const expanded = btn.getAttribute("aria-expanded") === "true" || false;
+            btn.setAttribute("aria-expanded", !expanded);
+            nav.classList.toggle("active");
+        });
+    </script>
     <script>
         $(document).ready(function(){
 

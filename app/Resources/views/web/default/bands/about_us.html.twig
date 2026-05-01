@@ -1,0 +1,111 @@
+{% set path = '/assets/images/web/'~config.website_skin~'/bands/about_us/' %}
+{#{% set img_1 = path ~ 'about_us_hero.png' %}#}
+
+<!-- HERO: NUESTRA HISTORIA -->
+<section class="page-hero">
+    <div class="page-hero__content">
+        <h1>Nuestra Historia</h1>
+        <p class="page_hero_subtext">Somos Conrado (Viky para los amigos) y Minerva, un matrimonio apasionado por las abejas y los pinares de Portillo. Una historia que comenzó casi por casualidad y se convirtió en nuestra forma de vida. </p>
+    </div>
+</section>
+
+<!-- RAÍCES EN LA TRADICIÓN -->
+<section class="raices">
+    <div class="container raices__grid">
+        <div class="raices__image">
+            <img src="{{ path }}about_us_1.jpg" alt="Apicultora etiquetando tarros de Miel Sandonis" />
+        </div>
+        <div class="raices__text">
+            <h2>Una vocación que no esperábamos </h2>
+            <p>Ninguno de los dos veníamos del mundo de la apicultura. Yo siempre estuve ligado a los pinares de Portillo y Minerva al mundo rural, por lo que el respeto al entorno natural siempre ha formado parte de nuestra manera de entender la vida.</p>
+            <p>Todo comenzó cuando un familiar cercano de Minerva enfermó y oyó hablar de las excelentes propiedades de la miel. Quise ir más allá y compramos las primeras colmenas, aprovechando el terreno entre pinos para producir nuestra propia miel y tener la certeza de que era completamente pura.</p>
+            <p>Después de más de veinte años, incontables horas de observación, charlas, cursos y la pertenecer a asociaciones apícolas, las colmenas se han convertido en el centro de nuestra vida. Hoy producimos miel con el mismo cuidado y la misma curiosidad con la que pusimos aquellas primeras colmenas. Lo que empezó casi por casualidad hoy es nuestra vocación.</p>
+        </div>
+    </div>
+</section>
+
+<!-- NUESTROS VALORES -->
+<section class="valores">
+    <div class="container">
+        <h2 class="section__title">Nuestros Valores</h2>
+        <p class="section__subtitle">Los principios que guían cada una de nuestras acciones y decisiones en la apicultura sostenible.</p>
+        <div class="valores__cards">
+
+            <div class="valor-card">
+                <div class="valor-card__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+                    </svg>
+                </div>
+                <h3>Misión</h3>
+                <p>Practicar y promover la apicultura sostenible, protegiendo las abejas y su hábitat mientras educamos a la comunidad sobre su importancia vital para nuestro ecosistema.</p>
+            </div>
+
+            <div class="valor-card">
+                <div class="valor-card__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </div>
+                <h3>Visión</h3>
+                <p>Ser referentes en apicultura sostenible, inspirando a otros apicultores y comunidades a adoptar prácticas que respeten el medio ambiente y aseguren la supervivencia de las abejas.</p>
+            </div>
+
+            <div class="valor-card">
+                <div class="valor-card__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+                    </svg>
+                </div>
+                <h3>Compromiso</h3>
+                <p>Mantener los más altos estándares de calidad y ética en todas nuestras operaciones, priorizando siempre el bienestar de las abejas y la preservación del entorno natural.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- NUESTROs VALORES -->
+<section class="equipo">
+    <div class="container">
+        <h2 class="section__title">Apicultura con nombre propio</h2>
+        <p class="section__subtitle">Detrás de cada tarro de miel hay dos personas, una historia y mucha dedicación.</p>
+        <div class="equipo__cards">
+
+            <div class="equipo-card">
+                <div class="equipo-card__avatar">🧑‍🌾</div>
+                <h3>Apicultor</h3>
+                {#<span class="equipo-card__role">Fundador y Director</span>#}
+                <p>Soy el que pasa más horas entre las colmenas. Me encargo del cuidado diario de las colmenas, de vigilar la salud de cada colonia y de la recolección de la miel. Con los años he aprendido que las abejas enseñan mucho más de lo que uno imagina cuando empieza.</p>
+            </div>
+
+            <div class="equipo-card">
+                <div class="equipo-card__avatar">👩‍🔬</div>
+                <h3>Comercial y educación</h3>
+                {#<span class="equipo-card__role">Conservación y Educación</span>#}
+                <p>Yo soy la voz de Miel Sandonís hacia fuera. Llevo la parte comercial, los puntos de venta y el contacto con clientes. También me encargo de las charlas y actividades educativas sobre apicultura y conservación. Aunque cuando hay faena en las colmenas, también arrimo el hombro.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- LOS PINARES DE PORTILLO -->
+<section class="pinares">
+    <div class="container pinares__grid">
+        <div class="pinares__text">
+            <h2>Los pinares de Portillo</h2>
+            <p>Nuestras colmenas están ubicadas en el corazón de los pinares de Portillo, un ecosistema único que ofrece condiciones ideales para la apicultura sostenible. La diversidad floral del bosque y sus alrededores permite a nuestras abejas producir una miel de características únicas.</p>
+            <p>El entorno natural de los pinares no solo beneficia a las abejas, sino que también nos permite trabajar en un ambiente que fomenta el respeto por la naturaleza y la comprensión profunda de los ciclos ecológicos.</p>
+            <ul class="emoji-list">
+                <li><span>🌲</span> Bosque de pinos autóctonos</li>
+                <li><span>🌸</span> Rica diversidad floral silvestre</li>
+                <li><span>💧</span> Fuentes naturales de agua limpia</li>
+                <li><span>🦋</span> Ecosistema protegido y biodiverso</li>
+            </ul>
+        </div>
+        <div class="pinares__image">
+            <img src="{{ path }}about_us_2.jpg" alt="Colmene entre flores" />
+        </div>
+    </div>
+</section>
