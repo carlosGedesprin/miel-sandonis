@@ -1,32 +1,4 @@
 /* ========================================
-   PAGE HERO
-   ======================================== */
-.page-hero {
-    padding: 10rem 2rem 5rem;
-    /*background: linear-gradient(160deg, #f0e8d5 0%, #e8dfc8 50%, #ddd5bc 100%);*/
-    background: linear-gradient(
-            180deg,          /* ← vertical, no diagonal */
-            #f0e8d5 0%,
-            #e8dfc8 40%,
-            #f5f0e8 100%     /* ← tu color de fondo real */
-    );
-    text-align: center;
-    /*border: solid 1px red;*/
-}
-
-.page-hero__content {
-    max-width: 680px;
-    margin: 0 auto;
-    animation: fadeUp 0.8s ease both;
-}
-
-.page-hero__content h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
-}
-.page_hero_subtext {
-    font-size: 1.2rem;
-}
-/* ========================================
    RAÍCES EN LA TRADICIÓN
    ======================================== */
 .raices {
@@ -125,7 +97,7 @@
 }
 .equipo-card__role {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.875rem;  /* mínimo 14 px */
     color: var(--color-text-muted);
     margin-bottom: 1rem;
 }

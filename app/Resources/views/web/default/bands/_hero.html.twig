@@ -1,0 +1,49 @@
+{#
+    Hero común a todas las páginas (mismo diseño que la página de inicio).
+
+    Uso:
+    {% include 'web/' ~ config.website_skin ~ '/bands/_hero.html.twig' with { hero: {
+        size:     'home' | 'page' | 'compact',   (opcional, por defecto 'page')
+        image:    'nosotros',                    nombre en images/web/<skin>/bands/hero/<image>-1920.jpg y -960.jpg
+        position: 'center 60%',                  (opcional) encuadre de la foto
+        title:    'Nuestra historia',
+        accent:   'en los Pinares de Portillo',  (opcional) segunda línea del título, en verde
+        subtitle: 'Texto…',                      (opcional)
+        subtitle_html: 'Texto con <a>enlaces</a>', (opcional) solo HTML fijo de la plantilla
+        buttons:  [ { href: '/contacto', label: 'Contacto', style: 'primary' | 'outline' } ]   (opcional)
+    } } %}
+
+    Accesibilidad (WCAG 2.2):
+    - La foto es decorativa (fondo CSS, sin texto alternativo).
+    - El texto va sobre un panel crema al 90 %, así que el contraste es de al menos 10,8:1 (texto)
+      y 6,7:1 (acento verde) sea cual sea la foto.
+    - El <h1> de la página es el título del hero.
+#}
+{% set hero_img_base = '/assets/images/web/' ~ config.website_skin ~ '/bands/hero/' ~ hero.image %}
+<section class="hero hero--{{ hero.size|default('page') }}"
+         aria-labelledby="hero-title"
+         style="--hero-img: url('{{ hero_img_base }}-1920.jpg'); --hero-img-sm: url('{{ hero_img_base }}-960.jpg');{% if hero.position is defined %} --hero-pos: {{ hero.position }};{% endif %}">
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__content">
+        <h1 class="hero__title" id="hero-title">
+            {{ hero.title }}
+            {% if hero.accent is defined and hero.accent is not empty %}
+                <span class="hero__title--accent">{{ hero.accent }}</span>
+            {% endif %}
+        </h1>
+        {% if hero.subtitle is defined and hero.subtitle is not empty %}
+            <p class="hero__subtitle">{{ hero.subtitle }}</p>
+        {% endif %}
+        {# subtitle_html: solo para HTML escrito en nuestras plantillas (p. ej. enlaces), nunca datos del usuario #}
+        {% if hero.subtitle_html is defined and hero.subtitle_html is not empty %}
+            <p class="hero__subtitle">{{ hero.subtitle_html|raw }}</p>
+        {% endif %}
+        {% if hero.buttons is defined and hero.buttons is not empty %}
+            <div class="hero__buttons">
+                {% for button in hero.buttons %}
+                    <a href="{{ button.href }}" class="btn btn--{{ button.style|default('primary') }}">{{ button.label }}</a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>

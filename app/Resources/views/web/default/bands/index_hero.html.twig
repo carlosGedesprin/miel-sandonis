@@ -1,16 +1,13 @@
 {% set path = '/assets/images/web/'~config.website_skin~'/bands/index_hero/' %}
 
-<section class="hero">
-    <div class="hero__overlay"></div>
-    <div class="hero__content">
-        <h1 class="hero__title">Apicultura Sostenible en los <br><span class="hero__title--accent">Pinares de Portillo</span></h1>
-        <p class="hero__subtitle">Protegiendo las abejas y el medio ambiente a través de prácticas apícolas responsables y respetuosas con la naturaleza.</p>
-        <div class="hero__buttons">
-            <a href="/nosotros" class="btn btn--primary">Conoce Nuestra Historia</a>
-            {# <a href="#" class="btn btn--secondary">Blog Educativo</a>#}
-        </div>
-    </div>
-</section>
+{% include 'web/' ~ config.website_skin ~ '/bands/_hero.html.twig' with { hero: {
+    size: 'home',
+    image: 'inicio',
+    title: 'Apicultura sostenible en los',
+    accent: 'Pinares de Portillo',
+    subtitle: 'Protegiendo las abejas y el medio ambiente a través de prácticas apícolas responsables y respetuosas con la naturaleza.',
+    buttons: [ { href: '/nosotros', label: 'Conoce nuestra historia', style: 'primary' } ]
+} } %}
 
 <!-- NUESTRO COMPROMISO -->
 <section class="compromiso">
@@ -85,7 +82,11 @@
                 <li>Mantenimiento de la biodiversidad</li>
                 <li>Indicadores de la salud del ecosistema</li>
             </ul>
-            <a href="#" class="btn btn--outline">Aprende más en nuestro Facebook</a>
+            {% if facebook_url is defined and facebook_url != '' %}
+                <a href="{{ facebook_url }}" class="btn btn--outline" target="_blank" rel="noopener">Aprende más en nuestro Facebook</a>
+            {% else %}
+                <a href="/conservacion" class="btn btn--outline">Descubre cómo protegemos a las abejas</a>
+            {% endif %}
         </div>
         <div class="proteger__image">
             <img src="{{ path }}index_hero_3.jpg" alt="Abeja sobre las flores del membrillo" />

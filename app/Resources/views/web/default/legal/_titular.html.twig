@@ -1,0 +1,9 @@
+{# Bloque de identificación del titular (datos en la variable `titular` de web/default.html.twig) #}
+<div id="legal_identity">
+    <div>Titular: <b>{{ titular.nombre }}</b></div>
+    <div>Nombre comercial: <b>{{ config.web_name }}</b></div>
+    <div>NIF: <b>{{ titular.nif is not empty ? titular.nif : '[DNI pendiente]' }}</b></div>
+    <div>Domicilio: <b>{{ titular.direccion }}, {{ titular.cp }} {{ titular.localidad }} ({{ titular.provincia }}), {{ titular.pais }}</b></div>
+    <div>Teléfono: <b><a href="tel:+34{{ titular.telefono|replace({' ': ''}) }}">{{ titular.telefono }}</a></b></div>
+    <div>Email: <b><a href="mailto:{{ titular.email }}">{{ titular.email }}</a></b></div>
+</div>

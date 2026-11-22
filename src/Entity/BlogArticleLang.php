@@ -23,7 +23,7 @@ class BlogArticleLang
 
     /**
      * Many article langs belongs to an article
-     * @ORM\ManyToOne(targetEntity="BlogArticle", inversedBy="langs")
+     * @ORM\ManyToOne(targetEntity="BlogArticle")
      * @ORM\JoinColumn(name="article", referencedColumnName="id")
      */
     private $article;

@@ -1,22 +1,4 @@
 
-.page-hero {
-    padding: 10rem 2rem 5rem;
-    background: linear-gradient(
-            180deg,          /* ← vertical, no diagonal */
-            #e8dfc8 0%,
-            #f0e8d5 40%,
-            #f5f0e8 100%     /* ← tu color de fondo real */
-    );
-    text-align: center;
-}
-.page-hero__content {
-    max-width: 680px;
-    margin: 0 auto;
-    animation: fadeUp 0.8s ease both;
-}
-.page-hero__content p {
-    font-size: 1.2rem;
-}
 .miel-intro {
     padding: 6rem 0;
     background-color: var(--color-bg);
@@ -47,7 +29,7 @@
     line-height: 1;
 }
 .stat__label {
-    font-size: 0.8rem;
+    font-size: 0.875rem;  /* mínimo 14 px */
     color: var(--color-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -104,7 +86,7 @@
     background-color: var(--color-green);
     color: var(--color-white);
     font-family: var(--font-ui);
-    font-size: 0.78rem;
+    font-size: 0.875rem;  /* mínimo 14 px */
     font-weight: 600;
     padding: 0.35rem 0.85rem;
     border-radius: 20px;
@@ -113,7 +95,7 @@
 .origen-tag {
     display: inline-block;
     font-family: var(--font-ui);
-    font-size: 0.82rem;
+    font-size: 0.875rem;  /* mínimo 14 px */
     font-weight: 600;
     padding: 0.3rem 0.9rem;
     border-radius: 20px;
@@ -237,7 +219,7 @@
     margin-top: 2px;
 }
 .punto-item__body .btn {
-    font-size: 0.82rem;
+    font-size: 0.875rem;  /* mínimo 14 px */
     padding: 0.45rem 1rem;
 }
 .puntos__sellos {

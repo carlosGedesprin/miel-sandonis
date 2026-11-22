@@ -1,0 +1,181 @@
+/* ========================================
+   HERO COMÚN (todas las páginas)
+   Plantilla: app/Resources/views/web/default/bands/_hero.html.twig
+
+   Accesibilidad (WCAG 2.2):
+   - 1.4.3 Contraste: el texto va sobre un velo crema al 78 % con la foto
+     desenfocada detrás. Los bordes del velo se funden con la foto, pero el texto
+     queda siempre en la zona opaca. Peor caso (foto negra): texto #2c2410 => 8:1;
+     acento #3e4a1c => 5:1; borde del botón #745e42 => 3,2:1 (1.4.11).
+     No bajar la opacidad del 78 % sin recalcular.
+   - 1.4.4 / 1.4.10 / 1.4.12: tamaños en rem, alto mínimo (nunca fijo) para que
+     el texto pueda crecer con el zoom o el espaciado sin recortarse.
+   - 2.3.3: la animación de entrada se desactiva con "reducir movimiento".
+   ======================================== */
+
+.hero {
+    --hero-pos: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(2.5rem, 6vw, 5rem) 1rem;
+    background-color: var(--color-bg-alt);       /* mientras carga la foto */
+    background-image: var(--hero-img-sm);
+    background-size: cover;
+    background-position: var(--hero-pos);
+    background-repeat: no-repeat;
+    overflow: hidden;                             /* recorta el velo difuminado */
+}
+
+@media (min-width: 961px) {
+    .hero {
+        background-image: var(--hero-img);
+    }
+}
+
+/* Alturas */
+.hero--home {
+    min-height: calc(100vh - var(--header-height, 141px));
+    min-height: calc(100svh - var(--header-height, 141px));
+}
+.hero--page {
+    min-height: clamp(22rem, 60vh, 40rem);
+}
+.hero--compact {
+    min-height: 16rem;
+}
+
+/* Velo suave que funde la foto con el fondo de la página (decorativo) */
+.hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+            to bottom,
+            rgba(245, 240, 232, 0.10) 0%,
+            rgba(245, 240, 232, 0.25) 60%,
+            rgba(245, 240, 232, 0.85) 100%
+    );
+    pointer-events: none;
+}
+
+/* Panel del texto: velo crema sin bordes duros que se funde con la foto.
+   El velo (::before) sobresale 3rem por cada lado y se desvanece solo en esa franja,
+   así el texto, que queda dentro de .hero__content, siempre tiene el velo completo. */
+.hero__content {
+    --hero-fade: 3rem;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 46rem;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    text-align: center;
+    animation: heroFadeUp 0.8s ease both;
+}
+
+.hero__content::before {
+    content: "";
+    position: absolute;
+    inset: calc(-1 * var(--hero-fade));
+    z-index: -1;
+    background-color: rgba(245, 240, 232, 0.78);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    -webkit-mask-image:
+        linear-gradient(to right, transparent, #000 var(--hero-fade), #000 calc(100% - var(--hero-fade)), transparent),
+        linear-gradient(to bottom, transparent, #000 var(--hero-fade), #000 calc(100% - var(--hero-fade)), transparent);
+    -webkit-mask-composite: source-in;
+    mask-image:
+        linear-gradient(to right, transparent, #000 var(--hero-fade), #000 calc(100% - var(--hero-fade)), transparent),
+        linear-gradient(to bottom, transparent, #000 var(--hero-fade), #000 calc(100% - var(--hero-fade)), transparent);
+    mask-composite: intersect;
+    pointer-events: none;
+}
+
+/* En móvil el texto ocupa todo el ancho: el velo se funde solo arriba y abajo */
+@media (max-width: 600px) {
+    .hero__content::before {
+        inset: calc(-1 * var(--hero-fade)) -1rem;
+        -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--hero-fade), #000 calc(100% - var(--hero-fade)), transparent);
+        mask-image: linear-gradient(to bottom, transparent, #000 var(--hero-fade), #000 calc(100% - var(--hero-fade)), transparent);
+    }
+}
+
+.hero__title {
+    font-family: var(--font-ui);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-dark);
+    text-align: center;
+    margin: 0 0 1rem;
+}
+.hero--home .hero__title {
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+}
+.hero--compact .hero__title {
+    font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+    margin-bottom: 0;
+}
+.hero--compact .hero__subtitle {
+    margin-top: 1rem;
+}
+
+.hero__title--accent {
+    display: block;
+    color: var(--color-green-light);
+}
+
+.hero__subtitle {
+    font-family: var(--font-ui);
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);   /* nunca por debajo de 18 px */
+    line-height: 1.6;
+    color: var(--color-dark);
+    text-align: center;
+    max-width: 38rem;
+    margin: 0 auto;
+}
+
+.hero__subtitle a {
+    color: var(--color-green-dark);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+.hero__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* Los botones tienen al menos 44 px de alto (objetivo táctil holgado; WCAG 2.5.8 pide 24 px) */
+.hero__buttons .btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+/* El borde por defecto de .btn--outline (#d6cdb8) no se distingue del panel:
+   en el hero se usa uno más oscuro (contraste 3:1 o más, WCAG 1.4.11) */
+.hero__buttons .btn--outline {
+    border-color: var(--color-accent);
+    color: var(--color-dark);
+}
+
+@keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+    .hero {
+        padding: 2rem 1rem;
+    }
+    .hero--page {
+        min-height: 20rem;
+    }
+}

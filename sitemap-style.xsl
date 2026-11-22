@@ -118,7 +118,7 @@
 								This KML file contains <xsl:value-of select="count(kml:kml/kml:Document/kml:Folder/kml:Placemark)"/> Locations.
 							</p>
 							<p class="expl">
-								<a href="https://mielsandonis.com/blog/sitemap_index.xml">&#8592; Índice del mapa del sitio</a>
+								<a href="https://mielsandonis.com/sitemap.xml">&#8592; Índice del mapa del sitio</a>
 							</p>
 							<table id="sitemap" cellpadding="3">
 								<thead>
@@ -208,7 +208,7 @@
 									Este mapa del sitio XML contiene <strong><xsl:value-of select="count(sitemap:urlset/sitemap:url)"/></strong> URLs.
 								</p>
 								<p class="expl">
-									<a href="https://mielsandonis.com/blog/sitemap_index.xml">&#8592; Índice del mapa del sitio</a>
+									<a href="https://mielsandonis.com/sitemap.xml">&#8592; Índice del mapa del sitio</a>
 								</p>
 								<table id="sitemap" cellpadding="3">
 									<thead>

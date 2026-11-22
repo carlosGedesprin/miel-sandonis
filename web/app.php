@@ -71,41 +71,6 @@ use \src\util\db;
 $db = new db( $_ENV['dbal_host'], $_ENV['dbal_dbname'], $_ENV['dbal_port'], $_ENV['dbal_user'], $_ENV['dbal_password'], $_ENV['dbal_driver'], $_ENV['dbal_charset'], $logger, $logger_err );
 //$txt = 'db loaded'.PHP_EOL;fwrite($myfile, $txt);
 
-// Execute an action on the database (Dev and int environment)
-/*
-* Add user_key to users
-$temp = $db->fetchAll('user', 'id, email');
-foreach( $temp as $key => $value )
-{
-    print_r($value);
-    $user_key = md5($value['id'].$value['email']);
-    $db->updateArray('user', 'id', $value['id'], ['user_key' => $user_key]);
-}
-*/
-/*
-if ( $_ENV['env_env'] == 'dev' || $_ENV['env_env'] == 'int' )
-{
-    $crypt_options = array('cost' => 12,);
-    $password = password_hash('0000', PASSWORD_BCRYPT, $crypt_options);
-    // One user
-    // 1-SuperAdmin 2-Admin 3-Staff 4-Student 5-Teacher 6-Visitor
-    $db->updateArray('user', 'id', '12', ['password' => $password]);
-    $temp = $db->fetchAll('user', 'id');
-    // All users
-    foreach( $temp as $key => $value )
-    {
-        echo 'New password for '. $value['id'] . ' is ' .$password . '<br />';
-        $db->updateArray('user', 'id', $value['id'], ['password' => $password]);
-    }
-    // Show config values
-    print "<pre>";print_r($config);print "</pre>";
-    $config = $db->fetchAll('config', 'config_name, config_value' );
-    foreach( $config as $key => $value)
-    {
-        echo $value['config_name'].' => '.$value['config_value'] . '<br />';
-    }
-}
-*/
 //TODO:Carlos Error and message handler, call with trigger_error if reqd function msg_handler($errno, $msg_text, $errfile, $errline) functions 4022
 
 // Load util functions
@@ -151,34 +116,12 @@ $twig->addGlobal('session', $_SESSION);
 $twig->addGlobal('cookies', $_COOKIE);
 $twig->addGlobal('server', $_SERVER);
 // -----------------------------------------------------------------------
-require_once APP_ROOT_PATH.'/src/util/twig/twigFilters.php';
 require_once APP_ROOT_PATH.'/src/util/twig/twigFunctions.php';
 //$txt = 'Twig loaded'.PHP_EOL;fwrite($myfile, $txt);
 
 // -----------------------------------------------------------------------
 //session_destroy();
-//setcookie($session->config['cookies_prefix']."_Login", "", time() - 10, $session->cookies['path'], $session->cookies['domain']);
 // -----------------------------------------------------------------------
-
-// Cron
-// Ensure what the cron will do in dev environment
-if ( $_ENV['env_env'] == 'dev')
-{
-    /*
-    // Ensure cron is not locked
-    $db->querySQL("UPDATE config SET config_value = '' WHERE config_name = 'cron_lock'");
-
-    //$db->querySQL('UPDATE cron SET run = 1 WHERE process = "invoice"');
-    ////$db->updateArray('mail_queue', 'id', '17', ['sent' => '0000-00-00 00:00:00']);
-    // $db->querySQL('UPDATE cron SET run = 0 WHERE process = "mail"');
-    // $db->querySQL('UPDATE print_queue SET printed = "2019-01-01 00:00:00"');
-    // //$db->updateArray('print_queue', 'id', '182', ['printed' => '0000-00-00 00:00:00']);
-    // $db->querySQL('UPDATE cron SET run = 1 WHERE process = "print"');
-    // $db->querySQL('UPDATE cron SET run = 0 WHERE process = "print_ftp"');
-
-    //$db->querySQL('UPDATE mail_queue SET sent = ""');
-    */
-}
 
 // Execute an action in dev environment
 /*
@@ -210,19 +153,6 @@ if ( $_ENV['env_env'] == 'dev')
 }
 */
 
-// URL Routing
-// Check if the visitor is allowed to see this url
-// Set the first param in the url of the pages that require logging in.
-// Format array [0] -> 1rst folder in the url [1] -> group_id to belong to
-// Actual groups: 1-SuperAdmin 2-Admin 3-Staff 4-Customer 5-Agent 6-Integrator 7-Public sector
-$folders = array(
-    array('supermanage', [GROUP_SUPER_ADMIN]),
-    array('app',[GROUP_SUPER_ADMIN, GROUP_ADMIN, GROUP_STAFF]),
-    array('control_panel',[GROUP_CUSTOMER, GROUP_AGENT]),
-    //array('pm',[GROUP_SUPER_ADMIN, GROUP_ADMIN, GROUP_STAFF, GROUP_CUSTOMER, GROUP_AGENT, GROUP_INTEGRATOR, GROUP_PUBLIC_SECTOR,  GROUP_CONSULTOR]),
-);
-$session->checkProtectedURL( $folders );
-// if ( $_ENV['env_env'] == 'dev' ) $txt = 'URL checked'.PHP_EOL; fwrite($myfile, $txt);
 
 // Manage routes
 /*
@@ -236,8 +166,6 @@ $dispatcher = \FastRoute\simpleDispatcher($routesDefinitionsCallback);
 */
 $dispatcher = \FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r)
 {
-    // Security
-    $r->addRoute('GET', '/webstatus/{status}', 'web/securityViewController:webstatusAction');
 
     // SiteMap
     $r->addRoute('GET', '/sitemap_website.xml', 'sitemapController:sitemapAction');
@@ -256,51 +184,18 @@ $dispatcher = \FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r)
     $r->addRoute(['GET', 'POST'], '/about-us', 'web/webController:aboutUsAction');
     $r->addRoute(['GET', 'POST'], '/nosotros', 'web/webController:aboutUsAction');
 
-    $r->addRoute(['GET', 'POST'], '/contacto', 'web/contactController:contactAction');
-    $r->addRoute(['GET', 'POST'], '/contact', 'web/contactController:contactAction');
-
-    $r->addRoute(['GET', 'POST'], '/contact-thank-you', 'web/contactController:contactThanksAction');
-    $r->addRoute(['GET', 'POST'], '/contacto-gracias', 'web/contactController:contactThanksAction');
-
-    $r->addRoute(['GET', 'POST'], '/baja-mails/{email}/{token}', 'web/securityViewController:unsubscribeAction');
-
-    // Blog
-    $r->addGroup('/blog', function (FastRoute\RouteCollector $r) {
-
-        $r->addRoute('GET', '/sitemap_index.xml', 'web/blogViewController:sitemapAction');
-
-        $r->addRoute(['GET', 'POST'], '', 'web/blogViewController:blogAction');
-        $r->addRoute(['GET', 'POST'], '/', 'web/blogViewController:blogAction');
-        $r->addRoute(['GET', 'POST'], '/categories', 'web/blogViewController:categoriesAction');
-        $r->addRoute(['GET', 'POST'], '/categories/', 'web/blogViewController:categoriesAction');
-        $r->addRoute(['GET', 'POST'], '/category/{slug}', 'web/blogViewController:categoryAction');
-        $r->addRoute(['GET', 'POST'], '/category/{slug}/', 'web/blogViewController:categoryAction');
-        $r->addRoute(['GET', 'POST'], '/articles[/{category}[/]]', 'web/blogViewController:articlesAction');
-        //$r->addRoute(['GET', 'POST'], '/articles[/{category}/]', 'web/blogViewController:articlesAction');
-        $r->addRoute(['GET', 'POST'], '/article/{slug}', 'web/blogViewController:articleAction');
-        $r->addRoute(['GET', 'POST'], '/article/{slug}/', 'web/blogViewController:articleAction');
-        $r->addRoute(['GET', 'POST'], '/{slug}', 'web/blogViewController:blogSlugAction');
-        $r->addRoute(['GET', 'POST'], '/{slug}/', 'web/blogViewController:blogSlugAction');
-    });
+    $r->addRoute(['GET', 'POST'], '/contacto', 'web/webController:contactAction');
+    $r->addRoute(['GET', 'POST'], '/contact', 'web/webController:contactAction');
 
     // Legal
     $r->addRoute(['GET', 'POST'], '/legal-stuff', 'web/legalController:legalstuffAction');
     $r->addRoute(['GET', 'POST'], '/aviso-legal', 'web/legalController:legalstuffAction');
-
-    $r->addRoute(['GET', 'POST'], '/sales-terms', 'web/legalController:termsandconditionsAction');
-    $r->addRoute(['GET', 'POST'], '/terminos-de-venta', 'web/legalController:termsandconditionsAction');
 
     $r->addRoute(['GET', 'POST'], '/privacy-policy', 'web/legalController:privacypolicyAction');
     $r->addRoute(['GET', 'POST'], '/politica-privacidad', 'web/legalController:privacypolicyAction');
 
     $r->addRoute(['GET', 'POST'], '/cookies-policy', 'web/legalController:cookiespolicyAction');
     $r->addRoute(['GET', 'POST'], '/politica-cookies', 'web/legalController:cookiespolicyAction');
-
-    $r->addRoute(['GET', 'POST'], '/payment-terms', 'web/legalController:paymenttermsAction');
-    $r->addRoute(['GET', 'POST'], '/terminos-pagos', 'web/legalController:paymenttermsAction');
-
-    $r->addRoute(['GET', 'POST'], '/accessibility-statement', 'web/legalController:accessibilityStatementAction');
-    $r->addRoute(['GET', 'POST'], '/declaracion-accesibilidad', 'web/legalController:accessibilityStatementAction');
 
     // {id} must be a number (\d+)
     //$r->addRoute('GET', '/user/{id:\d+}', 'get_user_handler');

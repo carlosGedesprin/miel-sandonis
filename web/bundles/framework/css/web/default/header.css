@@ -1,8 +1,20 @@
+/* Altura total de la cabecera: logo + padding vertical (2 x 15px) + borde inferior (1px) */
+:root {
+    --header-height: 141px;
+}
+
+/* El contenido empieza justo debajo de la cabecera fija */
+#main {
+    margin-top: var(--header-height);
+}
+
 .header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
+    height: var(--header-height);
+    box-sizing: border-box;
     background: var(--color-bg);
     display: flex;
     justify-content: space-between;
@@ -14,6 +26,7 @@
 
 /* Logo */
 #header_menu_site_logo_img {
+    display: block; /* evita el hueco de línea base bajo la imagen */
     height: 110px;
     width: auto;
     /*border: solid 1px red;*/
@@ -51,15 +64,30 @@
 }
 
 .menu-btn span {
+    display: block;
     width: 28px;
     height: 3px;
     background: #333;
-    transition: 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Hamburguesa -> X cuando el menú está abierto */
+.menu-btn.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+.menu-btn.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
 }
 
 /* --- Responsive --- */
 
 @media (max-width: 400px) {
+    :root {
+        --header-height: 106px;
+    }
     #header_menu_site_logo_img {
         height: 75px;
         width: auto;
@@ -68,27 +96,38 @@
 @media (max-width: 768px) {
     .menu-btn {
         display: flex;
+        /* Por encima del panel del menú para poder cerrarlo */
+        position: relative;
+        z-index: 2;
+        padding: 8px;
     }
 
     .nav {
         margin-right: 0;
         position: fixed;
         top: 0;
-        right: -250px;
-        width: 172px;
-        height: 73vh;
+        right: 0;
+        width: 212px;
+        max-height: 100vh;
+        overflow-y: auto;
         background: var(--color-bg);
         flex-direction: column;
-        padding: 80px 20px;
+        flex-wrap: nowrap;
+        padding: 80px 20px 40px;
         gap: 20px;
-        transition: right 0.3s ease;
-        /*border-left: var(--color-card-border);*/
         border: solid 1px var(--color-green-dark);
         border-radius: var(--radius);
+        z-index: 1;
+        /* Oculto fuera de pantalla y no accesible con el teclado */
+        transform: translateX(110%);
+        visibility: hidden;
+        transition: transform 0.3s ease, visibility 0s linear 0.3s;
     }
 
     .nav.active {
-        right: 0;
+        transform: translateX(0);
+        visibility: visible;
+        transition: transform 0.3s ease, visibility 0s;
     }
 }
 @media (max-width: 900px) {

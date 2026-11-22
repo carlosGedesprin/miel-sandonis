@@ -1,12 +1,15 @@
 {% set path = '/assets/images/web/'~config.website_skin~'/bands/contactus/' %}
 
 <!-- HERO -->
-<section class="page-hero">
-    <div class="page-hero__content">
-        <h1>Contacto</h1>
-        <p class="page_hero_subtext">¿Tienes preguntas sobre apicultura sostenible? ¿Te gustaría visitar nuestras colmenas? Estamos aquí para ayudarte.</p>
-    </div>
-</section>
+{% include 'web/' ~ config.website_skin ~ '/bands/_hero.html.twig' with { hero: {
+    image: 'contacto',
+    title: 'Contacto',
+    subtitle: '¿Tienes preguntas sobre apicultura sostenible? ¿Te gustaría visitar nuestras colmenas? Estamos aquí para ayudarte.',
+    buttons: [
+        { href: 'mailto:mielsandonis@gmail.com', label: 'Escríbenos un email', style: 'primary' },
+        { href: 'tel:+34660790595', label: 'Llámanos', style: 'outline' }
+    ]
+} } %}
 
 <!-- INFORMACIÓN DE CONTACTO -->
 <section class="contacto-main">
@@ -28,7 +31,7 @@
                 </div>
                 <div>
                     <strong>Email</strong>
-                    <p><a href="mailto:info@apicultura-portillo.es">mielsandonis@gmail.com</a></p>
+                    <p><a href="mailto:mielsandonis@gmail.com">mielsandonis@gmail.com</a></p>
                 </div>
             </div>
             <div class="info-item">
@@ -37,7 +40,7 @@
                 </div>
                 <div>
                     <strong>Teléfono</strong>
-                    <p><a href="tel:+34XXXXXXXXX">660 790 595 o 646 054 969</a></p>
+                    <p><a href="tel:+34660790595">660 790 595</a> o <a href="tel:+34646054969">646 054 969</a></p>
                 </div>
             </div>
             <div class="info-item">
@@ -53,7 +56,7 @@
 
         <div class="contacto-canales">
             <h2>¿Cómo podemos ayudarte?</h2>
-            <p>Puedes contactarnos a través del email o el teléfono para cualquiera de estas consultas. Respondemos en un plazo de 24-48 horas.</p>
+            <p>Escríbenos a <a href="mailto:mielsandonis@gmail.com">mielsandonis@gmail.com</a> o llámanos para cualquiera de estas consultas. Respondemos en un plazo de 24-48 horas.</p>
             <div class="canales__grid">
                 <div class="canal-card">
                     <span class="canal-card__icon">🍯</span>
@@ -88,7 +91,7 @@
             <h2>Visitas Guiadas a Nuestras Colmenas</h2>
             <p>Ofrecemos visitas guiadas a nuestras colmenas en los Pinares de Portillo para grupos escolares, familias y entusiastas de la apicultura. Una experiencia única para conocer de cerca el mundo de las abejas y la producción de miel artesanal.</p>
             <p>Contáctanos con antelación para programar tu visita y asegurarte la mejor experiencia posible.</p>
-            <a href="mailto:info@apicultura-portillo.es" class="btn btn--primary">Escribirnos un email</a>
+            <a href="mailto:mielsandonis@gmail.com?subject=Solicitud%20de%20visita%20a%20las%20colmenas" class="btn btn--primary">Solicitar una visita por email</a>
         </div>
         <div class="visitas__image">
             <img src="{{ path }}contact_1.jpg" alt="Visita guiada por Minerva Sandonis a las colmenas" />
@@ -112,20 +115,12 @@
             </div>
             <div class="faq-card">
                 <h3>¿Ofrecen talleres de apicultura?</h3>
-                <p>Sí, organizamos talleres educativos sobre apicultura sostenible para diferentes niveles. Consulta nuestro calendario de eventos o solicita un taller personalizado.</p>
+                <p>Sí, organizamos talleres educativos sobre apicultura sostenible para diferentes niveles. Escríbenos y te informaremos de las próximas fechas o de un taller a tu medida.</p>
             </div>
             <div class="faq-card">
                 <h3>¿Cómo puedo ayudar a las abejas?</h3>
-                <p>Hay muchas formas: plantar flores nativas, evitar pesticidas, apoyar la apicultura local y educarte sobre su importancia. Lee nuestro blog para más consejos prácticos.</p>
+                <p>Hay muchas formas: plantar flores nativas, evitar pesticidas, apoyar la apicultura local y educarte sobre su importancia. Encontrarás más ideas en nuestra página de <a href="/conservacion">conservación</a>.</p>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- CTA -->
-<section class="cta">
-    <div class="container cta__inner">
-        <h2>¿Hablamos?</h2>
-        <p>Escríbenos o llámanos. Estaremos encantados de atenderte.</p>
     </div>
 </section>

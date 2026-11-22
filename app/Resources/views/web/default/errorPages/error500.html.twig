@@ -1,27 +1,24 @@
 {% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
 
-{% block title %} {{ parent() }} &bull; {{ lang.ERR_RESOURCE_NOT_ALLOWED }}{% endblock %}
+{% set this_page = 'error500' %}
+
+{% block metarobots %}noindex, nofollow{% endblock %}
+{% block title %}Estamos actualizando la web | {{ config.web_name }}{% endblock %}
 
 {% block body %}
 
-    <div class="row">
-        <div class="col-12 mt-100">
-
-            <div class="row">
-                <div class="col-6 mx-auto">
-                    <h1>{{ lang.ERR_RESOURCE_UNDER_MAINTENANCE }}</h1>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-6 mx-auto">
-                    <div class="alert alert-danger">
-                        {{ lang.ERR_RESOURCE_UNDER_MAINTENANCE | raw }}
-                    </div>
-                </div>
-            </div>
-
-        </div>
+    <div id="error500_main">
+        {% include 'web/' ~ config.website_skin ~ '/bands/_hero.html.twig' with { hero: {
+            size: 'compact',
+            image: 'pinar-niebla',
+            title: 'Estamos actualizando la web',
+            subtitle: 'Estamos haciendo mejoras en esta página. Por favor, prueba de nuevo dentro de un rato.',
+            buttons: [
+                { href: '/', label: 'Volver al inicio', style: 'primary' },
+                { href: '/contacto', label: 'Contactar', style: 'outline' }
+            ]
+        } } %}
     </div>
 
 {% endblock %}
+

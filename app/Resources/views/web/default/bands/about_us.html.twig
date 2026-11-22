@@ -2,12 +2,12 @@
 {#{% set img_1 = path ~ 'about_us_hero.png' %}#}
 
 <!-- HERO: NUESTRA HISTORIA -->
-<section class="page-hero">
-    <div class="page-hero__content">
-        <h1>Nuestra Historia</h1>
-        <p class="page_hero_subtext">Somos Conrado (Viky para los amigos) y Minerva, una pareja apasionado por las abejas y los pinares de Portillo. Una historia que comenzó casi por casualidad y se convirtió en nuestra forma de vida. </p>
-    </div>
-</section>
+{% include 'web/' ~ config.website_skin ~ '/bands/_hero.html.twig' with { hero: {
+    image: 'nosotros',
+    position: 'center 60%',
+    title: 'Nuestra historia',
+    subtitle: 'Somos Conrado (Viky para los amigos) y Minerva, una pareja apasionada por las abejas y los pinares de Portillo. Una historia que comenzó casi por casualidad y se convirtió en nuestra forma de vida.'
+} } %}
 
 <!-- RAÍCES EN LA TRADICIÓN -->
 <section class="raices">
@@ -105,7 +105,7 @@
             </ul>
         </div>
         <div class="pinares__image">
-            <img src="{{ path }}about_us_2.jpg" alt="Colmene entre flores" />
+            <img src="{{ path }}about_us_2.jpg" alt="Colmena entre flores" />
         </div>
     </div>
 </section>

@@ -1,27 +1,24 @@
-{% extends 'web/default.html.twig' %}
+{% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
 
-{% block title %} {{ parent() }} &bull; Page not found{% endblock %}
+{% set this_page = 'error404' %}
+
+{% block metarobots %}noindex, nofollow{% endblock %}
+{% block title %}Página no encontrada | {{ config.web_name }}{% endblock %}
 
 {% block body %}
 
-    <div class="row">
-        <div class="col-12 mt-100">
-
-            <div class="row">
-                <div class="col-6 mx-auto">
-                    <h1>{{ lang.ERR_PAGE_NOT_FOUND }}</h1>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-6 mx-auto">
-                    <div class="alert alert-danger">
-                        {{ lang.ERR_PAGE_NOT_FOUND }}
-                    </div>
-                </div>
-            </div>
-
-        </div>
+    <div id="error404_main">
+        {% include 'web/' ~ config.website_skin ~ '/bands/_hero.html.twig' with { hero: {
+            size: 'compact',
+            image: 'pinar-niebla',
+            title: 'Página no encontrada',
+            subtitle: 'La página que buscas no existe o ha cambiado de dirección.',
+            buttons: [
+                { href: '/', label: 'Volver al inicio', style: 'primary' },
+                { href: '/contacto', label: 'Contactar', style: 'outline' }
+            ]
+        } } %}
     </div>
 
 {% endblock %}
+

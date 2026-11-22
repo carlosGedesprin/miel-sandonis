@@ -6,7 +6,7 @@
     --color-green: #3d4a1e;
     --color-green-dark: #2a3313;
     --color-green-light: #3e4a1c;
-    --color-accent: #8b7355;
+    --color-accent: #745e42;     /* 5,4:1 sobre --color-bg (antes #8b7355, 3,95:1) */
     --color-text: #3a3020;
     --color-text-muted: #6b5f4a;
     --color-white: #ffffff;
@@ -93,5 +93,67 @@
     }
     .web_wrapper {
         width: 70%
+    }
+}
+
+/* ========================================
+   ACCESIBILIDAD GLOBAL (WCAG 2.2)
+   ======================================== */
+
+/* 2.4.11 Foco no oculto: al navegar con teclado, la cabecera fija no tapa el elemento enfocado */
+html {
+    scroll-padding-top: calc(var(--header-height, 141px) + 1rem);
+}
+
+/* 2.4.1 Evitar bloques: enlace "Saltar al contenido", visible al recibir el foco */
+.skip-link {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 2000;
+    padding: 0.75rem 1.25rem;
+    background: var(--color-green-dark);
+    color: var(--color-white);
+    font-weight: 700;
+    border-radius: 6px;
+    text-decoration: none;
+    transform: translateY(-200%);
+    transition: transform 0.2s ease;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+    transform: translateY(0);
+    color: var(--color-white);
+}
+
+/* 2.4.7 / 2.4.13 Foco visible: contorno de 3 px con contraste alto sobre fondos claros y oscuros */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+    outline: 3px solid var(--color-green-dark);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px var(--color-bg);
+}
+.footer_legal a:focus-visible,
+.cta a:focus-visible {
+    outline-color: var(--color-white);
+    box-shadow: none;
+}
+#main:focus {
+    outline: none;
+}
+
+/* 2.3.3 Animación por interacción: respetar "reducir movimiento" del sistema */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
