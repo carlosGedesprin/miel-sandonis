@@ -44,7 +44,7 @@ You can't run the app standalone. It is served by Apache from `/var/www/html/mie
 - **Metadata**: `geo.region` is hardcoded to `ES-VA` (Valladolid) in `web/default.html.twig`; the DB value `web_meta_geo_region` was `ES-MAD` and is ignored. The brand is spelled "Sandonis", without an accent.
 - **Cookies/analytics**: there is no analytics and no cookie banner. The site only sets the technical `PHPSESSID` cookie, which needs no consent. If analytics is added, the cookie policy must be updated and a consent banner added.
 - **Legal pages** (`legalstuff`, `privacy_policy`, `cookiespolicy`) are hardcoded templates. The owner's data lives in one place: the `titular` variable at the top of `web/default.html.twig`, rendered by `legal/_titular.html.twig`. The `WEB_*_TXT` lang texts in the DB are no longer used.
-- **Contact page** (`webController::contactAction`, `bands/contactus.html.twig`) only shows the email, phones and opening hours; visitors write by `mailto:` or call. There is no form and no jQuery. If a form is added back, the privacy, cookie and legal-notice texts mention only email and phone, so they would have to be updated too.
+- **Contact page** (`webController::contactAction`, `bands/contactus.html.twig`) shows three cards: WhatsApp (`wa.me` link, WhatsApp dark green #075E54 with white text), phones and email. There are no opening hours. Visitors write by WhatsApp or `mailto:`, or call. There is no form and no jQuery. If a form is added back, the privacy, cookie and legal-notice texts mention only email and phone, so they would have to be updated too.
 
 ## Configuration and i18n
 

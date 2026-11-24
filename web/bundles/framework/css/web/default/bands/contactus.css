@@ -1,157 +1,114 @@
 /* ========================================
-   CONTACTO MAIN
+   FORMAS DE CONTACTO (tres tarjetas)
+   - WhatsApp: verde oscuro de WhatsApp #075e54 con texto blanco => 7,7:1.
+   - Teléfono y correo: tarjetas blancas como las de "Dónde encontrarla".
+     Texto #2c2410 => 15:1; enlaces verde #3d4a1e => 9,9:1.
+   Iconos decorativos.
    ======================================== */
-.contacto-main {
-    padding: 6rem 0;
+.contacto {
+    padding: clamp(3.5rem, 7vw, 5.5rem) 0;
     background-color: var(--color-bg);
 }
-
-.contacto-main__grid {
+.contacto__lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: 1fr 1.8fr;
-    gap: 3.5rem;
-    align-items: flex-start;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 2rem);
 }
-
-.info-card {
-    background: var(--color-white);
-    border: 1.5px solid var(--color-card-border);
-    border-radius: var(--radius);
-    padding: 2rem;
+.contacto__lista > li {
+    display: flex;
+}
+.contacto-card {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-}
-
-.info-item {
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
-}
-
-.info-item__icon {
-    flex-shrink: 0;
-    width: 38px;
-    height: 38px;
-    border-radius: 8px;
-    background-color: var(--color-bg-alt);
-    display: flex;
     align-items: center;
-    justify-content: center;
-    color: var(--color-green);
-}
-
-.info-item strong {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 700;
+    text-align: center;
+    padding: 2.25rem 1.5rem 2rem;
     color: var(--color-dark);
-    margin-bottom: 0.2rem;
-}
-.info-item a {
-    color: var(--color-green);
     text-decoration: none;
-    transition: color var(--transition);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-card-border);
+    border-top: 4px solid #d99a2b;
+    border-radius: var(--radius);
+    box-shadow: 0 6px 20px rgba(44, 36, 16, 0.07);
+    transition: transform var(--transition), box-shadow var(--transition);
 }
-
-.info-item a:hover {
+a.contacto-card:hover {
+    color: var(--color-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(44, 36, 16, 0.14);
+}
+.contacto-card__icono {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.9rem;
+    margin-bottom: 1.1rem;
+    font-size: 1.75rem;
+    color: var(--color-dark);
+    background-color: #e8b04a;
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+.contacto-card__nombre {
+    margin: 0 0 0.5rem;
+    font-size: 1.35rem;
+    line-height: 1.25;
+    color: inherit;
+}
+.contacto-card__dato {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+}
+.contacto-card__correo {
+    font-size: 1.1rem;
+    letter-spacing: 0;
+    overflow-wrap: anywhere;
+}
+/* Los datos que son enlace van subrayados */
+a.contacto-card .contacto-card__dato,
+.contacto-card__enlace {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+}
+.contacto-card__enlace {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--color-green);
+}
+.contacto-card__enlace:hover,
+a.contacto-card:hover .contacto-card__dato {
+    text-decoration-thickness: 2px;
+}
+.contacto-card__enlace:hover {
     color: var(--color-green-dark);
 }
-
-/* --- Canales --- */
-.canales__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+a.contacto-card:not(.contacto-card--whatsapp) .contacto-card__dato {
+    color: var(--color-green);           /* mismo verde que los teléfonos */
 }
-
-.canal-card {
-    background: var(--color-white);
-    border: 1.5px solid var(--color-card-border);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    transition: box-shadow var(--transition), transform var(--transition);
+/* WhatsApp */
+.contacto-card--whatsapp,
+a.contacto-card--whatsapp:hover {
+    color: #ffffff;
+    background-color: #075e54;
+    border-color: #075e54;
 }
-
-.canal-card:hover {
-    box-shadow: var(--shadow);
-    transform: translateY(-2px);
-}
-
-.canal-card__icon {
-    display: block;
-    font-size: 1.6rem;
-    margin-bottom: 0.75rem;
-}
-/* ========================================
-   VISITAS GUIADAS
-   ======================================== */
-.visitas {
-    padding: 6rem 0;
-    background-color: var(--color-bg-alt);
-    border-top: 1px solid var(--color-card-border);
-}
-
-.visitas__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-.visitas__text .btn {
-    margin-top: 0.75rem;
-}
-
-.visitas__image img {
-    border-radius: var(--radius);
-    width: 100%;
-    object-fit: cover;
-    aspect-ratio: 4/3;
-    box-shadow: var(--shadow);
-}
-
-/* ========================================
-   FAQ
-   ======================================== */
-.faq {
-    padding: 6rem 0;
-    background-color: var(--color-bg);
-}
-
-.faq__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-}
-
-.faq-card {
-    background: var(--color-white);
-    border: 1.5px solid var(--color-card-border);
-    border-radius: var(--radius);
-    padding: 1.75rem;
-    transition: box-shadow var(--transition), transform var(--transition);
-}
-
-.faq-card:hover {
-    box-shadow: var(--shadow);
-    transform: translateY(-2px);
+.contacto-card--whatsapp .contacto-card__icono {
+    color: #075e54;
+    background-color: #ffffff;
+    font-size: 2rem;
 }
 @media (max-width: 900px) {
-    .contacto-main__grid {
+    .contacto__lista {
         grid-template-columns: 1fr;
-    }
-
-    .visitas__grid {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-    }
-
-    .faq__grid {
-        grid-template-columns: 1fr;
-    }
-
-    .canales__grid {
-        grid-template-columns: 1fr;
+        max-width: 26rem;
+        margin: 0 auto;
     }
 }
+

@@ -317,6 +317,37 @@ select:focus-visible,
     line-height: 1.7;
     color: rgba(255, 255, 255, 0.85);
 }
+.cta-foto__texto p + p {
+    margin-top: 1rem;
+}
+/* Teléfono destacado dentro del bloque (p. ej. Visitas en Contacto). Blanco sobre verde => 13,3:1 */
+.cta-foto__tel {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 44px;
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-white);
+    text-decoration: none;
+}
+.cta-foto__tel svg {
+    flex: none;
+    color: #e8b04a;
+}
+.cta-foto__tel span {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+}
+.cta-foto__tel:hover {
+    color: var(--color-white);
+}
+.cta-foto__tel:hover span {
+    text-decoration-thickness: 2px;
+}
 @media (max-width: 760px) {
     .cta-foto__grid {
         grid-template-columns: 1fr;
@@ -324,7 +355,10 @@ select:focus-visible,
     .cta-foto__imagen img {
         aspect-ratio: 4 / 3;
         max-height: none;
-        object-position: center bottom;  /* que se vea la miel cristalizada */
+        object-position: center 30%;
+    }
+    .cta-foto__imagen--abajo img {       /* encuadre por abajo (p. ej. la miel cristalizada de la balda inferior) */
+        object-position: center bottom;
     }
 }
 /* ========================================
@@ -376,4 +410,17 @@ select:focus-visible,
     .sellos__logos img {
         height: 85px;
     }
+}
+
+/* Texto solo para lectores de pantalla (p. ej. encabezados de sección sin título visible) */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
