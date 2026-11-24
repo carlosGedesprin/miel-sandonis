@@ -233,6 +233,9 @@
         {% include 'web/' ~ config.website_skin ~ '/bands/_evento.html.twig' %}
     {% endif %}
 
+    {# Sellos "Producto reconocido por": en todas las páginas, al final del contenido #}
+    {% include 'web/' ~ config.website_skin ~ '/bands/_sellos.html.twig' %}
+
 </main>
 
 {% include 'web/' ~ config.website_skin ~ '/footer.html.twig' %}

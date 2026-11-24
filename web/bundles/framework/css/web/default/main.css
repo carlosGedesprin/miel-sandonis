@@ -242,3 +242,84 @@ select:focus-visible,
     }
 }
 
+
+/* ========================================
+   CTA (bloque verde de llamada a contactar; inicio, Nosotros…)
+   ======================================== */
+.cta {
+    background-color: var(--color-green-dark);
+    padding: 5rem 0;
+}
+
+.cta__inner {
+    text-align: center;
+}
+
+.cta__inner h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 1rem;
+}
+
+.cta__inner p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    text-align: center;
+    text-wrap: balance;
+}
+.cta__inner p:last-child {               /* bloque sin botón: sin hueco debajo del texto */
+    margin-bottom: 0;
+}
+/* ========================================
+   SELLOS "Producto reconocido por" (común: bands/_sellos.html.twig)
+   ======================================== */
+.sellos {
+    padding: 3.5rem 0;
+    background-color: var(--color-bg);
+    border-top: 1px solid var(--color-card-border);
+}
+
+.sellos__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.sellos__texto {
+    margin: 0;
+    font-family: inherit;
+    font-weight: 400;
+    line-height: 1.4;
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.sellos__logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+}
+
+.sellos__logos img {
+    width: auto;
+    height: 145px;
+    /*border: solid 1px red;*/
+}
+
+
+@media (max-width: 600px) {
+    .sellos__logos {
+        gap: 2rem;
+    }
+    .sellos__logos img {
+        height: 85px;
+    }
+}
