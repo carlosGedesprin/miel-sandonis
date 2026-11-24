@@ -9,7 +9,7 @@
 #}
 {% if evento is defined and evento.visible and date(evento.hasta ~ ' 23:59:59') >= date() %}
     {% set evento_img = '/assets/images/web/' ~ config.website_skin ~ '/bands/evento/' ~ evento.imagen %}
-    <section class="evento" aria-labelledby="evento-titulo">
+    <section class="evento" id="evento" aria-labelledby="evento-titulo">
         <div class="container evento__grid">
             <div class="evento__cartel">
                 <img src="{{ evento_img }}.jpg" width="640" height="906" loading="lazy"

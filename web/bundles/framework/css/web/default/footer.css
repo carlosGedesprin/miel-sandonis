@@ -1,8 +1,10 @@
 
+/* Pie en el mismo verde oscuro que los bloques .cta (#2a3313).
+   Contraste: títulos blancos 13,3:1; texto y enlaces (blanco al 85 %) 10:1;
+   barra legal #c9c9c9 sobre #1c220c => 9,9:1. */
 .footer {
-    background-color: var(--color-bg);
+    background-color: var(--color-green-dark);
     padding: 4rem 0 0;
-    border-top: 1px solid var(--color-card-border);
 }
 
 .footer__grid {
@@ -16,7 +18,7 @@
     font-family: var(--font-ui);
     font-size: 1.2rem;
     font-weight: 700;
-    color: var(--color-dark);
+    color: var(--color-white);
     margin-bottom: 1rem;
     /*border: solid 1px red;*/
 }
@@ -24,12 +26,14 @@
 .footer__col p {
     font-family: var(--font-ui);
     font-size: 1.2rem;
-    color: var(--color-text-muted);
+    color: rgba(255, 255, 255, 0.85);
     line-height: 1.7;
 }
 
 .footer__col ul {
     list-style-type: none;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -38,21 +42,31 @@
 .footer__col ul li a {
     font-family: var(--font-ui);
     font-size: 1rem;
-    color: var(--color-text-muted);
+    color: rgba(255, 255, 255, 0.85);
+    text-underline-offset: 0.25em;
     transition: color var(--transition);
 }
 
 .footer__col ul li a:hover {
-    color: var(--color-green);
+    color: var(--color-white);
+    text-decoration: underline;
+}
+.footer__contact a {                     /* correo y teléfonos, dentro de texto: subrayados */
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
 }
 
 .footer__contact li {
     font-family: var(--font-ui);
     font-size: 1rem;
-    color: var(--color-text-muted);
+    color: rgba(255, 255, 255, 0.85);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.6rem;
+}
+.footer__contact svg {                   /* iconos decorativos color miel */
+    flex: none;
+    color: #e8b04a;
 }
 /* Barra legal inferior (antes en bands/footer_legal.css) */
 .footer_legal {
@@ -61,7 +75,7 @@
     flex-wrap: wrap;
     justify-content: center;
     padding: 0.9375rem 1.875rem;
-    background-color: #333;
+    background-color: #1c220c;           /* verde aún más oscuro que el pie */
 }
 .footer_legal_list {
     display: flex;
@@ -70,7 +84,7 @@
     gap: 0.5rem 1.5rem;
 }
 .footer_legal_item {
-    color: #bbb;
+    color: #c9c9c9;
 }
 .footer_legal_list a:hover {
     color: white;

@@ -137,7 +137,7 @@ select:focus-visible,
     outline-offset: 3px;
     box-shadow: 0 0 0 6px var(--color-bg);
 }
-.footer_legal a:focus-visible,
+.footer a:focus-visible,
 .cta a:focus-visible {
     outline-color: var(--color-white);
     box-shadow: none;
@@ -272,6 +272,60 @@ select:focus-visible,
 }
 .cta__inner p:last-child {               /* bloque sin botón: sin hueco debajo del texto */
     margin-bottom: 0;
+}
+/* Variante con foto a la izquierda y texto alineado a la izquierda (p. ej. "Si cristaliza…" en Nuestra miel).
+   Texto blanco sobre el verde oscuro: título > 13:1, párrafo (blanco al 85 %) > 10:1. */
+.cta--foto {
+    padding: clamp(3.5rem, 7vw, 5.5rem) 0;
+}
+.cta-foto__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: center;
+}
+.cta-foto__imagen img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 34rem;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
+}
+.cta-foto__texto h2 {
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+    line-height: 1.15;
+    color: var(--color-white);
+    margin: 0 0 1.25rem;
+    text-wrap: balance;
+}
+.cta-foto__texto h2::after {             /* trazo color miel (decorativo) */
+    content: "";
+    display: block;
+    width: 3rem;
+    height: 3px;
+    margin-top: 1rem;
+    border-radius: 2px;
+    background-color: #e8b04a;
+}
+.cta-foto__texto p {
+    margin: 0;
+    max-width: 34rem;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+}
+@media (max-width: 760px) {
+    .cta-foto__grid {
+        grid-template-columns: 1fr;
+    }
+    .cta-foto__imagen img {
+        aspect-ratio: 4 / 3;
+        max-height: none;
+        object-position: center bottom;  /* que se vea la miel cristalizada */
+    }
 }
 /* ========================================
    SELLOS "Producto reconocido por" (común: bands/_sellos.html.twig)

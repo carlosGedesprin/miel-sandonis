@@ -1,270 +1,253 @@
 
-.miel-intro {
-    padding: 6rem 0;
+/* ========================================
+   DEL PANAL A TU MESA (secuencia de tres fotos)
+   Lista ordenada: el lector de pantalla anuncia los tres pasos en orden.
+   Los números en celdilla y las flechas son decorativos.
+   Texto #2c2410 / #3a3020 sobre #f5f0e8 => más de 10:1.
+   ======================================== */
+.secuencia {
+    padding: clamp(4rem, 8vw, 6rem) 0;
     background-color: var(--color-bg);
-    /*border: solid 1px red;*/
 }
-.miel-intro__grid {
+.secuencia__titulo {
+    text-align: center;
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+    line-height: 1.15;
+    margin: 0 0 clamp(2.5rem, 5vw, 3.5rem);
+}
+.secuencia__titulo::after {              /* trazo color miel (decorativo) */
+    content: "";
+    display: block;
+    width: 3rem;
+    height: 3px;
+    margin: 1rem auto 0;
+    border-radius: 2px;
+    background-color: #d99a2b;
+}
+.secuencia__pasos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(2rem, 4vw, 3.5rem);
 }
-.miel-intro__stats {
-    display: flex;
-    gap: 2rem;
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--color-card-border);
-}
-.stat {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-}
-.stat__num {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-green-light);
-    line-height: 1;
-}
-.stat__label {
-    font-size: 0.875rem;  /* mínimo 14 px */
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-.miel-intro__image img {
-    border-radius: var(--radius);
-    width: 100%;
-    object-fit: cover;
-    aspect-ratio: 4/3;
-    box-shadow: var(--shadow);
-}
-.variedades {
-    background-color: var(--color-bg-alt);
-    padding-top: 6rem;
-    padding-bottom: 0;
-    /*border: solid 1px red;*/
-}
-.variedad {
-    padding: 5rem 0;
-}
-.variedad--pinar {
-    background-color: var(--color-bg-alt);
-}
-.variedad--frutal {
-    background-color: var(--color-bg);
-    border-top: 1px solid var(--color-card-border);
-}
-.variedad__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-.variedad__grid--reverse {
-    /*direction: rtl;*/
-}
-.variedad__grid--reverse > * {
-    direction: ltr;
-}
-.variedad__image {
+.paso {
     position: relative;
 }
-.variedad__image img {
-    border-radius: var(--radius);
-    width: 100%;
-    object-fit: cover;
-    aspect-ratio: 4/3;
-    box-shadow: var(--shadow);
-}
-.variedad__badge {
+/* Flecha entre pasos, en el hueco entre fotos (decorativa) */
+.paso:not(:last-child)::after {
+    content: "";
     position: absolute;
-    top: 1rem;
-    left: 1rem;
-    background-color: var(--color-green);
-    color: var(--color-white);
-    font-family: var(--font-ui);
-    font-size: 0.875rem;  /* mínimo 14 px */
-    font-weight: 600;
-    padding: 0.35rem 0.85rem;
-    border-radius: 20px;
-    letter-spacing: 0.03em;
+    top: 40%;
+    right: calc(clamp(2rem, 4vw, 3.5rem) / -2 - 0.45rem);
+    width: 0.9rem;
+    height: 0.9rem;
+    border-top: 3px solid #d99a2b;
+    border-right: 3px solid #d99a2b;
+    transform: rotate(45deg);
 }
-.origen-tag {
-    display: inline-block;
-    font-family: var(--font-ui);
-    font-size: 0.875rem;  /* mínimo 14 px */
-    font-weight: 600;
-    padding: 0.3rem 0.9rem;
-    border-radius: 20px;
-    margin-bottom: 1rem;
-    letter-spacing: 0.02em;
+.paso__foto {
+    position: relative;
+    margin-bottom: 2rem;
 }
-.origen-tag--pinar {
-    background-color: rgba(61, 74, 30, 0.1);
-    color: var(--color-green);
-}
-.origen-tag--frutal {
-    background-color: rgba(184, 142, 60, 0.12);
-    color: var(--color-dark);
-}
-.variedad__caracteristicas {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 1.75rem;
-    padding-top: 1.75rem;
-    border-top: 1px solid var(--color-card-border);
-}
-.caracteristica {
-    display: flex;
-    gap: 0.75rem;
-    align-items: flex-start;
-}
-.caracteristica__icon {
-    font-size: 1.2rem;
-    flex-shrink: 0;
-    margin-top: 2px;
-}
-.caracteristica strong {
+.paso__foto img {
     display: block;
-    font-size: 1rem;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: 0 10px 28px rgba(44, 36, 16, 0.16);
+}
+.paso__num {                             /* número en celdilla de panal */
+    position: absolute;
+    left: 1.25rem;
+    bottom: -1.5rem;
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.6rem;
+    font-size: 1.35rem;
     font-weight: 700;
     color: var(--color-dark);
-    margin-bottom: 0.2rem;
+    background-color: #e8b04a;
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
 }
-.proceso {
-    padding: 6rem 0;
-    background-color: var(--color-bg-alt);
-    border-top: 1px solid var(--color-card-border);
+.paso__nombre {
+    margin: 0 0 0.4rem;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    color: var(--color-dark);
 }
-.proceso__steps {
-    display: flex;
-    align-items: flex-start;
-    gap: 0;
-    margin-top: 1rem;
-}
-.step {
-    flex: 1;
-    background: var(--color-white);
-    border: 1.5px solid var(--color-card-border);
-    border-radius: var(--radius);
-    padding: 2rem 1.5rem;
-    text-align: center;
-}
-.step__num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--color-green);
-    color: var(--color-white);
-    font-family: var(--font-display);
+.paso__texto {
+    margin: 0;
     font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+    line-height: 1.55;
+    color: var(--color-text);
 }
-.step__arrow {
-    flex-shrink: 0;
-    font-size: 2rem;
-    color: var(--color-green);
-    padding: 0 0.5rem;
-    margin-top: 2.5rem;
+/* Móvil: foto a la izquierda y texto a la derecha, un paso debajo de otro */
+@media (max-width: 760px) {
+    .secuencia__pasos {
+        grid-template-columns: 1fr;
+        gap: 2.25rem;
+    }
+    .paso {
+        display: grid;
+        grid-template-columns: minmax(0, 9rem) 1fr;
+        gap: 0 1.25rem;
+        align-items: center;
+    }
+    .paso__foto {
+        grid-row: span 2;
+        margin-bottom: 0;
+    }
+    .paso__nombre {
+        align-self: end;
+    }
+    .paso__texto {
+        align-self: start;
+    }
+    .paso__num {
+        left: auto;
+        right: -0.9rem;
+        bottom: -0.9rem;
+        width: 2.5rem;
+        height: 2.75rem;
+        font-size: 1.1rem;
+    }
+    .paso:not(:last-child)::after {      /* flecha hacia abajo, bajo la foto */
+        top: auto;
+        right: auto;
+        left: calc(4.5rem - 0.45rem);
+        bottom: -1.65rem;
+        transform: rotate(135deg);
+    }
 }
-.puntos-venta {
-    padding: 6rem 0;
+
+/* ========================================
+   DÓNDE ENCONTRARLA (tres tarjetas: Portillo, ferias, tiendas)
+   Texto #2c2410 / #3a3020 sobre blanco => más de 12:1.
+   Enlaces verde #3d4a1e sobre blanco => 9,9:1. Iconos en celdilla, decorativos.
+   ======================================== */
+.donde {
+    padding: clamp(4rem, 8vw, 6rem) 0;
     background-color: var(--color-bg);
 }
-
-.puntos-venta__grid {
+.donde__titulo {
+    text-align: center;
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+    line-height: 1.15;
+    margin: 0 0 clamp(2.5rem, 5vw, 3.5rem);
+}
+.donde__titulo::after {                  /* trazo color miel (decorativo) */
+    content: "";
+    display: block;
+    width: 3rem;
+    height: 3px;
+    margin: 1rem auto 0;
+    border-radius: 2px;
+    background-color: #d99a2b;
+}
+.donde__lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    margin-bottom: 4rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 2rem);
 }
-
-.puntos-venta__image img {
-    border-radius: var(--radius);
-    width: 100%;
-    object-fit: cover;
-    aspect-ratio: 4/3;
-    box-shadow: var(--shadow);
-}
-.puntos__lista {
+.donde-item {
     display: flex;
     flex-direction: column;
-    gap: 0;
-}
-
-.punto-item {
-    display: flex;
-    gap: 1.25rem;
     align-items: flex-start;
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--color-card-border);
+    padding: 2rem 1.75rem;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-card-border);
+    border-top: 4px solid #d99a2b;
+    border-radius: var(--radius);
+    box-shadow: 0 6px 20px rgba(44, 36, 16, 0.07);
 }
-
-.punto-item:first-child {
+.donde-item__icono {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.9rem;
+    margin-bottom: 1.25rem;
+    color: var(--color-dark);
+    background-color: #e8b04a;
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+}
+.donde-item__nombre {
+    margin: 0 0 0.6rem;
+    font-size: 1.35rem;
+    line-height: 1.25;
+    color: var(--color-dark);
+}
+.donde-item p {
+    margin: 0 0 1.25rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--color-text);
+}
+.donde-item__enlace {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 44px;
+    margin-top: auto;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-green);
+    text-decoration: none;
+}
+.donde-item__enlace span:first-child,
+.donde-item__tel {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+}
+.donde-item__tel {
+    font-size: 1.3rem;
+    letter-spacing: 0.02em;
+}
+.donde-item__tel svg {
+    flex: none;
+}
+.donde-item__enlace:hover {
+    color: var(--color-green-dark);
+    text-decoration-thickness: 2px;
+}
+.donde-item__enlace:hover span:first-child {
+    text-decoration-thickness: 2px;
+}
+/* Tiendas: nombre en negrita y lugar debajo */
+.tiendas {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+.tiendas li {
+    padding: 0.7rem 0;
+    font-size: 1rem;
+    line-height: 1.45;
+    color: var(--color-text);
     border-top: 1px solid var(--color-card-border);
 }
-
-.punto-item__icon {
-    font-size: 1.6rem;
-    flex-shrink: 0;
-    margin-top: 2px;
+.tiendas li:first-child {
+    border-top: 0;
+    padding-top: 0;
 }
-.punto-item__body .btn {
-    font-size: 0.875rem;  /* mínimo 14 px */
-    padding: 0.45rem 1rem;
-}
-@media (max-width: 1024px) {
-    .puntos__grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .proceso__steps {
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-    .step__arrow {
-        display: none;
-    }
-    .step {
-        flex: 1 1 calc(50% - 1rem);
-    }
+.tiendas strong {
+    display: block;
+    font-size: 1.1rem;
+    color: var(--color-dark);
 }
 @media (max-width: 900px) {
-    .miel-intro__grid,
-    .variedad__grid {
+    .donde__lista {
         grid-template-columns: 1fr;
-        gap: 2.5rem;
-    }
-    .variedad__grid--reverse {
-        direction: ltr;
-    }
-    .variedad__caracteristicas {
-        grid-template-columns: 1fr;
-    }
-    .miel-intro__stats {
-        gap: 1.5rem;
-    }
-    .puntos-venta__grid {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-    }
-}
-@media (max-width: 768px) {
-
-}
-@media (max-width: 600px) {
-    .puntos__grid {
-        grid-template-columns: 1fr;
-    }
-    .step {
-        flex: 1 1 100%;
+        max-width: 34rem;
+        margin: 0 auto;
     }
 }

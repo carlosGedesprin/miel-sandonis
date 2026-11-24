@@ -175,8 +175,11 @@ $dispatcher = \FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r)
     $r->addRoute(['GET', 'POST'], '/home', 'web/webController:indexAction');
     $r->addRoute(['GET', 'POST'], '/inicio', 'web/webController:indexAction');
 
-    $r->addRoute(['GET', 'POST'], '/conservation', 'web/webController:conservationAction');
-    $r->addRoute(['GET', 'POST'], '/conservacion', 'web/webController:conservationAction');
+    // Conservación: página oculta de momento (se guarda por si se usa en el futuro).
+    // Para recuperarla: descomentar estas rutas, los enlaces del menú (header.html.twig) y del pie
+    // (footer.html.twig) y activarla en site_map (ver databases/migrations/2026-11-24_ocultar_conservacion.sql).
+    //$r->addRoute(['GET', 'POST'], '/conservation', 'web/webController:conservationAction');
+    //$r->addRoute(['GET', 'POST'], '/conservacion', 'web/webController:conservationAction');
 
     $r->addRoute(['GET', 'POST'], '/our-honney', 'web/webController:ourHonneyAction');
     $r->addRoute(['GET', 'POST'], '/nuestra-miel', 'web/webController:ourHonneyAction');
