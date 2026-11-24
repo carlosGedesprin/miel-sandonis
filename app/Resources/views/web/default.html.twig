@@ -19,6 +19,20 @@
 } %}
 
 {#
+    Páginas del menú principal (header.html.twig) y de "Enlaces rápidos" del pie (footer.html.twig).
+    En los dos se muestran todas menos la página en la que se está (en Nosotros sale Inicio y no Nosotros).
+    `page` es el this_page que pone cada plantilla.
+    Conservación está oculta de momento (ver web/app.php): para recuperarla, añadir
+    { page: 'conservation', href: '/conservacion', label: 'Conservación' }.
+#}
+{% set menu_paginas = [
+    { page: 'home', href: '/', label: 'Inicio' },
+    { page: 'about_us', href: '/nosotros', label: 'Nosotros' },
+    { page: 'our_honney', href: '/nuestra-miel', label: 'Nuestra miel' },
+    { page: 'contactus', href: '/contacto', label: 'Contacto' }
+] %}
+
+{#
     Próxima feria o evento: bloque común encima del pie (bands/_evento.html.twig).
     - Para cambiarlo, editar estos datos y dejar el cartel en images/web/default/bands/evento/
       como <imagen>.jpg (640 px de ancho).

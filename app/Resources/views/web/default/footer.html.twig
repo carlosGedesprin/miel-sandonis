@@ -6,17 +6,9 @@
         </div>
         <div class="footer__col">
             <h2 class="footer__title">Enlaces rápidos</h2>
-            {# Se muestran todas las páginas menos aquella en la que se está (en Inicio no sale Inicio, en Nosotros no sale Nosotros…).
-               Conservación está oculta de momento (ver web/app.php): para recuperarla, añadir
-               { page: 'conservation', href: '/conservacion', label: 'Conservación' } a esta lista. #}
-            {% set enlaces_pie = [
-                { page: 'home', href: '/', label: 'Inicio' },
-                { page: 'about_us', href: '/nosotros', label: 'Nosotros' },
-                { page: 'our_honney', href: '/nuestra-miel', label: 'Nuestra miel' },
-                { page: 'contactus', href: '/contacto', label: 'Contacto' }
-            ] %}
+            {# Lista en web/default.html.twig (menu_paginas): no sale la página actual #}
             <ul>
-                {% for enlace in enlaces_pie %}
+                {% for enlace in menu_paginas %}
                     {% if this_page is not defined or enlace.page != this_page %}
                         <li><a href="{{ enlace.href }}">{{ enlace.label }}</a></li>
                     {% endif %}

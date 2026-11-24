@@ -20,10 +20,12 @@
     </button>
 
     <nav class="nav" id="nav" aria-label="Menú principal">
-        <a href="/nosotros">Nosotros</a>
-        {# Conservación oculta de momento (ver web/app.php) <a href="/conservacion">Conservación</a> #}
-         <a href="/nuestra-miel">Nuestra miel</a>
-        <a href="/contacto">Contacto</a>
+        {# Lista en web/default.html.twig (menu_paginas): no sale la página actual #}
+        {% for enlace in menu_paginas %}
+            {% if this_page is not defined or enlace.page != this_page %}
+                <a href="{{ enlace.href }}">{{ enlace.label }}</a>
+            {% endif %}
+        {% endfor %}
     </nav>
 
 </header>
