@@ -1,164 +1,376 @@
 /* ========================================
-   RAÍCES EN LA TRADICIÓN
+   CÓMO EMPEZAMOS (texto + dos fotos escalonadas, componente .fotos-duo de main.css)
+   Texto #3a3020 sobre #f5f0e8 => 11:1.
    ======================================== */
-.raices {
-    padding: 6rem 0;
-    background-color: #f5f0e8;
-}
-
-.raices__grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.raices__image img {
-    border-radius: var(--radius);
-    width: 100%;
-    object-fit: cover;
-    aspect-ratio: 4/3;
-    box-shadow: var(--shadow);
-}
-
-/* ========================================
-   NUESTROS VALORES
-   ======================================== */
-.valores {
-    padding: 6rem 0;
+.comienzo {
+    padding: clamp(4rem, 8vw, 6.5rem) 0;
     background-color: var(--color-bg);
+    overflow: hidden;
 }
-
-.valores__cards {
+.comienzo__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-}
-
-.valor-card {
-    border: 2px solid var(--color-card-border);
-    border-radius: var(--radius);
-    padding: 2.5rem 2rem;
-    text-align: center;
-    transition: box-shadow var(--transition), transform var(--transition);
-}
-
-.valor-card:hover {
-    border-color: var(--color-green);
-    box-shadow: 0 0 0 1px var(--color-green);
-    /*transform: translateY(-3px);*/
-}
-
-.valor-card__icon {
-    display: inline-flex;
+    grid-template-columns: 5fr 7fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
     align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background-color: var(--color-bg-alt);
-    color: var(--color-green);
-    margin-bottom: 1.2rem;
 }
-
-/* ========================================
-   NUESTROs VALORES
-   ======================================== */
-.equipo {
-    padding: 6rem 0;
-    background-color: var(--color-bg-alt);
+.comienzo__text h2 {
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
 }
-
-.equipo__cards {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    max-width: 780px;
-    margin: 0 auto;
-}
-
-.equipo-card {
-    border: 2px solid var(--color-card-border);
-    border-radius: var(--radius);
-    padding: 2rem 2rem;
-    transition: box-shadow var(--transition), transform var(--transition);
-}
-.equipo-card__avatar {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background-color: var(--color-bg-alt);
-    font-size: 2rem;
-    margin-bottom: 1.2rem;
-    /*border: solid 1px red;*/
-}
-.equipo-card__role {
+.comienzo__text h2::after {              /* trazo color miel bajo el título (decorativo) */
+    content: "";
     display: block;
-    font-size: 0.875rem;  /* mínimo 14 px */
-    color: var(--color-text-muted);
+    width: 3rem;
+    height: 3px;
+    margin-top: 1rem;
+    border-radius: 2px;
+    background-color: #d99a2b;
+}
+.comienzo__text p {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    max-width: 32rem;
     margin-bottom: 1rem;
 }
+
 /* ========================================
-   LOS PINARES DE PORTILLO
+   CIFRAS (2005 -> 170), justo después del hero
+   Números #2c2410 sobre #ede8dc => 12,6:1; textos #5c4a1f => 7:1.
+   El trazo color miel que une las dos cifras es decorativo.
    ======================================== */
-.pinares {
-    padding: 6rem 0;
-    background-color: var(--color-bg);
+.cifras {
+    padding: clamp(3rem, 7vw, 5rem) 0;
+    background-color: var(--color-bg-alt);
+    border-bottom: 1px solid var(--color-card-border);
 }
 
-.pinares__grid {
+.cifras__lista {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 52rem;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: start;                  /* los dos números a la misma altura */
+    gap: clamp(1.5rem, 4vw, 3rem);
+    --cifra-alto: clamp(3.5rem, 9vw, 6rem);
 }
-.emoji-list {
-    margin-top: 1.2rem;
+
+/* Trazo entre las dos cifras: el ::before de la lista se coloca en la columna del medio */
+.cifras__lista::before {
+    content: "";
+    order: 2;
+    margin-top: calc(var(--cifra-alto) / 2);   /* a media altura de los números */
+    width: clamp(4rem, 12vw, 9rem);
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(to right, rgba(217, 154, 43, 0.25), #d99a2b);
+}
+.cifra:last-child {
+    order: 3;
+}
+
+.cifra {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    align-items: center;
+    text-align: center;
 }
 
-.emoji-list li {
+.cifra__numero {
+    font-size: var(--cifra-alto);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--color-dark);
+    font-variant-numeric: tabular-nums;
+}
+
+/* "más de" delante del número, pequeño y pegado a su izquierda, sin descentrar la cifra */
+.cifra__numero {
+    position: relative;
+}
+.cifra__prefijo {
+    position: absolute;
+    right: 100%;
+    bottom: 0.12em;
+    margin-right: 0.5rem;
+    white-space: nowrap;
+    font-size: clamp(1.125rem, 2.2vw, 1.5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0;
+    color: #5c4a1f;                      /* 7:1 sobre el fondo */
+}
+
+.cifra__texto {
+    margin-top: 0.75rem;
     font-size: 1rem;
-    color: var(--color-text);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #5c4a1f;
+    max-width: 16rem;
+}
+
+/* ========================================
+   UN AÑO EN EL COLMENAR (línea del tiempo de las cuatro etapas)
+   Textos #2c2410 / #3a3020 sobre #ede8dc => 12,6:1 / 10:1.
+   La línea color miel, las celdillas hexagonales y sus iconos son decorativos.
+   Escritorio: en horizontal. Móvil: en vertical, con la línea a la izquierda.
+   ======================================== */
+.anio {
+    padding: clamp(4rem, 8vw, 6.5rem) 0;
+    background-color: var(--color-bg-alt);
+}
+
+.anio__titulo {
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+    line-height: 1.15;
+    text-align: center;
+    margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+.anio__titulo::after {                   /* trazo color miel bajo el título */
+    content: "";
+    display: block;
+    width: 3rem;
+    height: 3px;
+    margin: 1rem auto 0;
+    border-radius: 2px;
+    background-color: #d99a2b;
+}
+
+.anio__etapas {
+    --icono: 4.25rem;                    /* ancho de la celdilla */
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+/* Línea que une las cuatro celdillas, de la primera a la última */
+.anio__etapas::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--icono) * 0.575);     /* a media altura de la celdilla */
+    left: 12.5%;
+    right: 12.5%;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(to right, rgba(217, 154, 43, 0.35), #d99a2b, rgba(217, 154, 43, 0.35));
+}
+
+.etapa {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Celdilla hexagonal de panal con el icono de la estación */
+.etapa__icono {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    justify-content: center;
+    width: var(--icono);
+    height: calc(var(--icono) * 1.15);
+    margin-bottom: 1.25rem;
+    color: var(--color-dark);
+    background-color: #e8b04a;
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+    transition: transform var(--transition);
+}
+.etapa:hover .etapa__icono {
+    transform: translateY(-3px);
 }
 
-.emoji-list li span {
-    font-size: 1.1rem;
-    flex-shrink: 0;
+.etapa__nombre {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin: 0 0 0.5rem;
 }
 
-.pinares__image img {
+.etapa__texto {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--color-text);
+    text-align: center;
+    max-width: 15rem;
+    margin: 0;
+}
+
+/* Móvil y tableta estrecha: línea del tiempo en vertical */
+@media (max-width: 760px) {
+    .anio__titulo {
+        text-align: left;
+    }
+    .anio__titulo::after {
+        margin-left: 0;
+    }
+    .anio__etapas {
+        --icono: 3.5rem;
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+    }
+    .anio__etapas::before {
+        top: calc(var(--icono) * 0.575);
+        bottom: calc(var(--icono) * 0.575);
+        left: calc(var(--icono) / 2 - 1px);
+        right: auto;
+        width: 2px;
+        height: auto;
+        background: linear-gradient(to bottom, rgba(217, 154, 43, 0.35), #d99a2b, rgba(217, 154, 43, 0.35));
+    }
+    .etapa {
+        display: grid;
+        grid-template-columns: var(--icono) 1fr;
+        column-gap: 1.25rem;
+        align-items: start;
+        text-align: left;
+    }
+    .etapa__icono {
+        grid-row: span 2;
+        margin-bottom: 0;
+    }
+    .etapa__icono svg {
+        width: 22px;
+        height: 22px;
+    }
+    .etapa__nombre {
+        margin-top: 0.6rem;
+    }
+    .etapa__texto {
+        text-align: left;
+        max-width: none;
+    }
+}
+
+/* ========================================
+   LOS PINARES DE PORTILLO
+   Una sola foto con el texto dentro.
+   Accesibilidad: el texto blanco va sobre una sombra oscura que nunca baja
+   del 62 % donde hay texto (la misma regla que el hero: >= 5,2:1 sobre
+   cualquier foto, incluido el cielo blanco). Se aclara hacia abajo para que
+   se vean las colmenas.
+   ======================================== */
+.pinares {
+    padding: clamp(3.5rem, 7vw, 5.5rem) 0;
+    background-color: var(--color-bg);
+}
+.pinares__foto {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
     border-radius: var(--radius);
-    width: 100%;
-    object-fit: cover;
-    aspect-ratio: 4/3;
     box-shadow: var(--shadow);
+    aspect-ratio: 16 / 8;
 }
+.pinares__foto img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 60%;
+}
+.pinares__foto::before {                 /* sombra para el texto (decorativa) */
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg,
+        rgba(20, 16, 8, 0.72) 0%,
+        rgba(20, 16, 8, 0.62) 42%,
+        rgba(20, 16, 8, 0) 78%);
+}
+.pinares__texto {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    padding: clamp(1.75rem, 5vw, 3.5rem);
+    color: #fff;
+}
+.pinares__texto h2 {
+    margin: 0;
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    line-height: 1.1;
+    color: #fff;
+    text-wrap: balance;
+}
+.pinares__texto h2::after {              /* trazo color miel (decorativo) */
+    content: "";
+    display: block;
+    width: 3rem;
+    height: 3px;
+    margin-top: 1rem;
+    border-radius: 2px;
+    background-color: #e8b04a;
+}
+.pinares__texto p {
+    margin: 1rem 0 0;
+    max-width: 28rem;
+    font-size: clamp(1.125rem, 1.8vw, 1.35rem);
+    line-height: 1.5;
+    color: #fff;
+}
+@media (max-width: 700px) {
+    .pinares__foto {
+        aspect-ratio: 4 / 5;
+    }
+    .pinares__foto img {
+        object-position: 65% center;     /* que se vea la colmena */
+    }
+    .pinares__foto::before {
+        background: linear-gradient(180deg,
+            rgba(20, 16, 8, 0.72) 0%,
+            rgba(20, 16, 8, 0.62) 50%,
+            rgba(20, 16, 8, 0) 80%);
+    }
+}
+
+/* La galería va justo debajo, con el mismo fondo: se acerca a la foto */
+.pinares + .galeria {
+    padding-top: 0;
+}
+.pinares:has(+ .galeria) {
+    padding-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+
 /* ========================================
    RESPONSIVE
    ======================================== */
 @media (max-width: 900px) {
-    .raices__grid,
-    .pinares__grid {
+    .comienzo__grid {
         grid-template-columns: 1fr;
         gap: 2.5rem;
     }
 
-    .valores__cards {
-        grid-template-columns: 1fr;
-    }
-
-    .equipo__cards {
-        grid-template-columns: 1fr;
-    }
 }
 
-@media (max-width: 768px) {}
+@media (max-width: 600px) {
+    /* Cifras una debajo de otra, con el trazo en vertical */
+    .cifras__lista {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+    .cifras__lista::before {
+        justify-self: center;
+        margin-top: 0;
+        width: 2px;
+        height: 2.5rem;
+        background: linear-gradient(to bottom, rgba(217, 154, 43, 0.25), #d99a2b);
+    }
+    .cifra__texto {
+        font-size: 0.875rem;
+    }
+}
