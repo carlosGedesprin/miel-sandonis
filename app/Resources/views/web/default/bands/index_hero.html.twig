@@ -2,14 +2,17 @@
 
 {% include 'web/' ~ config.website_skin ~ '/bands/_hero.html.twig' with { hero: {
     size: 'home',
+    place: 'top',
     image: 'inicio',
-    title: 'Apicultura sostenible en los',
-    accent: 'Pinares de Portillo',
-    subtitle: 'Protegiendo las abejas y el medio ambiente a través de prácticas apícolas responsables y respetuosas con la naturaleza.',
-    buttons: [ { href: '/nosotros', label: 'Conoce nuestra historia', style: 'primary' } ]
+    title: 'Miel de los Pinares de Portillo',
+    buttons: [
+        { href: '/contacto', label: 'Contacto', style: 'primary' },
+        { href: '/nuestra-miel', label: 'Nuestra miel', style: 'outline' }
+    ]
 } } %}
 
 <!-- NUESTRO COMPROMISO -->
+{# Bloque oculto de momento; para volver a mostrarlo, quitar este comentario Twig.
 <section class="compromiso">
     <div class="container">
         <h2 class="section__title">Nuestro compromiso</h2>
@@ -54,6 +57,7 @@
         </div>
     </div>
 </section>
+#}
 
 <!-- APICULTURA CON RESPETO AMBIENTAL -->
 <section class="respeto">
@@ -82,11 +86,7 @@
                 <li>Mantenimiento de la biodiversidad</li>
                 <li>Indicadores de la salud del ecosistema</li>
             </ul>
-            {% if facebook_url is defined and facebook_url != '' %}
-                <a href="{{ facebook_url }}" class="btn btn--outline" target="_blank" rel="noopener">Aprende más en nuestro Facebook</a>
-            {% else %}
-                <a href="/conservacion" class="btn btn--outline">Descubre cómo protegemos a las abejas</a>
-            {% endif %}
+            <a href="/conservacion" class="btn btn--outline">Descubre cómo protegemos a las abejas</a>
         </div>
         <div class="proteger__image">
             <img src="{{ path }}index_hero_3.jpg" alt="Abeja sobre las flores del membrillo" />
@@ -109,7 +109,7 @@
         <p class="sellos__texto">Producto reconocido por</p>
         <div class="sellos__logos">
             <img src="{{ path }}alimentos_artesanos_cyl_small.png" alt="Alimentos Artesanales CyL" />
-            <img src="{{ path }}alimentos_artesanos_valladolid_small.png" alt="Alimentos de Valladolid" />
+            <img src="{{ path }}alimentos_de_valladolid.png" alt="Alimentos de Valladolid" />
         </div>
     </div>
 </section>

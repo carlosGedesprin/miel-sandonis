@@ -21,12 +21,11 @@
 {# Redes sociales: solo se usan las que tengan una URL real (se descartan los valores genéricos de relleno) #}
 {% set placeholder_socials = ['https://facebook.com', 'https://facebook.com/', 'https://instagram.com', 'https://instagram.com/', 'https://twitter.com', 'https://twitter.com/', 'https://linkedin.com', 'https://linkedin.com/', 'https://youtube.com', 'https://youtube.com/', 'https://pinterest.com', 'https://pinterest.com/', 'https://www.skype.com'] %}
 {% set social_links = [] %}
-{%- for social_url in [config.company_facebook, config.company_instagram, config.company_twitter, config.company_linkedin, config.company_youtube, config.company_pinterest] -%}
+{%- for social_url in [config.company_instagram, config.company_twitter, config.company_linkedin, config.company_youtube, config.company_pinterest] -%}
     {%- if social_url is not empty and social_url not in placeholder_socials -%}
         {%- set social_links = social_links|merge([social_url]) -%}
     {%- endif -%}
 {%- endfor %}
-{% set facebook_url = (config.company_facebook is not empty and config.company_facebook not in placeholder_socials) ? config.company_facebook : '' %}
 
 <!DOCTYPE html>
 <html lang="{{ session[config['cookies_prefix']~'_locale'] }}" xml:lang="{{ session[config['cookies_prefix']~'_locale'] }}" prefix="og: https://ogp.me/ns#">
@@ -76,7 +75,7 @@
     <meta name="security" content="public" />
     <meta name="distribution" content="global" />
     <meta name="country" content="{{ config.web_meta_country }}" />
-    <meta name="geo.region" content="{{ config.web_meta_geo_region }}" />
+    <meta name="geo.region" content="ES-VA" />{# Valladolid (ISO 3166-2); fijo para no depender de la BD, que tenía ES-MAD #}
     <meta name="geo.country" content="{{ config.web_meta_geo_country }}" />
     <meta name="tgn.nation" content="{{ config.web_meta_geo_country }}" />
 

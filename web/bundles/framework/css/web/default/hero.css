@@ -2,30 +2,36 @@
    HERO COMÚN (todas las páginas)
    Plantilla: app/Resources/views/web/default/bands/_hero.html.twig
 
+   La foto ocupa todo el hero. El texto va en blanco sobre una sombra oscura
+   (.hero__band::before) que cubre todo el ancho y se desvanece hacia la foto,
+   sin bordes. La sombra va pegada al bloque de texto: si el texto crece
+   (zoom, espaciado), la sombra crece con él.
+
    Accesibilidad (WCAG 2.2):
-   - 1.4.3 Contraste: el texto va sobre un velo crema al 78 % con la foto
-     desenfocada detrás. Los bordes del velo se funden con la foto, pero el texto
-     queda siempre en la zona opaca. Peor caso (foto negra): texto #2c2410 => 8:1;
-     acento #3e4a1c => 5:1; borde del botón #745e42 => 3,2:1 (1.4.11).
-     No bajar la opacidad del 78 % sin recalcular.
-   - 1.4.4 / 1.4.10 / 1.4.12: tamaños en rem, alto mínimo (nunca fijo) para que
-     el texto pueda crecer con el zoom o el espaciado sin recortarse.
-   - 2.3.3: la animación de entrada se desactiva con "reducir movimiento".
+   - 1.4.3 Contraste: la sombra es rgba(24,18,8,0.62) en toda la zona del texto.
+     Peor caso (foto blanca): fondo resultante ~#706c66 => texto blanco 5,2:1.
+     Botón principal: texto #2a3313 sobre blanco => 13:1.
+     Borde blanco del botón secundario sobre la sombra => 5,2:1 (1.4.11).
+     No bajar la opacidad de 0,62 sin recalcular.
+   - 2.4.7 / 2.4.13: foco blanco (sobre la sombra el verde no se vería).
+   - 1.4.4 / 1.4.10 / 1.4.12: tamaños en rem y alto mínimo (nunca fijo).
+   - 2.3.3: la animación de entrada se desactiva con "reducir movimiento" (main.css).
    ======================================== */
 
 .hero {
     --hero-pos: center;
+    --hero-shade: rgba(24, 18, 8, 0.62);
+    --hero-fade: 6rem;                            /* franja en la que la sombra se funde con la foto */
     position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: clamp(2.5rem, 6vw, 5rem) 1rem;
-    background-color: var(--color-bg-alt);       /* mientras carga la foto */
+    flex-direction: column;
+    justify-content: flex-end;                    /* texto abajo (por defecto) */
+    background-color: var(--color-green-dark);    /* mientras carga la foto */
     background-image: var(--hero-img-sm);
     background-size: cover;
     background-position: var(--hero-pos);
     background-repeat: no-repeat;
-    overflow: hidden;                             /* recorta el velo difuminado */
+    overflow: hidden;
 }
 
 @media (min-width: 961px) {
@@ -34,110 +40,97 @@
     }
 }
 
+/* Texto arriba (p. ej. sobre el pinar en la página de inicio) */
+.hero--top {
+    justify-content: flex-start;
+}
+
 /* Alturas */
 .hero--home {
     min-height: calc(100vh - var(--header-height, 141px));
-    min-height: calc(100svh - var(--header-height, 141px));
+    min-height: calc(100svh - var(--header-height, 141px));  /* pantalla completa bajo la cabecera */
 }
 .hero--page {
-    min-height: clamp(22rem, 60vh, 40rem);
+    min-height: clamp(22rem, 60vh, 38rem);
 }
 .hero--compact {
     min-height: 16rem;
 }
 
-/* Velo suave que funde la foto con el fondo de la página (decorativo) */
-.hero__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-            to bottom,
-            rgba(245, 240, 232, 0.10) 0%,
-            rgba(245, 240, 232, 0.25) 60%,
-            rgba(245, 240, 232, 0.85) 100%
-    );
-    pointer-events: none;
-}
-
-/* Panel del texto: velo crema sin bordes duros que se funde con la foto.
-   El velo (::before) sobresale 3rem por cada lado y se desvanece solo en esa franja,
-   así el texto, que queda dentro de .hero__content, siempre tiene el velo completo. */
-.hero__content {
-    --hero-fade: 3rem;
+/* Franja del texto: ancho completo, con la sombra degradada detrás */
+.hero__band {
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 46rem;
-    padding: clamp(1.5rem, 4vw, 3rem);
-    text-align: center;
-    animation: heroFadeUp 0.8s ease both;
+    padding: clamp(2rem, 5vw, 3.5rem) 0;
 }
 
-.hero__content::before {
+.hero__band::before {
     content: "";
     position: absolute;
-    inset: calc(-1 * var(--hero-fade));
+    left: 0;
+    right: 0;
     z-index: -1;
-    background-color: rgba(245, 240, 232, 0.78);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    -webkit-mask-image:
-        linear-gradient(to right, transparent, #000 var(--hero-fade), #000 calc(100% - var(--hero-fade)), transparent),
-        linear-gradient(to bottom, transparent, #000 var(--hero-fade), #000 calc(100% - var(--hero-fade)), transparent);
-    -webkit-mask-composite: source-in;
-    mask-image:
-        linear-gradient(to right, transparent, #000 var(--hero-fade), #000 calc(100% - var(--hero-fade)), transparent),
-        linear-gradient(to bottom, transparent, #000 var(--hero-fade), #000 calc(100% - var(--hero-fade)), transparent);
-    mask-composite: intersect;
+    background-color: var(--hero-shade);
     pointer-events: none;
 }
 
-/* En móvil el texto ocupa todo el ancho: el velo se funde solo arriba y abajo */
-@media (max-width: 600px) {
-    .hero__content::before {
-        inset: calc(-1 * var(--hero-fade)) -1rem;
-        -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--hero-fade), #000 calc(100% - var(--hero-fade)), transparent);
-        mask-image: linear-gradient(to bottom, transparent, #000 var(--hero-fade), #000 calc(100% - var(--hero-fade)), transparent);
-    }
+/* Texto abajo: la sombra sube por encima del texto y se desvanece hacia arriba */
+.hero:not(.hero--top) .hero__band::before {
+    top: calc(-1 * var(--hero-fade));
+    bottom: 0;
+    -webkit-mask-image: linear-gradient(to top, #000 calc(100% - var(--hero-fade)), transparent);
+    mask-image: linear-gradient(to top, #000 calc(100% - var(--hero-fade)), transparent);
+}
+
+/* Texto arriba: la sombra baja por debajo del texto y se desvanece hacia abajo */
+.hero--top .hero__band::before {
+    top: 0;
+    bottom: calc(-1 * var(--hero-fade));
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--hero-fade)), transparent);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - var(--hero-fade)), transparent);
+}
+
+.hero__content {
+    text-align: left;
+    animation: heroFadeUp 0.8s ease both;
 }
 
 .hero__title {
     font-family: var(--font-ui);
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(2.1rem, 5.5vw, 3.6rem);
     font-weight: 700;
-    line-height: 1.2;
-    color: var(--color-dark);
-    text-align: center;
-    margin: 0 0 1rem;
-}
-.hero--home .hero__title {
-    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    line-height: 1.12;
+    color: var(--color-white);
+    text-align: left;
+    max-width: 18ch;
+    margin: 0;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
 }
 .hero--compact .hero__title {
     font-size: clamp(1.9rem, 4.5vw, 2.6rem);
-    margin-bottom: 0;
-}
-.hero--compact .hero__subtitle {
-    margin-top: 1rem;
+    max-width: none;
 }
 
+/* Segunda línea opcional del título */
 .hero__title--accent {
     display: block;
-    color: var(--color-green-light);
+    font-weight: 400;
 }
 
 .hero__subtitle {
     font-family: var(--font-ui);
-    font-size: clamp(1.125rem, 2.5vw, 1.375rem);   /* nunca por debajo de 18 px */
-    line-height: 1.6;
-    color: var(--color-dark);
-    text-align: center;
-    max-width: 38rem;
-    margin: 0 auto;
+    font-size: clamp(1.125rem, 2.2vw, 1.3rem);   /* nunca por debajo de 18 px */
+    line-height: 1.55;
+    color: var(--color-white);
+    text-align: left;
+    max-width: 40rem;
+    margin: 1rem 0 0;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
 }
 
 .hero__subtitle a {
-    color: var(--color-green-dark);
+    color: var(--color-white);
     text-decoration: underline;
     text-underline-offset: 0.15em;
 }
@@ -145,37 +138,60 @@
 .hero__buttons {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 2rem;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
 }
 
-/* Los botones tienen al menos 44 px de alto (objetivo táctil holgado; WCAG 2.5.8 pide 24 px) */
+/* Al menos 44 px de alto (objetivo táctil holgado; WCAG 2.5.8 pide 24 px) */
 .hero__buttons .btn {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    font-size: 1rem;
     text-decoration: none;
 }
 
-/* El borde por defecto de .btn--outline (#d6cdb8) no se distingue del panel:
-   en el hero se usa uno más oscuro (contraste 3:1 o más, WCAG 1.4.11) */
+/* Sobre la foto: principal blanco y secundario con borde blanco */
+.hero__buttons .btn--primary {
+    background-color: var(--color-white);
+    border-color: var(--color-white);
+    color: var(--color-green-dark);
+}
+.hero__buttons .btn--primary:hover {
+    background-color: var(--color-bg);
+    border-color: var(--color-bg);
+    color: var(--color-green-dark);
+}
 .hero__buttons .btn--outline {
-    border-color: var(--color-accent);
-    color: var(--color-dark);
+    background-color: transparent;
+    border-color: var(--color-white);
+    color: var(--color-white);
+}
+.hero__buttons .btn--outline:hover {
+    background-color: var(--color-white);
+    border-color: var(--color-white);
+    color: var(--color-green-dark);
+}
+
+.hero a:focus-visible {
+    outline-color: var(--color-white);
+    box-shadow: none;
 }
 
 @keyframes heroFadeUp {
-    from { opacity: 0; transform: translateY(24px); }
+    from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 600px) {
     .hero {
-        padding: 2rem 1rem;
+        --hero-fade: 4rem;
     }
     .hero--page {
         min-height: 20rem;
+    }
+    .hero__buttons .btn {
+        flex: 1 1 auto;                           /* botones cómodos de pulsar en móvil */
     }
 }

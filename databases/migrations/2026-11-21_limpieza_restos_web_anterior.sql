@@ -15,8 +15,8 @@ START TRANSACTION;
 -- 1. Configuración (tabla `config`)
 -- ---------------------------------------------------------------------
 
--- Región geográfica: era ES-MAD (Madrid). Valladolid está en Castilla y León.
-UPDATE `config` SET `config_value` = 'ES-CL'              WHERE `config_name` = 'web_meta_geo_region';
+-- Región geográfica: era ES-MAD (Madrid). Pasa a ES-VA (Valladolid). La plantilla ya pone ES-VA fija.
+UPDATE `config` SET `config_value` = 'ES-VA'              WHERE `config_name` = 'web_meta_geo_region';
 UPDATE `config` SET `config_value` = 'ES'                 WHERE `config_name` = 'web_meta_country';
 
 -- Teléfono real (era el de relleno +34 555 55 55 55)

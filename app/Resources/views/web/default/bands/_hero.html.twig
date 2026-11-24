@@ -1,30 +1,31 @@
 {#
-    Hero común a todas las páginas (mismo diseño que la página de inicio).
+    Hero común a todas las páginas: foto a todo el ancho y texto en blanco sobre una
+    sombra degradada que se funde con la foto (estilos en css/web/default/hero.css).
 
     Uso:
     {% include 'web/' ~ config.website_skin ~ '/bands/_hero.html.twig' with { hero: {
         size:     'home' | 'page' | 'compact',   (opcional, por defecto 'page')
+        place:    'bottom' | 'top',              (opcional, por defecto 'bottom') dónde va el texto
         image:    'nosotros',                    nombre en images/web/<skin>/bands/hero/<image>-1920.jpg y -960.jpg
         position: 'center 60%',                  (opcional) encuadre de la foto
         title:    'Nuestra historia',
-        accent:   'en los Pinares de Portillo',  (opcional) segunda línea del título, en verde
-        subtitle: 'Texto…',                      (opcional)
+        accent:   'segunda línea',               (opcional) segunda línea del título
+        subtitle: 'Texto…',                      (opcional, mejor corto)
         subtitle_html: 'Texto con <a>enlaces</a>', (opcional) solo HTML fijo de la plantilla
         buttons:  [ { href: '/contacto', label: 'Contacto', style: 'primary' | 'outline' } ]   (opcional)
     } } %}
 
     Accesibilidad (WCAG 2.2):
     - La foto es decorativa (fondo CSS, sin texto alternativo).
-    - El texto va sobre un panel crema al 90 %, así que el contraste es de al menos 10,8:1 (texto)
-      y 6,7:1 (acento verde) sea cual sea la foto.
+    - La sombra garantiza al menos 5,2:1 para el texto blanco sea cual sea la foto (ver hero.css).
     - El <h1> de la página es el título del hero.
 #}
 {% set hero_img_base = '/assets/images/web/' ~ config.website_skin ~ '/bands/hero/' ~ hero.image %}
-<section class="hero hero--{{ hero.size|default('page') }}"
+<section class="hero hero--{{ hero.size|default('page') }}{% if hero.place|default('bottom') == 'top' %} hero--top{% endif %}"
          aria-labelledby="hero-title"
          style="--hero-img: url('{{ hero_img_base }}-1920.jpg'); --hero-img-sm: url('{{ hero_img_base }}-960.jpg');{% if hero.position is defined %} --hero-pos: {{ hero.position }};{% endif %}">
-    <div class="hero__overlay" aria-hidden="true"></div>
-    <div class="hero__content">
+    <div class="hero__band">
+    <div class="container hero__content">
         <h1 class="hero__title" id="hero-title">
             {{ hero.title }}
             {% if hero.accent is defined and hero.accent is not empty %}
@@ -45,5 +46,6 @@
                 {% endfor %}
             </div>
         {% endif %}
+    </div>
     </div>
 </section>

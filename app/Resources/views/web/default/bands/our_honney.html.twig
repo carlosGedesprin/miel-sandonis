@@ -200,12 +200,8 @@
                     <div class="punto-item__icon">🛒</div>
                     <div class="punto-item__body">
                         <h3>Mercados y ferias</h3>
-                        <p>Estamos presentes en mercados artesanales y ferias agroalimentarias de la provincia de Valladolid. {% if facebook_url is defined and facebook_url != '' %}Síguenos en redes sociales para conocer las próximas fechas.{% else %}Pregúntanos y te contamos las próximas fechas.{% endif %}</p>
-                        {% if facebook_url is defined and facebook_url != '' %}
-                            <a href="{{ facebook_url }}" class="btn btn--outline" target="_blank" rel="noopener">Ver próximas ferias</a>
-                        {% else %}
-                            <a href="/contacto" class="btn btn--outline">Pregúntanos por las próximas ferias</a>
-                        {% endif %}
+                        <p>Estamos presentes en mercados artesanales y ferias agroalimentarias de la provincia de Valladolid. Pregúntanos y te contamos las próximas fechas.</p>
+                        <a href="/contacto" class="btn btn--outline">Pregúntanos por las próximas ferias</a>
                     </div>
                 </div>
 
@@ -226,7 +222,7 @@
     <p class="sellos__texto">Producto reconocido por</p>
     <div class="sellos__logos">
         <img src="{{ path }}alimentos_artesanos_cyl_small.png" alt="Alimentos Artesanales CyL" />
-        <img src="{{ path }}alimentos_artesanos_valladolid_small.png" alt="Alimentos de Valladolid" />
+        <img src="{{ path }}alimentos_de_valladolid.png" alt="Alimentos de Valladolid" />
     </div>
 </div>
 </section>
