@@ -111,7 +111,7 @@
             "url": "{{ site_url }}",
             "logo": "{{ site_url }}/assets/images/web/{{ config.website_skin }}/bands/index_hero/logo.png",
             "image": "{{ site_url }}/assets/images/web/{{ config.website_skin }}/bands/hero/inicio-1920.jpg",
-            "description": "Miel artesanal de los Pinares de Portillo y Villaverde de Medina (Valladolid). Apicultura sostenible, respetuosa con las abejas y con el medio ambiente.",
+            "description": "Miel de los pinares de Portillo (Valladolid), extraída en frío y envasada por Conrado y Minerva, apicultores desde 2005. En ferias y tiendas de la zona.",
             "email": "mielsandonis@gmail.com",
             "telephone": "+34 660 790 595",
             "address": {
@@ -122,11 +122,14 @@
                 "addressRegion": {{ titular.provincia|json_encode(json_flags)|raw }},
                 "addressCountry": "ES"
             },
-            "areaServed": "ES",
+            "areaServed": {
+                "@type": "AdministrativeArea",
+                "name": "Provincia de Valladolid"
+            },
             "knowsAbout": [
-                "Apicultura sostenible",
-                "Miel artesanal",
-                "Conservación de las abejas"
+                "Apicultura",
+                "Miel de pinar",
+                "Visitas a colmenas"
             ]{% if social_links is not empty %},
             "sameAs": {{ social_links|json_encode(json_flags)|raw }}{% endif %}
 
