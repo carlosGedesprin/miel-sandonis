@@ -13,6 +13,8 @@
      Botón principal: texto #2a3313 sobre blanco => 13:1.
      Borde blanco del botón secundario sobre la sombra => 5,2:1 (1.4.11).
      No bajar la opacidad de 0,62 sin recalcular.
+     Línea superior (eyebrow): texto blanco, igual que el título. El trazo color
+     miel que la precede es decorativo (no transmite información).
    - 2.4.7 / 2.4.13: foco blanco (sobre la sombra el verde no se vería).
    - 1.4.4 / 1.4.10 / 1.4.12: tamaños en rem y alto mínimo (nunca fijo).
    - 2.3.3: la animación de entrada se desactiva con "reducir movimiento" (main.css).
@@ -22,6 +24,7 @@
     --hero-pos: center;
     --hero-shade: rgba(24, 18, 8, 0.62);
     --hero-fade: 6rem;                            /* franja en la que la sombra se funde con la foto */
+    --hero-honey: #e8b04a;                        /* color miel, solo para detalles decorativos */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -93,7 +96,37 @@
 
 .hero__content {
     text-align: left;
-    animation: heroFadeUp 0.8s ease both;
+}
+
+/* Entrada escalonada: línea superior, título, subtítulo y botones */
+.hero__content > * {
+    animation: heroFadeUp 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+.hero__content > :nth-child(2) { animation-delay: 0.1s; }
+.hero__content > :nth-child(3) { animation-delay: 0.2s; }
+.hero__content > :nth-child(4) { animation-delay: 0.3s; }
+
+/* Línea superior: lugar o contexto, en mayúsculas espaciadas con un trazo color miel */
+.hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin: 0 0 1.1rem;
+    font-family: var(--font-ui);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-white);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+}
+.hero__eyebrow::before {
+    content: "";
+    flex: none;
+    width: 2.75rem;
+    height: 2px;
+    border-radius: 2px;
+    background-color: var(--hero-honey);
 }
 
 .hero__title {
@@ -106,6 +139,12 @@
     max-width: 18ch;
     margin: 0;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+.hero--home .hero__title {
+    font-size: clamp(2.5rem, 6.2vw, 4.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    max-width: 16ch;                              /* "Miel de los Pinares / de Portillo" */
 }
 .hero--compact .hero__title {
     font-size: clamp(1.9rem, 4.5vw, 2.6rem);
@@ -127,6 +166,12 @@
     max-width: 40rem;
     margin: 1rem 0 0;
     text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+
+.hero--home .hero__subtitle {
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    max-width: 30rem;
+    margin-top: 1.25rem;
 }
 
 .hero__subtitle a {
@@ -190,6 +235,17 @@
     }
     .hero--page {
         min-height: 20rem;
+    }
+    .hero--home .hero__title {
+        text-wrap: balance;                       /* en móvil, líneas de largo parecido */
+    }
+    .hero__eyebrow {
+        font-size: 0.875rem;
+        letter-spacing: 0.18em;
+        gap: 0.7rem;
+    }
+    .hero__eyebrow::before {
+        width: 2rem;
     }
     .hero__buttons .btn {
         flex: 1 1 auto;                           /* botones cómodos de pulsar en móvil */

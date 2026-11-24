@@ -18,6 +18,23 @@
     'telefono_2': '646 054 969'
 } %}
 
+{#
+    Próxima feria o evento: bloque común encima del pie (bands/_evento.html.twig).
+    - Para cambiarlo, editar estos datos y dejar el cartel en images/web/default/bands/evento/
+      como <imagen>.jpg (640 px de ancho).
+    - Para ocultarlo, visible: false. Además se oculta solo al día siguiente de `hasta` (AAAA-MM-DD).
+#}
+{% set evento = {
+    'visible': true,
+    'hasta':   '2026-11-29',
+    'imagen':  'mercado-navideno-portillo-2026',
+    'nombre':  'IV Mercado Navideño de Portillo',
+    'texto':   'Mercado de Navidad con artesanía y productos de la zona. Estaremos con nuestra miel de los pinares de Portillo.',
+    'donde':   'Plaza de la Villa, Portillo',
+    'cuando':  '28 y 29 de noviembre',
+    'horario': ['Sábado 28: de 17:30 a 20:00', 'Domingo 29: de 12:00 a 20:00']
+} %}
+
 {# Redes sociales: solo se usan las que tengan una URL real (se descartan los valores genéricos de relleno) #}
 {% set placeholder_socials = ['https://facebook.com', 'https://facebook.com/', 'https://instagram.com', 'https://instagram.com/', 'https://twitter.com', 'https://twitter.com/', 'https://linkedin.com', 'https://linkedin.com/', 'https://youtube.com', 'https://youtube.com/', 'https://pinterest.com', 'https://pinterest.com/', 'https://www.skype.com'] %}
 {% set social_links = [] %}
@@ -187,6 +204,7 @@
         <link href="/assets/css/web/{{ config.website_skin }}/header.css" rel="stylesheet">
         <link href="/bundles/framework/css/web/{{ config.website_skin }}/main.css" rel="stylesheet">
         <link href="/bundles/framework/css/web/{{ config.website_skin }}/hero.css" rel="stylesheet">
+        <link href="/bundles/framework/css/web/{{ config.website_skin }}/evento.css" rel="stylesheet">
         <link href="/bundles/framework/css/web/{{ config.website_skin }}/footer.css" rel="stylesheet">
     {% endblock %}
 
@@ -209,6 +227,11 @@
 <main id="main" tabindex="-1">
 
     {% block body %}{% endblock %}
+
+    {# Las páginas que colocan el bloque en otro sitio ponen evento_en_pagina = true #}
+    {% if evento_en_pagina is not defined or not evento_en_pagina %}
+        {% include 'web/' ~ config.website_skin ~ '/bands/_evento.html.twig' %}
+    {% endif %}
 
 </main>
 

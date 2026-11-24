@@ -1,0 +1,141 @@
+/* ========================================
+   PRÓXIMA FERIA O EVENTO (común a todas las páginas)
+   Plantilla: app/Resources/views/web/default/bands/_evento.html.twig
+
+   Accesibilidad (WCAG 2.2):
+   - Fondo #f6e7c8. Texto #2c2410 => 12,6:1; etiquetas #5c4a1f => 7:1.
+   - El trazo color miel y los iconos son decorativos.
+   - El cartel no es un enlace (no abre nada al pulsarlo); al pasar el ratón
+     crece un poco sin tapar el resto de la página.
+   ======================================== */
+
+.evento {
+    padding: clamp(3.5rem, 7vw, 5.5rem) 0;
+    background-color: #f6e7c8;
+    border-top: 1px solid #e3c58a;
+    border-bottom: 1px solid #e3c58a;
+    overflow: hidden;
+}
+
+.evento__grid {
+    display: grid;
+    grid-template-columns: minmax(12rem, 20rem) 1fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: center;
+}
+
+/* Cartel: ligeramente girado, como clavado en un tablón.
+   Al pasar el ratón se endereza y crece un poco, quedando por encima del texto. */
+.evento__cartel {
+    position: relative;
+    z-index: 1;
+    border-radius: 6px;
+    transform: rotate(-2deg);
+    transform-origin: center;
+    transition: transform 0.35s ease;
+}
+.evento__cartel:hover {
+    z-index: 2;
+    transform: rotate(0deg) scale(1.15);
+}
+.evento__cartel img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 14px 34px rgba(44, 36, 16, 0.25);
+}
+
+.evento__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 0 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #5c4a1f;
+}
+.evento__eyebrow::before {
+    content: "";
+    flex: none;
+    width: 2.5rem;
+    height: 2px;
+    border-radius: 2px;
+    background-color: #d99a2b;
+}
+
+.evento__titulo {
+    font-size: clamp(1.9rem, 3.8vw, 2.7rem);
+    line-height: 1.12;
+    color: var(--color-dark);
+    margin: 0 0 1rem;
+    text-wrap: balance;
+}
+
+.evento__texto {
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: var(--color-dark);
+    max-width: 34rem;
+    margin: 0 0 2rem;
+}
+
+/* Dónde y Cuándo */
+.evento__datos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 2.5rem;
+    margin: 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e3c58a;
+    max-width: 38rem;
+}
+.evento__dato dt {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #5c4a1f;
+}
+.evento__dato dt svg {
+    color: #b5761a;
+}
+.evento__dato dd {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.45;
+    color: var(--color-dark);
+}
+.evento__horario {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+@media (max-width: 800px) {
+    .evento__grid {
+        grid-template-columns: 1fr;
+    }
+    .evento__cartel {
+        width: min(16rem, 75%);
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .evento__datos {
+        grid-template-columns: 1fr;
+    }
+    .evento__eyebrow {
+        font-size: 0.875rem;
+        letter-spacing: 0.14em;
+    }
+}

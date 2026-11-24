@@ -6,6 +6,7 @@
     {% include 'web/' ~ config.website_skin ~ '/bands/_hero.html.twig' with { hero: {
         size:     'home' | 'page' | 'compact',   (opcional, por defecto 'page')
         place:    'bottom' | 'top',              (opcional, por defecto 'bottom') dónde va el texto
+        eyebrow:  'Portillo · Valladolid',       (opcional) línea corta encima del título
         image:    'nosotros',                    nombre en images/web/<skin>/bands/hero/<image>-1920.jpg y -960.jpg
         position: 'center 60%',                  (opcional) encuadre de la foto
         title:    'Nuestra historia',
@@ -26,6 +27,9 @@
          style="--hero-img: url('{{ hero_img_base }}-1920.jpg'); --hero-img-sm: url('{{ hero_img_base }}-960.jpg');{% if hero.position is defined %} --hero-pos: {{ hero.position }};{% endif %}">
     <div class="hero__band">
     <div class="container hero__content">
+        {% if hero.eyebrow is defined and hero.eyebrow is not empty %}
+            <p class="hero__eyebrow">{{ hero.eyebrow }}</p>
+        {% endif %}
         <h1 class="hero__title" id="hero-title">
             {{ hero.title }}
             {% if hero.accent is defined and hero.accent is not empty %}

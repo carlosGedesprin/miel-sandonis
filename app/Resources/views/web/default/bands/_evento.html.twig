@@ -1,0 +1,46 @@
+{#
+    Bloque común "Próxima feria o evento". Sale en todas las páginas, encima del pie, salvo en las
+    que lo incluyen ellas mismas en otro sitio (ponen {% set evento_en_pagina = true %}; p. ej. el inicio, encima de los sellos).
+    Los datos están en la variable `evento`, al principio de web/default.html.twig:
+    para cambiar de evento se editan allí; para ocultarlo, visible: false.
+    Se oculta solo al día siguiente de la fecha `hasta`.
+    Estilos: css/web/default/evento.css. Cartel: images/web/default/bands/evento/<imagen>.jpg (640 px de ancho).
+    El cartel no es un enlace: solo crece un poco al pasar el ratón por encima.
+#}
+{% if evento is defined and evento.visible and date(evento.hasta ~ ' 23:59:59') >= date() %}
+    {% set evento_img = '/assets/images/web/' ~ config.website_skin ~ '/bands/evento/' ~ evento.imagen %}
+    <section class="evento" aria-labelledby="evento-titulo">
+        <div class="container evento__grid">
+            <div class="evento__cartel">
+                <img src="{{ evento_img }}.jpg" width="640" height="906" loading="lazy"
+                     alt="Cartel del {{ evento.nombre }}" />
+            </div>
+            <div class="evento__info">
+                <p class="evento__eyebrow">Próxima feria o evento</p>
+                <h2 class="evento__titulo" id="evento-titulo">{{ evento.nombre }}</h2>
+                <p class="evento__texto">{{ evento.texto }}</p>
+                <dl class="evento__datos">
+                    <div class="evento__dato">
+                        <dt>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Dónde
+                        </dt>
+                        <dd>{{ evento.donde }}</dd>
+                    </div>
+                    <div class="evento__dato">
+                        <dt>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                            Cuándo
+                        </dt>
+                        <dd>
+                            {{ evento.cuando }}
+                            {% for linea in evento.horario %}
+                                <span class="evento__horario">{{ linea }}</span>
+                            {% endfor %}
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </section>
+{% endif %}
