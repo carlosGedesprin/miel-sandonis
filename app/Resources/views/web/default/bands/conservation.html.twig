@@ -2,12 +2,11 @@
 {#{% set img_1 = path ~ 'about_us_2.png' %}#}
 
 <!-- HERO -->
-<section class="page-hero">
-    <div class="page-hero__content">
-        <h1>Conservación y Sostenibilidad</h1>
-        <p class="page_hero_subtext">Nuestro compromiso con el medio ambiente va más allá de la producción de miel. Implementamos prácticas sostenibles que protegen a las abejas y preservan el delicado equilibrio de los pinares de Portillo.</p>
-    </div>
-</section>
+{% include 'web/' ~ config.website_skin ~ '/bands/_hero.html.twig' with { hero: {
+    image: 'conservacion',
+    title: 'Conservación y sostenibilidad',
+    subtitle: 'Nuestro compromiso con el medio ambiente va más allá de la producción de miel. Aplicamos prácticas sostenibles que protegen a las abejas y preservan el delicado equilibrio de los pinares de Portillo.'
+} } %}
 
 <!-- NUESTRAS PRÁCTICAS SOSTENIBLES -->
 <section class="practicas">

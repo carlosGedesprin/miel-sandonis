@@ -1,47 +1,7 @@
 <?php
 namespace src\util;
 
-use Doctrine\DBAL\Schema\Table;
 
-include APP_ROOT_PATH.'/src/util/utils/api.php';
-include APP_ROOT_PATH.'/src/util/utils/config.php';
-include APP_ROOT_PATH.'/src/util/utils/dates.php';
-include APP_ROOT_PATH.'/src/util/utils/form_token.php';
-include APP_ROOT_PATH.'/src/util/utils/lang.php';
-include APP_ROOT_PATH.'/src/util/utils/lang_text.php';
-include APP_ROOT_PATH.'/src/util/utils/location.php';
-
-include APP_ROOT_PATH.'/src/util/utils/payment_type.php';
-
-include APP_ROOT_PATH.'/src/util/utils/website.php';
-
-include APP_ROOT_PATH.'/src/util/utils/blog.php';
-
-include APP_ROOT_PATH.'/src/util/utils/images.php';
-
-include APP_ROOT_PATH.'/src/util/utils/account.php';
-include APP_ROOT_PATH.'/src/util/utils/account_payment_method.php';
-include APP_ROOT_PATH.'/src/util/utils/group.php';
-include APP_ROOT_PATH.'/src/util/utils/user.php';
-include APP_ROOT_PATH.'/src/util/utils/category.php';
-include APP_ROOT_PATH .'/src/util/utils/rag.php';
-include APP_ROOT_PATH.'/src/util/utils/product.php';
-include APP_ROOT_PATH.'/src/util/utils/coupon.php';
-include APP_ROOT_PATH.'/src/util/utils/stripe.php';
-
-include APP_ROOT_PATH.'/src/util/utils/quote.php';
-
-include APP_ROOT_PATH.'/src/util/utils/entity.php';
-include APP_ROOT_PATH.'/src/util/utils/entity_contact.php';
-
-include APP_ROOT_PATH.'/src/util/utils/external_api.php';
-include APP_ROOT_PATH.'/src/util/utils/domain.php';
-
-include APP_ROOT_PATH.'/src/util/utils/print_q.php';
-
-include APP_ROOT_PATH.'/src/util/utils/rabbit_db.php';
-
-include APP_ROOT_PATH.'/src/util/utils/credential_type.php';
 
 /**
  * Class utils
@@ -58,47 +18,6 @@ class utils
 
     private $myfile;
     
-    // Traits
-    use \src\util\utils\api;
-    use \src\util\utils\config;
-    use \src\util\utils\dates;
-    use \src\util\utils\form_token;
-    use \src\util\utils\lang;
-    use \src\util\utils\lang_text;
-    use \src\util\utils\location;
-
-    use \src\util\utils\payment_type;
-
-    use \src\util\utils\website;
-
-    use \src\util\utils\blog;
-
-    use \src\util\utils\images;
-
-    use \src\util\utils\account;
-    use \src\util\utils\account_payment_method;
-    use \src\util\utils\user;
-    use \src\util\utils\group;
-    use \src\util\utils\category;
-    use \src\util\utils\rag;
-    use \src\util\utils\product;
-    use \src\util\utils\coupon;
-    use \src\util\utils\stripe;
-
-    use \src\util\utils\quote;
-
-    use \src\util\utils\entity;
-    use \src\util\utils\entity_contact;
-
-    use \src\util\utils\external_api;
-    use \src\util\utils\domain;
-
-    use \src\util\utils\print_q;
-
-    use \src\util\utils\rabbit_db;
-
-    use \src\util\utils\credential_type;
-
 //this->$myfile = fopen(APP_ROOT_PATH.'/var/logs/utils_'.__FUNCTION__'.txt', 'a+') or die('Unable to open file!');
 //$txt = 'utils request_pagination start ==============================================================='.PHP_EOL;
 //fwrite($this->myfile, $txt);

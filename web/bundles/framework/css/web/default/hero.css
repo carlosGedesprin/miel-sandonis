@@ -1,0 +1,253 @@
+/* ========================================
+   HERO COMÚN (todas las páginas)
+   Plantilla: app/Resources/views/web/default/bands/_hero.html.twig
+
+   La foto ocupa todo el hero. El texto va en blanco sobre una sombra oscura
+   (.hero__band::before) que cubre todo el ancho y se desvanece hacia la foto,
+   sin bordes. La sombra va pegada al bloque de texto: si el texto crece
+   (zoom, espaciado), la sombra crece con él.
+
+   Accesibilidad (WCAG 2.2):
+   - 1.4.3 Contraste: la sombra es rgba(24,18,8,0.62) en toda la zona del texto.
+     Peor caso (foto blanca): fondo resultante ~#706c66 => texto blanco 5,2:1.
+     Botón principal: texto #2a3313 sobre blanco => 13:1.
+     Borde blanco del botón secundario sobre la sombra => 5,2:1 (1.4.11).
+     No bajar la opacidad de 0,62 sin recalcular.
+     Línea superior (eyebrow): texto blanco, igual que el título. El trazo color
+     miel que la precede es decorativo (no transmite información).
+   - 2.4.7 / 2.4.13: foco blanco (sobre la sombra el verde no se vería).
+   - 1.4.4 / 1.4.10 / 1.4.12: tamaños en rem y alto mínimo (nunca fijo).
+   - 2.3.3: la animación de entrada se desactiva con "reducir movimiento" (main.css).
+   ======================================== */
+
+.hero {
+    --hero-pos: center;
+    --hero-shade: rgba(24, 18, 8, 0.62);
+    --hero-fade: 6rem;                            /* franja en la que la sombra se funde con la foto */
+    --hero-honey: #e8b04a;                        /* color miel, solo para detalles decorativos */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;                    /* texto abajo (por defecto) */
+    background-color: var(--color-green-dark);    /* mientras carga la foto */
+    background-image: var(--hero-img-sm);
+    background-size: cover;
+    background-position: var(--hero-pos);
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+@media (min-width: 961px) {
+    .hero {
+        background-image: var(--hero-img);
+    }
+}
+
+/* Texto arriba (p. ej. sobre el pinar en la página de inicio) */
+.hero--top {
+    justify-content: flex-start;
+}
+
+/* Alturas */
+.hero--home {
+    min-height: calc(100vh - var(--header-height, 141px));
+    min-height: calc(100svh - var(--header-height, 141px));  /* pantalla completa bajo la cabecera */
+}
+.hero--page {
+    min-height: clamp(22rem, 60vh, 38rem);
+}
+.hero--compact {
+    min-height: 16rem;
+}
+
+/* Franja del texto: ancho completo, con la sombra degradada detrás */
+.hero__band {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: clamp(2rem, 5vw, 3.5rem) 0;
+}
+
+.hero__band::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    background-color: var(--hero-shade);
+    pointer-events: none;
+}
+
+/* Texto abajo: la sombra sube por encima del texto y se desvanece hacia arriba */
+.hero:not(.hero--top) .hero__band::before {
+    top: calc(-1 * var(--hero-fade));
+    bottom: 0;
+    -webkit-mask-image: linear-gradient(to top, #000 calc(100% - var(--hero-fade)), transparent);
+    mask-image: linear-gradient(to top, #000 calc(100% - var(--hero-fade)), transparent);
+}
+
+/* Texto arriba: la sombra baja por debajo del texto y se desvanece hacia abajo */
+.hero--top .hero__band::before {
+    top: 0;
+    bottom: calc(-1 * var(--hero-fade));
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--hero-fade)), transparent);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - var(--hero-fade)), transparent);
+}
+
+.hero__content {
+    text-align: left;
+}
+
+/* Entrada escalonada: línea superior, título, subtítulo y botones */
+.hero__content > * {
+    animation: heroFadeUp 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+.hero__content > :nth-child(2) { animation-delay: 0.1s; }
+.hero__content > :nth-child(3) { animation-delay: 0.2s; }
+.hero__content > :nth-child(4) { animation-delay: 0.3s; }
+
+/* Línea superior: lugar o contexto, en mayúsculas espaciadas con un trazo color miel */
+.hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin: 0 0 1.1rem;
+    font-family: var(--font-ui);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-white);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+}
+.hero__eyebrow::before {
+    content: "";
+    flex: none;
+    width: 2.75rem;
+    height: 2px;
+    border-radius: 2px;
+    background-color: var(--hero-honey);
+}
+
+.hero__title {
+    font-family: var(--font-ui);
+    font-size: clamp(2.1rem, 5.5vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.12;
+    color: var(--color-white);
+    text-align: left;
+    max-width: 18ch;
+    margin: 0;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+.hero--home .hero__title {
+    font-size: clamp(2.5rem, 6.2vw, 4.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    max-width: 16ch;                              /* "Miel de los Pinares / de Portillo" */
+}
+.hero--compact .hero__title {
+    font-size: clamp(1.9rem, 4.5vw, 2.6rem);
+    max-width: none;
+}
+
+/* Segunda línea opcional del título */
+.hero__title--accent {
+    display: block;
+    font-weight: 400;
+}
+
+.hero__subtitle {
+    font-family: var(--font-ui);
+    font-size: clamp(1.125rem, 2.2vw, 1.3rem);   /* nunca por debajo de 18 px */
+    line-height: 1.55;
+    color: var(--color-white);
+    text-align: left;
+    max-width: 40rem;
+    margin: 1rem 0 0;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+
+.hero--home .hero__subtitle {
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    max-width: 30rem;
+    margin-top: 1.25rem;
+}
+
+.hero__subtitle a {
+    color: var(--color-white);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+.hero__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+}
+
+/* Al menos 44 px de alto (objetivo táctil holgado; WCAG 2.5.8 pide 24 px) */
+.hero__buttons .btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+/* Sobre la foto: principal blanco y secundario con borde blanco */
+.hero__buttons .btn--primary {
+    background-color: var(--color-white);
+    border-color: var(--color-white);
+    color: var(--color-green-dark);
+}
+.hero__buttons .btn--primary:hover {
+    background-color: var(--color-bg);
+    border-color: var(--color-bg);
+    color: var(--color-green-dark);
+}
+.hero__buttons .btn--outline {
+    background-color: transparent;
+    border-color: var(--color-white);
+    color: var(--color-white);
+}
+.hero__buttons .btn--outline:hover {
+    background-color: var(--color-white);
+    border-color: var(--color-white);
+    color: var(--color-green-dark);
+}
+
+.hero a:focus-visible {
+    outline-color: var(--color-white);
+    box-shadow: none;
+}
+
+@keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 600px) {
+    .hero {
+        --hero-fade: 4rem;
+    }
+    .hero--page {
+        min-height: 20rem;
+    }
+    .hero--home .hero__title {
+        text-wrap: balance;                       /* en móvil, líneas de largo parecido */
+    }
+    .hero__eyebrow {
+        font-size: 0.875rem;
+        letter-spacing: 0.18em;
+        gap: 0.7rem;
+    }
+    .hero__eyebrow::before {
+        width: 2rem;
+    }
+    .hero__buttons .btn {
+        flex: 1 1 auto;                           /* botones cómodos de pulsar en móvil */
+    }
+}

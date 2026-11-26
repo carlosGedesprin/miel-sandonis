@@ -1,18 +1,20 @@
 {% set path = '/assets/images/web/'~config.website_skin~'/bands/index_hero/' %}
 
-<section class="hero">
-    <div class="hero__overlay"></div>
-    <div class="hero__content">
-        <h1 class="hero__title">Apicultura Sostenible en los <br><span class="hero__title--accent">Pinares de Portillo</span></h1>
-        <p class="hero__subtitle">Protegiendo las abejas y el medio ambiente a través de prácticas apícolas responsables y respetuosas con la naturaleza.</p>
-        <div class="hero__buttons">
-            <a href="/nosotros" class="btn btn--primary">Conoce Nuestra Historia</a>
-            {# <a href="#" class="btn btn--secondary">Blog Educativo</a>#}
-        </div>
-    </div>
-</section>
+{% include 'web/' ~ config.website_skin ~ '/bands/_hero.html.twig' with { hero: {
+    size: 'home',
+    place: 'top',
+    image: 'inicio',
+    eyebrow: 'Portillo · Valladolid',
+    title: 'Miel de los Pinares de Portillo',
+    subtitle: 'De nuestras colmenas a tu mesa. Más de 20 años cuidando abejas entre pinos.',
+    buttons: [
+        { href: '/contacto', label: 'Contacto', style: 'primary' },
+        { href: '/nuestra-miel', label: 'Nuestra miel', style: 'outline' }
+    ]
+} } %}
 
 <!-- NUESTRO COMPROMISO -->
+{# Bloque oculto de momento; para volver a mostrarlo, quitar este comentario Twig.
 <section class="compromiso">
     <div class="container">
         <h2 class="section__title">Nuestro compromiso</h2>
@@ -57,22 +59,75 @@
         </div>
     </div>
 </section>
+#}
 
-<!-- APICULTURA CON RESPETO AMBIENTAL -->
-<section class="respeto">
+<!-- NUESTRA MIEL (antes "Apicultura con respeto ambiental") -->
+<section class="respeto" aria-labelledby="respeto-titulo">
     <div class="container respeto__grid">
         <div class="respeto__image">
-            <img src="{{ path }}index_hero_2.jpg" alt="Apicultor sosteniendo un marco con abejas" />
+            <img src="{{ path }}index_hero_2.jpg" alt="Apicultor sosteniendo un cuadro lleno de abejas en el pinar" />
         </div>
         <div class="respeto__text">
-            <h2>Apicultura con respeto ambiental</h2>
-            <p>En los pinares de Portillo, practicamos una apicultura que respeta el equilibrio natural del ecosistema. Nuestras colmenas se integran armoniosamente en el bosque, permitiendo que las abejas trabajen en su entorno natural.</p>
-            <p>Cada decisión que tomamos está guiada por el principio de sostenibilidad: desde la ubicación de las colmenas hasta los métodos de extracción de miel, todo está diseñado para minimizar nuestro impacto y maximizar el bienestar de las abejas.</p>
-            <a href="/conservacion" class="btn btn--primary">Nuestras prácticas sostenibles</a>
+            <h2 id="respeto-titulo">Nuestra miel</h2>
+            <p>Miel de los pinares de Portillo. Extraída en frío y envasada por nosotros. Cada primavera es distinta, y la miel también: sabe a lo que ha florecido ese año en el pinar.</p>
+            <ul class="pastillas">
+                <li class="pastilla">Ámbar</li>
+                <li class="pastilla">Intensa</li>
+                <li class="pastilla">Jara, tomillo, romero</li>
+            </ul>
+            <a href="/nuestra-miel" class="btn btn--primary">Ver nuestra miel</a>
         </div>
     </div>
 </section>
 
+<!-- SOMOS CONRADO Y MINERVA -->
+<section class="pareja" aria-labelledby="pareja-titulo">
+    <div class="container pareja__grid">
+        <div class="pareja__text">
+            <h2 id="pareja-titulo">Somos Conrado «Viky» y Minerva</h2>
+            <p>Más de 20&nbsp;años con colmenas en los pinares de Portillo. Empezó como algo que no esperábamos y aquí seguimos. Nos encargamos de todo, desde cuidar las colmenas hasta envasar la miel.</p>
+            <a href="/nosotros" class="pareja__link"><span>Nuestra historia</span></a>
+        </div>
+        <div class="fotos-duo">
+            <figure class="fotos-duo__foto">
+                <img src="{{ path }}minerva-feria.jpg" width="800" height="1000" loading="lazy"
+                     alt="Minerva en el puesto de Miel Sandonis de una feria, bajo la pancarta «Miel pura»" />
+                <figcaption>Minerva</figcaption>
+            </figure>
+            <figure class="fotos-duo__foto fotos-duo__foto--abajo">
+                <img src="{{ path }}conrado.jpg" width="800" height="1000" loading="lazy"
+                     alt="Conrado en el puesto de Miel Sandonis de una feria, bajo la pancarta «Miel pura»" />
+                <figcaption>Conrado «Viky»</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+<!-- GALERÍA: CUATRO FOTOS -->
+<section class="galeria" aria-label="Fotos de Miel Sandonis">
+    <div class="container">
+        <ul class="galeria__grid">
+            <li class="galeria__item">
+                <img src="{{ path }}galeria-flor.jpg" width="675" height="675" loading="lazy"
+                     alt="Abeja libando en una flor blanca de membrillo" />
+            </li>
+            <li class="galeria__item">
+                <img src="{{ path }}galeria-colmenar.jpg" width="900" height="900" loading="lazy"
+                     alt="Colmenas de colores en fila en una ladera del pinar" />
+            </li>
+            <li class="galeria__item">
+                <img src="{{ path }}galeria-abejas.jpg" width="900" height="900" loading="lazy"
+                     alt="Abejas sobre los listones de los cuadros de una colmena abierta" />
+            </li>
+            <li class="galeria__item">
+                <img src="{{ path }}galeria-tarros.jpg" width="900" height="900" loading="lazy"
+                     alt="Estantería con tarros de Miel Sandonis" />
+            </li>
+        </ul>
+    </div>
+</section>
+
+{# Bloque oculto. Iba a ir a la página de Conservación, que también está oculta de momento (sus estilos .proteger y .check-list están en index_hero.css).
 <!-- IMPORTANCIA DE PROTEGER LAS ABEJAS -->
 <section class="proteger">
     <div class="container proteger__grid">
@@ -85,30 +140,23 @@
                 <li>Mantenimiento de la biodiversidad</li>
                 <li>Indicadores de la salud del ecosistema</li>
             </ul>
-            <a href="#" class="btn btn--outline">Aprende más en nuestro Facebook</a>
+            <a href="/conservacion" class="btn btn--outline">Descubre cómo protegemos a las abejas</a>
         </div>
         <div class="proteger__image">
             <img src="{{ path }}index_hero_3.jpg" alt="Abeja sobre las flores del membrillo" />
         </div>
     </div>
 </section>
+#}
 
 <!-- CTA -->
 <section class="cta">
     <div class="container cta__inner">
         <h2>¿Quieres saber más?</h2>
-        <p>Contáctanos para conocer más sobre nuestras prácticas sostenibles, visitar nuestras colmenas o adquirir nuestros productos.</p>
+        <p>Llámanos o escríbenos y te contamos todo lo que quieras saber sobre nuestra miel.</p>
         <a href="/contacto" class="btn btn--white">Contactar</a>
     </div>
 </section>
 
-<!-- SELLOS / CERTIFICACIONES -->
-<section class="sellos">
-    <div class="container sellos__inner">
-        <p class="sellos__texto">Producto reconocido por</p>
-        <div class="sellos__logos">
-            <img src="{{ path }}alimentos_artesanos_cyl_small.png" alt="Alimentos Artesanales CyL" />
-            <img src="{{ path }}alimentos_artesanos_valladolid_small.png" alt="Alimentos de Valladolid" />
-        </div>
-    </div>
-</section>
+<!-- PRÓXIMA FERIA O EVENTO (común; aquí va al final, justo encima de los sellos que pone el layout) -->
+{% include 'web/' ~ config.website_skin ~ '/bands/_evento.html.twig' %}

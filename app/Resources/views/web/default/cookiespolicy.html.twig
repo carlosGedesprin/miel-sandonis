@@ -1,22 +1,76 @@
 {% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
 
 {% set this_page = 'cookies_policy' %}
+{% set this_route = '/politica-cookies' %}
+{% set this_page_title = 'Política de cookies' %}
+{% set this_page_metadescription = 'Política de cookies de Miel Sandonis: esta web solo usa una cookie técnica necesaria para su funcionamiento.' %}
 
-{% block metadescription %}{{ lang.WEB_METADESCRIPTION_COOKIES_POLICY }}{% endblock %}
+{% block metadescription %}{{ this_page_metadescription }}{% endblock %}
 {% block metarobots %}noindex, follow{% endblock %}
-{% block title %} {{ lang.WEB_TITLE_COOKIES_POLICY }} - {{ parent() }}{% endblock %}
-
-{% block rel_alternate_links %}
-    {{ data.canonical | replace({'%this_route%': this_route }) | raw }}
-    {{ data.alternate_langs | replace({'%this_route%': this_route }) | raw }}
-{% endblock %}
+{% block title %}{{ this_page_title }} | {{ config.web_name }}{% endblock %}
 
 {% block body %}
 
-    <section class="my-5 py-5">
-        <div class="container">
-            <h2 class="font-weight-light">{{ lang.WEB_FOOTER_COOKIES_POLICY }}</h2>
-            <p>{{ lang.WEB_COOKIES_POLICY_TXT | raw }}</p>
+    {% include 'web/' ~ config.website_skin ~ '/bands/_hero.html.twig' with { hero: { size: 'compact', image: 'pinar-niebla', title: this_page_title } } %}
+
+    <section class="legal_section py-5">
+        <div class="container legal_text">
+
+            <h2 class="legal_section_title">Titular de esta web</h2>
+            {% include 'web/' ~ config.website_skin ~ '/legal/_titular.html.twig' %}
+
+            <h2 class="legal_section_title">¿Qué son las cookies?</h2>
+            <div class="legal_p">
+                <p>
+                    Una cookie es un pequeño archivo que un sitio web guarda en tu navegador para recordar información sobre tu visita. Las cookies
+                    pueden ser propias o de terceros, de sesión o persistentes, y técnicas, de análisis, de personalización o publicitarias.
+                </p>
+            </div>
+
+            <h2 class="legal_section_title">Cookies que utiliza esta web</h2>
+            <div class="legal_p">
+                <p>
+                    {{ env.domain }} <b>solo utiliza una cookie técnica propia</b>, necesaria para que la web funcione. No utilizamos cookies de
+                    análisis, de personalización ni publicitarias.
+                </p>
+                <table class="legal_cookies_table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Cookie</th>
+                            <th scope="col">Titular</th>
+                            <th scope="col">Finalidad</th>
+                            <th scope="col">Duración</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PHPSESSID</td>
+                            <td>{{ config.web_name }} (propia)</td>
+                            <td>Técnica: mantiene la sesión de navegación (por ejemplo, el idioma de la web).</td>
+                            <td>Se borra al cerrar el navegador.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    Al tratarse de una cookie estrictamente necesaria, la normativa no exige tu consentimiento para usarla.
+                </p>
+            </div>
+
+            <h2 class="legal_section_title">Cómo gestionar o borrar las cookies</h2>
+            <div class="legal_p">
+                <p>
+                    Puedes bloquear o borrar las cookies desde la configuración de tu navegador. Si bloqueas la cookie técnica, la web seguirá
+                    funcionando, aunque es posible que no recuerde algunas preferencias, como el idioma.
+                </p>
+            </div>
+
+            <h2 class="legal_section_title">Cambios en esta política</h2>
+            <div class="legal_p">
+                <p>
+                    Si en el futuro incorporamos otras cookies (por ejemplo, de análisis), actualizaremos esta política y te pediremos el
+                    consentimiento cuando sea necesario.
+                </p>
+            </div>
         </div>
     </section>
 
@@ -24,19 +78,5 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="/bundles/framework/css/web/{{ config.website_skin }}/legal.css" type="text/css" />
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-
-    <script>
-        $(document).ready(function(){
-
-        });
-        (function($) {
-            'use strict';
-
-        })(jQuery);
-    </script>
+    <link rel="stylesheet" href="/assets/css/web/{{ config.website_skin }}/legal.css" type="text/css" />
 {% endblock %}

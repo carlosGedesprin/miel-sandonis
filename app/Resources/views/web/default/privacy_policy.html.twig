@@ -1,51 +1,108 @@
 {% extends 'web/' ~ config.website_skin ~ '.html.twig' %}
 
-{% set this_page = 'privacy_policy' %}{# -> WEB_BREADCRUMPS_ + this_page #}
-{% set this_route = '/' ~ lang.WEB_FOOTER_PRIVACY_POLICY_LINK %}
-{% set this_page_title = lang.WEB_TITLE_PRIVACY_POLICY %}
-{% set this_page_metadescription = lang.WEB_METADESCRIPTION_PRIVACY_POLICY %}
-
-{% block seo_meta %}
-	<meta property="og:locale" content="{{ session[config['cookies_prefix']~'_locale'] }}" />
-	<meta property="og:type" content="website" />{# article #}
-	<meta property="og:title" content="{{ this_page_title }} - {{ config.web_name }}" />
-	<meta property="og:description" content="{{ this_page_metadescription }}" />
-	<meta property="og:url" content="{{ site_url ~ this_route }}" />
-	<meta property="og:site_name" content="{{ config.web_name }}" />
-	<meta property="og:updated_time" content="2024-09-19T12:00:00+00:00" />
-	<meta property="og:image" content="{{ site_url ~ this_route }}/assets/images/web/{{ config.website_skin }}/bands/legality_hero/fondo_legality_hero_1.jpg" />
-	<meta property="og:image:secure_url" content="{{ site_url ~ this_route }}/assets/images/web/{{ config.website_skin }}/bands/legality_hero/fondo_legality_hero_1.jpg" />
-	{#<meta property="og:image:width" content="1280" />#}
-	{#<meta property="og:image:height" content="504" />#}
-	<meta property="og:image:alt" content="{{ this_page_title }}" />
-	<meta property="og:image:type" content="image/jpeg" />
-	<meta property="article:publisher" content="{{ config.company_facebook }}">
-	<meta property="article:author" content="{{ config.company_facebook }}">
-	<meta property="article:published_time" content="2024-04-11T12:00:00+00:00" />
-	<meta property="article:modified_time" content="2024-09-19T12:00:00+00:00" />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="{{ this_page_title }} - {{ config.web_name }}" />
-	<meta name="twitter:description" content="{{ this_page_metadescription }}" />
-	<meta name="twitter:image" content="{{ site_url ~ this_route }}/assets/images/web/{{ config.website_skin }}/bands/legality_hero/fondo_legality_hero_1.jpg" />
-	<link rel="shortlink" href="{{ site_url ~ this_route }}">
-{% endblock %}
+{% set this_page = 'privacy_policy' %}
+{% set this_route = '/politica-privacidad' %}
+{% set this_page_title = 'Política de privacidad' %}
+{% set this_page_metadescription = 'Política de privacidad de Miel Sandonis: quién trata tus datos, para qué y cómo ejercer tus derechos.' %}
 
 {% block metadescription %}{{ this_page_metadescription }}{% endblock %}
 {% block metarobots %}noindex, follow{% endblock %}
-
-{% block rel_alternate_links %}
-    {{ data.canonical | replace({'%this_route%': this_route }) | raw }}
-    {{ data.alternate_langs | replace({'%this_route%': this_route }) | raw }}
-{% endblock %}
-
-{% block title %}{{ this_page_title }} - {{ parent() }}{% endblock %}
+{% block title %}{{ this_page_title }} | {{ config.web_name }}{% endblock %}
 
 {% block body %}
 
-    <section class="my-5 py-5">
-        <div class="container">
-            <h2 class="font-weight-light">{{ lang.WEB_FOOTER_PRIVACY_POLICY }}</h2>
-            <p>{{ lang.WEB_PRIVACY_POLICY_TXT | raw }}</p>
+    {% include 'web/' ~ config.website_skin ~ '/bands/_hero.html.twig' with { hero: { size: 'compact', image: 'pinar-niebla', title: this_page_title } } %}
+
+    <section class="legal_section py-5">
+        <div class="container legal_text">
+
+            <h2 class="legal_section_title">¿Quién es el responsable del tratamiento de tus datos?</h2>
+            {% include 'web/' ~ config.website_skin ~ '/legal/_titular.html.twig' %}
+
+            <h2 class="legal_section_title">¿Con qué finalidad tratamos tus datos?</h2>
+            <div class="legal_p">
+                <p>Tratamos los datos que nos facilitas con las siguientes finalidades:</p>
+                <ul>
+                    <li>
+                        <b>Contacto:</b> atender las consultas, encargos de miel y solicitudes de visitas a las colmenas que nos hagas
+                        por correo electrónico, por teléfono o por WhatsApp.
+                    </li>
+                    <li>
+                        <b>Clientes:</b> gestionar los pedidos y ventas de nuestros productos, su entrega y la facturación.
+                    </li>
+                </ul>
+                <p>No enviamos publicidad ni comunicaciones comerciales sin tu consentimiento previo y expreso.</p>
+            </div>
+
+            <h2 class="legal_section_title">¿Cuál es la base legal del tratamiento?</h2>
+            <div class="legal_p">
+                <ul>
+                    <li>Para atender tus consultas: tu consentimiento, que nos das al escribirnos (por correo electrónico o WhatsApp) o llamarnos.</li>
+                    <li>Para gestionar pedidos y ventas: la ejecución del contrato de compraventa y el cumplimiento de obligaciones legales (fiscales y contables).</li>
+                </ul>
+            </div>
+
+            <h2 class="legal_section_title">¿Durante cuánto tiempo conservamos tus datos?</h2>
+            <div class="legal_p">
+                <p>
+                    Los datos de las consultas se conservan el tiempo necesario para atenderlas y, después, mientras puedan derivarse
+                    responsabilidades. Los datos de clientes se conservan durante los plazos que exige la normativa fiscal y mercantil.
+                </p>
+            </div>
+
+            <h2 class="legal_section_title">¿A qué destinatarios se comunican tus datos?</h2>
+            <div class="legal_p">
+                <p>
+                    No cedemos tus datos a terceros, salvo obligación legal. Para prestar el servicio pueden acceder a ellos, como encargados del
+                    tratamiento, los proveedores tecnológicos que utilizamos (alojamiento de la web y correo electrónico), siempre con las
+                    garantías que exige la normativa.
+                </p>
+                <p>
+                    <b>WhatsApp:</b> si nos escribes por WhatsApp, el servicio lo presta WhatsApp Ireland Limited (grupo Meta), que trata tus
+                    datos como responsable independiente según su propia
+                    <a href="https://www.whatsapp.com/legal/privacy-policy-eea" target="_blank" rel="noopener">política de privacidad</a>
+                    (se abre en una ventana nueva). Este tratamiento puede incluir transferencias internacionales de datos fuera del Espacio
+                    Económico Europeo, con las garantías que establece el RGPD. Nosotros solo usamos los mensajes para responderte.
+                    Si prefieres no usar WhatsApp, puedes escribirnos por correo electrónico o llamarnos.
+                </p>
+            </div>
+
+            <h2 class="legal_section_title">¿Cuáles son tus derechos?</h2>
+            <div class="legal_p">
+                <p>
+                    Puedes solicitar el acceso a tus datos, su rectificación o supresión, la limitación de su tratamiento, oponerte a él y pedir su
+                    portabilidad. También puedes retirar en cualquier momento el consentimiento que hayas prestado.
+                </p>
+                <p>
+                    Para ejercer tus derechos, escríbenos a <a href="mailto:{{ titular.email }}">{{ titular.email }}</a> o por correo postal a
+                    {{ titular.nombre }}, {{ titular.direccion }}, {{ titular.cp }} {{ titular.localidad }} ({{ titular.provincia }}), indicando en el
+                    asunto "Protección de datos" y acompañando un documento que acredite tu identidad.
+                </p>
+                <p>
+                    Si consideras que el tratamiento no se ajusta a la normativa, puedes presentar una reclamación ante la Agencia Española de
+                    Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).
+                </p>
+            </div>
+
+            <h2 class="legal_section_title">¿De dónde obtenemos tus datos?</h2>
+            <div class="legal_p">
+                <p>
+                    Los datos proceden de ti mismo. Al facilitarlos garantizas que son veraces y te comprometes a mantenerlos actualizados.
+                </p>
+            </div>
+
+            <h2 class="legal_section_title">Menores</h2>
+            <div class="legal_p">
+                <p>Los menores de 14 años no deben facilitarnos datos personales sin la autorización de sus padres o tutores legales.</p>
+            </div>
+
+            <h2 class="legal_section_title">Cambios en esta política</h2>
+            <div class="legal_p">
+                <p>
+                    Podemos modificar esta política para adaptarla a cambios legislativos o en nuestra actividad. Publicaremos cualquier cambio en
+                    esta misma página.
+                </p>
+            </div>
         </div>
     </section>
 
@@ -54,18 +111,4 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="/assets/css/web/{{ config.website_skin }}/legal.css" type="text/css" />
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-
-    <script>
-        $(document).ready(function(){
-
-        });
-        (function($) {
-            'use strict';
-
-        })(jQuery);
-    </script>
 {% endblock %}

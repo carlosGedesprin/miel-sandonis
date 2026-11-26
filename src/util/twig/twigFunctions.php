@@ -33,16 +33,6 @@ $function_deleteMessages = new \Twig\TwigFunction('deleteMessages', function(){
 $twig->addFunction($function_deleteMessages);
 
 //**************************************************************************
-// GROUP
-//**************************************************************************
-
-$function_groupFolder = new \Twig\TwigFunction('groupFolder', function( $group ){
-    global $db;
-    return $db->fetchField('group', 'folder', ['id' => $group]);
-});
-$twig->addFunction($function_groupFolder);
-
-//**************************************************************************
 // LANG
 //**************************************************************************
 $function_getLangName = new \Twig\TwigFunction('getLangName', function($lang_code_2a, $lang_2a){

@@ -1,0 +1,15 @@
+{#
+    Bloque común "Producto reconocido por" (sellos de calidad). Sale en todas las páginas,
+    al final del contenido, justo después del bloque de próxima feria o evento.
+    Se incluye desde el layout (web/default.html.twig). Estilos: .sellos en main.css.
+#}
+{% set sellos_path = '/assets/images/web/' ~ config.website_skin ~ '/bands/index_hero/' %}
+<section class="sellos" aria-labelledby="sellos-titulo">
+    <div class="container sellos__inner">
+        <h2 class="sellos__texto" id="sellos-titulo">Producto reconocido por</h2>
+        <div class="sellos__logos">
+            <img src="{{ sellos_path }}alimentos_artesanos_cyl_small.png" loading="lazy" alt="Alimentos Artesanales CyL" />
+            <img src="{{ sellos_path }}alimentos_de_valladolid.png" loading="lazy" alt="Alimentos de Valladolid" />
+        </div>
+    </div>
+</section>

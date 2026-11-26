@@ -3,10 +3,10 @@
 <header class="header">
 
     <div id="header_menu_site_logo">
-        <a id="header_menu_site_logo_link" class="navbar-brand" href="/" title="Miel Sandonis">
+        <a id="header_menu_site_logo_link" class="navbar-brand" href="/">
             <img id="header_menu_site_logo_img"
                  src="{{ path }}logo.png"
-                 alt="Logo Miel Sandonis" />
+                 alt="Miel Sandonis, ir a la página de inicio" />
         </a>
     </div>
 
@@ -19,12 +19,13 @@
         <span aria-hidden="true"></span>
     </button>
 
-    <nav class="nav" id="nav" title="Menú Miel Sandonis">
-        <a href="/nosotros">Nosotros</a>
-        <a href="/conservacion">Conservación</a>
-         <a href="/nuestra-miel">Nuestra miel</a>
-        {#<a href="/blog">Blog</a>#}
-        <a href="/contacto">Contacto</a>
+    <nav class="nav" id="nav" aria-label="Menú principal">
+        {# Lista en web/default.html.twig (menu_paginas): no sale la página actual #}
+        {% for enlace in menu_paginas %}
+            {% if this_page is not defined or enlace.page != this_page %}
+                <a href="{{ enlace.href }}">{{ enlace.label }}</a>
+            {% endif %}
+        {% endfor %}
     </nav>
 
 </header>

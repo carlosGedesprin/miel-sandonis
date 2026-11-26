@@ -1,58 +1,4 @@
 
-.hero {
-    position: relative;
-    height: 100vh;
-    min-height: 600px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-image: url('https://mielsandonis.com/assets/images/web/default/bands/index_hero/index_hero_1_1.jpg') ;
-    background-size: cover;
-    background-position: center;
-    /*border: solid 1px red;*/
-}
-.hero__overlay {
-    position: absolute;
-    inset: 0;
-    /* Mezclamos el color crema con un degradado que va hacia el color sólido del bloque 1 */
-    background: linear-gradient(
-            to bottom,
-            rgba(245, 240, 232, 0.2) 10%,   /* Tu color actual arriba */
-            rgba(245, 240, 232, 0.4) 40%,   /* Empieza a oscurecerse */
-            rgba(245, 240, 232, 0.8) 100%     /* Totalmente sólido al final */
-    );
-}
-.hero__content {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    max-width: 70%;
-    padding: 2rem;
-    animation: fadeUp 0.9s ease both;
-    /*border: solid 1px red;*/
-}
-.hero__title {
-    font-family: var(--font-ui);
-    /*font-size: clamp(4rem, 5vw, 3.4rem);*/
-    font-size: clamp(2.4rem, 7vw, 3.4rem);
-    font-weight: 700;
-    text-align: center;
-    color: var(--color-dark);
-    line-height: 1.2;
-    margin-bottom: 1.2rem;
-    /*border: solid 1px red;*/
-}
-.hero__title--accent {
-    color: var(--color-green-light);
-}
-.hero__subtitle {
-    font-family: var(--font-ui);
-    /*font-size: 1.5rem;*/
-    font-size: clamp(1.1rem, 4vw, 1.5rem);
-    color: var(--color-dark);
-    max-width: 540px;
-    margin: 0 auto 2rem;
-}
 /* ========================================
    COMPROMISO
    ======================================== */
@@ -118,8 +64,49 @@
     aspect-ratio: 4/3;
     box-shadow: var(--shadow);
 }
+.respeto__text p {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-text);              /* 11:1 sobre el fondo */
+    max-width: 34rem;
+}
 .respeto__text .btn {
     margin-top: 0.75rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Pastillas: rasgos de la miel. Texto #2c2410 sobre #f6e7c8 => 13:1.
+   La celdilla hexagonal de cada una es decorativa. */
+.pastillas {
+    list-style: none;
+    margin: 1.5rem 0 1.75rem;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+.pastilla {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.5rem 1.1rem 0.5rem 0.85rem;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-dark);
+    background-color: #f6e7c8;
+    border: 1px solid #e3c58a;
+    border-radius: 999px;
+}
+.pastilla::before {
+    content: "";
+    flex: none;
+    width: 0.8rem;
+    height: 0.9rem;
+    background-color: #d99a2b;
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
 }
 
 /* ========================================
@@ -170,78 +157,76 @@
 }
 
 /* ========================================
-   CTA
+   SOMOS CONRADO Y MINERVA
+   Texto #3a3020 sobre #ede8dc => 10:1. Las dos fotos usan el componente .fotos-duo (main.css).
    ======================================== */
-.cta {
-    background-color: var(--color-green-dark);
-    padding: 5rem 0;
-}
-
-.cta__inner {
-    text-align: center;
-}
-
-.cta__inner h2 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--color-white);
-    margin-bottom: 1rem;
-}
-
-.cta__inner p {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.8);
-    max-width: 520px;
-    margin: 0 auto 2rem;
-}
-/* ========================================
-   SELLOS / CERTIFICACIONES
-   ======================================== */
-.sellos {
-    padding: 3.5rem 0;
-    background-color: var(--color-bg);
+.pareja {
+    padding: clamp(4rem, 8vw, 6.5rem) 0;
+    background-color: var(--color-bg-alt);
     border-top: 1px solid var(--color-card-border);
+    overflow: hidden;
 }
-
-.sellos__inner {
-    display: flex;
-    flex-direction: column;
+.pareja__grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
     align-items: center;
-    gap: 1.5rem;
 }
-
-.sellos__texto {
-    font-size: 1rem;
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+.pareja__text h2 {
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+    text-wrap: balance;
 }
-
-.sellos__logos {
-    display: flex;
+.pareja__text h2::after {                /* trazo color miel bajo el título (decorativo) */
+    content: "";
+    display: block;
+    width: 3rem;
+    height: 3px;
+    margin-top: 1rem;
+    border-radius: 2px;
+    background-color: #d99a2b;
+}
+.pareja__text p {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    max-width: 30rem;
+}
+/* Enlace a Nosotros: verde #3d4a1e sobre #ede8dc => 8,6:1 */
+.pareja__link {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 3rem;
-    flex-wrap: wrap;
+    gap: 0.45rem;
+    min-height: 44px;
+    margin-top: 0.75rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-green);
+    text-decoration: none;
 }
-
-.sellos__logos img {
-    width: auto;
-    height: 145px;
-    /*border: solid 1px red;*/
+.pareja__link span {                     /* subrayado solo en el texto, no en la flecha */
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
 }
-
-/* ========================================
-   ANIMACIONES
-   ======================================== */
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(28px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+.pareja__link::after {                   /* flecha decorativa */
+    content: "→";
+    display: inline-block;
+    transition: transform var(--transition);
+}
+.pareja__link:hover {
+    color: var(--color-green-dark);
+}
+.pareja__link:hover span {
+    text-decoration-thickness: 2px;
+}
+.pareja__link:hover::after {
+    transform: translateX(4px);
+}
+@media (max-width: 900px) {
+    .pareja__grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -269,9 +254,6 @@
 }
 
 @media (max-width: 600px) {
-    .hero__content {
-        max-width: 100%;
-    }
 
     .cards {
         grid-template-columns: 1fr;
@@ -284,40 +266,7 @@
     .section__title {
         font-size: 1.7rem;
     }
-    .sellos__logos {
-        gap: 2rem;
-    }
-
-    .sellos__logos img {
-        height: 85px;
-    }
 }
 
 
-@media (max-width: 320px) {
-    .hero__title {
-        /*font-size: 2.5rem;*/
-    }
-}
 
-@media (max-width: 480px) {
-    .hero__content {
-        max-width: 90%;
-        padding: 1.5rem;
-    }
-
-    .hero__title {
-        font-size: 2.2rem;
-        line-height: 1.15;
-    }
-
-    .hero__subtitle {
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .menu-btn {
-        display: flex;
-    }
-}
